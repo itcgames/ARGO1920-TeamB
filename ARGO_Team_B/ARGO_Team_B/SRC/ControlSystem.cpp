@@ -1,6 +1,8 @@
 #include "../INCLUDE/ControlSystem.h"
 
-ControlSystem::ControlSystem() {}
+ControlSystem::ControlSystem() {
+	m_controller = new Xbox360Controller(0);
+}
 
 ControlSystem::~ControlSystem() {}
 void ControlSystem::updateComponent(Component* c)
@@ -15,7 +17,7 @@ void ControlSystem::updateComponent(Component* c)
 	}
 }
 
-void ControlSystem::handleInput(SDL_Keycode key)
+void ControlSystem::handleInput()
 {
 	for (Entity& e : entities)
 	{
@@ -24,7 +26,7 @@ void ControlSystem::handleInput(SDL_Keycode key)
 			PositionComponent* posComp = dynamic_cast<PositionComponent*>(c);
 			if (posComp != nullptr)
 			{
-				switch (key)
+				/*switch (key)
 				{
 				case SDLK_a:
 					posComp->moveLeft();
@@ -40,10 +42,28 @@ void ControlSystem::handleInput(SDL_Keycode key)
 					break;
 				default:
 					break;
+				}*/
+
+				m_controller->checkButton();
+
+				if (m_controller->m_currentState.DpadUp) {
+					posComp->moveUp();
 				}
 
+				if (m_controller->m_currentState.DpadDown) {
+					posComp->moveDown();
+				}
+
+				if (m_controller->m_currentState.DpadLeft) {
+					posComp->moveLeft();
+				}
+
+				if (m_controller->m_currentState.DpadRight) {
+					posComp->moveRight();
+				}
 			}
+
 		}
 	}
-	
+
 }

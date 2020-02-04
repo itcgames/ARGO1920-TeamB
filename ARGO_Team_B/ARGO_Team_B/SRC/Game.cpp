@@ -127,7 +127,7 @@ void Game::processEvents()
 		switch (event.type)
 		{
 		case SDL_KEYDOWN:
-			m_controlSystem.handleInput(event.key.keysym.sym);
+			//m_controlSystem.handleInput(event.key.keysym.sym);
 			break;
 		case SDL_QUIT:
 			m_quit = true;
@@ -145,6 +145,8 @@ void Game::update(float dt)
 {
 	m_healthSystem.update();
 	m_aiSystem.update();
+
+	m_controlSystem.handleInput();
 }
 
 /// <summary>
