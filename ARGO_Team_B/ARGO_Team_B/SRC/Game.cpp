@@ -120,6 +120,10 @@ void Game::processEvents()
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
+		if (event.key.keysym.sym == SDLK_ESCAPE) 
+		{
+			m_quit = true;
+		}
 		switch (event.type)
 		{
 		case SDL_KEYDOWN:
