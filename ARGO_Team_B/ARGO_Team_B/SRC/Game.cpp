@@ -127,7 +127,7 @@ void Game::processEvents()
 		switch (event.type)
 		{
 		case SDL_KEYDOWN:
-			//m_controlSystem.handleInput(event.key.keysym.sym);
+			m_controlSystem.handleInput(event.key.keysym.sym);
 			break;
 		case SDL_QUIT:
 			m_quit = true;

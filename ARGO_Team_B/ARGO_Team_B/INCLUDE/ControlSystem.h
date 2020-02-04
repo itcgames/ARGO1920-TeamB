@@ -15,6 +15,7 @@ public:
 	~ControlSystem();
 	void updateComponent(Component* component) override;
 	void handleInput();
+	void handleInput(SDL_Keycode key);
 
 	int i = 0;
 };
