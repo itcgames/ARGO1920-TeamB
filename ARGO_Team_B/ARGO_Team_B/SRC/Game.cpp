@@ -145,6 +145,7 @@ void Game::update(float dt)
 {
 	m_healthSystem.update();
 	m_aiSystem.update();
+	m_controlSystem.handleInput();
 }
 
 /// <summary>
