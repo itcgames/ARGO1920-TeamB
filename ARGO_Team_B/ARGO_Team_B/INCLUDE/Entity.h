@@ -5,7 +5,11 @@
 class Entity
 {
 public:
-	Entity() {};
+	static int m_instanceCount;
+
+	Entity() {
+		m_id = m_instanceCount++;
+	};
 	~Entity() {};
 	void addComponent(Component* component) {
 		m_components.push_back(component);
@@ -21,3 +25,4 @@ private:
 	int m_id;
 	std::vector<Component*> m_components;
 };
+

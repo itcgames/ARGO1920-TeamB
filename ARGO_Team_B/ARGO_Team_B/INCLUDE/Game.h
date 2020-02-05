@@ -1,4 +1,6 @@
-#pragma once
+#ifndef GAME_H
+#define GAME_H
+
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
@@ -36,3 +38,5 @@ private:
 	AISystem m_aiSystem;
 	RenderSystem m_renderSystem;
 };
+
+#endif // !1
