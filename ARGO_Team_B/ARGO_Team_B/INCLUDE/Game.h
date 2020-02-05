@@ -7,6 +7,7 @@
 #include "ControlSystem.h"
 #include "AISystem.h"
 #include "RenderSystem.h"
+#include "TrapSystem.h"
 
 class Game
 {
@@ -29,10 +30,15 @@ private:
 	Entity m_alien;
 	Entity m_dog;
 	Entity m_cat;
+	
+	Entity m_button;
+	Entity m_trap;
 
 	// Systems
 	HealthSystem m_healthSystem;
 	ControlSystem m_controlSystem;
 	AISystem m_aiSystem;
 	RenderSystem m_renderSystem;
+
+	TrapSystem m_trapSystem;
 };

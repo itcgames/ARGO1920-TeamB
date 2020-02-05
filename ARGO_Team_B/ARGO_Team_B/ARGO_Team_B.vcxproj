@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="SRC\AISystem.cpp" />
+    <ClCompile Include="SRC\ButtonComponent.cpp" />
     <ClCompile Include="SRC\ControlComponent.cpp" />
     <ClCompile Include="SRC\ControlSystem.cpp" />
     <ClCompile Include="SRC\Game.cpp" />
@@ -140,10 +141,13 @@
     <ClCompile Include="SRC\RenderComponent.cpp" />
     <ClCompile Include="SRC\RenderSystem.cpp" />
     <ClCompile Include="SRC\System.cpp" />
+    <ClCompile Include="SRC\TrapComponent.cpp" />
+    <ClCompile Include="SRC\TrapSystem.cpp" />
     <ClCompile Include="SRC\xbox360Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INCLUDE\AISystem.h" />
+    <ClInclude Include="INCLUDE\ButtonComponent.h" />
     <ClInclude Include="INCLUDE\Component.h" />
     <ClInclude Include="INCLUDE\ControlComponent.h" />
     <ClInclude Include="INCLUDE\ControlSystem.h" />
@@ -151,10 +155,13 @@
     <ClInclude Include="INCLUDE\Game.h" />
     <ClInclude Include="INCLUDE\HealthComponent.h" />
     <ClInclude Include="INCLUDE\HealthSystem.h" />
+    <ClInclude Include="INCLUDE\MoveCommand.h" />
     <ClInclude Include="INCLUDE\PositionComponent.h" />
     <ClInclude Include="INCLUDE\RenderComponent.h" />
     <ClInclude Include="INCLUDE\RenderSystem.h" />
     <ClInclude Include="INCLUDE\System.h" />
+    <ClInclude Include="INCLUDE\TrapComponent.h" />
+    <ClInclude Include="INCLUDE\TrapSystem.h" />
     <ClInclude Include="INCLUDE\xbox360Controller.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

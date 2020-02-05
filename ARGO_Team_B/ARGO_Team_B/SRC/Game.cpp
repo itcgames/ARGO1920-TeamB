@@ -57,6 +57,16 @@ Game::Game()
 	m_cat.addComponent(new PositionComponent(400, 400));
 	m_cat.addComponent(new RenderComponent("Assets\\cat.png", 100, 100, p_renderer));
 
+	//Button
+	m_button.addComponent(new ButtonComponent(false));
+	m_button.addComponent(new PositionComponent(50, 50));
+	m_button.addComponent(new RenderComponent("Assets\\cat.png", 100, 100, p_renderer));
+
+	//Trap
+	m_trap.addComponent(new TrapComponent(false));
+	m_trap.addComponent(new PositionComponent(600,600));
+	m_trap.addComponent(new RenderComponent("Assets\\dog.png", 100, 100, p_renderer));
+
 	// Systems
 	//HEALTH All entities
 	m_healthSystem.addEntity(m_player);
@@ -77,6 +87,9 @@ Game::Game()
 	m_renderSystem.addEntity(m_alien);
 	m_renderSystem.addEntity(m_dog);
 	m_renderSystem.addEntity(m_cat);
+
+	//Connect button entity and trap entity
+	
 }
 
 /// <summary>
