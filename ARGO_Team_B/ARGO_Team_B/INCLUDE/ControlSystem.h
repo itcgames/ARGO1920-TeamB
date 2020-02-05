@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CONTROL_SYSTEM
+#define CONTROL_SYSTEM
+
 #include <SDL.h>
 #include <iostream>
 #include "System.h"
@@ -19,3 +21,4 @@ public:
 
 	int i = 0;
 };
+#endif // !CONTROL_SYSTEM

@@ -1,11 +1,17 @@
-#include "../INCLUDE/Game.h"
+#include "Game.h"
+
+
 
 /// <summary>
 /// Game()
 /// Main Game constructor used to initialise SDL, create a window and initialise SDL_IMG
 /// </summary>
-Game::Game()
+Game::Game() 
 {
+	m_user_circle.p = { 100, 100 };
+	m_user_circle.r = 42;
+
+
 	// Initialise SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
@@ -143,6 +149,9 @@ void Game::processEvents()
 /// <param name="dt">The time that has passed since the last update call in seconds</param>
 void Game::update(float dt)
 {
+	//if (c2CircletoCircle(user_circle, user_circle)) {
+	//	std::cout << " circle to circle" << std::endl;
+	//}
 	m_healthSystem.update();
 	m_aiSystem.update();
 

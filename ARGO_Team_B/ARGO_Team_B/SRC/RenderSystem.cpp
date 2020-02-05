@@ -1,4 +1,4 @@
-#include "../INCLUDE/RenderSystem.h"
+#include "RenderSystem.h"
 
 RenderSystem::RenderSystem()
 {

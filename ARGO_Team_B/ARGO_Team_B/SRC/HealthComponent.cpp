@@ -1,4 +1,4 @@
-#include "../INCLUDE/HealthComponent.h"
+#include "HealthComponent.h"
 
 HealthComponent::HealthComponent(int t_health)
 {

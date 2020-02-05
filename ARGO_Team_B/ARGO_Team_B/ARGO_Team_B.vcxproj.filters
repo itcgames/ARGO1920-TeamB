@@ -48,7 +48,7 @@
     <ClCompile Include="SRC\System.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SRC\xbox360Controller.cpp">
+    <ClCompile Include="Src\Xbox360Controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -89,7 +89,10 @@
     <ClInclude Include="INCLUDE\System.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="INCLUDE\xbox360Controller.h">
+    <ClInclude Include="Include\cute_c2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Xbox360Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
