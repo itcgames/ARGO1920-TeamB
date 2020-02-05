@@ -1,4 +1,4 @@
-#include "../INCLUDE/xbox360Controller.h"
+#include "xbox360Controller.h"
 
 Xbox360Controller::Xbox360Controller(int currentControll) :
 	m_jotstick_index(currentControll)

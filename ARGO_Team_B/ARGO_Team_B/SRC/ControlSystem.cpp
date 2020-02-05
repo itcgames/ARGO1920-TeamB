@@ -1,4 +1,4 @@
-#include "../INCLUDE/ControlSystem.h"
+#include "ControlSystem.h"
 
 ControlSystem::ControlSystem() {
 	m_controller = new Xbox360Controller(0);
