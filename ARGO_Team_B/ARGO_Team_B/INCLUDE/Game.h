@@ -12,6 +12,9 @@
 
 #include <cute_c2.h>
 
+static const int RAT_W = 60;
+static const int RAT_H = 30;
+
 class Game
 {
 public:

@@ -13,7 +13,7 @@ Game::Game() :
 	for (int i = 0; i < m_colliders.first.capacity(); i ++) {
 		m_colliders.first.push_back(c2Circle());
 		m_colliders.first.back().p = { -100, -100 };
-		m_colliders.first.back().r = 42.0f;
+		m_colliders.first.back().r = RAT_H / 2;
 		m_colliders.second.push_back(false);
 	}
 
@@ -51,22 +51,22 @@ Game::Game() :
 	// Player
 	m_player.addComponent(new HealthComponent(100), Components::Health);
 	m_player.addComponent(new PositionComponent(100, 100), Components::Position);
-	m_player.addComponent(new RenderComponent("Assets\\Player.png", 100, 100, p_renderer), Components::Render);
+	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Components::Render);
 
 	// Alien
 	m_alien.addComponent(new HealthComponent(150), Components::Health);
 	m_alien.addComponent(new PositionComponent(200, 200), Components::Position);
-	m_alien.addComponent(new RenderComponent("Assets\\Alien.png", 100, 100, p_renderer), Components::Render);
+	m_alien.addComponent(new RenderComponent("./Assets/rat2.png", RAT_W, RAT_H, p_renderer), Components::Render);
 
 	// Dog
 	m_dog.addComponent(new HealthComponent(75), Components::Health);
 	m_dog.addComponent(new PositionComponent(300, 300), Components::Position);
-	m_dog.addComponent(new RenderComponent("Assets\\dog.png", 100, 100, p_renderer), Components::Render);
+	m_dog.addComponent(new RenderComponent("./Assets/rat3.png", RAT_W, RAT_H, p_renderer), Components::Render);
 
 	// Cat
 	m_cat.addComponent(new HealthComponent(50), Components::Health);
 	m_cat.addComponent(new PositionComponent(400, 400), Components::Position);
-	m_cat.addComponent(new RenderComponent("Assets\\cat.png", 100, 100, p_renderer), Components::Render);
+	m_cat.addComponent(new RenderComponent("./Assets/rat4.png", RAT_W, RAT_H, p_renderer), Components::Render);
 
 	// Systems
 	//HEALTH All entities
