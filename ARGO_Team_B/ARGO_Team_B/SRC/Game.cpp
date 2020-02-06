@@ -92,7 +92,7 @@ Game::Game()
 	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Components::Render);
 
 	//Trap 3
-	m_spike3.addComponent(new TrapComponent(false, 2), Components::Traps);
+	m_spike3.addComponent(new TrapComponent(true, 2), Components::Traps);
 	m_spike3.addComponent(new PositionComponent(800, 600), Components::Position);
 	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Components::Render);
 
@@ -178,7 +178,7 @@ void Game::processEvents()
 		switch (event.type)
 		{
 		case SDL_KEYDOWN:
-			//m_controlSystem.handleInput(event.key.keysym.sym);
+			m_controlSystem.handleInput(event.key.keysym.sym);
 			break;
 		case SDL_QUIT:
 			m_quit = true;
@@ -204,11 +204,10 @@ void Game::update(float dt)
 	//}
 	m_healthSystem.update();
 	m_aiSystem.update();
+	m_trapSystem.update();
 
-	//m_controlSystem.handleInput();
-	m_trapSystem.setTrapStates();
-
-	m_controlSystem.update();
+	//m_controlSystem.update();
+	m_controlSystem.handleInput();
 }
 
 /// <summary>
