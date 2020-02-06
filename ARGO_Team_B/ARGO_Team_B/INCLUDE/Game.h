@@ -8,6 +8,7 @@
 #include "ControlSystem.h"
 #include "AISystem.h"
 #include "RenderSystem.h"
+#include "Level.h"
 #include "ButtonSystem.h"
 #include "ComponentsEnum.h"
 #include "TrapComponent.h"
@@ -52,7 +53,7 @@ private:
 	ControlSystem m_controlSystem;
 	AISystem m_aiSystem;
 	RenderSystem m_renderSystem;
-
+	Level* tiled_map_level;
 	ButtonSystem m_trapSystem;
 };
 #endif // !GAME

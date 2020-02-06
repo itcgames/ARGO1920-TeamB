@@ -52,6 +52,12 @@
     <ClCompile Include="SRC\ButtonSystem.cpp">
       <Filter>src\System</Filter>
     </ClCompile>
+    <ClCompile Include="SRC\Assets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\Level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INCLUDE\Entity.h">
@@ -113,6 +119,12 @@
     </ClInclude>
     <ClInclude Include="INCLUDE\MoveCommand.h">
       <Filter>headers\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\Assets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\Level.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="INCLUDE\ButtonSystem.h">
       <Filter>headers\System</Filter>
