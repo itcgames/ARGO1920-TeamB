@@ -19,7 +19,8 @@ public:
 	~Game();
 	void run();
 private:
-	c2Circle m_user_circle;
+	c2Circle m_playerCircle;
+	c2Circle m_testCircle;
 
 	void processEvents();
 	void update(float dt);

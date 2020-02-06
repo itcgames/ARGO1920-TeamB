@@ -1,5 +1,5 @@
+#define CUTE_C2_IMPLEMENTATION
 #include "Game.h"
-
 
 
 /// <summary>
@@ -9,8 +9,11 @@
 Game::Game() 
 {
 
-	m_user_circle.p = { 100, 100 };
-	m_user_circle.r = 42;
+	m_playerCircle.p = { 100, 100 };
+	m_playerCircle.r = 42.0f;
+
+	m_testCircle.p = { -100, -100 };
+	m_testCircle.r = 42.0f;
 
 
 	// Initialise SDL
@@ -150,14 +153,17 @@ void Game::processEvents()
 /// <param name="dt">The time that has passed since the last update call in seconds</param>
 void Game::update(float dt)
 {
-	PositionComponent* c = static_cast<PositionComponent*>(m_player.getComponent(Components::Position));
-	std::cout << c->getPositionX() << std::endl;
-	std::cout <<  c->getPositionY() << std::endl;
+	PositionComponent* playerPos = static_cast<PositionComponent*>(m_player.getComponent(Components::Position));
+	m_playerCircle.p = c2v{ playerPos->getPositionX(), playerPos->getPositionY() };
+	std::cout << m_playerCircle.p.x << ", " << m_playerCircle.p.y << std::endl;
 
+	PositionComponent* alienPos = static_cast<PositionComponent*>(m_alien.getComponent(Components::Position));
+	m_testCircle.p = c2v{ alienPos->getPositionX(), alienPos->getPositionY() };
 
-	//if (c2CircletoCircle(user_circle, user_circle)) {
-	//	std::cout << " circle to circle" << std::endl;
-	//}
+	if (c2CircletoCircle(m_playerCircle, m_testCircle)) {
+		std::cout << "Collision" << std::endl;
+	}
+
 	m_healthSystem.update();
 	m_aiSystem.update();
 
