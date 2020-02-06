@@ -1,4 +1,6 @@
-#pragma once
+#ifndef POSITIONCOMPONENT_H
+#define POSITIONCOMPONENT_H
+
 #include "Component.h"
 class PositionComponent : public Component
 {
@@ -16,3 +18,4 @@ private:
 	int m_currentX;
 	int m_currentY;
 };
+#endif // !POSITIONCOMPONENT_H

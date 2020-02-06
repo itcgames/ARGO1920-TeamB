@@ -20,19 +20,23 @@ void ControlComponent::handleInput()
 		
 
 		if (m_controller->m_currentState.DpadUp) {
-			posComp->moveUp();
+			p_walkUp = new WalkUpCommand();
+			p_walkUp->execute(m_entity);
 		}
 
 		if (m_controller->m_currentState.DpadLeft) {
-			posComp->moveLeft();
+			p_walkLeft = new WalkLeftCommand();
+			p_walkLeft->execute(m_entity);
 		}
 
 		if (m_controller->m_currentState.DpadRight) {
-			posComp->moveRight();
+			p_walkRight = new WalkRightCommand();
+			p_walkRight->execute(m_entity);
 		}
 
 		if (m_controller->m_currentState.DpadDown) {
-			posComp->moveDown();
+			p_walkDown= new WalkDownCommand();
+			p_walkDown->execute(m_entity);
 
 		}
 		

@@ -1,4 +1,7 @@
-#pragma once
+#ifndef HEALTHCOMPONENT_H
+#define HEALTHCOMPONENT_H
+
+
 #include "Component.h"
 #include <iostream>
 class HealthComponent : public Component
@@ -14,3 +17,5 @@ private:
 	int m_currentHealth;
 	bool m_alive;
 };
+
+#endif // !HEALTHCOMPONENT_H

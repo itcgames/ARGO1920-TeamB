@@ -1,4 +1,6 @@
-#pragma once
+#ifndef RENDERCOMPONENT_H
+#define RENDERCOMPONENT_H
+
 
 #include"Component.h"
 #include"SDL_image.h"
@@ -18,5 +20,5 @@ private:
 	int height;
 };
 
-
+#endif // !RENDERCOMPONENT_H
 

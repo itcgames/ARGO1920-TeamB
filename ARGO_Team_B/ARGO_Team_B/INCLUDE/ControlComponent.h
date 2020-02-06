@@ -2,6 +2,8 @@
 #define CONTROL_COMPONENT_H
 
 #include "Component.h"
+#include "Command.h"
+
 #include "PositionComponent.h"
 #include "xbox360Controller.h"
 #include "Entity.h"
@@ -18,6 +20,14 @@ private:
 
 	Xbox360Controller* m_controller;
 	Entity& m_entity;
+
+	/// <summary>
+	/// Commands
+	/// </summary>
+	Command* p_walkUp;
+	Command* p_walkDown;
+	Command* p_walkLeft;
+	Command* p_walkRight;
 
 };
 

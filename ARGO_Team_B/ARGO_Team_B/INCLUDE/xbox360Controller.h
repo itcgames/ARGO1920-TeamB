@@ -1,4 +1,3 @@
-#pragma once
 #ifndef XBOX360CONTROLLER
 #define XBOX360CONTROLLER
 //author ZhenzeZhao
