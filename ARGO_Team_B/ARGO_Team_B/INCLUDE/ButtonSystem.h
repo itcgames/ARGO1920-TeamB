@@ -3,6 +3,7 @@
 #include "PositionComponent.h"
 #include "ButtonComponent.h"
 #include "TrapComponent.h"
+#include "DoorComponent.h"
 
 class ButtonSystem : public System {
 public:

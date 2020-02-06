@@ -36,24 +36,14 @@ void ControlSystem::handleInput()
 
 				if (m_controller->m_currentState.DpadDown) {
 					posComp->moveDown();
+				}
 
-					m_controller->checkButton();
+				if (m_controller->m_currentState.DpadLeft) {
+					posComp->moveLeft();
+				}
 
-					if (m_controller->m_currentState.DpadUp) {
-						posComp->moveUp();
-					}
-
-					if (m_controller->m_currentState.DpadDown) {
-						posComp->moveDown();
-
-						if (m_controller->m_currentState.DpadLeft) {
-							posComp->moveLeft();
-						}
-
-						if (m_controller->m_currentState.DpadRight) {
-							posComp->moveRight();
-						}
-					}
+				if (m_controller->m_currentState.DpadRight) {
+					posComp->moveRight();
 				}
 			}
 		}
@@ -88,23 +78,6 @@ void ControlSystem::handleInput()
 						break;
 					}
 
-					m_controller->checkButton();
-
-					if (m_controller->m_currentState.DpadUp) {
-						posComp->moveUp();
-					}
-
-					if (m_controller->m_currentState.DpadDown) {
-						posComp->moveDown();
-					}
-
-					if (m_controller->m_currentState.DpadLeft) {
-						posComp->moveLeft();
-					}
-
-					if (m_controller->m_currentState.DpadRight) {
-						posComp->moveRight();
-					}
 				}
 
 			}
