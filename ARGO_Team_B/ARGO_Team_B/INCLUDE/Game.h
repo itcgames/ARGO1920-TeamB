@@ -19,8 +19,12 @@ public:
 	~Game();
 	void run();
 private:
-	c2Circle m_playerCircle;
-	c2Circle m_testCircle;
+	int m_unchecked;
+	void updateCollider(Entity& t_entity, c2Circle& t_collider);
+	bool checkCollision(c2Circle& t_collider, c2Circle& t_otherCollider);
+	void handleCollision();
+
+	std::pair<std::vector<c2Circle>, std::vector<bool>> m_colliders;
 
 	void processEvents();
 	void update(float dt);

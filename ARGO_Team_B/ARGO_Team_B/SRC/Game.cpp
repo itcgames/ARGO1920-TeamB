@@ -6,15 +6,16 @@
 /// Game()
 /// Main Game constructor used to initialise SDL, create a window and initialise SDL_IMG
 /// </summary>
-Game::Game() 
+Game::Game() :
+	m_unchecked{ 0 }
 {
-
-	m_playerCircle.p = { 100, 100 };
-	m_playerCircle.r = 42.0f;
-
-	m_testCircle.p = { -100, -100 };
-	m_testCircle.r = 42.0f;
-
+	m_colliders.first.reserve(4);
+	for (int i = 0; i < m_colliders.first.capacity(); i ++) {
+		m_colliders.first.push_back(c2Circle());
+		m_colliders.first.back().p = { -100, -100 };
+		m_colliders.first.back().r = 42.0f;
+		m_colliders.second.push_back(false);
+	}
 
 	// Initialise SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -121,6 +122,27 @@ void Game::run()
 	quit();
 }
 
+void Game::updateCollider(Entity& t_entity, c2Circle& t_collider)
+{
+	PositionComponent* entityPos = static_cast<PositionComponent*>(t_entity.getComponent(Components::Position));
+	t_collider.p = c2v{ entityPos->getPositionX(), entityPos->getPositionY() };
+}
+
+bool Game::checkCollision(c2Circle& t_collider, c2Circle& t_otherCollider)
+{
+	bool result = false;
+	if (c2CircletoCircle(t_collider, t_otherCollider)) {
+		std::cout << "Collision" << std::endl;
+		result = true;
+	}
+	return result;
+}
+
+void Game::handleCollision()
+{
+	// std::cout << "Handle collision here..";
+}
+
 /// <summary>
 /// processEvents()
 /// Method used to poll events in SDL such as keyboard events or window close events
@@ -153,15 +175,30 @@ void Game::processEvents()
 /// <param name="dt">The time that has passed since the last update call in seconds</param>
 void Game::update(float dt)
 {
-	PositionComponent* playerPos = static_cast<PositionComponent*>(m_player.getComponent(Components::Position));
-	m_playerCircle.p = c2v{ playerPos->getPositionX(), playerPos->getPositionY() };
-	std::cout << m_playerCircle.p.x << ", " << m_playerCircle.p.y << std::endl;
 
-	PositionComponent* alienPos = static_cast<PositionComponent*>(m_alien.getComponent(Components::Position));
-	m_testCircle.p = c2v{ alienPos->getPositionX(), alienPos->getPositionY() };
+	updateCollider(m_player, m_colliders.first.at(0));
+	updateCollider(m_alien, m_colliders.first.at(1));
+	updateCollider(m_dog, m_colliders.first.at(2));
+	updateCollider(m_cat, m_colliders.first.at(3));
 
-	if (c2CircletoCircle(m_playerCircle, m_testCircle)) {
-		std::cout << "Collision" << std::endl;
+	for (int i = 0; i < m_colliders.first.size(); i++) {
+		m_colliders.second.at(i) = false;
+	}
+	for (int i = 0; i < m_colliders.first.size(); i++) {
+		if (!m_colliders.second.at(i))
+		{
+			m_unchecked = i;
+		}
+		for (m_unchecked; m_unchecked < m_colliders.first.size(); m_unchecked++) {
+			{
+				if (i != m_unchecked) {
+					if (checkCollision(m_colliders.first.at(i), m_colliders.first.at(m_unchecked))) {
+						handleCollision();
+					}
+					m_colliders.second.at(i) = true;
+				}
+			}
+		}
 	}
 
 	m_healthSystem.update();
