@@ -57,15 +57,30 @@ Game::Game()
 	m_cat.addComponent(new PositionComponent(400, 400));
 	m_cat.addComponent(new RenderComponent("Assets\\cat.png", 100, 100, p_renderer));
 
-	//Button
-	m_button.addComponent(new ButtonComponent(false));
+	//Button 1
+	m_button.addComponent(new ButtonComponent(true,1));
 	m_button.addComponent(new PositionComponent(50, 50));
-	m_button.addComponent(new RenderComponent("Assets\\cat.png", 100, 100, p_renderer));
+	m_button.addComponent(new RenderComponent("Assets\\cat.png", 50, 50, p_renderer));
 
-	//Trap
-	m_trap.addComponent(new TrapComponent(false));
+	//Button 2
+	m_button2.addComponent(new ButtonComponent(true,2));
+	m_button2.addComponent(new PositionComponent(150, 50));
+	m_button2.addComponent(new RenderComponent("Assets\\cat.png", 50, 50, p_renderer));
+
+	//Trap 1
+	m_trap.addComponent(new TrapComponent(false, 1));
 	m_trap.addComponent(new PositionComponent(600,600));
-	m_trap.addComponent(new RenderComponent("Assets\\dog.png", 100, 100, p_renderer));
+	m_trap.addComponent(new RenderComponent("Assets\\dog.png", 50, 50, p_renderer));
+
+	//Trap 2
+	m_trap2.addComponent(new TrapComponent(true, 0));
+	m_trap2.addComponent(new PositionComponent(700, 600));
+	m_trap2.addComponent(new RenderComponent("Assets\\dog.png", 25, 25, p_renderer));
+
+	//Trap 2
+	m_trap3.addComponent(new TrapComponent(false, 2));
+	m_trap3.addComponent(new PositionComponent(800, 600));
+	m_trap3.addComponent(new RenderComponent("Assets\\dog.png", 50, 50, p_renderer));
 
 	// Systems
 	//HEALTH All entities
@@ -84,12 +99,22 @@ Game::Game()
 
 	//DRAW Draw all of entities
 	m_renderSystem.addEntity(m_player);
-	m_renderSystem.addEntity(m_alien);
-	m_renderSystem.addEntity(m_dog);
-	m_renderSystem.addEntity(m_cat);
+	//m_renderSystem.addEntity(m_alien);
+	//m_renderSystem.addEntity(m_dog);
+	//m_renderSystem.addEntity(m_cat);
+
+	m_renderSystem.addEntity(m_button);
+	m_renderSystem.addEntity(m_button2);
+	m_renderSystem.addEntity(m_trap);
+	m_renderSystem.addEntity(m_trap2);
+	m_renderSystem.addEntity(m_trap3);
 
 	//Connect button entity and trap entity
-	
+	m_trapSystem.addEntity(m_button);
+	m_trapSystem.addEntity(m_button2);
+	m_trapSystem.addEntity(m_trap);
+	m_trapSystem.addEntity(m_trap2);
+	m_trapSystem.addEntity(m_trap3);
 }
 
 /// <summary>
@@ -160,6 +185,7 @@ void Game::update(float dt)
 	m_aiSystem.update();
 
 	m_controlSystem.handleInput();
+	m_trapSystem.setStates();
 }
 
 /// <summary>

@@ -7,7 +7,7 @@
 #include "ControlSystem.h"
 #include "AISystem.h"
 #include "RenderSystem.h"
-#include "TrapSystem.h"
+#include "ButtonSystem.h"
 
 class Game
 {
@@ -32,7 +32,10 @@ private:
 	Entity m_cat;
 	
 	Entity m_button;
+	Entity m_button2;
 	Entity m_trap;
+	Entity m_trap2;
+	Entity m_trap3;
 
 	// Systems
 	HealthSystem m_healthSystem;
@@ -40,5 +43,5 @@ private:
 	AISystem m_aiSystem;
 	RenderSystem m_renderSystem;
 
-	TrapSystem m_trapSystem;
+	ButtonSystem m_trapSystem;
 };

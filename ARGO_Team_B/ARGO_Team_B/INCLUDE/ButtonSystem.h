@@ -4,10 +4,10 @@
 #include "ButtonComponent.h"
 #include "TrapComponent.h"
 
-class TrapSystem : public System {
+class ButtonSystem : public System {
 public:
-	TrapSystem();
-	~TrapSystem();
+	ButtonSystem();
+	~ButtonSystem();
 
 	void updateComponent(Component* c) override;
 	void setStates();

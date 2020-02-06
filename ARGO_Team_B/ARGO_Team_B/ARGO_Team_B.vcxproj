@@ -142,7 +142,7 @@
     <ClCompile Include="SRC\RenderSystem.cpp" />
     <ClCompile Include="SRC\System.cpp" />
     <ClCompile Include="SRC\TrapComponent.cpp" />
-    <ClCompile Include="SRC\TrapSystem.cpp" />
+    <ClCompile Include="SRC\ButtonSystem.cpp" />
     <ClCompile Include="SRC\xbox360Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,7 +161,7 @@
     <ClInclude Include="INCLUDE\RenderSystem.h" />
     <ClInclude Include="INCLUDE\System.h" />
     <ClInclude Include="INCLUDE\TrapComponent.h" />
-    <ClInclude Include="INCLUDE\TrapSystem.h" />
+    <ClInclude Include="INCLUDE\ButtonSystem.h" />
     <ClInclude Include="INCLUDE\xbox360Controller.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

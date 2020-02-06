@@ -1,7 +1,8 @@
 #include "..//INCLUDE/TrapComponent.h"
 
-TrapComponent::TrapComponent(bool init) {
+TrapComponent::TrapComponent(bool init, int id) {
 	m_alive = init;
+	m_id = id;
 }
 
 TrapComponent::~TrapComponent() {
