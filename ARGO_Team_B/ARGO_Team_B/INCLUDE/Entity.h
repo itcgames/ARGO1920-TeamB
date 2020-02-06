@@ -1,4 +1,7 @@
-#pragma once
+#ifndef ENTITY_H
+#define ENTITY_H
+
+
 #include <vector>
 #include <string>
 
@@ -8,7 +11,11 @@
 class Entity
 {
 public:
-	Entity() : m_id{ 0 } { };
+	static int m_instanceCount;
+
+	Entity() {
+		m_id = m_instanceCount++;
+	};
 	~Entity() {};
 	void addComponent(Component* t_component, Components t_type) {
 		m_components.first.push_back(t_component);
@@ -35,3 +42,5 @@ private:
 	int m_id;
 	std::pair<std::vector<Component*>, std::vector<Components>> m_components;
 };
+
+#endif
