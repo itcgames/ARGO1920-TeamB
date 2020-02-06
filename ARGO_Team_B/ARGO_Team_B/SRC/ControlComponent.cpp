@@ -19,22 +19,22 @@ void ControlComponent::handleInput()
 		m_controller->checkButton();
 		
 
-		if (m_controller->m_currentState.DpadUp) {
+		if (m_controller->m_currentState.DpadUp || m_controller->m_currentState.LeftThumbStick.y < m_controller->dpadThreshold) {
 			p_walkUp = new WalkUpCommand();
 			p_walkUp->execute(m_entity);
 		}
 
-		if (m_controller->m_currentState.DpadLeft) {
+		if (m_controller->m_currentState.DpadLeft || m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
 			p_walkLeft = new WalkLeftCommand();
 			p_walkLeft->execute(m_entity);
 		}
 
-		if (m_controller->m_currentState.DpadRight) {
+		if (m_controller->m_currentState.DpadRight || m_controller->m_currentState.LeftThumbStick.x > m_controller->dpadThreshold) {
 			p_walkRight = new WalkRightCommand();
 			p_walkRight->execute(m_entity);
 		}
 
-		if (m_controller->m_currentState.DpadDown) {
+		if (m_controller->m_currentState.DpadDown || m_controller->m_currentState.LeftThumbStick.y > -m_controller->dpadThreshold) {
 			p_walkDown= new WalkDownCommand();
 			p_walkDown->execute(m_entity);
 
@@ -44,6 +44,8 @@ void ControlComponent::handleInput()
 		m_controller->m_currentState.DpadDown= false;
 		m_controller->m_currentState.DpadLeft = false;
 		m_controller->m_currentState.DpadRight = false;
+		m_controller->m_currentState.LeftThumbStick.x = 0;
+		m_controller->m_currentState.LeftThumbStick.y = 0;
 	}
 }
 

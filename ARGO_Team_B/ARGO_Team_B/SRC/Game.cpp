@@ -154,8 +154,8 @@ void Game::processEvents()
 void Game::update(float dt)
 {
 	PositionComponent* c = static_cast<PositionComponent*>(m_player.getComponent(Components::Position));
-	std::cout << c->getPositionX() << std::endl;
-	std::cout <<  c->getPositionY() << std::endl;
+	//std::cout << c->getPositionX() << std::endl;
+	//std::cout <<  c->getPositionY() << std::endl;
 
 
 	//if (c2CircletoCircle(user_circle, user_circle)) {

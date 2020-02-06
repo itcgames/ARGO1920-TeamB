@@ -28,6 +28,7 @@ private:
 	Command* p_walkDown;
 	Command* p_walkLeft;
 	Command* p_walkRight;
+	Command* p_interact;
 
 };
 
