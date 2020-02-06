@@ -33,9 +33,10 @@ private:
 	
 	Entity m_button;
 	Entity m_button2;
-	Entity m_trap;
-	Entity m_trap2;
-	Entity m_trap3;
+
+	Entity m_spike;
+	Entity m_spike2;
+	Entity m_spike3;
 
 	// Systems
 	HealthSystem m_healthSystem;

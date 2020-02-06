@@ -60,6 +60,9 @@
     <ClCompile Include="SRC\ButtonSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SRC\DoorComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INCLUDE\AISystem.h">
@@ -111,6 +114,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="INCLUDE\ButtonSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\DoorComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

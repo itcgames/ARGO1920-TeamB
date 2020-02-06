@@ -57,30 +57,32 @@ Game::Game()
 	m_cat.addComponent(new PositionComponent(400, 400));
 	m_cat.addComponent(new RenderComponent("Assets\\cat.png", 100, 100, p_renderer));
 
+	/*button test*/
 	//Button 1
 	m_button.addComponent(new ButtonComponent(true,1));
 	m_button.addComponent(new PositionComponent(50, 50));
-	m_button.addComponent(new RenderComponent("Assets\\cat.png", 50, 50, p_renderer));
+	m_button.addComponent(new RenderComponent("Assets\\Button.png", 50, 50, p_renderer));
 
 	//Button 2
-	m_button2.addComponent(new ButtonComponent(true,2));
+	m_button2.addComponent(new ButtonComponent(false,2));
 	m_button2.addComponent(new PositionComponent(150, 50));
-	m_button2.addComponent(new RenderComponent("Assets\\cat.png", 50, 50, p_renderer));
+	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 50, 50, p_renderer));
 
 	//Trap 1
-	m_trap.addComponent(new TrapComponent(false, 1));
-	m_trap.addComponent(new PositionComponent(600,600));
-	m_trap.addComponent(new RenderComponent("Assets\\dog.png", 50, 50, p_renderer));
+	m_spike.addComponent(new TrapComponent(false, 1));
+	m_spike.addComponent(new PositionComponent(600,600));
+	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer));
 
 	//Trap 2
-	m_trap2.addComponent(new TrapComponent(true, 0));
-	m_trap2.addComponent(new PositionComponent(700, 600));
-	m_trap2.addComponent(new RenderComponent("Assets\\dog.png", 25, 25, p_renderer));
+	m_spike2.addComponent(new TrapComponent(true, 0));
+	m_spike2.addComponent(new PositionComponent(700, 600));
+	m_spike2.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer));
 
-	//Trap 2
-	m_trap3.addComponent(new TrapComponent(false, 2));
-	m_trap3.addComponent(new PositionComponent(800, 600));
-	m_trap3.addComponent(new RenderComponent("Assets\\dog.png", 50, 50, p_renderer));
+	//Trap 3
+	m_spike3.addComponent(new TrapComponent(false, 2));
+	m_spike3.addComponent(new PositionComponent(800, 600));
+	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer));
+
 
 	// Systems
 	//HEALTH All entities
@@ -105,16 +107,16 @@ Game::Game()
 
 	m_renderSystem.addEntity(m_button);
 	m_renderSystem.addEntity(m_button2);
-	m_renderSystem.addEntity(m_trap);
-	m_renderSystem.addEntity(m_trap2);
-	m_renderSystem.addEntity(m_trap3);
+	m_renderSystem.addEntity(m_spike);
+	m_renderSystem.addEntity(m_spike2);
+	m_renderSystem.addEntity(m_spike3);
 
 	//Connect button entity and trap entity
 	m_trapSystem.addEntity(m_button);
 	m_trapSystem.addEntity(m_button2);
-	m_trapSystem.addEntity(m_trap);
-	m_trapSystem.addEntity(m_trap2);
-	m_trapSystem.addEntity(m_trap3);
+	m_trapSystem.addEntity(m_spike);
+	m_trapSystem.addEntity(m_spike2);
+	m_trapSystem.addEntity(m_spike3);
 }
 
 /// <summary>
@@ -185,7 +187,7 @@ void Game::update(float dt)
 	m_aiSystem.update();
 
 	m_controlSystem.handleInput();
-	m_trapSystem.setStates();
+	m_trapSystem.setTrapStates();
 }
 
 /// <summary>

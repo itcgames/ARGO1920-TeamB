@@ -133,6 +133,7 @@
     <ClCompile Include="SRC\ButtonComponent.cpp" />
     <ClCompile Include="SRC\ControlComponent.cpp" />
     <ClCompile Include="SRC\ControlSystem.cpp" />
+    <ClCompile Include="SRC\DoorComponent.cpp" />
     <ClCompile Include="SRC\Game.cpp" />
     <ClCompile Include="SRC\HealthComponent.cpp" />
     <ClCompile Include="SRC\HealthSystem.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="INCLUDE\Component.h" />
     <ClInclude Include="INCLUDE\ControlComponent.h" />
     <ClInclude Include="INCLUDE\ControlSystem.h" />
+    <ClInclude Include="INCLUDE\DoorComponent.h" />
     <ClInclude Include="INCLUDE\Entity.h" />
     <ClInclude Include="INCLUDE\Game.h" />
     <ClInclude Include="INCLUDE\HealthComponent.h" />

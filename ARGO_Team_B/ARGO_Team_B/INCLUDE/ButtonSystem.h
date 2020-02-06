@@ -10,5 +10,6 @@ public:
 	~ButtonSystem();
 
 	void updateComponent(Component* c) override;
-	void setStates();
+	void setTrapStates();
+	void setDoorStates();
 };

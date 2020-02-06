@@ -52,7 +52,9 @@ void RenderSystem::draw()
 								}
 							}
 							else if (btnComp != nullptr) {
-								rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
+								if (btnComp->getAlive()) {
+									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
+								}
 							}
 
 						}		
