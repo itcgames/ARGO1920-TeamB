@@ -1,4 +1,4 @@
-#include "..//INCLUDE/ButtonSystem.h"
+#include "ButtonSystem.h"
 
 ButtonSystem::ButtonSystem() {
 

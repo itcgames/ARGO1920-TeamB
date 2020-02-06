@@ -1,8 +1,13 @@
-#pragma once
+#ifndef COMPONENTENUM_H
+#define COMPONENTENUM_H
+
 enum class Components {
 	Health,
 	Position,
 	Render,
 	Button,
-	Traps
+	Traps,
+	Controller
 };
+
+#endif // !COMPONENTENUM_H

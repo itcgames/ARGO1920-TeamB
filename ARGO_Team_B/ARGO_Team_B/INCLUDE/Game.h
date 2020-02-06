@@ -55,6 +55,4 @@ private:
 
 	ButtonSystem m_trapSystem;
 };
-
 #endif // !GAME
-

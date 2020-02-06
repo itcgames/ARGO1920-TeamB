@@ -1,4 +1,3 @@
-#pragma once
 #ifndef XBOX360CONTROLLER
 #define XBOX360CONTROLLER
 //author ZhenzeZhao
@@ -37,13 +36,15 @@ private:
 	//deadzone for the dpad
 	const int dpadThreshold = 50;
 
-	const int m_jotstick_index;
+	const int m_joystick_index;
 
 	SDL_GameController* m_controllerHandles;
 
 public:
 	// the current state of all the buttons
 	GamePadstate m_currentState;
+
+	int getID();
 
 	Xbox360Controller(int currentControll);
 	~Xbox360Controller();

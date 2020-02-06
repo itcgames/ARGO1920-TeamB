@@ -2,6 +2,8 @@
 
 
 
+
+
 /// <summary>
 /// Game()
 /// Main Game constructor used to initialise SDL, create a window and initialise SDL_IMG
@@ -48,20 +50,24 @@ Game::Game()
 	m_player.addComponent(new HealthComponent(100), Components::Health);
 	m_player.addComponent(new PositionComponent(100, 100), Components::Position);
 	m_player.addComponent(new RenderComponent("Assets\\Player.png", 100, 100, p_renderer), Components::Render);
+	m_player.addComponent(new ControlComponent(m_player), Components::Controller);
 
 	// Alien
 	m_alien.addComponent(new HealthComponent(150), Components::Health);
 	m_alien.addComponent(new PositionComponent(200, 200), Components::Position);
 	m_alien.addComponent(new RenderComponent("Assets\\Alien.png", 100, 100, p_renderer), Components::Render);
+	m_alien.addComponent(new ControlComponent(m_alien), Components::Controller);
 
 	// Dog
 	m_dog.addComponent(new HealthComponent(75), Components::Health);
 	m_dog.addComponent(new PositionComponent(300, 300), Components::Position);
 	m_dog.addComponent(new RenderComponent("Assets\\dog.png", 100, 100, p_renderer), Components::Render);
+	m_dog.addComponent(new ControlComponent(m_dog), Components::Controller);
 
 	// Cat
 	m_cat.addComponent(new HealthComponent(50), Components::Health);
 	m_cat.addComponent(new PositionComponent(400, 400), Components::Position);
+	m_cat.addComponent(new ControlComponent(m_cat), Components::Controller);
 	m_cat.addComponent(new RenderComponent("Assets\\cat.png", 100, 100, p_renderer), Components::Render);
 
 	/*button test*/
@@ -100,11 +106,9 @@ Game::Game()
 
 	//CONTROL Player only
 	m_controlSystem.addEntity(m_player);
-
-	//AI Everyone except player
-	m_aiSystem.addEntity(m_alien);
-	m_aiSystem.addEntity(m_dog);
-	m_aiSystem.addEntity(m_cat);
+	m_controlSystem.addEntity(m_alien);
+	m_controlSystem.addEntity(m_dog);
+	m_controlSystem.addEntity(m_cat);
 
 	//DRAW Draw all of entities
 	m_renderSystem.addEntity(m_player);
@@ -201,8 +205,10 @@ void Game::update(float dt)
 	m_healthSystem.update();
 	m_aiSystem.update();
 
-	m_controlSystem.handleInput();
+	//m_controlSystem.handleInput();
 	m_trapSystem.setTrapStates();
+
+	m_controlSystem.update();
 }
 
 /// <summary>

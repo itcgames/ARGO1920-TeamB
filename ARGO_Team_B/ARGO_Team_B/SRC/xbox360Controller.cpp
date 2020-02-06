@@ -1,10 +1,15 @@
 #include "xbox360Controller.h"
 
+int Xbox360Controller::getID()
+{
+	return m_joystick_index;
+}
+
 Xbox360Controller::Xbox360Controller(int currentControll) :
-	m_jotstick_index(currentControll)
+	m_joystick_index(currentControll)
 {
 	if (connect()) {
-		m_controllerHandles = SDL_GameControllerOpen(m_jotstick_index);
+		m_controllerHandles = SDL_GameControllerOpen(m_joystick_index);
 	}
 }
 
@@ -17,8 +22,8 @@ bool Xbox360Controller::connect() {
 }
 
 bool Xbox360Controller::isConnected() {
-	// std::cout << SDL_IsGameController(m_jotstick_index) << " controller: "<< m_jotstick_index << std::endl;
-	if (SDL_IsGameController(m_jotstick_index)) {
+	//std::cout << SDL_IsGameController(m_joystick_index) << " controller: "<< m_joystick_index << std::endl;
+	if (SDL_IsGameController(m_joystick_index)) {
 		return true;
 	}
 	else {
@@ -33,7 +38,7 @@ void Xbox360Controller::checkButton() {
 
 	// check if new controller connect to the pc
 	if (m_controllerHandles == NULL && connect()) {
-		m_controllerHandles = SDL_GameControllerOpen(m_jotstick_index);
+		m_controllerHandles = SDL_GameControllerOpen(m_joystick_index);
 	}
 
 	m_currentState.A = SDL_GameControllerGetButton(m_controllerHandles, SDL_CONTROLLER_BUTTON_A);

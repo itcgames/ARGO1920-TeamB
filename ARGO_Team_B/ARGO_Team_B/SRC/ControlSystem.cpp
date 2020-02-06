@@ -1,7 +1,9 @@
 #include "ControlSystem.h"
 
 ControlSystem::ControlSystem() {
-	m_controller = new Xbox360Controller(0);
+		Xbox360Controller * controller= new Xbox360Controller(0);
+		m_controllers.push_back(controller);
+	
 }
 
 ControlSystem::~ControlSystem() {}
@@ -9,15 +11,16 @@ void ControlSystem::updateComponent(Component* c)
 {
 	for (Entity& e : entities)
 	{
-		PositionComponent* posComp = dynamic_cast<PositionComponent*>(c);
-		if (posComp != nullptr)
-		{
+		ControlComponent* cont = dynamic_cast<ControlComponent*>(e.getComponent(Components::Controller));
 
+		if (cont != NULL)
+		{
+			cont->handleInput();
 		}
 	}
 }
 
-void ControlSystem::handleInput()
+void ControlSystem::handleInput(SDL_Keycode key)
 {
 	for (Entity& e : entities)
 	{
@@ -26,42 +29,8 @@ void ControlSystem::handleInput()
 			PositionComponent* posComp = dynamic_cast<PositionComponent*>(c);
 			if (posComp != nullptr)
 			{
-
-
-				m_controller->checkButton();
-
-				if (m_controller->m_currentState.DpadUp) {
-					posComp->moveUp();
-				}
-
-				if (m_controller->m_currentState.DpadDown) {
-					posComp->moveDown();
-				}
-
-				if (m_controller->m_currentState.DpadLeft) {
-					posComp->moveLeft();
-				}
-
-				if (m_controller->m_currentState.DpadRight) {
-					posComp->moveRight();
-				}
-			}
-		}
-	}
-}
-
-
-	void ControlSystem::handleInput(SDL_Keycode key)
-	{
-		for (Entity& e : entities)
-		{
-			for (Component* c : e.getComponents())
-			{
-				PositionComponent* posComp = dynamic_cast<PositionComponent*>(c);
-				if (posComp != nullptr)
+				switch (key)
 				{
-					switch (key)
-					{
 					case SDLK_a:
 						posComp->moveLeft();
 						break;
@@ -76,10 +45,37 @@ void ControlSystem::handleInput()
 						break;
 					default:
 						break;
-					}
-
 				}
 
-			}
-		}
-	}
+				for (int i = 0; i < NOOFPLAYERS; i++)
+					{
+						if (e.getId() == m_controllers.at(i)->getID())
+						{
+							PositionComponent* posComp = dynamic_cast<PositionComponent*>(c);
+							if (posComp != nullptr)
+							{
+
+							m_controllers.at(i)->checkButton();
+
+							if (m_controllers.at(i)->m_currentState.DpadUp) {
+								posComp->moveUp();
+							}
+
+							if (m_controllers.at(i)->m_currentState.DpadLeft) {
+								posComp->moveLeft();
+							}
+
+							if (m_controllers.at(i)->m_currentState.DpadRight) {
+								posComp->moveRight();
+							}
+
+							if (m_controllers.at(i)->m_currentState.DpadDown) {
+								posComp->moveDown();
+							}// !if
+						} // !if
+					} // !if
+				}// !if
+			}// !for
+		}// !if
+	}// !for
+} // !void

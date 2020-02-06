@@ -1,123 +1,147 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Source Files\Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="SRC\AISystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\HealthComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\HealthSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SRC\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\PositionComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\RenderComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\RenderSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\System.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="Src\Xbox360Controller.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\Game.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\AISystem.cpp">
+      <Filter>src\System</Filter>
     </ClCompile>
     <ClCompile Include="Src\ControlSystem.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>src\System</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\HealthSystem.cpp">
+      <Filter>src\System</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\RenderSystem.cpp">
+      <Filter>src\System</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\ControlComponent.cpp">
+      <Filter>src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\HealthComponent.cpp">
+      <Filter>src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\PositionComponent.cpp">
+      <Filter>src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\RenderComponent.cpp">
+      <Filter>src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\System.cpp">
+      <Filter>src\System</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\Command.cpp">
+      <Filter>src\Command</Filter>
     </ClCompile>
     <ClCompile Include="SRC\ButtonComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\TrapComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\ButtonSystem.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>src\Component</Filter>
     </ClCompile>
     <ClCompile Include="SRC\DoorComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\TrapComponent.cpp">
+      <Filter>src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\ButtonSystem.cpp">
+      <Filter>src\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="INCLUDE\AISystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\Component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\ControlSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="INCLUDE\Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\HealthComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\HealthSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\PositionComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\RenderComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\RenderSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\System.h">
-      <Filter>Header Files</Filter>
+      <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="Include\cute_c2.h">
-      <Filter>Header Files</Filter>
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\Game.h">
+      <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="Include\Xbox360Controller.h">
-      <Filter>Header Files</Filter>
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\Component.h">
+      <Filter>headers\Component</Filter>
     </ClInclude>
     <ClInclude Include="Include\ComponentsEnum.h">
-      <Filter>Header Files</Filter>
+      <Filter>headers\Component</Filter>
     </ClInclude>
-    <ClInclude Include="INCLUDE\MoveCommand.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="INCLUDE\ControlComponent.h">
+      <Filter>headers\Component</Filter>
     </ClInclude>
-    <ClInclude Include="INCLUDE\ButtonComponent.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="INCLUDE\HealthComponent.h">
+      <Filter>headers\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\PositionComponent.h">
+      <Filter>headers\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\RenderComponent.h">
+      <Filter>headers\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\AISystem.h">
+      <Filter>headers\System</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\ControlSystem.h">
+      <Filter>headers\System</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\HealthSystem.h">
+      <Filter>headers\System</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\RenderSystem.h">
+      <Filter>headers\System</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\System.h">
+      <Filter>headers\System</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\Command.h">
+      <Filter>headers\Command</Filter>
     </ClInclude>
     <ClInclude Include="INCLUDE\TrapComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\ButtonSystem.h">
-      <Filter>Header Files</Filter>
+      <Filter>headers\Component</Filter>
     </ClInclude>
     <ClInclude Include="INCLUDE\DoorComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>headers\Component</Filter>
     </ClInclude>
+    <ClInclude Include="INCLUDE\ButtonComponent.h">
+      <Filter>headers\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\MoveCommand.h">
+      <Filter>headers\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\ButtonSystem.h">
+      <Filter>headers\System</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="headers">
+      <UniqueIdentifier>{4a1ab256-a1e1-4752-ac99-79df05d00c14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{1608d136-2a2d-402b-bf36-0ba02f54e3b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\Component">
+      <UniqueIdentifier>{be2d88b8-2245-4216-9503-3e096c7e9d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\System">
+      <UniqueIdentifier>{7d601e85-141c-4181-82e5-13b6233c6129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Component">
+      <UniqueIdentifier>{32ff105c-2bd4-4934-8b57-9f9d4bd20565}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\System">
+      <UniqueIdentifier>{b5fc75ee-5d6a-4db2-81a3-d6f85b1d2952}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\Command">
+      <UniqueIdentifier>{231cf7f3-d1e4-434d-8050-a48bc15eb080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Command">
+      <UniqueIdentifier>{b28185a3-eb06-4285-a467-5ff64cc0bc18}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
