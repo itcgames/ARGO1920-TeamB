@@ -8,9 +8,9 @@
 #include "ControlSystem.h"
 #include "AISystem.h"
 #include "RenderSystem.h"
+#include "ComponentsEnum.h"
 
 #include <cute_c2.h>
-
 
 class Game
 {

@@ -132,8 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="SRC\AISystem.cpp" />
-    <ClCompile Include="SRC\ControlComponent.cpp" />
-    <ClCompile Include="SRC\ControlSystem.cpp" />
+    <ClCompile Include="Src\ControlSystem.cpp" />
     <ClCompile Include="SRC\Game.cpp" />
     <ClCompile Include="SRC\HealthComponent.cpp" />
     <ClCompile Include="SRC\HealthSystem.cpp" />
@@ -145,10 +144,10 @@
     <ClCompile Include="Src\Xbox360Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\ComponentsEnum.h" />
     <ClInclude Include="Include\cute_c2.h" />
     <ClInclude Include="INCLUDE\AISystem.h" />
     <ClInclude Include="INCLUDE\Component.h" />
-    <ClInclude Include="INCLUDE\ControlComponent.h" />
     <ClInclude Include="INCLUDE\ControlSystem.h" />
     <ClInclude Include="INCLUDE\Entity.h" />
     <ClInclude Include="INCLUDE\Game.h" />
