@@ -59,7 +59,12 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
     // We start at the bottom most layer, and work our way up with this
     // outer for-loop.
     auto& map_layers = tiled_map.getLayers();
-    for (auto& layer : map_layers) {
+    for (auto& layer : map_layers) 
+	{
+		if (layer->getType() == tmx::Layer::Type::Object)
+		{
+
+		}
         // We're only looking to render the tiles on the map, so if
         // this layer isn't a tile layer, we'll move on.
         if (layer->getType() != tmx::Layer::Type::Tile) {

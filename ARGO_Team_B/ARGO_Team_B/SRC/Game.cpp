@@ -85,7 +85,7 @@ Game::Game()
 	m_renderSystem.addEntity(m_dog);
 	m_renderSystem.addEntity(m_cat);
 
-	const auto MAP_PATH = "Assets/map/test1.tmx";
+	const auto MAP_PATH = "Assets/map/test.tmx";
 	tiled_map_level = new Level("Test");
 	tiled_map_level->load(MAP_PATH, p_renderer);
 }
