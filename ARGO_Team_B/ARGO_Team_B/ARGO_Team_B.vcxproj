@@ -83,7 +83,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(SDL_SDK)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SDL_SDK)/lib;%(AdditionalLibraryDirectories).\DLLs;</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -132,6 +132,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="SRC\AISystem.cpp" />
+    <ClCompile Include="SRC\Command.cpp" />
+    <ClCompile Include="SRC\ControlComponent.cpp" />
     <ClCompile Include="Src\ControlSystem.cpp" />
     <ClCompile Include="SRC\Game.cpp" />
     <ClCompile Include="SRC\HealthComponent.cpp" />
@@ -144,7 +146,9 @@
     <ClCompile Include="Src\Xbox360Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="INCLUDE\Command.h" />
     <ClInclude Include="Include\ComponentsEnum.h" />
+    <ClInclude Include="INCLUDE\ControlComponent.h" />
     <ClInclude Include="Include\cute_c2.h" />
     <ClInclude Include="INCLUDE\AISystem.h" />
     <ClInclude Include="INCLUDE\Component.h" />
