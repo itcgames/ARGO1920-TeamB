@@ -7,7 +7,7 @@
 #include "ControlSystem.h"
 #include "AISystem.h"
 #include "RenderSystem.h"
-
+#include "Level.h"
 class Game
 {
 public:
@@ -35,4 +35,5 @@ private:
 	ControlSystem m_controlSystem;
 	AISystem m_aiSystem;
 	RenderSystem m_renderSystem;
+	Level* tiled_map_level;
 };

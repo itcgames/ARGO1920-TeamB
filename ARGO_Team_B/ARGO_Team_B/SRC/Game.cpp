@@ -13,7 +13,7 @@ Game::Game()
 	}
 
 	// Create a Window
-	p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1080, 720, SDL_WINDOW_SHOWN);
+	p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1920, 1080, SDL_WINDOW_SHOWN);
 	if (NULL == p_window)
 	{
 		std::cout << "Error: Could not create window" << std::endl;
@@ -77,6 +77,10 @@ Game::Game()
 	m_renderSystem.addEntity(m_alien);
 	m_renderSystem.addEntity(m_dog);
 	m_renderSystem.addEntity(m_cat);
+
+	const auto MAP_PATH = "Assets/map/test1.tmx";
+	tiled_map_level = new Level("Test");
+	tiled_map_level->load(MAP_PATH, p_renderer);
 }
 
 /// <summary>
@@ -156,6 +160,7 @@ void Game::update(float dt)
 void Game::render()
 {
 	SDL_RenderClear(p_renderer);
+	tiled_map_level->draw(p_renderer);
 	m_renderSystem.draw();
 	SDL_RenderPresent(p_renderer);
 }

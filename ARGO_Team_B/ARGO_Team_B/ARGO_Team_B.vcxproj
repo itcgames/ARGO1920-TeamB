@@ -69,7 +69,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(IncludePath);TMX_Lite\include;$(ProjectDir);</IncludePath>
+    <LibraryPath>TMX_Lite\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -82,7 +85,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SDL_SDK)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;tmxlite.lib;libtmxlite-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -130,11 +133,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="SRC\AISystem.cpp" />
+    <ClCompile Include="SRC\Assets.cpp" />
     <ClCompile Include="SRC\ControlComponent.cpp" />
     <ClCompile Include="SRC\ControlSystem.cpp" />
     <ClCompile Include="SRC\Game.cpp" />
     <ClCompile Include="SRC\HealthComponent.cpp" />
     <ClCompile Include="SRC\HealthSystem.cpp" />
+    <ClCompile Include="SRC\Level.cpp" />
     <ClCompile Include="SRC\main.cpp" />
     <ClCompile Include="SRC\PositionComponent.cpp" />
     <ClCompile Include="SRC\RenderComponent.cpp" />
@@ -144,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INCLUDE\AISystem.h" />
+    <ClInclude Include="INCLUDE\Assets.h" />
     <ClInclude Include="INCLUDE\Component.h" />
     <ClInclude Include="INCLUDE\ControlComponent.h" />
     <ClInclude Include="INCLUDE\ControlSystem.h" />
@@ -151,6 +157,7 @@
     <ClInclude Include="INCLUDE\Game.h" />
     <ClInclude Include="INCLUDE\HealthComponent.h" />
     <ClInclude Include="INCLUDE\HealthSystem.h" />
+    <ClInclude Include="INCLUDE\Level.h" />
     <ClInclude Include="INCLUDE\PositionComponent.h" />
     <ClInclude Include="INCLUDE\RenderComponent.h" />
     <ClInclude Include="INCLUDE\RenderSystem.h" />
