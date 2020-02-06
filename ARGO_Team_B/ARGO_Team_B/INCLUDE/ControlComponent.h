@@ -2,13 +2,14 @@
 #define CONTROL_COMPONENT_H
 
 #include "Component.h"
+#include "Entity.h"
 #include "PositionComponent.h"
 #include "xbox360Controller.h"
 class ControlComponent : public Component
 {
 public:
 	static int s_controlID;
-	ControlComponent();
+	ControlComponent(Entity & t_gameObject);
 	~ControlComponent();
 
 	void handleInput(Component* t_position);

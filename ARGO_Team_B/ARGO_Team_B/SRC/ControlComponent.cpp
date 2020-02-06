@@ -1,6 +1,6 @@
 #include "../INCLUDE/ControlComponent.h"
 
-ControlComponent::ControlComponent()
+ControlComponent::ControlComponent(Entity & t_gameObject)
 {
 	m_compNum = s_controlID++;
 	m_controller = new Xbox360Controller(m_compNum);
