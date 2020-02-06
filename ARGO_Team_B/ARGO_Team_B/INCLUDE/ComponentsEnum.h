@@ -5,8 +5,9 @@ enum class Components {
 	Health,
 	Position,
 	Render,
+	Button,
+	Traps,
 	Controller
 };
 
 #endif // !COMPONENTENUM_H
-

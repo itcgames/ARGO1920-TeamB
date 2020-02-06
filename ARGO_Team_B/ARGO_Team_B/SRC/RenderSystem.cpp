@@ -33,7 +33,12 @@ void RenderSystem::draw()
 					{
 						for (Component* c3 : e.getComponents())
 						{
-							HealthComponent* healthComp = dynamic_cast<HealthComponent*>(c3);	
+							HealthComponent* healthComp = dynamic_cast<HealthComponent*>(c3);
+
+							TrapComponent* trapComp = dynamic_cast<TrapComponent*>(c3);
+
+							ButtonComponent* btnComp = dynamic_cast<ButtonComponent*>(c3);
+
 							if (healthComp != nullptr)
 							{
 								if (healthComp->getAlive() == true)
@@ -41,6 +46,17 @@ void RenderSystem::draw()
 									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
 								}
 							}
+							else if (trapComp != nullptr){
+								if (trapComp->getAlive()) {
+									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
+								}
+							}
+							else if (btnComp != nullptr) {
+								if (btnComp->getAlive()) {
+									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
+								}
+							}
+
 						}		
 					}
 				}

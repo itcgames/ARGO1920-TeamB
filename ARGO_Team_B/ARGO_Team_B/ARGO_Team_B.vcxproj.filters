@@ -40,6 +40,24 @@
     <ClCompile Include="SRC\Command.cpp">
       <Filter>src\Command</Filter>
     </ClCompile>
+    <ClCompile Include="SRC\ButtonComponent.cpp">
+      <Filter>src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\DoorComponent.cpp">
+      <Filter>src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\TrapComponent.cpp">
+      <Filter>src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\ButtonSystem.cpp">
+      <Filter>src\System</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\Assets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\Level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INCLUDE\Entity.h">
@@ -89,6 +107,27 @@
     </ClInclude>
     <ClInclude Include="INCLUDE\Command.h">
       <Filter>headers\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\TrapComponent.h">
+      <Filter>headers\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\DoorComponent.h">
+      <Filter>headers\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\ButtonComponent.h">
+      <Filter>headers\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\MoveCommand.h">
+      <Filter>headers\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\Assets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\Level.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\ButtonSystem.h">
+      <Filter>headers\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

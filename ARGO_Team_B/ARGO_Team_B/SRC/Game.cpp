@@ -14,7 +14,7 @@ Game::Game()
 	m_user_circle.p = { 100, 100 };
 	m_user_circle.r = 42;
 
-
+	
 	// Initialise SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
@@ -22,7 +22,7 @@ Game::Game()
 	}
 
 	// Create a Window
-	p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1080, 720, SDL_WINDOW_SHOWN);
+	p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1920, 1080, SDL_WINDOW_SHOWN);
 	if (NULL == p_window)
 	{
 		std::cout << "Error: Could not create window" << std::endl;
@@ -70,6 +70,33 @@ Game::Game()
 	m_cat.addComponent(new ControlComponent(m_cat), Components::Controller);
 	m_cat.addComponent(new RenderComponent("Assets\\cat.png", 100, 100, p_renderer), Components::Render);
 
+	/*button test*/
+	//Button 1
+	m_button.addComponent(new ButtonComponent(true, 1), Components::Button);
+	m_button.addComponent(new PositionComponent(50, 50), Components::Position);
+	m_button.addComponent(new RenderComponent("Assets\\Button.png", 50, 50, p_renderer), Components::Render);
+
+	//Button 2
+	m_button2.addComponent(new ButtonComponent(false, 2), Components::Button);
+	m_button2.addComponent(new PositionComponent(150, 50), Components::Position);
+	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 50, 50, p_renderer), Components::Render);
+
+	//Trap 1
+	m_spike.addComponent(new TrapComponent(false, 1), Components::Traps);
+	m_spike.addComponent(new PositionComponent(600,600), Components::Position);
+	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Components::Render);
+
+	//Trap 1
+	m_spike.addComponent(new TrapComponent(false, 1), Components::Traps);
+	m_spike.addComponent(new PositionComponent(700, 600), Components::Position);
+	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Components::Render);
+
+	//Trap 3
+	m_spike3.addComponent(new TrapComponent(false, 2), Components::Traps);
+	m_spike3.addComponent(new PositionComponent(800, 600), Components::Position);
+	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Components::Render);
+
+
 	// Systems
 	//HEALTH All entities
 	m_healthSystem.addEntity(m_player);
@@ -88,6 +115,28 @@ Game::Game()
 	m_renderSystem.addEntity(m_alien);
 	m_renderSystem.addEntity(m_dog);
 	m_renderSystem.addEntity(m_cat);
+
+	const auto MAP_PATH = "Assets/map/test.tmx";
+	tiled_map_level = new Level("Test");
+	tiled_map_level->load(MAP_PATH, p_renderer);
+
+	//m_renderSystem.addEntity(m_alien);
+	//m_renderSystem.addEntity(m_dog);
+	//m_renderSystem.addEntity(m_cat);
+
+	m_renderSystem.addEntity(m_button);
+	m_renderSystem.addEntity(m_button2);
+	m_renderSystem.addEntity(m_spike);
+	m_renderSystem.addEntity(m_spike2);
+	m_renderSystem.addEntity(m_spike3);
+
+	//Connect button entity and trap entity
+	m_trapSystem.addEntity(m_button);
+	m_trapSystem.addEntity(m_button2);
+	m_trapSystem.addEntity(m_spike);
+	m_trapSystem.addEntity(m_spike2);
+	m_trapSystem.addEntity(m_spike3);
+
 }
 
 /// <summary>
@@ -138,6 +187,7 @@ void Game::processEvents()
 		switch (event.type)
 		{
 		case SDL_KEYDOWN:
+			//m_controlSystem.handleInput(event.key.keysym.sym);
 			break;
 		case SDL_QUIT:
 			m_quit = true;
@@ -164,6 +214,9 @@ void Game::update(float dt)
 	m_healthSystem.update();
 	m_aiSystem.update();
 
+	//m_controlSystem.handleInput();
+	m_trapSystem.setTrapStates();
+
 	m_controlSystem.update();
 }
 
@@ -174,6 +227,7 @@ void Game::update(float dt)
 void Game::render()
 {
 	SDL_RenderClear(p_renderer);
+	tiled_map_level->draw(p_renderer);
 	m_renderSystem.draw();
 	SDL_RenderPresent(p_renderer);
 }

@@ -1,4 +1,4 @@
-#include "../INCLUDE/ControlComponent.h"
+#include "ControlComponent.h"
 
 ControlComponent::ControlComponent(Entity & t_gameObject):
 	m_entity(t_gameObject)

@@ -8,9 +8,14 @@
 #include "ControlSystem.h"
 #include "AISystem.h"
 #include "RenderSystem.h"
+#include "Level.h"
+#include "ButtonSystem.h"
 #include "ComponentsEnum.h"
+#include "TrapComponent.h"
+#include "ButtonComponent.h"
 
 #include <cute_c2.h>
+
 
 class Game
 {
@@ -35,11 +40,20 @@ private:
 	Entity m_alien;
 	Entity m_dog;
 	Entity m_cat;
+	
+	Entity m_button;
+	Entity m_button2;
+
+	Entity m_spike;
+	Entity m_spike2;
+	Entity m_spike3;
 
 	// Systems
 	HealthSystem m_healthSystem;
 	ControlSystem m_controlSystem;
 	AISystem m_aiSystem;
 	RenderSystem m_renderSystem;
+	Level* tiled_map_level;
+	ButtonSystem m_trapSystem;
 };
 #endif // !GAME

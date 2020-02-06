@@ -5,8 +5,9 @@
 #include "Command.h"
 
 #include "PositionComponent.h"
-#include "xbox360Controller.h"
+#include "Xbox360Controller.h"
 #include "Entity.h"
+
 class ControlComponent : public Component
 {
 public:

@@ -7,6 +7,8 @@
 #include"Entity.h"
 #include"PositionComponent.h"
 #include "HealthComponent.h"
+#include "TrapComponent.h"
+#include "ButtonComponent.h"
 
 class RenderSystem : public System {
 public:
