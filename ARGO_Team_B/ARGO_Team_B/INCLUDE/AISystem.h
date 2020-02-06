@@ -1,4 +1,5 @@
-#pragma once
+#ifndef AI_SYSTEM
+#define AI_SYSTEM
 
 #include <SDL.h>
 #include "System.h"
@@ -12,3 +13,5 @@ public:
 	void updateComponent(Component* component) override;
 private:
 };
+
+#endif // !AI_SYSTEM

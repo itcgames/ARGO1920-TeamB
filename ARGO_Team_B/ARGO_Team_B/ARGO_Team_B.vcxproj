@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(IncludePath);TMX_Lite\include;$(ProjectDir);</IncludePath>
+    <IncludePath>$(IncludePath);TMX_Lite\include;$(ProjectDir);$(ProjectDir)\Include;$(IncludePath)</IncludePath>
     <LibraryPath>TMX_Lite\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -134,8 +134,7 @@
   <ItemGroup>
     <ClCompile Include="SRC\AISystem.cpp" />
     <ClCompile Include="SRC\Assets.cpp" />
-    <ClCompile Include="SRC\ControlComponent.cpp" />
-    <ClCompile Include="SRC\ControlSystem.cpp" />
+    <ClCompile Include="Src\ControlSystem.cpp" />
     <ClCompile Include="SRC\Game.cpp" />
     <ClCompile Include="SRC\HealthComponent.cpp" />
     <ClCompile Include="SRC\HealthSystem.cpp" />
@@ -145,13 +144,14 @@
     <ClCompile Include="SRC\RenderComponent.cpp" />
     <ClCompile Include="SRC\RenderSystem.cpp" />
     <ClCompile Include="SRC\System.cpp" />
-    <ClCompile Include="SRC\xbox360Controller.cpp" />
+    <ClCompile Include="Src\Xbox360Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\ComponentsEnum.h" />
+    <ClInclude Include="Include\cute_c2.h" />
     <ClInclude Include="INCLUDE\AISystem.h" />
     <ClInclude Include="INCLUDE\Assets.h" />
     <ClInclude Include="INCLUDE\Component.h" />
-    <ClInclude Include="INCLUDE\ControlComponent.h" />
     <ClInclude Include="INCLUDE\ControlSystem.h" />
     <ClInclude Include="INCLUDE\Entity.h" />
     <ClInclude Include="INCLUDE\Game.h" />
@@ -162,7 +162,7 @@
     <ClInclude Include="INCLUDE\RenderComponent.h" />
     <ClInclude Include="INCLUDE\RenderSystem.h" />
     <ClInclude Include="INCLUDE\System.h" />
-    <ClInclude Include="INCLUDE\xbox360Controller.h" />
+    <ClInclude Include="Include\Xbox360Controller.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,4 @@
-#include "../INCLUDE/HealthSystem.h"
+#include "HealthSystem.h"
 
 HealthSystem::HealthSystem() {}
 
