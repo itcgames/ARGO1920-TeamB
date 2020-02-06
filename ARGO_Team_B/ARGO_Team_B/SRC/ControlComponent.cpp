@@ -1,6 +1,7 @@
 #include "../INCLUDE/ControlComponent.h"
 
-ControlComponent::ControlComponent(Entity & t_gameObject)
+ControlComponent::ControlComponent(Entity & t_gameObject):
+	m_entity(t_gameObject)
 {
 	m_compNum = s_controlID++;
 	m_controller = new Xbox360Controller(m_compNum);
@@ -10,9 +11,9 @@ ControlComponent::~ControlComponent()
 {
 }
 
-void ControlComponent::handleInput(Component* t_position)
+void ControlComponent::handleInput()
 {
-	PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_position);
+	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Components::Position));
 	if (posComp != nullptr)
 	{
 		m_controller->checkButton();
@@ -34,6 +35,11 @@ void ControlComponent::handleInput(Component* t_position)
 			posComp->moveDown();
 
 		}
+		
+		m_controller->m_currentState.DpadUp = false;
+		m_controller->m_currentState.DpadDown= false;
+		m_controller->m_currentState.DpadLeft = false;
+		m_controller->m_currentState.DpadRight = false;
 	}
 }
 

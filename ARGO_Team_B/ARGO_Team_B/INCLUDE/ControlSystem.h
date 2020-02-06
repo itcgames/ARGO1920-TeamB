@@ -1,5 +1,5 @@
-#ifndef CONTROL_SYSTEM_H
-#define CONTROL_SYSTEM_H
+#ifndef CONTROL_SYSTEM
+#define CONTROL_SYSTEM
 
 #include <SDL.h>
 #include <iostream>
@@ -27,6 +27,6 @@ public:
 	void handleInput(SDL_Keycode key);
 
 	int contNum= 0;
+	int i = 0;
 };
-
-#endif // !CONTROL_SYSTEM_H
+#endif // !CONTROL_SYSTEM

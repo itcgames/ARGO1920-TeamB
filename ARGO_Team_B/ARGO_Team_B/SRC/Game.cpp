@@ -1,4 +1,6 @@
-#include "../INCLUDE/Game.h"
+#include "Game.h"
+
+
 
 
 
@@ -6,8 +8,13 @@
 /// Game()
 /// Main Game constructor used to initialise SDL, create a window and initialise SDL_IMG
 /// </summary>
-Game::Game()
+Game::Game() 
 {
+
+	m_user_circle.p = { 100, 100 };
+	m_user_circle.r = 42;
+
+
 	// Initialise SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
@@ -40,28 +47,28 @@ Game::Game()
 	// Extra info for systems
 
 	// Player
-	m_player.addComponent(new HealthComponent(100));
-	m_player.addComponent(new PositionComponent(100, 100));
-	m_player.addComponent(new RenderComponent("Assets\\Player.png", 100, 100, p_renderer));
-	m_player.addComponent(new ControlComponent);
+	m_player.addComponent(new HealthComponent(100), Components::Health);
+	m_player.addComponent(new PositionComponent(100, 100), Components::Position);
+	m_player.addComponent(new RenderComponent("Assets\\Player.png", 100, 100, p_renderer), Components::Render);
+	m_player.addComponent(new ControlComponent(m_player), Components::Controller);
 
 	// Alien
-	m_alien.addComponent(new HealthComponent(150));
-	m_alien.addComponent(new PositionComponent(200, 200));
-	m_alien.addComponent(new RenderComponent("Assets\\Alien.png", 100, 100, p_renderer));
-	m_alien.addComponent(new ControlComponent);
+	m_alien.addComponent(new HealthComponent(150), Components::Health);
+	m_alien.addComponent(new PositionComponent(200, 200), Components::Position);
+	m_alien.addComponent(new RenderComponent("Assets\\Alien.png", 100, 100, p_renderer), Components::Render);
+	m_alien.addComponent(new ControlComponent(m_alien), Components::Controller);
 
 	// Dog
-	m_dog.addComponent(new HealthComponent(75));
-	m_dog.addComponent(new PositionComponent(300, 300));
-	m_dog.addComponent(new RenderComponent("Assets\\dog.png", 100, 100, p_renderer));
-	m_dog.addComponent(new ControlComponent);
+	m_dog.addComponent(new HealthComponent(75), Components::Health);
+	m_dog.addComponent(new PositionComponent(300, 300), Components::Position);
+	m_dog.addComponent(new RenderComponent("Assets\\dog.png", 100, 100, p_renderer), Components::Render);
+	m_dog.addComponent(new ControlComponent(m_dog), Components::Controller);
 
 	// Cat
-	m_cat.addComponent(new HealthComponent(50));
-	m_cat.addComponent(new PositionComponent(400, 400));
-	m_cat.addComponent(new ControlComponent);
-	m_dog.addComponent(new RenderComponent("Assets\\cat.png", 100, 100, p_renderer));
+	m_cat.addComponent(new HealthComponent(50), Components::Health);
+	m_cat.addComponent(new PositionComponent(400, 400), Components::Position);
+	m_cat.addComponent(new ControlComponent(m_cat), Components::Controller);
+	m_cat.addComponent(new RenderComponent("Assets\\cat.png", 100, 100, p_renderer), Components::Render);
 
 	// Systems
 	//HEALTH All entities
@@ -146,6 +153,14 @@ void Game::processEvents()
 /// <param name="dt">The time that has passed since the last update call in seconds</param>
 void Game::update(float dt)
 {
+	PositionComponent* c = static_cast<PositionComponent*>(m_player.getComponent(Components::Position));
+	std::cout << c->getPositionX() << std::endl;
+	std::cout <<  c->getPositionY() << std::endl;
+
+
+	//if (c2CircletoCircle(user_circle, user_circle)) {
+	//	std::cout << " circle to circle" << std::endl;
+	//}
 	m_healthSystem.update();
 	m_aiSystem.update();
 

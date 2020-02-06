@@ -1,4 +1,4 @@
-#include "../INCLUDE/AISystem.h"
+#include "AISystem.h"
 
 AISystem::AISystem() {}
 

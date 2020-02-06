@@ -1,4 +1,4 @@
-#include "../INCLUDE/RenderComponent.h"
+#include "RenderComponent.h"
 #include<iostream>
 
 RenderComponent::RenderComponent(const char* name, int width, int height, SDL_Renderer* renderer)

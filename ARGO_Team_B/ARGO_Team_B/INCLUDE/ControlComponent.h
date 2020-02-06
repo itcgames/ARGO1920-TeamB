@@ -2,9 +2,9 @@
 #define CONTROL_COMPONENT_H
 
 #include "Component.h"
-#include "Entity.h"
 #include "PositionComponent.h"
 #include "xbox360Controller.h"
+#include "Entity.h"
 class ControlComponent : public Component
 {
 public:
@@ -12,11 +12,12 @@ public:
 	ControlComponent(Entity & t_gameObject);
 	~ControlComponent();
 
-	void handleInput(Component* t_position);
+	void handleInput();
 private:
 	int m_compNum;
 
 	Xbox360Controller* m_controller;
+	Entity& m_entity;
 
 };
 

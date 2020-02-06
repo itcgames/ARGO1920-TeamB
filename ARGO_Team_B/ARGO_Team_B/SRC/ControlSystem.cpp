@@ -1,4 +1,4 @@
-#include "../INCLUDE/ControlSystem.h"
+#include "ControlSystem.h"
 
 ControlSystem::ControlSystem() {
 		Xbox360Controller * controller= new Xbox360Controller(0);
@@ -11,10 +11,10 @@ void ControlSystem::updateComponent(Component* c)
 {
 	for (Entity& e : entities)
 	{
-		for (Component* c : e.getComponents())
-		{
+		ControlComponent* cont = dynamic_cast<ControlComponent*>(e.getComponent(Components::Controller));
 
-		}
+		cont->handleInput();
+
 	}
 }
 
