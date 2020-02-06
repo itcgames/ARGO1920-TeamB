@@ -1,4 +1,6 @@
-#pragma once
+#ifndef RENDER_SYSTEM
+#define RENDER_SYSTEM
+
 #include<iostream>
 #include"System.h"
 #include"RenderComponent.h"
@@ -17,3 +19,4 @@ public:
 	void draw();
 private:
 };
+#endif // !RENDER_SYSTEM

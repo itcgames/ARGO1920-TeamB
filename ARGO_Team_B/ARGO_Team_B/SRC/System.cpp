@@ -1,4 +1,4 @@
-#include "../INCLUDE/System.h"
+#include "System.h"
 
 System::System()
 {

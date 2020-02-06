@@ -1,4 +1,4 @@
-#include "../INCLUDE/DoorComponent.h"
+#include "DoorComponent.h"
 
 DoorComponent::DoorComponent(int id) {
 	m_id = id;

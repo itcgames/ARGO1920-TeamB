@@ -1,4 +1,4 @@
-#include "../INCLUDE/ButtonComponent.h"
+#include "ButtonComponent.h"
 
 ButtonComponent::ButtonComponent(bool init, int id) {
 	m_acitve = init;

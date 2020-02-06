@@ -1,4 +1,4 @@
-#include "../INCLUDE/PositionComponent.h"
+#include "PositionComponent.h"
 
 PositionComponent::PositionComponent(int t_x, int t_y) :
 	m_currentX(t_x),

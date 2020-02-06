@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CONTROL_SYSTEM
+#define CONTROL_SYSTEM
+
 #include <SDL.h>
 #include <iostream>
 #include "System.h"
@@ -15,6 +17,8 @@ public:
 	~ControlSystem();
 	void updateComponent(Component* component) override;
 	void handleInput();
+	void handleInput(SDL_Keycode key);
 
 	int i = 0;
 };
+#endif // !CONTROL_SYSTEM

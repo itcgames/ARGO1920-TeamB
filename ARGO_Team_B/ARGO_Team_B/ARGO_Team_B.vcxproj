@@ -69,7 +69,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(ProjectDir)\Include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -131,9 +133,8 @@
   <ItemGroup>
     <ClCompile Include="SRC\AISystem.cpp" />
     <ClCompile Include="SRC\ButtonComponent.cpp" />
-    <ClCompile Include="SRC\ControlComponent.cpp" />
-    <ClCompile Include="SRC\ControlSystem.cpp" />
     <ClCompile Include="SRC\DoorComponent.cpp" />
+    <ClCompile Include="Src\ControlSystem.cpp" />
     <ClCompile Include="SRC\Game.cpp" />
     <ClCompile Include="SRC\HealthComponent.cpp" />
     <ClCompile Include="SRC\HealthSystem.cpp" />
@@ -144,13 +145,14 @@
     <ClCompile Include="SRC\System.cpp" />
     <ClCompile Include="SRC\TrapComponent.cpp" />
     <ClCompile Include="SRC\ButtonSystem.cpp" />
-    <ClCompile Include="SRC\xbox360Controller.cpp" />
+    <ClCompile Include="Src\Xbox360Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\ComponentsEnum.h" />
+    <ClInclude Include="Include\cute_c2.h" />
     <ClInclude Include="INCLUDE\AISystem.h" />
     <ClInclude Include="INCLUDE\ButtonComponent.h" />
     <ClInclude Include="INCLUDE\Component.h" />
-    <ClInclude Include="INCLUDE\ControlComponent.h" />
     <ClInclude Include="INCLUDE\ControlSystem.h" />
     <ClInclude Include="INCLUDE\DoorComponent.h" />
     <ClInclude Include="INCLUDE\Entity.h" />
@@ -164,7 +166,7 @@
     <ClInclude Include="INCLUDE\System.h" />
     <ClInclude Include="INCLUDE\TrapComponent.h" />
     <ClInclude Include="INCLUDE\ButtonSystem.h" />
-    <ClInclude Include="INCLUDE\xbox360Controller.h" />
+    <ClInclude Include="Include\Xbox360Controller.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

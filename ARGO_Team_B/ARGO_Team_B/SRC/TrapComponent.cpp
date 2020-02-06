@@ -1,4 +1,4 @@
-#include "..//INCLUDE/TrapComponent.h"
+#include "TrapComponent.h"
 
 TrapComponent::TrapComponent(bool init, int id) {
 	m_alive = init;

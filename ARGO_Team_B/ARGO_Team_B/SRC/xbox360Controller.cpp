@@ -1,4 +1,4 @@
-#include "../INCLUDE/xbox360Controller.h"
+#include "xbox360Controller.h"
 
 Xbox360Controller::Xbox360Controller(int currentControll) :
 	m_jotstick_index(currentControll)
@@ -17,7 +17,7 @@ bool Xbox360Controller::connect() {
 }
 
 bool Xbox360Controller::isConnected() {
-	std::cout << SDL_IsGameController(m_jotstick_index) << " controller: "<< m_jotstick_index << std::endl;
+	// std::cout << SDL_IsGameController(m_jotstick_index) << " controller: "<< m_jotstick_index << std::endl;
 	if (SDL_IsGameController(m_jotstick_index)) {
 		return true;
 	}

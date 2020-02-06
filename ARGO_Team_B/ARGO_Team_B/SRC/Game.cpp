@@ -1,11 +1,18 @@
-#include "../INCLUDE/Game.h"
+#include "Game.h"
+
+
 
 /// <summary>
 /// Game()
 /// Main Game constructor used to initialise SDL, create a window and initialise SDL_IMG
 /// </summary>
-Game::Game()
+Game::Game() 
 {
+
+	m_user_circle.p = { 100, 100 };
+	m_user_circle.r = 42;
+
+
 	// Initialise SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
@@ -38,50 +45,50 @@ Game::Game()
 	// Extra info for systems
 
 	// Player
-	m_player.addComponent(new HealthComponent(100));
-	m_player.addComponent(new PositionComponent(100, 100));
-	m_player.addComponent(new RenderComponent("Assets\\Player.png", 100, 100, p_renderer));
+	m_player.addComponent(new HealthComponent(100), Components::Health);
+	m_player.addComponent(new PositionComponent(100, 100), Components::Position);
+	m_player.addComponent(new RenderComponent("Assets\\Player.png", 100, 100, p_renderer), Components::Render);
 
 	// Alien
-	m_alien.addComponent(new HealthComponent(150));
-	m_alien.addComponent(new PositionComponent(200, 200));
-	m_alien.addComponent(new RenderComponent("Assets\\Alien.png", 100, 100, p_renderer));
+	m_alien.addComponent(new HealthComponent(150), Components::Health);
+	m_alien.addComponent(new PositionComponent(200, 200), Components::Position);
+	m_alien.addComponent(new RenderComponent("Assets\\Alien.png", 100, 100, p_renderer), Components::Render);
 
 	// Dog
-	m_dog.addComponent(new HealthComponent(75));
-	m_dog.addComponent(new PositionComponent(300, 300));
-	m_dog.addComponent(new RenderComponent("Assets\\dog.png", 100, 100, p_renderer));
+	m_dog.addComponent(new HealthComponent(75), Components::Health);
+	m_dog.addComponent(new PositionComponent(300, 300), Components::Position);
+	m_dog.addComponent(new RenderComponent("Assets\\dog.png", 100, 100, p_renderer), Components::Render);
 
 	// Cat
-	m_cat.addComponent(new HealthComponent(50));
-	m_cat.addComponent(new PositionComponent(400, 400));
-	m_cat.addComponent(new RenderComponent("Assets\\cat.png", 100, 100, p_renderer));
+	m_cat.addComponent(new HealthComponent(50), Components::Health);
+	m_cat.addComponent(new PositionComponent(400, 400), Components::Position);
+	m_cat.addComponent(new RenderComponent("Assets\\cat.png", 100, 100, p_renderer), Components::Render);
 
 	/*button test*/
 	//Button 1
-	m_button.addComponent(new ButtonComponent(true,1));
-	m_button.addComponent(new PositionComponent(50, 50));
-	m_button.addComponent(new RenderComponent("Assets\\Button.png", 50, 50, p_renderer));
+	m_button.addComponent(new ButtonComponent(true, 1), Components::Button);
+	m_button.addComponent(new PositionComponent(50, 50), Components::Position);
+	m_button.addComponent(new RenderComponent("Assets\\Button.png", 50, 50, p_renderer), Components::Render);
 
 	//Button 2
-	m_button2.addComponent(new ButtonComponent(false,2));
-	m_button2.addComponent(new PositionComponent(150, 50));
-	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 50, 50, p_renderer));
+	m_button2.addComponent(new ButtonComponent(false, 2), Components::Button);
+	m_button2.addComponent(new PositionComponent(150, 50), Components::Position);
+	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 50, 50, p_renderer), Components::Render);
 
 	//Trap 1
-	m_spike.addComponent(new TrapComponent(false, 1));
-	m_spike.addComponent(new PositionComponent(600,600));
-	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer));
+	m_spike.addComponent(new TrapComponent(false, 1), Components::Traps);
+	m_spike.addComponent(new PositionComponent(600,600), Components::Position);
+	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Components::Render);
 
-	//Trap 2
-	m_spike2.addComponent(new TrapComponent(true, 0));
-	m_spike2.addComponent(new PositionComponent(700, 600));
-	m_spike2.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer));
+	//Trap 1
+	m_spike.addComponent(new TrapComponent(false, 1), Components::Traps);
+	m_spike.addComponent(new PositionComponent(700, 600), Components::Position);
+	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Components::Render);
 
 	//Trap 3
-	m_spike3.addComponent(new TrapComponent(false, 2));
-	m_spike3.addComponent(new PositionComponent(800, 600));
-	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer));
+	m_spike3.addComponent(new TrapComponent(false, 2), Components::Traps);
+	m_spike3.addComponent(new PositionComponent(800, 600), Components::Position);
+	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Components::Render);
 
 
 	// Systems
@@ -183,6 +190,14 @@ void Game::processEvents()
 /// <param name="dt">The time that has passed since the last update call in seconds</param>
 void Game::update(float dt)
 {
+	PositionComponent* c = static_cast<PositionComponent*>(m_player.getComponent(Components::Position));
+	std::cout << c->getPositionX() << std::endl;
+	std::cout <<  c->getPositionY() << std::endl;
+
+
+	//if (c2CircletoCircle(user_circle, user_circle)) {
+	//	std::cout << " circle to circle" << std::endl;
+	//}
 	m_healthSystem.update();
 	m_aiSystem.update();
 
