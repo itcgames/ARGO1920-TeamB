@@ -52,11 +52,11 @@
     <ClCompile Include="SRC\ButtonSystem.cpp">
       <Filter>src\System</Filter>
     </ClCompile>
-    <ClCompile Include="SRC\Assets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\Level.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="SRC\Assets.cpp" />
+    <ClCompile Include="SRC\Level.cpp" />
+    <ClCompile Include="AnimatedSpriteComponent.cpp" />
+    <ClCompile Include="SRC\AnimatedSpriteComponent.cpp">
+      <Filter>src\Component\FSM</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -120,15 +120,14 @@
     <ClInclude Include="INCLUDE\MoveCommand.h">
       <Filter>headers\Command</Filter>
     </ClInclude>
-    <ClInclude Include="INCLUDE\Assets.h">
-    <ClInclude Include="Include\Xbox360Controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\Level.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="INCLUDE\ButtonSystem.h">
       <Filter>headers\System</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\Assets.h" />
+    <ClInclude Include="INCLUDE\Level.h" />
+    <ClInclude Include="AnimatedSpriteComponent.h" />
+    <ClInclude Include="INCLUDE\AnimatedSpriteComponent.h">
+      <Filter>headers\Component\FSM</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -156,8 +155,11 @@
     <Filter Include="src\Command">
       <UniqueIdentifier>{b28185a3-eb06-4285-a467-5ff64cc0bc18}</UniqueIdentifier>
     </Filter>
-    <ClInclude Include="Include\cute_c2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <Filter Include="headers\Component\FSM">
+      <UniqueIdentifier>{403b66ea-b9c7-4438-829d-17013a96c72a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Component\FSM">
+      <UniqueIdentifier>{9173fd23-5a56-4759-993d-7813e8101bcb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

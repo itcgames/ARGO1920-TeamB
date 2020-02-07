@@ -19,7 +19,7 @@ void ControlComponent::handleInput()
 		m_controller->checkButton();
 		
 
-		if (m_controller->m_currentState.DpadUp || m_controller->m_currentState.LeftThumbStick.y < m_controller->dpadThreshold) {
+		if (m_controller->m_currentState.DpadUp || m_controller->m_currentState.LeftThumbStick.y < m_controller->dpadThreshold ) {
 			p_walkUp = new WalkUpCommand();
 			p_walkUp->execute(m_entity);
 		}

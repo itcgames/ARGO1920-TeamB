@@ -7,7 +7,8 @@ enum class Components {
 	Render,
 	Button,
 	Traps,
-	Controller
+	Controller,
+	AnimatedSprite
 };
 
 #endif // !COMPONENTENUM_H
