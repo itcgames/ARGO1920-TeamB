@@ -77,32 +77,32 @@ Game::Game()
 	//Button 1
 	m_button.addComponent(new ButtonComponent(false, 1), Types::Button);
 	m_button.addComponent(new CollisionComponent(), Types::Collider);
-	m_button.addComponent(new PositionComponent(50, 50), Types::Position);
-	m_button.addComponent(new RenderComponent("Assets\\Button.png", 50, 50, p_renderer), Types::Render);
+	m_button.addComponent(new PositionComponent(600, 50), Types::Position);
+	m_button.addComponent(new RenderComponent("Assets\\Button.png", 30, 30, p_renderer), Types::Render);
 
 	//Button 2
 	m_button2.addComponent(new ButtonComponent(false, 2), Types::Button);
 	m_button2.addComponent(new CollisionComponent(), Types::Collider);
-	m_button2.addComponent(new PositionComponent(150, 50), Types::Position);
-	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 50, 50, p_renderer), Types::Render);
+	m_button2.addComponent(new PositionComponent(150, 650), Types::Position);
+	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 30, 30, p_renderer), Types::Render);
 
 	//Trap 1
 	m_spike.addComponent(new TrapComponent(false, 1), Types::Traps);
 	m_spike.addComponent(new CollisionComponent(), Types::Collider);
-	m_spike.addComponent(new PositionComponent(600,100), Types::Position);
-	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Types::Render);
+	m_spike.addComponent(new PositionComponent(600,600), Types::Position);
+	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, p_renderer), Types::Render);
 
 	//Trap 2
 	m_spike2.addComponent(new TrapComponent(true, 0), Types::Traps);
 	m_spike2.addComponent(new CollisionComponent(), Types::Collider);
 	m_spike2.addComponent(new PositionComponent(700, 100), Types::Position);
-	m_spike2.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Types::Render);
+	m_spike2.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, p_renderer), Types::Render);
 
 	//Trap 3
 	m_spike3.addComponent(new TrapComponent(false, 2), Types::Traps);
 	m_spike3.addComponent(new CollisionComponent(), Types::Collider);
 	m_spike3.addComponent(new PositionComponent(800, 100), Types::Position);
-	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Types::Render);
+	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, p_renderer), Types::Render);
 
 
 	// Systems

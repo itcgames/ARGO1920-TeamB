@@ -6,6 +6,7 @@
 #include "PlayerComponent.h"
 #include "ButtonComponent.h"
 #include "TrapComponent.h"
+#include "HealthComponent.h"
 
 #include <vector>
 using namespace std;
