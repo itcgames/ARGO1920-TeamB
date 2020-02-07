@@ -86,8 +86,8 @@ Game::Game()
 	m_spike.addComponent(new PositionComponent(600,600), Components::Position);
 	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Components::Render);
 
-	//Trap 1
-	m_spike.addComponent(new TrapComponent(false, 1), Components::Traps);
+	//Trap 2
+	m_spike.addComponent(new TrapComponent(false, 0), Components::Traps);
 	m_spike.addComponent(new PositionComponent(700, 600), Components::Position);
 	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Components::Render);
 
