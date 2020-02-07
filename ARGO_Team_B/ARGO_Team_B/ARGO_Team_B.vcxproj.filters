@@ -52,5 +52,7 @@
     <ClInclude Include="Include\CollisionSystem.h" />
     <ClInclude Include="Include\PlayerComponent.h" />
     <ClInclude Include="Include\Globals.h" />
+    <ClInclude Include="INCLUDE\Observer.h" />
+    <ClInclude Include="INCLUDE\Subject.h" />
   </ItemGroup>
 </Project>

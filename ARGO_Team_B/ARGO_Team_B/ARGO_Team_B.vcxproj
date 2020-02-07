@@ -175,10 +175,12 @@
     <ClInclude Include="INCLUDE\HealthSystem.h" />
     <ClInclude Include="INCLUDE\Level.h" />
     <ClInclude Include="INCLUDE\MoveCommand.h" />
+    <ClInclude Include="INCLUDE\Observer.h" />
     <ClInclude Include="Include\PlayerComponent.h" />
     <ClInclude Include="INCLUDE\PositionComponent.h" />
     <ClInclude Include="INCLUDE\RenderComponent.h" />
     <ClInclude Include="INCLUDE\RenderSystem.h" />
+    <ClInclude Include="INCLUDE\Subject.h" />
     <ClInclude Include="INCLUDE\System.h" />
     <ClInclude Include="INCLUDE\TrapComponent.h" />
     <ClInclude Include="INCLUDE\ButtonSystem.h" />
