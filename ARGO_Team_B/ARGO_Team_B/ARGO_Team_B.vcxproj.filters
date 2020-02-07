@@ -121,6 +121,7 @@
       <Filter>headers\Command</Filter>
     </ClInclude>
     <ClInclude Include="INCLUDE\Assets.h">
+    <ClInclude Include="Include\Xbox360Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="INCLUDE\Level.h">
@@ -155,5 +156,8 @@
     <Filter Include="src\Command">
       <UniqueIdentifier>{b28185a3-eb06-4285-a467-5ff64cc0bc18}</UniqueIdentifier>
     </Filter>
+    <ClInclude Include="Include\cute_c2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

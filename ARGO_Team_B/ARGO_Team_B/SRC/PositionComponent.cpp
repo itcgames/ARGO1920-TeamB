@@ -1,6 +1,6 @@
 #include "PositionComponent.h"
 
-PositionComponent::PositionComponent(int t_x, int t_y) :
+PositionComponent::PositionComponent(float t_x, float t_y) :
 	m_currentX(t_x),
 	m_currentY(t_y)
 {
@@ -11,16 +11,16 @@ PositionComponent::~PositionComponent()
 {
 }
 
-int PositionComponent::getPositionX()
+float PositionComponent::getPositionX()
 {
 	return m_currentX;
 }
-int PositionComponent::getPositionY()
+float PositionComponent::getPositionY()
 {
 	return m_currentY;
 }
 
-void PositionComponent::setPosition(int t_x, int t_y)
+void PositionComponent::setPosition(float t_x, float t_y)
 {
 	m_currentX = t_x;
 	m_currentY = t_y;

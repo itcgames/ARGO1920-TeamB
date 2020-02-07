@@ -34,13 +34,14 @@ struct GamePadstate
 class Xbox360Controller {
 private:
 	//deadzone for the dpad
-	const int dpadThreshold = 50;
+
 
 	const int m_joystick_index;
 
 	SDL_GameController* m_controllerHandles;
 
 public:
+	const int dpadThreshold = 15000;
 	// the current state of all the buttons
 	GamePadstate m_currentState;
 
