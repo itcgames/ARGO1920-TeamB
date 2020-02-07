@@ -11,7 +11,7 @@ void ControlSystem::updateComponent(Component* c)
 {
 	for (Entity& e : entities)
 	{
-		ControlComponent* cont = dynamic_cast<ControlComponent*>(e.getComponent(Components::Controller));
+		ControlComponent* cont = dynamic_cast<ControlComponent*>(e.getComponent(Types::Controller));
 
 		if (cont != NULL)
 		{

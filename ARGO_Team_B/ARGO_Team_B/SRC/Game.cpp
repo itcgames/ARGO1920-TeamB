@@ -1,4 +1,3 @@
-#define CUTE_C2_IMPLEMENTATION
 #include "Game.h"
 
 
@@ -6,16 +5,10 @@
 /// Game()
 /// Main Game constructor used to initialise SDL, create a window and initialise SDL_IMG
 /// </summary>
-Game::Game() :
-	m_unchecked{ 0 }
+Game::Game() 
 {
-	m_colliders.first.reserve(4);
-	for (int i = 0; i < m_colliders.first.capacity(); i ++) {
-		m_colliders.first.push_back(c2Circle());
-		m_colliders.first.back().p = { -100, -100 };
-		m_colliders.first.back().r = RAT_H / 2;
-		m_colliders.second.push_back(false);
-	}
+	
+	
 
 	// Initialise SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -49,56 +42,62 @@ Game::Game() :
 	// Extra info for systems
 
 	// Player
-	m_player.addComponent(new HealthComponent(100), Components::Health);
-	m_player.addComponent(new PositionComponent(100, 100), Components::Position);
-	m_player.addComponent(new ControlComponent(m_player), Components::Controller);
-	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Components::Render);
+	m_player.addComponent(new PlayerComponent(1), Types::Player); // This must allways be first added
+	m_player.addComponent(new CollisionComponent(), Types::Collider); 
+	m_player.addComponent(new HealthComponent(100), Types::Health);
+	m_player.addComponent(new PositionComponent(100, 100), Types::Position);
+	m_player.addComponent(new ControlComponent(m_player), Types::Controller);
+	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
 
 	// Alien
-	m_alien.addComponent(new HealthComponent(150), Components::Health);
-	m_alien.addComponent(new PositionComponent(200, 200), Components::Position);
-
-	m_alien.addComponent(new ControlComponent(m_alien), Components::Controller);
-	m_alien.addComponent(new RenderComponent("./Assets/rat2.png", RAT_W, RAT_H, p_renderer), Components::Render);
+	m_alien.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added
+	m_alien.addComponent(new CollisionComponent(), Types::Collider);
+	m_alien.addComponent(new HealthComponent(150), Types::Health);
+	m_alien.addComponent(new PositionComponent(200, 200), Types::Position);
+	m_alien.addComponent(new ControlComponent(m_alien), Types::Controller);
+	m_alien.addComponent(new RenderComponent("./Assets/rat2.png", RAT_W, RAT_H, p_renderer), Types::Render);
 
 	// Dog
-	m_dog.addComponent(new HealthComponent(75), Components::Health);
-	m_dog.addComponent(new PositionComponent(300, 300), Components::Position);
-
-	m_dog.addComponent(new ControlComponent(m_dog), Components::Controller);
-	m_dog.addComponent(new RenderComponent("./Assets/rat3.png", RAT_W, RAT_H, p_renderer), Components::Render);
+	m_dog.addComponent(new PlayerComponent(3), Types::Player); // This must allways be first added
+	m_dog.addComponent(new CollisionComponent(), Types::Collider);
+	m_dog.addComponent(new HealthComponent(75), Types::Health);
+	m_dog.addComponent(new PositionComponent(300, 300), Types::Position);
+	m_dog.addComponent(new ControlComponent(m_dog), Types::Controller);
+	m_dog.addComponent(new RenderComponent("./Assets/rat3.png", RAT_W, RAT_H, p_renderer), Types::Render);
 
 	// Cat
-	m_cat.addComponent(new HealthComponent(50), Components::Health);
-	m_cat.addComponent(new PositionComponent(400, 400), Components::Position);
-	m_cat.addComponent(new ControlComponent(m_cat), Components::Controller);
-	m_cat.addComponent(new RenderComponent("./Assets/rat4.png", RAT_W, RAT_H, p_renderer), Components::Render);
+	m_cat.addComponent(new PlayerComponent(4), Types::Player); // This must allways be first added
+	m_cat.addComponent(new CollisionComponent(), Types::Collider);
+	m_cat.addComponent(new HealthComponent(50), Types::Health);
+	m_cat.addComponent(new PositionComponent(400, 400), Types::Position);
+	m_cat.addComponent(new ControlComponent(m_cat), Types::Controller);
+	m_cat.addComponent(new RenderComponent("./Assets/rat4.png", RAT_W, RAT_H, p_renderer), Types::Render);
 
 	/*button test*/
 	//Button 1
-	m_button.addComponent(new ButtonComponent(true, 1), Components::Button);
-	m_button.addComponent(new PositionComponent(50, 50), Components::Position);
-	m_button.addComponent(new RenderComponent("Assets\\Button.png", 50, 50, p_renderer), Components::Render);
+	m_button.addComponent(new ButtonComponent(true, 1), Types::Button);
+	m_button.addComponent(new PositionComponent(50, 50), Types::Position);
+	m_button.addComponent(new RenderComponent("Assets\\Button.png", 50, 50, p_renderer), Types::Render);
 
 	//Button 2
-	m_button2.addComponent(new ButtonComponent(false, 2), Components::Button);
-	m_button2.addComponent(new PositionComponent(150, 50), Components::Position);
-	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 50, 50, p_renderer), Components::Render);
+	m_button2.addComponent(new ButtonComponent(false, 2), Types::Button);
+	m_button2.addComponent(new PositionComponent(150, 50), Types::Position);
+	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 50, 50, p_renderer), Types::Render);
 
 	//Trap 1
-	m_spike.addComponent(new TrapComponent(false, 1), Components::Traps);
-	m_spike.addComponent(new PositionComponent(600,600), Components::Position);
-	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Components::Render);
+	m_spike.addComponent(new TrapComponent(false, 1), Types::Traps);
+	m_spike.addComponent(new PositionComponent(600,600), Types::Position);
+	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Types::Render);
 
 	//Trap 1
-	m_spike.addComponent(new TrapComponent(false, 1), Components::Traps);
-	m_spike.addComponent(new PositionComponent(700, 600), Components::Position);
-	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Components::Render);
+	m_spike.addComponent(new TrapComponent(false, 1), Types::Traps);
+	m_spike.addComponent(new PositionComponent(700, 600), Types::Position);
+	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Types::Render);
 
 	//Trap 3
-	m_spike3.addComponent(new TrapComponent(false, 2), Components::Traps);
-	m_spike3.addComponent(new PositionComponent(800, 600), Components::Position);
-	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Components::Render);
+	m_spike3.addComponent(new TrapComponent(false, 2), Types::Traps);
+	m_spike3.addComponent(new PositionComponent(800, 600), Types::Position);
+	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Types::Render);
 
 
 	// Systems
@@ -113,6 +112,12 @@ Game::Game() :
 	m_controlSystem.addEntity(m_alien);
 	m_controlSystem.addEntity(m_dog);
 	m_controlSystem.addEntity(m_cat);
+
+	//collision System
+	m_collisionSystem.addEntity(m_player);
+	m_collisionSystem.addEntity(m_alien);
+	m_collisionSystem.addEntity(m_dog);
+	m_collisionSystem.addEntity(m_cat);
 
 	//DRAW Draw all of entities
 	m_renderSystem.addEntity(m_player);
@@ -175,26 +180,9 @@ void Game::run()
 	quit();
 }
 
-void Game::updateCollider(Entity& t_entity, c2Circle& t_collider)
-{
-	PositionComponent* entityPos = static_cast<PositionComponent*>(t_entity.getComponent(Components::Position));
-	t_collider.p = c2v{ entityPos->getPositionX(), entityPos->getPositionY() };
-}
 
-bool Game::checkCollision(c2Circle& t_collider, c2Circle& t_otherCollider)
-{
-	bool result = false;
-	if (c2CircletoCircle(t_collider, t_otherCollider)) {
-		std::cout << "Collision" << std::endl;
-		result = true;
-	}
-	return result;
-}
 
-void Game::handleCollision()
-{
-	// std::cout << "Handle collision here..";
-}
+
 
 /// <summary>
 /// processEvents()
@@ -228,35 +216,6 @@ void Game::processEvents()
 /// <param name="dt">The time that has passed since the last update call in seconds</param>
 void Game::update(float dt)
 {
-	PositionComponent* c = static_cast<PositionComponent*>(m_player.getComponent(Components::Position));
-	//std::cout << c->getPositionX() << std::endl;
-	//std::cout <<  c->getPositionY() << std::endl;
-
-	updateCollider(m_player, m_colliders.first.at(0));
-	updateCollider(m_alien, m_colliders.first.at(1));
-	updateCollider(m_dog, m_colliders.first.at(2));
-	updateCollider(m_cat, m_colliders.first.at(3));
-
-	for (int i = 0; i < m_colliders.first.size(); i++) {
-		m_colliders.second.at(i) = false;
-	}
-	for (int i = 0; i < m_colliders.first.size(); i++) {
-		if (!m_colliders.second.at(i))
-		{
-			m_unchecked = i;
-		}
-		for (m_unchecked; m_unchecked < m_colliders.first.size(); m_unchecked++) {
-			{
-				if (i != m_unchecked) {
-					if (checkCollision(m_colliders.first.at(i), m_colliders.first.at(m_unchecked))) {
-						handleCollision();
-					}
-					m_colliders.second.at(i) = true;
-				}
-			}
-		}
-	}
-
 	m_healthSystem.update();
 	m_aiSystem.update();
 
@@ -264,6 +223,8 @@ void Game::update(float dt)
 	m_trapSystem.setTrapStates();
 
 	m_controlSystem.update();
+
+	m_collisionSystem.updateComponent();
 }
 
 /// <summary>

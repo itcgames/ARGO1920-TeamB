@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "PositionComponent.h"
+#include "CollisionComponent.h"
 
 class Command
 {
@@ -16,8 +17,11 @@ class WalkUpCommand : public Command {
 public:
 	virtual void execute(Entity & t_gameObject)
 	{
-		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Components::Position));
+		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
 		posComp->moveUp();
+
+		CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
+		colComp->updateCollider(t_gameObject);
 	}
 };
 
@@ -25,7 +29,7 @@ class WalkDownCommand : public Command {
 public:
 	virtual void execute(Entity & t_gameObject)
 	{
-		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Components::Position));
+		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
 		posComp->moveDown();
 	}
 };
@@ -34,7 +38,7 @@ class WalkLeftCommand : public Command {
 public:
 	virtual void execute(Entity & t_gameObject)
 	{
-		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Components::Position));
+		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
 		posComp->moveLeft();
 	}
 };
@@ -43,7 +47,7 @@ class WalkRightCommand : public Command {
 public:
 	virtual void execute(Entity & t_gameObject)
 	{
-		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Components::Position));
+		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
 		posComp->moveRight();
 	}
 };
