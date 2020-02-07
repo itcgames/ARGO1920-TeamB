@@ -75,28 +75,33 @@ Game::Game()
 
 	/*button test*/
 	//Button 1
-	m_button.addComponent(new ButtonComponent(true, 1), Types::Button);
+	m_button.addComponent(new ButtonComponent(false, 1), Types::Button);
+	m_button.addComponent(new CollisionComponent(), Types::Collider);
 	m_button.addComponent(new PositionComponent(50, 50), Types::Position);
 	m_button.addComponent(new RenderComponent("Assets\\Button.png", 50, 50, p_renderer), Types::Render);
 
 	//Button 2
 	m_button2.addComponent(new ButtonComponent(false, 2), Types::Button);
+	m_button2.addComponent(new CollisionComponent(), Types::Collider);
 	m_button2.addComponent(new PositionComponent(150, 50), Types::Position);
 	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 50, 50, p_renderer), Types::Render);
 
 	//Trap 1
 	m_spike.addComponent(new TrapComponent(false, 1), Types::Traps);
-	m_spike.addComponent(new PositionComponent(600,600), Types::Position);
+	m_spike.addComponent(new CollisionComponent(), Types::Collider);
+	m_spike.addComponent(new PositionComponent(600,100), Types::Position);
 	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Types::Render);
 
-	//Trap 1
-	m_spike.addComponent(new TrapComponent(false, 1), Types::Traps);
-	m_spike.addComponent(new PositionComponent(700, 600), Types::Position);
-	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Types::Render);
+	//Trap 2
+	m_spike2.addComponent(new TrapComponent(true, 0), Types::Traps);
+	m_spike2.addComponent(new CollisionComponent(), Types::Collider);
+	m_spike2.addComponent(new PositionComponent(700, 100), Types::Position);
+	m_spike2.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Types::Render);
 
 	//Trap 3
 	m_spike3.addComponent(new TrapComponent(false, 2), Types::Traps);
-	m_spike3.addComponent(new PositionComponent(800, 600), Types::Position);
+	m_spike3.addComponent(new CollisionComponent(), Types::Collider);
+	m_spike3.addComponent(new PositionComponent(800, 100), Types::Position);
 	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 50, 50, p_renderer), Types::Render);
 
 
@@ -118,6 +123,13 @@ Game::Game()
 	m_collisionSystem.addEntity(m_alien);
 	m_collisionSystem.addEntity(m_dog);
 	m_collisionSystem.addEntity(m_cat);
+
+	m_collisionSystem.addEntity(m_button);
+	m_collisionSystem.addEntity(m_button2);
+
+	m_collisionSystem.addEntity(m_spike);
+	m_collisionSystem.addEntity(m_spike2);
+	m_collisionSystem.addEntity(m_spike3);
 
 	//DRAW Draw all of entities
 	m_renderSystem.addEntity(m_player);
@@ -200,7 +212,7 @@ void Game::processEvents()
 		switch (event.type)
 		{
 		case SDL_KEYDOWN:
-			//m_controlSystem.handleInput(event.key.keysym.sym);
+			m_controlSystem.handleInput(event.key.keysym.sym);
 			break;
 		case SDL_QUIT:
 			m_quit = true;
@@ -218,13 +230,15 @@ void Game::update(float dt)
 {
 	m_healthSystem.update();
 	m_aiSystem.update();
+	m_trapSystem.update();
 
-	//m_controlSystem.handleInput();
 	m_trapSystem.setTrapStates();
 
-	m_controlSystem.update();
+	m_controlSystem.handleInput();
+	//m_controlSystem.update();
 
 	m_collisionSystem.updateComponent();
+
 }
 
 /// <summary>

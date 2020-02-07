@@ -2,10 +2,12 @@
 #define OBSERVER_H
 #include <iostream>
 #include <string>
+
 class Observer
 {
 public:
 	void notify();
+
 private:
 
 };

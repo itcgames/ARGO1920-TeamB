@@ -3,20 +3,20 @@
 #include "Observer.h"
 #include <SDL.h>
 #include <SDL_mixer.h>
-enum  SoundEffect
-{
-	w,
-	t,
-	f,
-};
+
 class AudioObserver :public Observer
 {
 public:
+	enum SoundEffect
+	{
+		w,
+		t,
+		f,
+	};
 	AudioObserver();
 	void load();
-	void notify(SoundEffect t_sfx);
-	void playBGM();
-	void playBGM(int t_bgmNum);
+	//void notify(SoundEffect t_sfx);
+	//void playBGM(int t_bgmNum);
 private:
 	Mix_Chunk * m_w = NULL;
 	Mix_Chunk*  m_t = NULL;
