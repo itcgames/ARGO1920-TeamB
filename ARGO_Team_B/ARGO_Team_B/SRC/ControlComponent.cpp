@@ -13,7 +13,7 @@ ControlComponent::~ControlComponent()
 
 void ControlComponent::handleInput()
 {
-	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Components::Position));
+	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
 	if (posComp != nullptr)
 	{
 		m_controller->checkButton();

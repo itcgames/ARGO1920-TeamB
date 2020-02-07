@@ -10,14 +10,13 @@
 #include "RenderSystem.h"
 #include "Level.h"
 #include "ButtonSystem.h"
+#include "CollisionSystem.h"
 #include "ComponentsEnum.h"
 #include "TrapComponent.h"
 #include "ButtonComponent.h"
+#include "PlayerComponent.h"
+#include "Globals.h"
 
-#include <cute_c2.h>
-
-static const int RAT_W = 60;
-static const int RAT_H = 30;
 
 class Game
 {
@@ -26,13 +25,6 @@ public:
 	~Game();
 	void run();
 private:
-	int m_unchecked;
-	void updateCollider(Entity& t_entity, c2Circle& t_collider);
-	bool checkCollision(c2Circle& t_collider, c2Circle& t_otherCollider);
-	void handleCollision();
-
-	std::pair<std::vector<c2Circle>, std::vector<bool>> m_colliders;
-
 	void processEvents();
 	void update(float dt);
 	void render();
@@ -62,5 +54,6 @@ private:
 	RenderSystem m_renderSystem;
 	Level* tiled_map_level;
 	ButtonSystem m_trapSystem;
+	CollisionSystem m_collisionSystem;
 };
 #endif // !GAME
