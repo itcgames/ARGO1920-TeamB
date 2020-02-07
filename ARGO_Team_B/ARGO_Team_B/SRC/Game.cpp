@@ -228,6 +228,9 @@ void Game::processEvents()
 /// <param name="dt">The time that has passed since the last update call in seconds</param>
 void Game::update(float dt)
 {
+	PositionComponent* c = static_cast<PositionComponent*>(m_player.getComponent(Components::Position));
+	//std::cout << c->getPositionX() << std::endl;
+	//std::cout <<  c->getPositionY() << std::endl;
 
 	updateCollider(m_player, m_colliders.first.at(0));
 	updateCollider(m_alien, m_colliders.first.at(1));
