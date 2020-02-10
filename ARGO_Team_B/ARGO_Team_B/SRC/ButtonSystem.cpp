@@ -12,6 +12,8 @@ void ButtonSystem::updateComponent(Component* c) {
 	for (Entity& e : entities) {
 
 	}
+	setTrapStates();
+	setDoorStates();
 }
 
 void ButtonSystem::setTrapStates() {
@@ -46,10 +48,10 @@ void ButtonSystem::setDoorStates() {
 	for (Entity& e1 : entities) {
 		for (Component* c1 : e1.getComponents()) {
 			ButtonComponent* btnComp = dynamic_cast<ButtonComponent*>(c1);
-			bool acitve = btnComp->getState();
-			int btnId = btnComp->getId();
-
 			if (btnComp != nullptr) {
+				bool acitve = btnComp->getState();
+				int btnId = btnComp->getId();
+
 				for (Entity& e2 : entities) {
 					for (Component* c2 : e2.getComponents()) {
 						DoorComponent* doorComp = dynamic_cast<DoorComponent*>(c2);

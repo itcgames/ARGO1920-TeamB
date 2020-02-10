@@ -28,20 +28,20 @@ void PositionComponent::setPosition(float t_x, float t_y)
 
 void PositionComponent::moveUp()
 {
-	m_currentY-=1;
+	m_currentY-=3;
 }
 
 void PositionComponent::moveDown()
 {
-	m_currentY += 1;
+	m_currentY += 3;
 }
 
 void PositionComponent::moveLeft()
 {
-	m_currentX -= 1;
+	m_currentX -= 3;
 }
 
 void PositionComponent::moveRight()
 {
-	m_currentX += 1;
+	m_currentX += 3;
 }

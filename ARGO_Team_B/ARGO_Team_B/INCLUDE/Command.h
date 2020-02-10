@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "PositionComponent.h"
 #include "CollisionComponent.h"
+#include "RenderComponent.h"
 #include "Globals.h"
 
 class Command
@@ -19,10 +20,11 @@ public:
 	virtual void execute(Entity& t_gameObject)
 	{
 		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
-		posComp->moveUp();
-
-		CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
-		colComp->updateCollider(t_gameObject);
+		if (posComp->getPositionY() > 30) {
+			posComp->moveUp();
+			CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
+			colComp->updateCollider(t_gameObject);
+		}
 	}
 };
 
@@ -30,8 +32,9 @@ class WalkDownCommand : public Command {
 public:
 	virtual void execute(Entity& t_gameObject)
 	{
+		RenderComponent* renderComp = dynamic_cast<RenderComponent*>(t_gameObject.getComponent(Types::Render));
 		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
-		if (posComp->getPositionY() > 30) {
+		if (posComp->getPositionY() < SCR_H - 90) {
 			posComp->moveDown();
 			CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
 			colComp->updateCollider(t_gameObject);
@@ -43,6 +46,7 @@ class WalkLeftCommand : public Command {
 public:
 	virtual void execute(Entity& t_gameObject)
 	{
+		RenderComponent* renderComp = dynamic_cast<RenderComponent*>(t_gameObject.getComponent(Types::Render));
 		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
 		if (posComp->getPositionX() > 30) {
 			posComp->moveLeft();
@@ -56,6 +60,7 @@ class WalkRightCommand : public Command {
 public:
 	virtual void execute(Entity& t_gameObject)
 	{
+		RenderComponent* renderComp = dynamic_cast<RenderComponent*>(t_gameObject.getComponent(Types::Render));
 		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
 		if (posComp->getPositionX() < SCR_W - 90) {
 			posComp->moveRight();

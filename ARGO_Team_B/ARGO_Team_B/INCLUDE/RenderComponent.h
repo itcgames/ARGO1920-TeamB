@@ -8,7 +8,9 @@ class RenderComponent : public Component {
 public:
 	RenderComponent(const char* name, int width, int height, SDL_Renderer* renderer);
 	void draw(int x, int y);
+	void setAngle(double t_angle) { m_angle = t_angle; }
 private:
+	double m_angle;
 	SDL_Renderer* m_renderer;
 
 	SDL_Surface* image;
