@@ -55,5 +55,6 @@ private:
 	Level* tiled_map_level;
 	ButtonSystem m_trapSystem;
 	CollisionSystem m_collisionSystem;
+	
 };
 #endif // !GAME

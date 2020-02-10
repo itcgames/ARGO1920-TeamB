@@ -6,11 +6,10 @@
 #include "PlayerComponent.h"
 #include "ButtonComponent.h"
 #include "TrapComponent.h"
-
 #include <vector>
 using namespace std;
 
-class CollisionSystem : public System
+class CollisionSystem : public System 
 {
 public:
 	CollisionSystem();
