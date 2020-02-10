@@ -54,7 +54,6 @@
     </ClCompile>
     <ClCompile Include="SRC\Assets.cpp" />
     <ClCompile Include="SRC\Level.cpp" />
-    <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="SRC\AnimatedSpriteComponent.cpp">
       <Filter>src\Component\FSM</Filter>
     </ClCompile>
@@ -125,7 +124,6 @@
     </ClInclude>
     <ClInclude Include="INCLUDE\Assets.h" />
     <ClInclude Include="INCLUDE\Level.h" />
-    <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="INCLUDE\AnimatedSpriteComponent.h">
       <Filter>headers\Component\FSM</Filter>
     </ClInclude>

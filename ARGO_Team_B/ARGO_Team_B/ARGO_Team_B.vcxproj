@@ -132,7 +132,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="SRC\AISystem.cpp" />
     <ClCompile Include="SRC\AnimatedSpriteComponent.cpp" />
     <ClCompile Include="SRC\Assets.cpp" />
@@ -155,7 +154,6 @@
     <ClCompile Include="Src\Xbox360Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="INCLUDE\AnimatedSpriteComponent.h" />
     <ClInclude Include="INCLUDE\Command.h" />
     <ClInclude Include="Include\ComponentsEnum.h" />
