@@ -52,10 +52,23 @@
     <ClCompile Include="SRC\ButtonSystem.cpp">
       <Filter>src\System</Filter>
     </ClCompile>
-    <ClCompile Include="SRC\Assets.cpp" />
-    <ClCompile Include="SRC\Level.cpp" />
     <ClCompile Include="SRC\AnimatedSpriteComponent.cpp">
       <Filter>src\Component\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\Assets.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\CollisionComponent.cpp">
+      <Filter>src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\CollisionSystem.cpp">
+      <Filter>src\System</Filter>
+    </ClCompile>
+    <ClCompile Include="SRC\Level.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PlayerComponent.cpp">
+      <Filter>src\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -122,10 +135,26 @@
     <ClInclude Include="INCLUDE\ButtonSystem.h">
       <Filter>headers\System</Filter>
     </ClInclude>
-    <ClInclude Include="INCLUDE\Assets.h" />
-    <ClInclude Include="INCLUDE\Level.h" />
     <ClInclude Include="INCLUDE\AnimatedSpriteComponent.h">
       <Filter>headers\Component\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\PlayerComponent.h">
+      <Filter>headers\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\CollisionSystem.h">
+      <Filter>headers\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\CollisionComponent.h">
+      <Filter>headers\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\Level.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Globals.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\Assets.h">
+      <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -178,9 +207,6 @@
     <ClCompile Include="SRC\TrapComponent.cpp" />
     <ClCompile Include="SRC\ButtonSystem.cpp" />
     <ClCompile Include="Src\Xbox360Controller.cpp" />
-    <ClCompile Include="Src\CollisionComponent.cpp" />
-    <ClCompile Include="Src\CollisionSystem.cpp" />
-    <ClCompile Include="Src\PlayerComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INCLUDE\Command.h" />
@@ -206,9 +232,5 @@
     <ClInclude Include="INCLUDE\TrapComponent.h" />
     <ClInclude Include="INCLUDE\ButtonSystem.h" />
     <ClInclude Include="Include\Xbox360Controller.h" />
-    <ClInclude Include="Include\CollisionComponent.h" />
-    <ClInclude Include="Include\CollisionSystem.h" />
-    <ClInclude Include="Include\PlayerComponent.h" />
-    <ClInclude Include="Include\Globals.h" />
   </ItemGroup>
 </Project>

@@ -15,6 +15,7 @@
 #include "TrapComponent.h"
 #include "ButtonComponent.h"
 #include "PlayerComponent.h"
+#include "AnimatedSpriteComponent.h"
 #include "Globals.h"
 
 

@@ -48,6 +48,7 @@ Game::Game()
 	m_player.addComponent(new PositionComponent(100, 100), Types::Position);
 	m_player.addComponent(new ControlComponent(m_player), Types::Controller);
 	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
+	m_player.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheet.png", 30, 300, 5, p_renderer), Types::AnimatedSprite);
 
 	// Alien
 	m_alien.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added

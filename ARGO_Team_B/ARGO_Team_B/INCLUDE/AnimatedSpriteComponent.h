@@ -10,9 +10,10 @@
 
 class AnimatedSpriteComponent : public Component
 {
+public:
 	AnimatedSpriteComponent();
 	AnimatedSpriteComponent(SDL_Texture& t_texture);
-	AnimatedSpriteComponent(SDL_Texture& t_texture, const SDL_Rect& t_rect);
+	AnimatedSpriteComponent(const char* t_texture, int t_height, int t_width, int t_noOfFrames, SDL_Renderer* t_renderer);
 
 	void update();
 
@@ -30,6 +31,8 @@ class AnimatedSpriteComponent : public Component
 
 	bool LoadFromFile(const char* t_path);
 
+	void render();
+
 	int getWidth();
 	int getHeight();
 
@@ -45,6 +48,8 @@ private:
 
 	SDL_Rect m_intRect{ 0,0,75,32 };
 	std::vector<SDL_Rect> m_frames;
+
+	int m_NoOfFrames{0};
 
 	int m_currentFrame;
 	float m_time{ 2000.f };
