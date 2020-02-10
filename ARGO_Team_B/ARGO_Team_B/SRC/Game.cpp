@@ -104,15 +104,25 @@ Game::Game()
 	m_spike3.addComponent(new PositionComponent(800, 100), Types::Position);
 	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, p_renderer), Types::Render);
 
-
-	//for (int i = 0; i < 4; i++)
-	//{
-		m_goalCheese.addComponent(new GoalComponent(), Types::Goal);
-		m_goalCheese.addComponent(new CollisionComponent(), Types::Collider);
-		m_goalCheese.addComponent(new PositionComponent(500,100), Types::Position);
-		m_goalCheese.addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
-		m_collisionSystem.addEntity(m_goalCheese);
-	//}
+	m_goalCheeses.reserve(15);
+	for (int i = 0; i < 15; ++i)
+	{
+		m_goalCheeses.emplace_back();
+		m_goalCheeses.at(i).addComponent(new GoalComponent(), Types::Goal);
+		m_goalCheeses.at(i).addComponent(new CollisionComponent(), Types::Collider);
+		m_goalCheeses.at(i).addComponent(new PositionComponent(30 + rand() % 1830, 30 + rand() % 1050), Types::Position);
+		m_goalCheeses.at(i).addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
+		m_collisionSystem.addEntity(m_goalCheeses.at(i));
+		m_renderSystem.addEntity(m_goalCheeses.at(i));
+		m_trapSystem.addEntity(m_goalCheeses.at(i));
+		//m_goalCheese.addComponent(new GoalComponent(), Types::Goal);
+		//m_goalCheese.addComponent(new CollisionComponent(), Types::Collider);
+		//m_goalCheese.addComponent(new PositionComponent(30+rand()%1830, 30+rand()%1050), Types::Position);
+		//m_goalCheese.addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
+		//m_collisionSystem.addEntity(m_goalCheese);
+		//m_renderSystem.addEntity(m_goalCheese);
+		//m_trapSystem.addEntity(m_goalCheese);
+	}
 
 
 
@@ -148,7 +158,7 @@ Game::Game()
 	m_renderSystem.addEntity(m_alien);
 	m_renderSystem.addEntity(m_dog);
 	m_renderSystem.addEntity(m_cat);
-	m_renderSystem.addEntity(m_goalCheese);
+	
 
 	const auto MAP_PATH = "Assets/map/test.tmx";
 	tiled_map_level = new Level("Test");
@@ -166,7 +176,7 @@ Game::Game()
 	m_trapSystem.addEntity(m_spike);
 	m_trapSystem.addEntity(m_spike2);
 	m_trapSystem.addEntity(m_spike3);
-	m_trapSystem.addEntity(m_goalCheese);
+	
 }
 
 /// <summary>
