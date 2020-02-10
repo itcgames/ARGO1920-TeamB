@@ -69,10 +69,17 @@ void CollisionSystem::updateComponent() {
 			// update the component state **necessaey update**
 			trapCollider->updateCollider(trapEntity);
 
-			for (CollisionComponent* player : playerCollider) {
+			for (Entity& playerEntitys : m_playerEntitys) {
+				CollisionComponent* player = static_cast<CollisionComponent*>(playerEntitys.getComponent(Types::Collider));
 
-				if (checkCollision(player->getCollider(), trapCollider->getCollider())) {
-					cout << "player die" << endl;
+				HealthComponent* playerHealth = static_cast<HealthComponent*>(playerEntitys.getComponent(Types::Health));
+				if (playerHealth->getAlive()) {
+					if (checkCollision(player->getCollider(), trapCollider->getCollider()) ) {
+						cout << "player die" << endl;
+
+
+						playerHealth->dead();
+					}
 				}
 			}
 		}
