@@ -12,7 +12,8 @@ void CollisionSystem::updateComponent(Component* component)
 {
 }
 
-void CollisionSystem::updateComponent() {
+void CollisionSystem::updateComponent() 
+{
 	searchPlayer();
 
 	vector<CollisionComponent*> playerCollider;
@@ -84,12 +85,42 @@ void CollisionSystem::updateComponent() {
 			}
 		}
 	}
+
+	// check collision between player and traps
+	searchCheese();
+	for (Entity& goalEntity : m_goalEntitys) 
+	{
+
+		GoalComponent* goal = static_cast<GoalComponent*>(goalEntity.getComponent(Types::Goal));
+
+		// check is button on the map
+		if (goal->getAlive()) 
+		{
+
+			CollisionComponent* goalCollider = static_cast<CollisionComponent*>(goalEntity.getComponent(Types::Collider));
+
+			goalCollider->updateCollider(goalEntity);
+
+			for (Entity& playerEntitys : m_playerEntitys) 
+			{
+				CollisionComponent* playerCollider = static_cast<CollisionComponent*>(playerEntitys.getComponent(Types::Collider));
+				PlayerComponent* player = static_cast<PlayerComponent*>(playerEntitys.getComponent(Types::Player));
+					if (checkCollision(playerCollider->getCollider(), goalCollider->getCollider()))
+					{
+						std::cout << "Player with ID : " << player->getId() << "Collected the cheese" << std::endl;
+						goal->setAlive(false);
+					}
+			}
+		}
+	}
 }
+
 
 /// <summary>
 /// get the all player entities from entities vector
 /// </summary>
-void CollisionSystem::searchPlayer() {
+void CollisionSystem::searchPlayer() 
+{
 	m_playerEntitys.clear();
 
 	for (Entity& e1 : entities) {
@@ -124,6 +155,18 @@ void CollisionSystem::searchTrap() {
 		if (e1.getType() == Types::Traps)
 		{
 			m_trapEntitys.push_back(e1);
+		}
+	}
+}
+
+void CollisionSystem::searchCheese()
+{
+	m_goalEntitys.clear();
+
+	for (Entity& e1 : entities) {
+		if (e1.getType() == Types::Goal)
+		{
+			m_goalEntitys.push_back(e1);
 		}
 	}
 }

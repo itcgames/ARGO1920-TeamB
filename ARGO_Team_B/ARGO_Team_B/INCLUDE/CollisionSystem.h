@@ -7,7 +7,7 @@
 #include "ButtonComponent.h"
 #include "TrapComponent.h"
 #include "HealthComponent.h"
-
+#include "GoalComponent.h"
 #include <vector>
 using namespace std;
 
@@ -23,10 +23,12 @@ private:
 	void searchPlayer();
 	void searchButton();
 	void searchTrap();
+	void searchCheese();
 	bool checkCollision(c2Circle t_collider, c2Circle t_otherCollider);
 
 	vector<Entity> m_playerEntitys;
 	vector<Entity> m_buttonEntitys;
 	vector<Entity> m_trapEntitys;
+	vector<Entity> m_goalEntitys;
 };
 #endif // !COLLISION_SYSTEM

@@ -12,11 +12,8 @@
 #include "ButtonSystem.h"
 #include "CollisionSystem.h"
 #include "ComponentsEnum.h"
-#include "TrapComponent.h"
-#include "ButtonComponent.h"
-#include "PlayerComponent.h"
 #include "Globals.h"
-
+#include <time.h>
 
 class Game
 {
@@ -46,6 +43,8 @@ private:
 	Entity m_spike;
 	Entity m_spike2;
 	Entity m_spike3;
+
+	Entity m_goalCheese;
 
 	// Systems
 	HealthSystem m_healthSystem;

@@ -9,7 +9,8 @@ enum class Types {
 	Traps,
 	Controller,
 	Collider,
-	Player
+	Player,
+	Goal
 };
 
 #endif // !COMPONENTENUM_H

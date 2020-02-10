@@ -8,7 +8,7 @@
 Game::Game() 
 {
 	
-	
+	srand(time(NULL));
 
 	// Initialise SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -105,6 +105,17 @@ Game::Game()
 	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, p_renderer), Types::Render);
 
 
+	//for (int i = 0; i < 4; i++)
+	//{
+		m_goalCheese.addComponent(new GoalComponent(), Types::Goal);
+		m_goalCheese.addComponent(new CollisionComponent(), Types::Collider);
+		m_goalCheese.addComponent(new PositionComponent(500,100), Types::Position);
+		m_goalCheese.addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
+		m_collisionSystem.addEntity(m_goalCheese);
+	//}
+
+
+
 	// Systems
 	//HEALTH All entities
 	m_healthSystem.addEntity(m_player);
@@ -130,20 +141,18 @@ Game::Game()
 	m_collisionSystem.addEntity(m_spike);
 	m_collisionSystem.addEntity(m_spike2);
 	m_collisionSystem.addEntity(m_spike3);
+	
 
 	//DRAW Draw all of entities
 	m_renderSystem.addEntity(m_player);
 	m_renderSystem.addEntity(m_alien);
 	m_renderSystem.addEntity(m_dog);
 	m_renderSystem.addEntity(m_cat);
+	m_renderSystem.addEntity(m_goalCheese);
 
 	const auto MAP_PATH = "Assets/map/test.tmx";
 	tiled_map_level = new Level("Test");
 	tiled_map_level->load(MAP_PATH, p_renderer);
-
-	//m_renderSystem.addEntity(m_alien);
-	//m_renderSystem.addEntity(m_dog);
-	//m_renderSystem.addEntity(m_cat);
 
 	m_renderSystem.addEntity(m_button);
 	m_renderSystem.addEntity(m_button2);
@@ -157,7 +166,7 @@ Game::Game()
 	m_trapSystem.addEntity(m_spike);
 	m_trapSystem.addEntity(m_spike2);
 	m_trapSystem.addEntity(m_spike3);
-
+	m_trapSystem.addEntity(m_goalCheese);
 }
 
 /// <summary>
