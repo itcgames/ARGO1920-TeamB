@@ -9,7 +9,7 @@
 #include "HealthComponent.h"
 #include "TrapComponent.h"
 #include "ButtonComponent.h"
-#include "GoalComponent.h"
+
 class RenderSystem : public System {
 public:
 	RenderSystem();

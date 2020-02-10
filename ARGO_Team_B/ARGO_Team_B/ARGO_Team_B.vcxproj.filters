@@ -23,6 +23,7 @@
     <ClCompile Include="Src\CollisionComponent.cpp" />
     <ClCompile Include="Src\CollisionSystem.cpp" />
     <ClCompile Include="Src\PlayerComponent.cpp" />
+    <ClCompile Include="SRC\GoalComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INCLUDE\Command.h" />
@@ -54,5 +55,6 @@
     <ClInclude Include="Include\Globals.h" />
     <ClInclude Include="INCLUDE\Observer.h" />
     <ClInclude Include="INCLUDE\Subject.h" />
+    <ClInclude Include="INCLUDE\GoalComponent.h" />
   </ItemGroup>
 </Project>
