@@ -70,6 +70,7 @@
     <ClCompile Include="Src\PlayerComponent.cpp">
       <Filter>src\Component</Filter>
     </ClCompile>
+    <ClCompile Include="SRC\StateMachineSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INCLUDE\Entity.h">
@@ -156,6 +157,7 @@
     <ClInclude Include="INCLUDE\Assets.h">
       <Filter>headers</Filter>
     </ClInclude>
+    <ClInclude Include="INCLUDE\StateMachineSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="headers">

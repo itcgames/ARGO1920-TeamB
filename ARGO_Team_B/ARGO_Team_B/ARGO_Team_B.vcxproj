@@ -151,6 +151,7 @@
     <ClCompile Include="SRC\PositionComponent.cpp" />
     <ClCompile Include="SRC\RenderComponent.cpp" />
     <ClCompile Include="SRC\RenderSystem.cpp" />
+    <ClCompile Include="SRC\StateMachineSystem.cpp" />
     <ClCompile Include="SRC\System.cpp" />
     <ClCompile Include="SRC\TrapComponent.cpp" />
     <ClCompile Include="SRC\ButtonSystem.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="INCLUDE\PositionComponent.h" />
     <ClInclude Include="INCLUDE\RenderComponent.h" />
     <ClInclude Include="INCLUDE\RenderSystem.h" />
+    <ClInclude Include="INCLUDE\StateMachineSystem.h" />
     <ClInclude Include="INCLUDE\System.h" />
     <ClInclude Include="INCLUDE\TrapComponent.h" />
     <ClInclude Include="INCLUDE\ButtonSystem.h" />
