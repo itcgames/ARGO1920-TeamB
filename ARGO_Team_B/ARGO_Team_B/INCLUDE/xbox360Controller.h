@@ -41,7 +41,7 @@ private:
 	SDL_GameController* m_controllerHandles;
 
 public:
-	const int dpadThreshold = 15000;
+	const int dpadThreshold = 8000;
 	// the current state of all the buttons
 	GamePadstate m_currentState;
 

@@ -17,7 +17,7 @@ Game::Game()
 	}
 
 	// Create a Window
-	p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1920, 1080, SDL_WINDOW_SHOWN);
+	p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCR_W, SCR_H, SDL_WINDOW_SHOWN);
 	if (NULL == p_window)
 	{
 		std::cout << "Error: Could not create window" << std::endl;
@@ -45,7 +45,7 @@ Game::Game()
 	m_player.addComponent(new PlayerComponent(1), Types::Player); // This must allways be first added
 	m_player.addComponent(new CollisionComponent(), Types::Collider); 
 	m_player.addComponent(new HealthComponent(100), Types::Health);
-	m_player.addComponent(new PositionComponent(100, 100), Types::Position);
+	m_player.addComponent(new PositionComponent(50, 100), Types::Position);
 	m_player.addComponent(new ControlComponent(m_player), Types::Controller);
 	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
 
@@ -53,7 +53,7 @@ Game::Game()
 	m_alien.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added
 	m_alien.addComponent(new CollisionComponent(), Types::Collider);
 	m_alien.addComponent(new HealthComponent(150), Types::Health);
-	m_alien.addComponent(new PositionComponent(200, 200), Types::Position);
+	m_alien.addComponent(new PositionComponent(50, 300), Types::Position);
 	m_alien.addComponent(new ControlComponent(m_alien), Types::Controller);
 	m_alien.addComponent(new RenderComponent("./Assets/rat2.png", RAT_W, RAT_H, p_renderer), Types::Render);
 
@@ -61,7 +61,7 @@ Game::Game()
 	m_dog.addComponent(new PlayerComponent(3), Types::Player); // This must allways be first added
 	m_dog.addComponent(new CollisionComponent(), Types::Collider);
 	m_dog.addComponent(new HealthComponent(75), Types::Health);
-	m_dog.addComponent(new PositionComponent(300, 300), Types::Position);
+	m_dog.addComponent(new PositionComponent(50, 700), Types::Position);
 	m_dog.addComponent(new ControlComponent(m_dog), Types::Controller);
 	m_dog.addComponent(new RenderComponent("./Assets/rat3.png", RAT_W, RAT_H, p_renderer), Types::Render);
 
@@ -69,7 +69,7 @@ Game::Game()
 	m_cat.addComponent(new PlayerComponent(4), Types::Player); // This must allways be first added
 	m_cat.addComponent(new CollisionComponent(), Types::Collider);
 	m_cat.addComponent(new HealthComponent(50), Types::Health);
-	m_cat.addComponent(new PositionComponent(400, 400), Types::Position);
+	m_cat.addComponent(new PositionComponent(50, 900), Types::Position);
 	m_cat.addComponent(new ControlComponent(m_cat), Types::Controller);
 	m_cat.addComponent(new RenderComponent("./Assets/rat4.png", RAT_W, RAT_H, p_renderer), Types::Render);
 
