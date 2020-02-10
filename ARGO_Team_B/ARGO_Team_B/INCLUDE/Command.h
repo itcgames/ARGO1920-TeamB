@@ -20,7 +20,7 @@ public:
 	virtual void execute(Entity& t_gameObject)
 	{
 		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
-		if (posComp->getPositionY() > 30) {
+		if (posComp->getPositionY() > 40) {
 			posComp->moveUp();
 			CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
 			colComp->updateCollider(t_gameObject);
@@ -34,7 +34,7 @@ public:
 	{
 		RenderComponent* renderComp = dynamic_cast<RenderComponent*>(t_gameObject.getComponent(Types::Render));
 		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
-		if (posComp->getPositionY() < SCR_H - 90) {
+		if (posComp->getPositionY() < SCR_H - 75) {
 			posComp->moveDown();
 			CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
 			colComp->updateCollider(t_gameObject);
