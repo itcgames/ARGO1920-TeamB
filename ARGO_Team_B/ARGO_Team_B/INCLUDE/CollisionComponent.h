@@ -2,18 +2,22 @@
 #define COLLISION_COMPONENT
 
 #include "Component.h"
+#include "PositionComponent.h"
+#include "Entity.h"
 #include <iostream>
+#include <cute_c2.h>
+#include <vector>
+
+#include "Globals.h"
+
 class CollisionComponent : public Component
 {
 public:
-	CollisionComponent(int t_health);
+	CollisionComponent();
+	void updateCollider(Entity& t_entity);
 	~CollisionComponent();
-	int getHealth();
-	void setHealth(int t_health);
-	bool getAlive();
-	void dead();
+	c2Circle getCollider() { return m_collider; }
 private:
-	int m_currentHealth;
-	bool m_alive;
+	c2Circle m_collider;
 };
 #endif // !COLLISION_COMPONENT

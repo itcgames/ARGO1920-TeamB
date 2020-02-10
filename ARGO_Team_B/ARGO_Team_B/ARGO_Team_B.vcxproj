@@ -136,6 +136,8 @@
     <ClCompile Include="SRC\AnimatedSpriteComponent.cpp" />
     <ClCompile Include="SRC\Assets.cpp" />
     <ClCompile Include="SRC\ButtonComponent.cpp" />
+    <ClCompile Include="Src\CollisionComponent.cpp" />
+    <ClCompile Include="Src\CollisionSystem.cpp" />
     <ClCompile Include="SRC\DoorComponent.cpp" />
     <ClCompile Include="SRC\Command.cpp" />
     <ClCompile Include="SRC\ControlComponent.cpp" />
@@ -145,6 +147,7 @@
     <ClCompile Include="SRC\HealthSystem.cpp" />
     <ClCompile Include="SRC\Level.cpp" />
     <ClCompile Include="SRC\main.cpp" />
+    <ClCompile Include="Src\PlayerComponent.cpp" />
     <ClCompile Include="SRC\PositionComponent.cpp" />
     <ClCompile Include="SRC\RenderComponent.cpp" />
     <ClCompile Include="SRC\RenderSystem.cpp" />
@@ -155,6 +158,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INCLUDE\AnimatedSpriteComponent.h" />
+    <ClInclude Include="Include\CollisionComponent.h" />
+    <ClInclude Include="Include\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Command.h" />
     <ClInclude Include="Include\ComponentsEnum.h" />
     <ClInclude Include="INCLUDE\ControlComponent.h" />
@@ -167,10 +172,12 @@
     <ClInclude Include="INCLUDE\DoorComponent.h" />
     <ClInclude Include="INCLUDE\Entity.h" />
     <ClInclude Include="INCLUDE\Game.h" />
+    <ClInclude Include="Include\Globals.h" />
     <ClInclude Include="INCLUDE\HealthComponent.h" />
     <ClInclude Include="INCLUDE\HealthSystem.h" />
     <ClInclude Include="INCLUDE\Level.h" />
     <ClInclude Include="INCLUDE\MoveCommand.h" />
+    <ClInclude Include="Include\PlayerComponent.h" />
     <ClInclude Include="INCLUDE\PositionComponent.h" />
     <ClInclude Include="INCLUDE\RenderComponent.h" />
     <ClInclude Include="INCLUDE\RenderSystem.h" />

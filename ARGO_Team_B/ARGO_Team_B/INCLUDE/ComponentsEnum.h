@@ -1,14 +1,16 @@
 #ifndef COMPONENTENUM_H
 #define COMPONENTENUM_H
 
-enum class Components {
+enum class Types {
 	Health,
 	Position,
 	Render,
 	Button,
 	Traps,
 	Controller,
-	AnimatedSprite
+	AnimatedSprite,
+	Collider,
+	Player
 };
 
 #endif // !COMPONENTENUM_H
