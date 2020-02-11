@@ -61,7 +61,9 @@ void RenderSystem::draw()
 								}
 							}
 							else if (doorcomp != nullptr) {
-								rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
+								if (!doorcomp->getGreenDoor() || !doorcomp->getRedDoor()) {
+									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
+								}
 							}
 							else if (goalComp != nullptr) {
 								if (goalComp->getAlive())

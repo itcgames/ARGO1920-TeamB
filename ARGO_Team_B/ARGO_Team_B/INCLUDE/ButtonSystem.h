@@ -5,6 +5,7 @@
 #include "System.h"
 #include "PositionComponent.h"
 #include "ButtonComponent.h"
+#include "RenderComponent.h"
 #include "TrapComponent.h"
 #include "DoorComponent.h"
 

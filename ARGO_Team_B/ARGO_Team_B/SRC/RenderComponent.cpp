@@ -23,3 +23,14 @@ void RenderComponent::draw(int x, int y)
 	dstrect = { x, y, this->width, this->height };
 	SDL_RenderCopyEx(m_renderer, texture, &srcrect, &dstrect, m_angle, NULL, SDL_FLIP_NONE);
 }
+
+void RenderComponent::setImage(const char* name)
+{
+	image = IMG_Load(name);
+	texture = SDL_CreateTextureFromSurface(m_renderer, image);
+
+	if (!texture)
+	{
+		std::cout << name << " texture failed to load!" << std::endl;
+	}
+}
