@@ -20,11 +20,13 @@ public:
 
 	float getLastX() { return m_lastX; }
 	float getLastY() { return m_lastY; }
-
+	void backToStart();
 private:
 	float m_currentX;
 	float m_currentY;
 
+	float m_startX;
+	float m_startY;
 
 	float m_previouseX;
 	float m_previouseY;

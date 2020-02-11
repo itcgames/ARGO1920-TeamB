@@ -107,11 +107,12 @@ void CollisionSystem::updateComponent(Level& t_level)
 				CollisionComponent* player = static_cast<CollisionComponent*>(playerEntitys.getComponent(Types::Collider));
 
 				HealthComponent* playerHealth = static_cast<HealthComponent*>(playerEntitys.getComponent(Types::Health));
+				PositionComponent* playerPos = static_cast<PositionComponent*>(playerEntitys.getComponent(Types::Position));
 				if (playerHealth->getAlive()) {
 					if (checkCollision( player->getAABBCollider(), trapCollider->getPolyCollider()) ) {
 						cout << "player die" << endl;
-
-						playerHealth->dead();
+						playerPos->backToStart();
+						//playerHealth->dead();
 					}
 				}
 			}
