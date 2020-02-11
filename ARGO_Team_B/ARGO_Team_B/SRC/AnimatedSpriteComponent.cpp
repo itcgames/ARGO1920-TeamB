@@ -36,7 +36,7 @@ AnimatedSpriteComponent::AnimatedSpriteComponent(const char* t_texture, int t_he
 		m_frames.push_back(rect);
 	}
 	
-}
+}  
 
 
 void AnimatedSpriteComponent::render(int t_posX, int t_posY)
