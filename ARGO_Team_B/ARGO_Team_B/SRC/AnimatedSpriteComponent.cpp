@@ -25,7 +25,8 @@ AnimatedSpriteComponent::AnimatedSpriteComponent(const char* t_texture, int t_he
 	SDL_Rect rect;
 	rect.h = m_imageHeight;
 	rect.w = frameWidth;
-	LoadFromFile(t_texture);
+	m_surface = IMG_Load(t_texture);
+	m_texture = SDL_CreateTextureFromSurface(m_renderer, m_surface);
 
 	for (int i = 0; i < m_NoOfFrames; i++)
 	{
@@ -35,6 +36,16 @@ AnimatedSpriteComponent::AnimatedSpriteComponent(const char* t_texture, int t_he
 		m_frames.push_back(rect);
 	}
 	
+}
+
+
+void AnimatedSpriteComponent::render(int t_posX, int t_posY)
+{
+	SDL_Rect rendFrame = getFrame(m_currentFrame);
+	rendFrame.y = m_frames[m_currentFrame].y;
+	rendFrame.x = m_frames[m_currentFrame].x;
+	SDL_Rect destRect = { t_posX, t_posY, m_imageWidth / m_NoOfFrames, m_imageHeight};
+	SDL_RenderCopy(m_renderer, m_texture, &rendFrame, &destRect);
 }
 
 void AnimatedSpriteComponent::update()
@@ -114,20 +125,13 @@ bool AnimatedSpriteComponent::LoadFromFile(const char* t_path)
 	return success;
 }
 
-void AnimatedSpriteComponent::render()
-{
-	SDL_Rect rendFrame = getFrame(m_currentFrame);
-	rendFrame.y = m_imageHeight;
-	rendFrame.x = m_imageWidth * m_currentFrame;
-	SDL_RenderCopy(m_renderer, m_texture, &rendFrame, NULL);
-}
 
 int AnimatedSpriteComponent::getWidth()
 {
-	return 0;
+	return m_imageWidth;
 }
 
 int AnimatedSpriteComponent::getHeight()
 {
-	return 0;
+	return m_imageHeight;
 }

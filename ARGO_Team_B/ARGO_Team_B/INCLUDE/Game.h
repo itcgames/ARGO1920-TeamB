@@ -15,9 +15,8 @@
 #include "TrapComponent.h"
 #include "ButtonComponent.h"
 #include "PlayerComponent.h"
-#include "AnimatedSpriteComponent.h"
+#include "StateMachineSystem.h"
 #include "Globals.h"
-
 
 class Game
 {
@@ -56,5 +55,7 @@ private:
 	Level* tiled_map_level;
 	ButtonSystem m_trapSystem;
 	CollisionSystem m_collisionSystem;
+	StateMachineSystem m_stateMachine;
+
 };
 #endif // !GAME

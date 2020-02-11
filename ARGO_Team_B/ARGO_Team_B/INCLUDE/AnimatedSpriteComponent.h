@@ -7,7 +7,6 @@
 #include <iostream>
 #include <vector>
 
-
 class AnimatedSpriteComponent : public Component
 {
 public:
@@ -31,7 +30,7 @@ public:
 
 	bool LoadFromFile(const char* t_path);
 
-	void render();
+	void render(int t_posX, int t_posY);
 
 	int getWidth();
 	int getHeight();
@@ -52,7 +51,7 @@ private:
 	int m_NoOfFrames{0};
 
 	int m_currentFrame;
-	float m_time{ 2000.f };
+	float m_time{ 20000 };
 	int m_clock;
 };
 

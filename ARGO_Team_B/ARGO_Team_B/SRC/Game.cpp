@@ -1,15 +1,11 @@
 #include "Game.h"
 
-
 /// <summary>
 /// Game()
 /// Main Game constructor used to initialise SDL, create a window and initialise SDL_IMG
 /// </summary>
 Game::Game() 
 {
-	
-	
-
 	// Initialise SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
@@ -138,6 +134,12 @@ Game::Game()
 	m_renderSystem.addEntity(m_dog);
 	m_renderSystem.addEntity(m_cat);
 
+	/// <summary>
+	/// STATE MACHINE
+	/// </summary>
+	m_stateMachine.addEntity(m_player);
+
+
 	const auto MAP_PATH = "Assets/map/test.tmx";
 	tiled_map_level = new Level("Test");
 	tiled_map_level->load(MAP_PATH, p_renderer);
@@ -146,11 +148,15 @@ Game::Game()
 	//m_renderSystem.addEntity(m_dog);
 	//m_renderSystem.addEntity(m_cat);
 
+	
+
 	m_renderSystem.addEntity(m_button);
 	m_renderSystem.addEntity(m_button2);
 	m_renderSystem.addEntity(m_spike);
 	m_renderSystem.addEntity(m_spike2);
 	m_renderSystem.addEntity(m_spike3);
+
+	
 
 	//Connect button entity and trap entity
 	m_trapSystem.addEntity(m_button);
@@ -239,6 +245,7 @@ void Game::update(float dt)
 	//m_controlSystem.update();
 
 	m_collisionSystem.updateComponent();
+	m_stateMachine.update();
 
 }
 
@@ -249,8 +256,9 @@ void Game::update(float dt)
 void Game::render()
 {
 	SDL_RenderClear(p_renderer);
-	tiled_map_level->draw(p_renderer);
+	//tiled_map_level->draw(p_renderer);
 	m_renderSystem.draw();
+	m_stateMachine.update();
 	SDL_RenderPresent(p_renderer);
 }
 
