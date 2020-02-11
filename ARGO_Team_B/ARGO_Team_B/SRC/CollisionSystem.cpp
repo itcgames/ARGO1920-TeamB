@@ -13,7 +13,8 @@ void CollisionSystem::updateComponent(Component* component)
 }
 
 void CollisionSystem::updateComponent() {
-	searchPlayer();
+
+	searchEntities();
 
 	vector<CollisionComponent*> playerCollider;
 	for (Entity& player : m_playerEntitys) {
@@ -24,19 +25,19 @@ void CollisionSystem::updateComponent() {
 	}
 
 	// player 1 and player 2 collision check
-	if (checkCollision(playerCollider[0]->getCollider(), playerCollider[1]->getCollider())) {
+	if (checkCollision(playerCollider[0]->getAABBCollider(), playerCollider[1]->getAABBCollider())) {
 
 	}
 
 	// player 3 and player 4 collision check
-	if (checkCollision(playerCollider[2]->getCollider(), playerCollider[3]->getCollider())) {
+	if (checkCollision(playerCollider[2]->getAABBCollider(), playerCollider[3]->getAABBCollider())) {
 
 	}
 
 
-	// check collision between player and button
-	searchButton();
-
+	/// <summary>
+	/// check collision between player and button
+	/// </summary>
 	for (Entity& buttonEntity : m_buttonEntitys) {
 		ButtonComponent* button = static_cast<ButtonComponent*>(buttonEntity.getComponent(Types::Button));
 		// check is button on the map
@@ -56,13 +57,13 @@ void CollisionSystem::updateComponent() {
 				switch (button->getType())
 				{
 				case 1:
-					if (checkCollision(playerCollision->getCollider(), buttonCollider->getCollider())) {
+					if (checkCollision(playerCollision->getAABBCollider(), buttonCollider->getAABBCollider())) {
 
 						button->setState(true);
 					}
 					break;
 				case 2:
-					if (checkCollision(playerCollision->getCollider(), buttonCollider->getCollider())) {
+					if (checkCollision(playerCollision->getAABBCollider(), buttonCollider->getAABBCollider())) {
 						// 1,3 for red team
 						if (player->getId() == 1 || player->getId() == 3) {
 							button->setRedDoor(true);
@@ -81,8 +82,9 @@ void CollisionSystem::updateComponent() {
 		}
 	}
 
-	// check collision between player and traps
-	searchTrap();
+	/// <summary>
+	///  check collision between player and traps
+	/// </summary>
 	for (Entity& trapEntity : m_trapEntitys) {
 
 		TrapComponent* trap = static_cast<TrapComponent*>(trapEntity.getComponent(Types::Traps));
@@ -100,7 +102,7 @@ void CollisionSystem::updateComponent() {
 
 				HealthComponent* playerHealth = static_cast<HealthComponent*>(playerEntitys.getComponent(Types::Health));
 				if (playerHealth->getAlive()) {
-					if (checkCollision(player->getCollider(), trapCollider->getCollider()) ) {
+					if (checkCollision( player->getAABBCollider(), trapCollider->getPolyCollider()) ) {
 						cout << "player die" << endl;
 
 						playerHealth->dead();
@@ -110,8 +112,9 @@ void CollisionSystem::updateComponent() {
 		}
 	}
 
-	// check collision between player and door
-	searchDoor();
+	/// <summary>
+	/// check collision between player and door
+	///  </summary>
 	for (Entity& doorEntity : m_doorEntitys) {
 		DoorComponent* door = static_cast<DoorComponent*>(doorEntity.getComponent(Types::Door));
 
@@ -124,12 +127,12 @@ void CollisionSystem::updateComponent() {
 
 			// red door open, check with player 1 and 3
 			if (!door->getRedDoor()) {
-				if (checkCollision(playerCollider[0]->getCollider(), doorCollider->getCollider())) {
+				if (checkCollision(playerCollider[0]->getAABBCollider(), doorCollider->getAABBCollider())) {
 					PlayerComponent* player = static_cast<PlayerComponent*>(m_playerEntitys[0].getComponent(Types::Player));
 					player->setMoveable(false);
 				}
 
-				if (checkCollision(playerCollider[2]->getCollider(), doorCollider->getCollider())) {
+				if (checkCollision(playerCollider[2]->getAABBCollider(), doorCollider->getAABBCollider())) {
 					PlayerComponent* player = static_cast<PlayerComponent*>(m_playerEntitys[2].getComponent(Types::Player));
 					player->setMoveable(false);
 				}
@@ -137,12 +140,12 @@ void CollisionSystem::updateComponent() {
 
 			// green door open, check with player 2 and 4
 			if (!door->getGreenDoor()) {
-				if (checkCollision(playerCollider[1]->getCollider(), doorCollider->getCollider())) {
+				if (checkCollision(playerCollider[1]->getAABBCollider(), doorCollider->getAABBCollider())) {
 					PlayerComponent* player = static_cast<PlayerComponent*>(m_playerEntitys[1].getComponent(Types::Player));
 					player->setMoveable(false);
 				}
 
-				if (checkCollision(playerCollider[3]->getCollider(), doorCollider->getCollider())) {
+				if (checkCollision(playerCollider[3]->getAABBCollider(), doorCollider->getAABBCollider())) {
 					PlayerComponent* player = static_cast<PlayerComponent*>(m_playerEntitys[3].getComponent(Types::Player));
 					player->setMoveable(false);
 				}
@@ -152,65 +155,47 @@ void CollisionSystem::updateComponent() {
 }
 
 /// <summary>
-/// get the all player entities from entities vector
+/// search the vector entity and find all entity we need
 /// </summary>
-void CollisionSystem::searchPlayer() {
+void CollisionSystem::searchEntities() {
 	m_playerEntitys.clear();
+	m_buttonEntitys.clear();
+	m_trapEntitys.clear();
+	m_doorEntitys.clear();
 
 	for (Entity& e1 : entities) {
+		//get the all player entities from entities vector
 		if (e1.getType() == Types::Player)
 		{
 			m_playerEntitys.push_back(e1);
 		}
-	}
-}
-
-/// <summary>
-/// get the all button entites from entities vector
-/// </summary>
-void CollisionSystem::searchButton() {
-	m_buttonEntitys.clear();
-
-	for (Entity& e1 : entities) {
-		if (e1.getType() == Types::Button)
+		//get the all button entites from entities vector
+		else if (e1.getType() == Types::Button)
 		{
 			m_buttonEntitys.push_back(e1);
 		}
-	}
-}
-
-/// <summary>
-/// get the all trpa entites from entities vector
-/// </summary>
-void CollisionSystem::searchTrap() {
-	m_trapEntitys.clear();
-
-	for (Entity& e1 : entities) {
-		if (e1.getType() == Types::Traps)
+		//get the all trpa entites from entities vector
+		else if (e1.getType() == Types::Traps)
 		{
 			m_trapEntitys.push_back(e1);
 		}
-	}
-}
-
-/// <summary>
-/// get the all door entites from entities vector
-/// </summary>
-void CollisionSystem::searchDoor() {
-	m_doorEntitys.clear();
-
-	for (Entity& e1 : entities) {
-		if (e1.getType() == Types::Door)
+		//get the all door entites from entities vector
+		else if (e1.getType() == Types::Door)
 		{
 			m_doorEntitys.push_back(e1);
 		}
 	}
 }
 
-
-bool CollisionSystem::checkCollision(c2Circle t_collider, c2Circle t_otherCollider)
+/// <summary>
+/// check the collision between circle and rectangle
+/// </summary>
+/// <param name="t_collider"> circle collider</param>
+/// <param name="t_otherCollider">rectangle collider</param>
+/// <returns></returns>
+bool CollisionSystem::checkCollision(c2Circle t_collider, c2AABB t_otherCollider)
 {
-	if (c2CircletoCircle(t_collider, t_otherCollider)) {
+	if (c2CircletoAABB(t_collider, t_otherCollider)) {
 		std::cout << "Collision" << std::endl;
 		//handleCollision();
 		return true;
@@ -218,5 +203,35 @@ bool CollisionSystem::checkCollision(c2Circle t_collider, c2Circle t_otherCollid
 	return false;
 }
 
+/// <summary>
+/// check the collision between rectangle and rectangle
+/// </summary>
+/// <param name="t_collider">rectangle collider</param>
+/// <param name="t_otherCollider">rectangle collider</param>
+/// <returns></returns>
+bool CollisionSystem::checkCollision(c2AABB t_collider, c2AABB t_otherCollider)
+{
+	if (c2AABBtoAABB(t_collider, t_otherCollider)) {
+		std::cout << "Collision" << std::endl;
+		//handleCollision();
+		return true;
+	}
+	return false;
+}
 
+/// <summary>
+/// check the collision between rectangle and polygon
+/// </summary>
+/// <param name="t_collider">rectangle collider</param>
+/// <param name="t_otherCollider">polygon collider</param>
+/// <returns></returns>
+bool CollisionSystem::checkCollision(c2AABB t_collider, c2Poly t_otherCollider)
+{
+	if (c2AABBtoPoly(t_collider, &t_otherCollider, nullptr)) {
+		std::cout << "Collision" << std::endl;
+		//handleCollision();
+		return true;
+	}
+	return false;
+}
 

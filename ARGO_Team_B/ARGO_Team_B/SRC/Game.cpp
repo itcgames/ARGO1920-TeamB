@@ -43,77 +43,77 @@ Game::Game()
 
 	// Player
 	m_player.addComponent(new PlayerComponent(1), Types::Player); // This must allways be first added
-	m_player.addComponent(new CollisionComponent(), Types::Collider); 
 	m_player.addComponent(new HealthComponent(100), Types::Health);
 	m_player.addComponent(new PositionComponent(100, 100), Types::Position);
+	m_player.addComponent(new CollisionComponent(m_player, RAT_W, RAT_H), Types::Collider);
 	m_player.addComponent(new ControlComponent(m_player), Types::Controller);
 	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
 
 	// Alien
 	m_alien.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added
-	m_alien.addComponent(new CollisionComponent(), Types::Collider);
 	m_alien.addComponent(new HealthComponent(150), Types::Health);
 	m_alien.addComponent(new PositionComponent(200, 200), Types::Position);
+	m_alien.addComponent(new CollisionComponent(m_alien, RAT_W, RAT_H), Types::Collider);
 	m_alien.addComponent(new ControlComponent(m_alien), Types::Controller);
 	m_alien.addComponent(new RenderComponent("./Assets/rat2.png", RAT_W, RAT_H, p_renderer), Types::Render);
 
 	// Dog
 	m_dog.addComponent(new PlayerComponent(3), Types::Player); // This must allways be first added
-	m_dog.addComponent(new CollisionComponent(), Types::Collider);
 	m_dog.addComponent(new HealthComponent(75), Types::Health);
 	m_dog.addComponent(new PositionComponent(300, 300), Types::Position);
+	m_dog.addComponent(new CollisionComponent(m_dog, RAT_W, RAT_H), Types::Collider);
 	m_dog.addComponent(new ControlComponent(m_dog), Types::Controller);
 	m_dog.addComponent(new RenderComponent("./Assets/rat3.png", RAT_W, RAT_H, p_renderer), Types::Render);
 
 	// Cat
 	m_cat.addComponent(new PlayerComponent(4), Types::Player); // This must allways be first added
-	m_cat.addComponent(new CollisionComponent(), Types::Collider);
 	m_cat.addComponent(new HealthComponent(50), Types::Health);
 	m_cat.addComponent(new PositionComponent(400, 400), Types::Position);
+	m_cat.addComponent(new CollisionComponent(m_cat, RAT_W, RAT_H), Types::Collider);
 	m_cat.addComponent(new ControlComponent(m_cat), Types::Controller);
 	m_cat.addComponent(new RenderComponent("./Assets/rat4.png", RAT_W, RAT_H, p_renderer), Types::Render);
 
 	/*button test*/
 	//Button 1
 	m_button.addComponent(new ButtonComponent(false, 1, 1), Types::Button);
-	m_button.addComponent(new CollisionComponent(), Types::Collider);
 	m_button.addComponent(new PositionComponent(600, 50), Types::Position);
+	m_button.addComponent(new CollisionComponent(m_button, 30, 30), Types::Collider);
 	m_button.addComponent(new RenderComponent("Assets\\Button.png", 30, 30, p_renderer), Types::Render);
 
 	//Button 2
 	m_button2.addComponent(new ButtonComponent(false, 2, 1), Types::Button);
-	m_button2.addComponent(new CollisionComponent(), Types::Collider);
 	m_button2.addComponent(new PositionComponent(150, 650), Types::Position);
+	m_button2.addComponent(new CollisionComponent(m_button2, 30, 30), Types::Collider);
 	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 30, 30, p_renderer), Types::Render);
 	
 	//door button
 	m_doorButton.addComponent(new ButtonComponent(false, 1, 2), Types::Button);
-	m_doorButton.addComponent(new CollisionComponent(), Types::Collider);
 	m_doorButton.addComponent(new PositionComponent(250, 650), Types::Position);
+	m_doorButton.addComponent(new CollisionComponent(m_doorButton, 30, 30), Types::Collider);
 	m_doorButton.addComponent(new RenderComponent("Assets\\DoorButton.png", 30, 30, p_renderer), Types::Render);
 
 	//Trap 1
 	m_spike.addComponent(new TrapComponent(false, 1), Types::Traps);
-	m_spike.addComponent(new CollisionComponent(), Types::Collider);
 	m_spike.addComponent(new PositionComponent(600,600), Types::Position);
+	m_spike.addComponent(new CollisionComponent(m_spike, RAT_H, RAT_H, 3), Types::Collider);
 	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, p_renderer), Types::Render);
 
 	//Trap 2
 	m_spike2.addComponent(new TrapComponent(true, 0), Types::Traps);
-	m_spike2.addComponent(new CollisionComponent(), Types::Collider);
 	m_spike2.addComponent(new PositionComponent(700, 100), Types::Position);
+	m_spike2.addComponent(new CollisionComponent(m_spike2, RAT_H, RAT_H, 3), Types::Collider);
 	m_spike2.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, p_renderer), Types::Render);
 
 	//Trap 3
 	m_spike3.addComponent(new TrapComponent(false, 2), Types::Traps);
-	m_spike3.addComponent(new CollisionComponent(), Types::Collider);
 	m_spike3.addComponent(new PositionComponent(800, 100), Types::Position);
+	m_spike3.addComponent(new CollisionComponent(m_spike3, RAT_H, RAT_H, 3), Types::Collider);
 	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, p_renderer), Types::Render);
 
 	//door 1
 	m_door1.addComponent(new DoorComponent(1),Types::Door);
-	m_door1.addComponent(new CollisionComponent(), Types::Collider);
 	m_door1.addComponent(new PositionComponent(800, 300), Types::Position);
+	m_door1.addComponent(new CollisionComponent(m_door1, 200, 20), Types::Collider);
 	m_door1.addComponent(new RenderComponent("Assets\\Door.png", 200, 20, p_renderer), Types::Render);
 
 	// Systems

@@ -21,11 +21,11 @@ public:
 	void updateComponent();
 
 private:
-	void searchPlayer();
-	void searchButton();
-	void searchTrap();
-	void searchDoor();
-	bool checkCollision(c2Circle t_collider, c2Circle t_otherCollider);
+	void searchEntities();
+
+	bool checkCollision(c2Circle t_collider, c2AABB t_otherCollider);
+	bool checkCollision(c2AABB t_collider, c2AABB t_otherCollider);
+	bool checkCollision(c2AABB t_collider, c2Poly t_otherCollider);
 
 	vector<Entity> m_playerEntitys;
 	vector<Entity> m_buttonEntitys;
