@@ -1,6 +1,7 @@
 #include "CollisionSystem.h"
 
 CollisionSystem::CollisionSystem()
+
 {
 }
 
@@ -23,7 +24,7 @@ void CollisionSystem::updateComponent(Level& t_level)
 		m_positionComp = static_cast<PositionComponent*>(player.getComponent(Types::Position));
 		x1 = m_positionComp->getPositionX();
 		y1 = m_positionComp->getPositionY();
-		tileCollision(x1, y1, 60, 30, t_level);
+		tileCollision(x1, y1, RAT_W, RAT_H, t_level);
 	}
 
 	// player 1 and player 2 collision check
@@ -109,6 +110,7 @@ void CollisionSystem::updateComponent(Level& t_level)
 			for (Entity& playerEntitys : m_playerEntitys) 
 			{
 				CollisionComponent* playerCollider = static_cast<CollisionComponent*>(playerEntitys.getComponent(Types::Collider));
+				
 				PlayerComponent* player = static_cast<PlayerComponent*>(playerEntitys.getComponent(Types::Player));
 					if (checkCollision(playerCollider->getCollider(), goalCollider->getCollider()))
 					{
@@ -124,44 +126,55 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 {
 	for (int i = 0; i < t_mazeWalls.m_mazeWalls.size(); i++)
 	{
-		//top of object
-		if (y + height >=  t_mazeWalls.m_mazeWalls[i].y &&
-			y + height <=  t_mazeWalls.m_mazeWalls[i].y +  t_mazeWalls.m_mazeWalls[i].height &&
-			x >  t_mazeWalls.m_mazeWalls[i].x - width &&
-			x <=  t_mazeWalls.m_mazeWalls[i].x +  t_mazeWalls.m_mazeWalls[i].width)
-		{
-			{
-				std::cout << "top collision!" << std::endl;
-			}
-		}
 		//right of tile
-		if (x <=  t_mazeWalls.m_mazeWalls[i].x +  t_mazeWalls.m_mazeWalls[i].width &&
-			x >=  t_mazeWalls.m_mazeWalls[i].x &&
-			y + height >=  t_mazeWalls.m_mazeWalls[i].y &&
-			y <=  t_mazeWalls.m_mazeWalls[i].y +  t_mazeWalls.m_mazeWalls[i].height)
+		if (x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width &&
+			x >= t_mazeWalls.m_mazeWalls[i].x &&
+			y + height >= t_mazeWalls.m_mazeWalls[i].y &&
+			y <= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height)
 		{
 			std::cout << "right collision!" << std::endl;
+			m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x + RAT_H, y);
 		}
 
 		//left of tile
-		else if (x + width >=  t_mazeWalls.m_mazeWalls[i].x &&
-			x + width <  t_mazeWalls.m_mazeWalls[i].x +  t_mazeWalls.m_mazeWalls[i].width &&
-			y + height >=  t_mazeWalls.m_mazeWalls[i].y &&
-			y <=  t_mazeWalls.m_mazeWalls[i].y +  t_mazeWalls.m_mazeWalls[i].height)
+		else if (x + width >= t_mazeWalls.m_mazeWalls[i].x &&
+			x + width < t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width &&
+			y + height >= t_mazeWalls.m_mazeWalls[i].y &&
+			y <= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height)
 		{
 			std::cout << "left collision!" << std::endl;
+			m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x - RAT_W, y);
 		}
-
-		else if (y >= t_mazeWalls.m_mazeWalls[i].y &&
-			y <= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height &&
-			x >= t_mazeWalls.m_mazeWalls[i].x - width &&
+		//top of tile
+		else if (y + height >= t_mazeWalls.m_mazeWalls[i].y &&
+			y + height <= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height &&
+			x > t_mazeWalls.m_mazeWalls[i].x - width &&
 			x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width)
 		{
-			std::cout << "bottom collision!" << std::endl;
+			{
+				std::cout << "top collision!" << std::endl;
+				m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y - RAT_H);
+
+			}
+		}
+		////bottom of tile
+		else if (y>=t_mazeWalls.m_mazeWalls[i].y+t_mazeWalls.m_mazeWalls[i].height &&
+			y<=t_mazeWalls.m_mazeWalls[i].y &&
+			x > t_mazeWalls.m_mazeWalls[i].x - width &&
+			x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width)
+		{
+			{
+				std::cout << "bottom collision!" << std::endl;
+				m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y + RAT_W);
+
+			}
 		}
 	}
 
+
+
 }
+	
 
 
 /// <summary>
@@ -223,7 +236,7 @@ void CollisionSystem::searchCheese()
 bool CollisionSystem::checkCollision(c2Circle t_collider, c2Circle t_otherCollider)
 {
 	if (c2CircletoCircle(t_collider, t_otherCollider)) {
-		std::cout << "Collision" << std::endl;
+		//std::cout << "Collision" << std::endl;
 		//handleCollision();
 		return true;
 	}

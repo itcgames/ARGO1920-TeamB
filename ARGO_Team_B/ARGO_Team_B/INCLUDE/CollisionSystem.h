@@ -32,7 +32,7 @@ private:
 	vector<Entity> m_buttonEntitys;
 	vector<Entity> m_trapEntitys;
 	vector<Entity> m_goalEntitys;
-	float x1, y1, width1, height1;
+	float x1, y1;
 	PositionComponent* m_positionComp;
 };
 #endif // !COLLISION_SYSTEM

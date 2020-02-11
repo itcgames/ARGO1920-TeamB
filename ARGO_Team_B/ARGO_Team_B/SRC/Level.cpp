@@ -138,8 +138,8 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
                 // Find the dimensions of the tile sheet. This is important,
                 // because our tile is only a small sprite on that sheet, not
                 // the whole sheet.
-                auto ts_width = 0;
-                auto ts_height = 0;
+                auto ts_width = 256;
+                auto ts_height = 1450;
                 SDL_QueryTexture(tilesets[tset_gid],
                     NULL, NULL, &ts_width, &ts_height);
 
