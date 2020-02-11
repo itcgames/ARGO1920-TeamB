@@ -49,11 +49,14 @@ void ButtonSystem::setObjectStates() {
 						// find the trap with same id to button
 						if (doorComp->getId() == btnId) {
 							doorComp->setState(btnComp->getRedDoor(), btnComp->getGreenDoor());
-							if (btnComp->getRedDoor()) {
-								renderComp->setImage("Assets\\greenDoor.png");
-							}
-							else if (btnComp->getGreenDoor()) {
-								renderComp->setImage("Assets\\redDoor.png");
+							if (!btnComp->getRedDoor() || !btnComp->getGreenDoor()) {
+
+								if (btnComp->getRedDoor()) {
+									renderComp->setImage("Assets\\greenDoor.png");
+								}
+								else if (btnComp->getGreenDoor()) {
+									renderComp->setImage("Assets\\redDoor.png");
+								}
 							}
 						}
 
