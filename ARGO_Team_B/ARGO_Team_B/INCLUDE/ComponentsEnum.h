@@ -9,6 +9,7 @@ enum class Types {
 	Traps,
 	Controller,
 	Collider,
+	Door,
 	Player
 };
 

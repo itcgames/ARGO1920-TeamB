@@ -14,38 +14,50 @@ ControlComponent::~ControlComponent()
 void ControlComponent::handleInput()
 {
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
+
+	PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
+
 	if (posComp != nullptr)
 	{
 		m_controller->checkButton();
-		
+		if (playerComp->getMoveable()) {
+			posComp->setPreviousePos();
 
-		if (m_controller->m_currentState.DpadUp || m_controller->m_currentState.LeftThumbStick.y < m_controller->dpadThreshold) {
-			p_walkUp = new WalkUpCommand();
-			p_walkUp->execute(m_entity);
+
+			if (m_controller->m_currentState.DpadUp || m_controller->m_currentState.LeftThumbStick.y < -m_controller->dpadThreshold) {
+				p_walkUp = new WalkUpCommand();
+				p_walkUp->execute(m_entity);
+			}
+
+			if (m_controller->m_currentState.DpadLeft || m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
+				p_walkLeft = new WalkLeftCommand();
+				p_walkLeft->execute(m_entity);
+			}
+
+			if (m_controller->m_currentState.DpadRight || m_controller->m_currentState.LeftThumbStick.x > m_controller->dpadThreshold) {
+				p_walkRight = new WalkRightCommand();
+				p_walkRight->execute(m_entity);
+			}
+
+			if (m_controller->m_currentState.DpadDown || m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
+				p_walkDown = new WalkDownCommand();
+				p_walkDown->execute(m_entity);
+			}
+		}
+		else if (!playerComp->getMoveable()) {
+			posComp->backToPreviousePos();
+			playerComp->setMoveable(true);
 		}
 
-		if (m_controller->m_currentState.DpadLeft || m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
-			p_walkLeft = new WalkLeftCommand();
-			p_walkLeft->execute(m_entity);
-		}
 
-		if (m_controller->m_currentState.DpadRight || m_controller->m_currentState.LeftThumbStick.x > m_controller->dpadThreshold) {
-			p_walkRight = new WalkRightCommand();
-			p_walkRight->execute(m_entity);
-		}
-
-		if (m_controller->m_currentState.DpadDown || m_controller->m_currentState.LeftThumbStick.y > -m_controller->dpadThreshold) {
-			p_walkDown= new WalkDownCommand();
-			p_walkDown->execute(m_entity);
-
-		}
-		
-		m_controller->m_currentState.DpadUp = false;
+		/*m_controller->m_currentState.DpadUp = false;
 		m_controller->m_currentState.DpadDown= false;
 		m_controller->m_currentState.DpadLeft = false;
 		m_controller->m_currentState.DpadRight = false;
 		m_controller->m_currentState.LeftThumbStick.x = 0;
-		m_controller->m_currentState.LeftThumbStick.y = 0;
+		m_controller->m_currentState.LeftThumbStick.y = 0;*/
 	}
+
+
 }
 

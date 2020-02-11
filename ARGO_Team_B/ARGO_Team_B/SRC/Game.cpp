@@ -75,16 +75,22 @@ Game::Game()
 
 	/*button test*/
 	//Button 1
-	m_button.addComponent(new ButtonComponent(false, 1), Types::Button);
+	m_button.addComponent(new ButtonComponent(false, 1, 1), Types::Button);
 	m_button.addComponent(new CollisionComponent(), Types::Collider);
 	m_button.addComponent(new PositionComponent(600, 50), Types::Position);
 	m_button.addComponent(new RenderComponent("Assets\\Button.png", 30, 30, p_renderer), Types::Render);
 
 	//Button 2
-	m_button2.addComponent(new ButtonComponent(false, 2), Types::Button);
+	m_button2.addComponent(new ButtonComponent(false, 2, 1), Types::Button);
 	m_button2.addComponent(new CollisionComponent(), Types::Collider);
 	m_button2.addComponent(new PositionComponent(150, 650), Types::Position);
 	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 30, 30, p_renderer), Types::Render);
+	
+	//door button
+	m_doorButton.addComponent(new ButtonComponent(false, 1, 2), Types::Button);
+	m_doorButton.addComponent(new CollisionComponent(), Types::Collider);
+	m_doorButton.addComponent(new PositionComponent(250, 650), Types::Position);
+	m_doorButton.addComponent(new RenderComponent("Assets\\DoorButton.png", 30, 30, p_renderer), Types::Render);
 
 	//Trap 1
 	m_spike.addComponent(new TrapComponent(false, 1), Types::Traps);
@@ -104,6 +110,11 @@ Game::Game()
 	m_spike3.addComponent(new PositionComponent(800, 100), Types::Position);
 	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, p_renderer), Types::Render);
 
+	//door 1
+	m_door1.addComponent(new DoorComponent(1),Types::Door);
+	m_door1.addComponent(new CollisionComponent(), Types::Collider);
+	m_door1.addComponent(new PositionComponent(800, 300), Types::Position);
+	m_door1.addComponent(new RenderComponent("Assets\\Door.png", 200, 20, p_renderer), Types::Render);
 
 	// Systems
 	//HEALTH All entities
@@ -126,11 +137,13 @@ Game::Game()
 
 	m_collisionSystem.addEntity(m_button);
 	m_collisionSystem.addEntity(m_button2);
+	m_collisionSystem.addEntity(m_doorButton);
 
 	m_collisionSystem.addEntity(m_spike);
 	m_collisionSystem.addEntity(m_spike2);
 	m_collisionSystem.addEntity(m_spike3);
 
+	m_collisionSystem.addEntity(m_door1);
 	//DRAW Draw all of entities
 	m_renderSystem.addEntity(m_player);
 	m_renderSystem.addEntity(m_alien);
@@ -147,16 +160,23 @@ Game::Game()
 
 	m_renderSystem.addEntity(m_button);
 	m_renderSystem.addEntity(m_button2);
+	m_renderSystem.addEntity(m_doorButton);
+
 	m_renderSystem.addEntity(m_spike);
 	m_renderSystem.addEntity(m_spike2);
 	m_renderSystem.addEntity(m_spike3);
 
+	m_renderSystem.addEntity(m_door1);
+
 	//Connect button entity and trap entity
-	m_trapSystem.addEntity(m_button);
-	m_trapSystem.addEntity(m_button2);
-	m_trapSystem.addEntity(m_spike);
-	m_trapSystem.addEntity(m_spike2);
-	m_trapSystem.addEntity(m_spike3);
+	m_buttonSystem.addEntity(m_button);
+	m_buttonSystem.addEntity(m_button2);
+	m_buttonSystem.addEntity(m_doorButton);
+
+	m_buttonSystem.addEntity(m_spike);
+	m_buttonSystem.addEntity(m_spike2);
+	m_buttonSystem.addEntity(m_spike3);
+	m_buttonSystem.addEntity(m_door1);
 
 }
 
@@ -230,14 +250,12 @@ void Game::update(float dt)
 {
 	m_healthSystem.update();
 	m_aiSystem.update();
-	m_trapSystem.update();
-
-	m_trapSystem.setTrapStates();
+	m_buttonSystem.update();
+	m_collisionSystem.updateComponent();
 
 	m_controlSystem.handleInput();
 	//m_controlSystem.update();
 
-	m_collisionSystem.updateComponent();
 
 }
 

@@ -39,6 +39,8 @@ void RenderSystem::draw()
 
 							ButtonComponent* btnComp = dynamic_cast<ButtonComponent*>(c3);
 
+							DoorComponent* doorcomp = dynamic_cast<DoorComponent*>(c3);
+
 							if (healthComp != nullptr)
 							{
 								if (healthComp->getAlive() == true)
@@ -55,6 +57,9 @@ void RenderSystem::draw()
 								if (btnComp->getAlive()) {
 									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
 								}
+							}
+							else if(doorcomp != nullptr){
+								rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
 							}
 
 						}		

@@ -3,8 +3,6 @@
 
 #include "Entity.h"
 #include "PositionComponent.h"
-#include "CollisionComponent.h"
-
 class Command
 {
 public :
@@ -20,8 +18,6 @@ public:
 		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
 		posComp->moveUp();
 
-		CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
-		colComp->updateCollider(t_gameObject);
 	}
 };
 
@@ -32,8 +28,6 @@ public:
 		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
 		posComp->moveDown();
 
-		CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
-		colComp->updateCollider(t_gameObject);
 	}
 };
 
@@ -44,8 +38,6 @@ public:
 		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
 		posComp->moveLeft();
 
-		CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
-		colComp->updateCollider(t_gameObject);
 	}
 };
 
@@ -56,8 +48,6 @@ public:
 		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
 		posComp->moveRight();
 
-		CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
-		colComp->updateCollider(t_gameObject);
 	}
 };
 

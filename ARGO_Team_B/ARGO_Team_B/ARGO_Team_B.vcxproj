@@ -133,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="SRC\AISystem.cpp" />
+    <ClCompile Include="SRC\AnimationComponent.cpp" />
     <ClCompile Include="SRC\Assets.cpp" />
     <ClCompile Include="SRC\ButtonComponent.cpp" />
     <ClCompile Include="Src\CollisionComponent.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="Src\Xbox360Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="INCLUDE\AnimationComponent.h" />
     <ClInclude Include="Include\CollisionComponent.h" />
     <ClInclude Include="Include\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Command.h" />

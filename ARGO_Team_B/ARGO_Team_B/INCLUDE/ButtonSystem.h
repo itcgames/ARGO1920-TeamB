@@ -1,3 +1,6 @@
+#ifndef BUTTONSYSTEM
+#define BUTTONSYSTEM
+
 #pragma once
 #include "System.h"
 #include "PositionComponent.h"
@@ -14,3 +17,4 @@ public:
 	void setTrapStates();
 	void setDoorStates();
 };
+#endif

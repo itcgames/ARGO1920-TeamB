@@ -26,6 +26,16 @@ void PositionComponent::setPosition(float t_x, float t_y)
 	m_currentY = t_y;
 }
 
+void PositionComponent::setPreviousePos() {
+	m_previouseX = m_currentX;
+	m_previouseY = m_currentY;
+}
+
+void PositionComponent::backToPreviousePos() {
+	m_currentX = m_previouseX;
+	m_currentY = m_previouseY ;
+}
+
 void PositionComponent::moveUp()
 {
 	m_currentY-=3;

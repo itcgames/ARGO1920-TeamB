@@ -21,7 +21,8 @@ void ButtonSystem::setTrapStates() {
 
 		for (Component* c1 : e1.getComponents()) {
 			ButtonComponent* btnComp = dynamic_cast<ButtonComponent*>(c1);
-			if (btnComp != nullptr) {
+			// check the is button connect with traps
+			if (btnComp != nullptr && btnComp->getType() == 1) {
 				bool acitve = btnComp->getState();
 				int btnId = btnComp->getId();
 
@@ -30,12 +31,12 @@ void ButtonSystem::setTrapStates() {
 						TrapComponent* trapComp = dynamic_cast<TrapComponent*>(c2);
 
 						// find the trap with same id to button
-						if (trapComp != nullptr && trapComp->getId() == btnId) {
-							trapComp->setState(acitve);
+						if (trapComp != nullptr ) {
+							if (trapComp->getId() == btnId) {
+								trapComp->setState(acitve);
+							}
 						}
-						else {
-							break;
-						}
+
 
 					}
 				}
@@ -48,8 +49,8 @@ void ButtonSystem::setDoorStates() {
 	for (Entity& e1 : entities) {
 		for (Component* c1 : e1.getComponents()) {
 			ButtonComponent* btnComp = dynamic_cast<ButtonComponent*>(c1);
-			if (btnComp != nullptr) {
-				bool acitve = btnComp->getState();
+			// check is this button connect to the door
+			if (btnComp != nullptr && btnComp->getType() == 2) {
 				int btnId = btnComp->getId();
 
 				for (Entity& e2 : entities) {
@@ -57,11 +58,10 @@ void ButtonSystem::setDoorStates() {
 						DoorComponent* doorComp = dynamic_cast<DoorComponent*>(c2);
 
 						// find the trap with same id to button
-						if (doorComp != nullptr && doorComp->getId() == btnId) {
-							doorComp->setState(acitve, acitve);
-						}
-						else {
-							break;
+						if (doorComp != nullptr) {
+							if (doorComp->getId() == btnId) {
+								doorComp->setState(btnComp->getRedDoor(), btnComp->getGreenDoor());
+							}
 						}
 
 					}
