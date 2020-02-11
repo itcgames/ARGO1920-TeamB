@@ -256,7 +256,7 @@ void Game::update(float dt)
 	m_controlSystem.handleInput();
 	//m_controlSystem.update();
 
-	m_collisionSystem.updateComponent();
+	m_collisionSystem.updateComponent(*tiled_map_level);
 
 }
 

@@ -9,6 +9,8 @@
 #include "HealthComponent.h"
 #include "GoalComponent.h"
 #include <vector>
+#include "Level.h"
+#include "PositionComponent.h"
 using namespace std;
 
 class CollisionSystem : public System
@@ -17,8 +19,8 @@ public:
 	CollisionSystem();
 	~CollisionSystem();
 	void updateComponent(Component* component) override;
-	void updateComponent();
-
+	void updateComponent(Level &t_level);
+	void tileCollision(float x, float y, float width, float height, Level& t_mazeWalls);
 private:
 	void searchPlayer();
 	void searchButton();
@@ -30,5 +32,7 @@ private:
 	vector<Entity> m_buttonEntitys;
 	vector<Entity> m_trapEntitys;
 	vector<Entity> m_goalEntitys;
+	float x1, y1, width1, height1;
+	PositionComponent* m_positionComp;
 };
 #endif // !COLLISION_SYSTEM

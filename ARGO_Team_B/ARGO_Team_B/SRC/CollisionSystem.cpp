@@ -12,13 +12,18 @@ void CollisionSystem::updateComponent(Component* component)
 {
 }
 
-void CollisionSystem::updateComponent() 
+void CollisionSystem::updateComponent(Level& t_level)
 {
 	searchPlayer();
 
 	vector<CollisionComponent*> playerCollider;
+
 	for (Entity& player : m_playerEntitys) {
 		playerCollider.push_back(static_cast<CollisionComponent*>(player.getComponent(Types::Collider)));
+		m_positionComp = static_cast<PositionComponent*>(player.getComponent(Types::Position));
+		x1 = m_positionComp->getPositionX();
+		y1 = m_positionComp->getPositionY();
+		tileCollision(x1, y1, 60, 30, t_level);
 	}
 
 	// player 1 and player 2 collision check
@@ -113,6 +118,49 @@ void CollisionSystem::updateComponent()
 			}
 		}
 	}
+}
+
+void CollisionSystem::tileCollision(float x, float y, float width, float height, Level& t_mazeWalls)
+{
+	for (int i = 0; i < t_mazeWalls.m_mazeWalls.size(); i++)
+	{
+		//top of object
+		if (y + height >=  t_mazeWalls.m_mazeWalls[i].y &&
+			y + height <=  t_mazeWalls.m_mazeWalls[i].y +  t_mazeWalls.m_mazeWalls[i].height &&
+			x >  t_mazeWalls.m_mazeWalls[i].x - width &&
+			x <=  t_mazeWalls.m_mazeWalls[i].x +  t_mazeWalls.m_mazeWalls[i].width)
+		{
+			{
+				std::cout << "top collision!" << std::endl;
+			}
+		}
+		//right of tile
+		if (x <=  t_mazeWalls.m_mazeWalls[i].x +  t_mazeWalls.m_mazeWalls[i].width &&
+			x >=  t_mazeWalls.m_mazeWalls[i].x &&
+			y + height >=  t_mazeWalls.m_mazeWalls[i].y &&
+			y <=  t_mazeWalls.m_mazeWalls[i].y +  t_mazeWalls.m_mazeWalls[i].height)
+		{
+			std::cout << "right collision!" << std::endl;
+		}
+
+		//left of tile
+		else if (x + width >=  t_mazeWalls.m_mazeWalls[i].x &&
+			x + width <  t_mazeWalls.m_mazeWalls[i].x +  t_mazeWalls.m_mazeWalls[i].width &&
+			y + height >=  t_mazeWalls.m_mazeWalls[i].y &&
+			y <=  t_mazeWalls.m_mazeWalls[i].y +  t_mazeWalls.m_mazeWalls[i].height)
+		{
+			std::cout << "left collision!" << std::endl;
+		}
+
+		else if (y >= t_mazeWalls.m_mazeWalls[i].y &&
+			y <= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height &&
+			x >= t_mazeWalls.m_mazeWalls[i].x - width &&
+			x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width)
+		{
+			std::cout << "bottom collision!" << std::endl;
+		}
+	}
+
 }
 
 
