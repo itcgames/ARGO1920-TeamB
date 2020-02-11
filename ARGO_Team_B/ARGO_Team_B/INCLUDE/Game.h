@@ -54,10 +54,6 @@ private:
 	Level* tiled_map_level;
 	ButtonSystem m_trapSystem;
 	CollisionSystem m_collisionSystem;
-<<<<<<< HEAD
-	
-=======
 	std::vector<Entity> m_goalCheeses;
->>>>>>> f881fee29a6af727fa0ebffeb3bf9d9ca7ca2f7f
 };
 #endif // !GAME

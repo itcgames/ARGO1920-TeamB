@@ -7,10 +7,7 @@
 #include "ButtonComponent.h"
 #include "TrapComponent.h"
 #include "HealthComponent.h"
-<<<<<<< HEAD
-=======
 #include "GoalComponent.h"
->>>>>>> f881fee29a6af727fa0ebffeb3bf9d9ca7ca2f7f
 #include <vector>
 using namespace std;
 
