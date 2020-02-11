@@ -45,9 +45,9 @@ Game::Game()
 	m_player.addComponent(new PlayerComponent(1), Types::Player); // This must allways be first added
 	m_player.addComponent(new CollisionComponent(), Types::Collider); 
 	m_player.addComponent(new HealthComponent(100), Types::Health);
-	m_player.addComponent(new PositionComponent(50, 100), Types::Position);
+	m_player.addComponent(new PositionComponent(600, 300), Types::Position);
 	m_player.addComponent(new ControlComponent(m_player), Types::Controller);
-	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
+	m_player.addComponent(new RenderComponent("./Assets/rat.png", 90, 30, p_renderer), Types::Render);
 
 	// Alien
 	m_alien.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added

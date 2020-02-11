@@ -133,39 +133,43 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			y <= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height)
 		{
 			std::cout << "right collision!" << std::endl;
-			m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x + RAT_H, y);
+			m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
+			//m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x + RAT_H, y);
 		}
 
 		//left of tile
-		else if (x + width >= t_mazeWalls.m_mazeWalls[i].x &&
+		if (x + width >= t_mazeWalls.m_mazeWalls[i].x &&
 			x + width < t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width &&
 			y + height >= t_mazeWalls.m_mazeWalls[i].y &&
 			y <= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height)
 		{
 			std::cout << "left collision!" << std::endl;
-			m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x - RAT_W, y);
+			//m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x - RAT_W, y);
+			m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
 		}
 		//top of tile
-		else if (y + height >= t_mazeWalls.m_mazeWalls[i].y &&
+		if (y + height >= t_mazeWalls.m_mazeWalls[i].y &&
 			y + height <= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height &&
 			x > t_mazeWalls.m_mazeWalls[i].x - width &&
 			x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width)
 		{
 			{
 				std::cout << "top collision!" << std::endl;
-				m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y - RAT_H);
+				//m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y - RAT_H);
+				m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
 
 			}
 		}
 		////bottom of tile
-		else if (y>=t_mazeWalls.m_mazeWalls[i].y+t_mazeWalls.m_mazeWalls[i].height &&
+		if (y>=t_mazeWalls.m_mazeWalls[i].y+t_mazeWalls.m_mazeWalls[i].height &&
 			y<=t_mazeWalls.m_mazeWalls[i].y &&
 			x > t_mazeWalls.m_mazeWalls[i].x - width &&
 			x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width)
 		{
 			{
 				std::cout << "bottom collision!" << std::endl;
-				m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y + RAT_W);
+				//m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y + RAT_W);
+				m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
 
 			}
 		}

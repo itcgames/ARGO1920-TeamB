@@ -14,8 +14,13 @@ public:
 	void moveDown();
 	void moveLeft();
 	void moveRight();
+	float getLastX() { return m_lastX; }
+	float getLastY() { return m_lastY; }
 private:
 	float m_currentX;
 	float m_currentY;
+
+	float m_lastX;
+	float m_lastY;
 };
 #endif // !POS
