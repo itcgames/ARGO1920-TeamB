@@ -2,9 +2,7 @@
 
 PositionComponent::PositionComponent(float t_x, float t_y) :
 	m_currentX(t_x),
-	m_currentY(t_y),
-	m_lastX(m_currentX),
-	m_lastY(m_currentY)
+	m_currentY(t_y)
 {
 
 }
@@ -28,37 +26,22 @@ void PositionComponent::setPosition(float t_x, float t_y)
 	m_currentY = t_y;
 }
 
-void PositionComponent::setPreviousePos() {
-	m_previouseX = m_currentX;
-	m_previouseY = m_currentY;
-}
-
-void PositionComponent::backToPreviousePos() {
-	m_currentX = m_previouseX;
-	m_currentY = m_previouseY ;
-}
-
 void PositionComponent::moveUp()
 {
-
-	m_lastY = m_currentY;
-	m_currentY-=3;
+	m_currentY-=1;
 }
 
 void PositionComponent::moveDown()
 {
-	m_lastY= m_currentY;
-	m_currentY += 3;
+	m_currentY += 1;
 }
 
 void PositionComponent::moveLeft()
 {
-	m_lastX = m_currentX;
-	m_currentX -= 3;
+	m_currentX -= 1;
 }
 
 void PositionComponent::moveRight()
 {
-	m_lastX = m_currentX;
-	m_currentX += 3;
+	m_currentX += 1;
 }

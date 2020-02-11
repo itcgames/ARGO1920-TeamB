@@ -13,8 +13,9 @@
 #include "CollisionSystem.h"
 #include "ComponentsEnum.h"
 #include "TrapComponent.h"
-#include "Globals.h"
 
+#include "Globals.h"
+#include <time.h>
 
 class Game
 {
@@ -47,8 +48,12 @@ private:
 	Entity m_spike2;
 	Entity m_spike3;
 
+
 	Entity m_door1;
 	Entity m_door2;
+
+	Entity m_goalCheese;
+
 
 	// Systems
 	HealthSystem m_healthSystem;
@@ -58,5 +63,6 @@ private:
 	Level* tiled_map_level;
 	ButtonSystem m_buttonSystem;
 	CollisionSystem m_collisionSystem;
+	std::vector<Entity> m_goalCheeses;
 };
 #endif // !GAME

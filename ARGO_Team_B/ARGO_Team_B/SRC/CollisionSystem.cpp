@@ -1,6 +1,7 @@
 #include "CollisionSystem.h"
 
 CollisionSystem::CollisionSystem()
+
 {
 }
 
@@ -12,16 +13,21 @@ void CollisionSystem::updateComponent(Component* component)
 {
 }
 
-void CollisionSystem::updateComponent() {
-
+void CollisionSystem::updateComponent(Level& t_level)
+{
 	searchEntities();
 
 	vector<CollisionComponent*> playerCollider;
+
 	for (Entity& player : m_playerEntitys) {
 		CollisionComponent* playerComp = dynamic_cast<CollisionComponent*>(player.getComponent(Types::Collider));
 		playerComp->updateCollider(player);
 		playerCollider.push_back(playerComp);
 		
+		m_positionComp = static_cast<PositionComponent*>(player.getComponent(Types::Position));
+		x1 = m_positionComp->getPositionX();
+		y1 = m_positionComp->getPositionY();
+		tileCollision(x1, y1, RAT_W, RAT_H, t_level);
 	}
 
 	// player 1 and player 2 collision check
@@ -111,7 +117,6 @@ void CollisionSystem::updateComponent() {
 			}
 		}
 	}
-
 	/// <summary>
 	/// check collision between player and door
 	///  </summary>
@@ -152,7 +157,93 @@ void CollisionSystem::updateComponent() {
 			}
 		}
 	}
+
+	// check collision between player and traps
+	searchCheese();
+	for (Entity& goalEntity : m_goalEntitys) 
+	{
+
+		GoalComponent* goal = static_cast<GoalComponent*>(goalEntity.getComponent(Types::Goal));
+
+		// check is button on the map
+		if (goal->getAlive()) 
+		{
+
+			CollisionComponent* goalCollider = static_cast<CollisionComponent*>(goalEntity.getComponent(Types::Collider));
+
+			goalCollider->updateCollider(goalEntity);
+
+			for (Entity& playerEntitys : m_playerEntitys) 
+			{
+				CollisionComponent* playerCollider = static_cast<CollisionComponent*>(playerEntitys.getComponent(Types::Collider));
+				
+				PlayerComponent* player = static_cast<PlayerComponent*>(playerEntitys.getComponent(Types::Player));
+					if (checkCollision(goalCollider->getAABBCollider(), playerCollider->getAABBCollider()))
+					{
+						std::cout << "Player with ID : " << player->getId() << "Collected the cheese" << std::endl;
+						goal->setAlive(false);
+					}
+			}
+		}
+	}
 }
+
+void CollisionSystem::tileCollision(float x, float y, float width, float height, Level& t_mazeWalls)
+{
+	for (int i = 0; i < t_mazeWalls.m_mazeWalls.size(); i++)
+	{
+		//right of tile
+		if (x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width &&
+			x >= t_mazeWalls.m_mazeWalls[i].x &&
+			y + height >= t_mazeWalls.m_mazeWalls[i].y &&
+			y <= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height)
+		{
+			std::cout << "right collision!" << std::endl;
+			m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
+			//m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x + RAT_H, y);
+		}
+
+		//left of tile
+		if (x + width >= t_mazeWalls.m_mazeWalls[i].x &&
+			x + width < t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width &&
+			y + height >= t_mazeWalls.m_mazeWalls[i].y &&
+			y <= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height)
+		{
+			std::cout << "left collision!" << std::endl;
+			//m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x - RAT_W, y);
+			m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
+		}
+		//top of tile
+		if (y + height >= t_mazeWalls.m_mazeWalls[i].y &&
+			y + height <= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height &&
+			x > t_mazeWalls.m_mazeWalls[i].x - width &&
+			x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width)
+		{
+			{
+				std::cout << "top collision!" << std::endl;
+				//m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y - RAT_H);
+				m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
+
+			}
+		}
+		////bottom of tile
+		if (y>=t_mazeWalls.m_mazeWalls[i].y+t_mazeWalls.m_mazeWalls[i].height &&
+			y<=t_mazeWalls.m_mazeWalls[i].y &&
+			x > t_mazeWalls.m_mazeWalls[i].x - width &&
+			x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width)
+		{
+			{
+				std::cout << "bottom collision!" << std::endl;
+				//m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y + RAT_W);
+				m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
+
+			}
+		}
+	}
+
+}
+	
+
 
 /// <summary>
 /// search the vector entity and find all entity we need
@@ -184,6 +275,7 @@ void CollisionSystem::searchEntities() {
 		{
 			m_doorEntitys.push_back(e1);
 		}
+
 	}
 }
 
@@ -235,3 +327,14 @@ bool CollisionSystem::checkCollision(c2AABB t_collider, c2Poly t_otherCollider)
 	return false;
 }
 
+void CollisionSystem::searchCheese()
+{
+	m_goalEntitys.clear();
+
+	for (Entity& e1 : entities) {
+		if (e1.getType() == Types::Goal)
+		{
+			m_goalEntitys.push_back(e1);
+		}
+	}
+}

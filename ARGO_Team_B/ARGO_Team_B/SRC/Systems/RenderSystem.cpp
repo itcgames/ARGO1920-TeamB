@@ -39,10 +39,6 @@ void RenderSystem::draw()
 
 							ButtonComponent* btnComp = dynamic_cast<ButtonComponent*>(c3);
 
-							DoorComponent* doorcomp = dynamic_cast<DoorComponent*>(c3);
-
-							GoalComponent* goalComp = dynamic_cast<GoalComponent*>(c3);
-
 							if (healthComp != nullptr)
 							{
 								if (healthComp->getAlive() == true)
@@ -60,16 +56,7 @@ void RenderSystem::draw()
 									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
 								}
 							}
-							else if (doorcomp != nullptr) {
-								rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
-							}
-							else if (goalComp != nullptr) {
-								if (goalComp->getAlive())
-								{
-									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
-								}
 
-							}
 						}		
 					}
 				}

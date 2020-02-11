@@ -14,23 +14,8 @@ public:
 	void moveDown();
 	void moveLeft();
 	void moveRight();
-
-	void backToPreviousePos();
-	void setPreviousePos();
-
-	float getLastX() { return m_lastX; }
-	float getLastY() { return m_lastY; }
-
 private:
 	float m_currentX;
 	float m_currentY;
-
-
-	float m_previouseX;
-	float m_previouseY;
-
-	float m_lastX;
-	float m_lastY;
-
 };
 #endif // !POS

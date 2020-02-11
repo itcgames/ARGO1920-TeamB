@@ -143,6 +143,7 @@
     <ClCompile Include="SRC\ControlComponent.cpp" />
     <ClCompile Include="Src\ControlSystem.cpp" />
     <ClCompile Include="SRC\Game.cpp" />
+    <ClCompile Include="SRC\GoalComponent.cpp" />
     <ClCompile Include="SRC\HealthComponent.cpp" />
     <ClCompile Include="SRC\HealthSystem.cpp" />
     <ClCompile Include="SRC\Level.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="INCLUDE\Entity.h" />
     <ClInclude Include="INCLUDE\Game.h" />
     <ClInclude Include="Include\Globals.h" />
+    <ClInclude Include="INCLUDE\GoalComponent.h" />
     <ClInclude Include="INCLUDE\HealthComponent.h" />
     <ClInclude Include="INCLUDE\HealthSystem.h" />
     <ClInclude Include="INCLUDE\Level.h" />
