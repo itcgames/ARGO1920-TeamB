@@ -23,7 +23,7 @@ public:
 	ControlSystem();
 	~ControlSystem();
 	void updateComponent(Component* c) override;
-	void handleInput();
+	void handleInput(float dt);
 	void handleInput(SDL_Keycode key);
 
 	int contNum= 0;

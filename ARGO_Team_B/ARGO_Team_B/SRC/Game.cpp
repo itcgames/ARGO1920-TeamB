@@ -253,7 +253,7 @@ void Game::update(float dt)
 
 	m_trapSystem.setTrapStates();
 
-	m_controlSystem.handleInput();
+	m_controlSystem.handleInput(dt);
 	//m_controlSystem.update();
 
 	m_collisionSystem.updateComponent();

@@ -2,9 +2,10 @@
 
 PositionComponent::PositionComponent(float t_x, float t_y) :
 	m_currentX(t_x),
-	m_currentY(t_y)
+	m_currentY(t_y),
+	m_velocityX(0),
+	m_velocityY(0)
 {
-
 }
 
 PositionComponent::~PositionComponent()
@@ -26,22 +27,36 @@ void PositionComponent::setPosition(float t_x, float t_y)
 	m_currentY = t_y;
 }
 
+void PositionComponent::setVelo(float t_x, float t_y)
+{
+	m_velocityX = t_x;
+	m_velocityY = t_y;
+}
+
 void PositionComponent::moveUp()
 {
-	m_currentY-=3;
+	if (m_velocityY > -MAX_VELO) {
+		m_velocityY -= INC_VELO;
+	}
 }
 
 void PositionComponent::moveDown()
 {
-	m_currentY += 3;
+		m_velocityY += INC_VELO;
+	if (m_velocityY < MAX_VELO) {
+	}
 }
 
 void PositionComponent::moveLeft()
 {
-	m_currentX -= 3;
+	if (m_velocityX > -MAX_VELO) {
+		m_velocityX -= INC_VELO;
+	}
 }
 
 void PositionComponent::moveRight()
 {
-	m_currentX += 3;
+	if (m_velocityX < MAX_VELO) {
+		m_velocityX += INC_VELO;
+	}
 }
