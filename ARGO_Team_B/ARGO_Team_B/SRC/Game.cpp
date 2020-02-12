@@ -192,7 +192,7 @@ Game::Game()
 
 	m_renderSystem.addEntity(m_door1);
 
-	//Connect button entity and trap entity
+	//Connect button entity and other entity that require switch	 
 	m_buttonSystem.addEntity(m_button);
 	m_buttonSystem.addEntity(m_button2);
 	m_buttonSystem.addEntity(m_doorButton);
