@@ -22,6 +22,17 @@ public:
 		m_components.second.push_back(t_type);
 	};
 
+	void removeComponent(Types t_type)
+	{
+		for (int i = 0; i < m_components.first.size(); i++)
+		{
+			if (m_components.second[i] == t_type)
+			{
+
+			}
+		}
+	}
+
 	int getId() {
 		return m_id;
 	};

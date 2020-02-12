@@ -79,12 +79,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SDL_SDK)/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SDL_SDK)/include;./INCLUDE;</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(SDL_SDK)/lib;%(AdditionalLibraryDirectories).\DLLs;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SDL_SDK)/lib;%(AdditionalLibraryDirectories).\DLLs;./SRC;</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;tmxlite.lib;libtmxlite-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -180,12 +180,14 @@
     <ClInclude Include="INCLUDE\GoalComponent.h" />
     <ClInclude Include="INCLUDE\HealthComponent.h" />
     <ClInclude Include="INCLUDE\HealthSystem.h" />
+    <ClInclude Include="INCLUDE\idleState.h" />
     <ClInclude Include="INCLUDE\Level.h" />
     <ClInclude Include="INCLUDE\MoveCommand.h" />
     <ClInclude Include="Include\PlayerComponent.h" />
     <ClInclude Include="INCLUDE\PositionComponent.h" />
     <ClInclude Include="INCLUDE\RenderComponent.h" />
     <ClInclude Include="INCLUDE\RenderSystem.h" />
+    <ClInclude Include="INCLUDE\state.h" />
     <ClInclude Include="INCLUDE\StateMachineSystem.h" />
     <ClInclude Include="INCLUDE\System.h" />
     <ClInclude Include="INCLUDE\TrapComponent.h" />

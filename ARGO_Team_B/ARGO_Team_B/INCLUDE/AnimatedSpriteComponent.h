@@ -7,6 +7,10 @@
 #include <iostream>
 #include <vector>
 
+//#include "state.h"
+
+//class State;
+
 class AnimatedSpriteComponent : public Component
 {
 public:
@@ -16,12 +20,9 @@ public:
 
 	void update();
 
-	const int& getClock();
-	const float& getTime();
 	SDL_Rect& getFrame(int t_f);
 
 	const std::vector<SDL_Rect>& getFrames();
-	const SDL_Rect& getIntRect();
 	const int getCurrentFrame();
 	void addFrame(SDL_Rect& t_rect);
 
@@ -35,7 +36,21 @@ public:
 	int getWidth();
 	int getHeight();
 
-	int m_pos = 0;
+	///// <summary>
+	///// States Information
+	///// </summary>
+
+	//void setCurrent(State* t_s);
+	//void setprevious(State* t_s);
+
+	//State* getCurrent();
+	//State* getPrevious();
+
+	//State* m_idleState;
+	//State* m_walkingState;
+	//State* m_stunnedState;
+	//State* m_attackState;
+	//State* m_interactState;
 
 private:
 	SDL_Texture* m_texture;
@@ -53,6 +68,9 @@ private:
 	int m_currentFrame;
 	float m_time{ 8000};
 	int m_clock;
+
+	
+
 };
 
 

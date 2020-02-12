@@ -1,4 +1,4 @@
-#include "..\INCLUDE\AnimatedSpriteComponent.h"
+#include "AnimatedSpriteComponent.h"
 
 AnimatedSpriteComponent::AnimatedSpriteComponent()
 {	
@@ -65,16 +65,6 @@ void AnimatedSpriteComponent::update()
 	}
 }
 
-const int& AnimatedSpriteComponent::getClock()
-{
-	return m_clock;
-}
-
-const float& AnimatedSpriteComponent::getTime()
-{
-	return m_time;
-}
-
 SDL_Rect& AnimatedSpriteComponent::getFrame(int t_f)
 {
 	return m_frames[t_f];
@@ -83,11 +73,6 @@ SDL_Rect& AnimatedSpriteComponent::getFrame(int t_f)
 const std::vector<SDL_Rect>& AnimatedSpriteComponent::getFrames()
 {
 	return m_frames;
-}
-
-const SDL_Rect& AnimatedSpriteComponent::getIntRect()
-{
-	return m_intRect;
 }
 
 const int AnimatedSpriteComponent::getCurrentFrame()
