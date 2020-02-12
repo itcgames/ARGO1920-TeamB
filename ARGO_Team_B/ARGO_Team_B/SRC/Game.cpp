@@ -283,7 +283,7 @@ void Game::update(float dt)
 	m_aiSystem.update();
 	m_buttonSystem.update();
 
-	m_controlSystem.handleInput();
+	m_controlSystem.handleInput(dt);
 	//m_controlSystem.update();
 	m_stateMachine.update();
 	m_collisionSystem.updateComponent(*tiled_map_level);

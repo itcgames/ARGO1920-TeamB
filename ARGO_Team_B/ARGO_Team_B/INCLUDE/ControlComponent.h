@@ -10,15 +10,29 @@
 #include "Xbox360Controller.h"
 #include "Entity.h"
 
+enum class MovingState {
+	Up,
+	Down,
+	Left,
+	Right,
+	Idle
+};
+
 class ControlComponent : public Component
 {
 public:
+	MovingState m_moving;
 	static int s_controlID;
 	ControlComponent(Entity & t_gameObject);
 	~ControlComponent();
-
+	void update(float dt);
 	void handleInput();
 private:
+	void moveUp();
+	void moveLeft();
+	void moveRight();
+	void moveDown();
+
 	int m_compNum;
 
 	Xbox360Controller* m_controller;

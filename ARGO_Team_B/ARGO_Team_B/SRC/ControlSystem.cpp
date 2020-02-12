@@ -12,7 +12,6 @@ void ControlSystem::updateComponent(Component* c)
 	for (Entity& e : entities)
 	{
 		ControlComponent* cont = dynamic_cast<ControlComponent*>(e.getComponent(Types::Controller));
-
 		if (cont != NULL)
 		{
 			cont->handleInput();
@@ -20,7 +19,7 @@ void ControlSystem::updateComponent(Component* c)
 	}
 }
 
-void ControlSystem::handleInput() {
+void ControlSystem::handleInput(float dt) {
 	for (Entity& e : entities)
 	{
 		ControlComponent* cont = dynamic_cast<ControlComponent*>(e.getComponent(Types::Controller));
@@ -29,6 +28,8 @@ void ControlSystem::handleInput() {
 		{
 			cont->handleInput();
 		}
+
+		cont->update(dt);
 	}
 }
 

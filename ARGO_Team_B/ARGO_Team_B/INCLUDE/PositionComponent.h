@@ -9,7 +9,11 @@ public:
 	~PositionComponent();
 	float getPositionX();
 	float getPositionY();
+	float getVeloX() { return m_velocityX;}
+	float getVeloY() { return m_velocityY; }
 	void setPosition(float t_x, float t_y);
+	void setVelo(float t_x, float t_y);
+
 	void moveUp();
 	void moveDown();
 	void moveLeft();
@@ -22,6 +26,11 @@ public:
 	float getLastY() { return m_lastY; }
 	void backToStart();
 private:
+	const float MAX_VELO = 10;
+	const float INC_VELO = 0.5f;
+
+	float m_velocityX;
+	float m_velocityY;
 	float m_currentX;
 	float m_currentY;
 
