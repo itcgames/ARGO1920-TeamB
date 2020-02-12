@@ -53,7 +53,7 @@ private:
 	Entity m_door2;
 
 	Entity m_goalCheese;
-
+	Entity m_bomb;
 
 	// Systems
 	HealthSystem m_healthSystem;

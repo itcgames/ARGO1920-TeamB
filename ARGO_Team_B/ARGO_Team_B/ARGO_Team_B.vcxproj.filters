@@ -2,17 +2,22 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="SRC\AISystem.cpp" />
+    <ClCompile Include="SRC\AnimationComponent.cpp" />
     <ClCompile Include="SRC\Assets.cpp" />
     <ClCompile Include="SRC\ButtonComponent.cpp" />
+    <ClCompile Include="Src\CollisionComponent.cpp" />
+    <ClCompile Include="Src\CollisionSystem.cpp" />
     <ClCompile Include="SRC\DoorComponent.cpp" />
     <ClCompile Include="SRC\Command.cpp" />
     <ClCompile Include="SRC\ControlComponent.cpp" />
     <ClCompile Include="Src\ControlSystem.cpp" />
     <ClCompile Include="SRC\Game.cpp" />
+    <ClCompile Include="SRC\GoalComponent.cpp" />
     <ClCompile Include="SRC\HealthComponent.cpp" />
     <ClCompile Include="SRC\HealthSystem.cpp" />
     <ClCompile Include="SRC\Level.cpp" />
     <ClCompile Include="SRC\main.cpp" />
+    <ClCompile Include="Src\PlayerComponent.cpp" />
     <ClCompile Include="SRC\PositionComponent.cpp" />
     <ClCompile Include="SRC\RenderComponent.cpp" />
     <ClCompile Include="SRC\RenderSystem.cpp" />
@@ -20,16 +25,13 @@
     <ClCompile Include="SRC\TrapComponent.cpp" />
     <ClCompile Include="SRC\ButtonSystem.cpp" />
     <ClCompile Include="Src\Xbox360Controller.cpp" />
-    <ClCompile Include="Src\CollisionComponent.cpp" />
-    <ClCompile Include="Src\CollisionSystem.cpp" />
-    <ClCompile Include="Src\PlayerComponent.cpp" />
-<<<<<<< HEAD
-    <ClCompile Include="SRC\AnimationComponent.cpp" />
-=======
-    <ClCompile Include="SRC\GoalComponent.cpp" />
->>>>>>> 83ab7524e39251b518b4780bf65011a5e0d957e5
+    <ClCompile Include="SRC\BombComponent.cpp" />
+    <ClCompile Include="SRC\BombSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="INCLUDE\AnimationComponent.h" />
+    <ClInclude Include="Include\CollisionComponent.h" />
+    <ClInclude Include="Include\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Command.h" />
     <ClInclude Include="Include\ComponentsEnum.h" />
     <ClInclude Include="INCLUDE\ControlComponent.h" />
@@ -42,10 +44,13 @@
     <ClInclude Include="INCLUDE\DoorComponent.h" />
     <ClInclude Include="INCLUDE\Entity.h" />
     <ClInclude Include="INCLUDE\Game.h" />
+    <ClInclude Include="Include\Globals.h" />
+    <ClInclude Include="INCLUDE\GoalComponent.h" />
     <ClInclude Include="INCLUDE\HealthComponent.h" />
     <ClInclude Include="INCLUDE\HealthSystem.h" />
     <ClInclude Include="INCLUDE\Level.h" />
     <ClInclude Include="INCLUDE\MoveCommand.h" />
+    <ClInclude Include="Include\PlayerComponent.h" />
     <ClInclude Include="INCLUDE\PositionComponent.h" />
     <ClInclude Include="INCLUDE\RenderComponent.h" />
     <ClInclude Include="INCLUDE\RenderSystem.h" />
@@ -53,14 +58,7 @@
     <ClInclude Include="INCLUDE\TrapComponent.h" />
     <ClInclude Include="INCLUDE\ButtonSystem.h" />
     <ClInclude Include="Include\Xbox360Controller.h" />
-    <ClInclude Include="Include\CollisionComponent.h" />
-    <ClInclude Include="Include\CollisionSystem.h" />
-    <ClInclude Include="Include\PlayerComponent.h" />
-    <ClInclude Include="Include\Globals.h" />
-<<<<<<< HEAD
-    <ClInclude Include="INCLUDE\AnimationComponent.h" />
-=======
-    <ClInclude Include="INCLUDE\GoalComponent.h" />
->>>>>>> 83ab7524e39251b518b4780bf65011a5e0d957e5
+    <ClInclude Include="INCLUDE\BombComponent.h" />
+    <ClInclude Include="INCLUDE\BombSystem.h" />
   </ItemGroup>
 </Project>

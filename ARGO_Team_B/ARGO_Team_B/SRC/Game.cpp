@@ -142,6 +142,12 @@ Game::Game()
 		//m_trapSystem.addEntity(m_goalCheese);
 	}
 
+	//bomb
+	m_bomb.addComponent(new BombComponent(), Types::Bomb);
+	m_bomb.addComponent(new PositionComponent(100, 100), Types::Position);
+	m_bomb.addComponent(new CollisionComponent(m_bomb, 30), Types::Collider);
+	m_bomb.addComponent(new RenderComponent("Assets\\bomb.png", 30, 30, p_renderer), Types::Render);
+
 	// Systems
 	//HEALTH All entities
 	m_healthSystem.addEntity(m_player);
@@ -171,6 +177,7 @@ Game::Game()
 	
 	m_collisionSystem.addEntity(m_door1);
 
+	m_collisionSystem.addEntity(m_bomb);
 	//DRAW Draw all of entities
 	m_renderSystem.addEntity(m_player);
 	m_renderSystem.addEntity(m_alien);
@@ -191,6 +198,8 @@ Game::Game()
 	m_renderSystem.addEntity(m_spike3);
 
 	m_renderSystem.addEntity(m_door1);
+
+	m_renderSystem.addEntity(m_bomb);
 
 	//Connect button entity and other entity that require switch	 
 	m_buttonSystem.addEntity(m_button);

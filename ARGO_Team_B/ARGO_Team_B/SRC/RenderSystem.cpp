@@ -43,6 +43,8 @@ void RenderSystem::draw()
 
 							GoalComponent* goalComp = dynamic_cast<GoalComponent*>(c3);
 
+							BombComponent* bombComp = dynamic_cast<BombComponent*>(c3);
+
 							if (healthComp != nullptr)
 							{
 								if (healthComp->getAlive() == true)
@@ -71,6 +73,11 @@ void RenderSystem::draw()
 									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
 								}
 
+							}
+							else if (bombComp != nullptr) {
+								if (bombComp->getState() != BombState::Removed && !bombComp->isPlayerOwnedBomb()) {
+									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
+								}
 							}
 						}		
 					}

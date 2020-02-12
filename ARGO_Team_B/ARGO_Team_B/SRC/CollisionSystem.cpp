@@ -17,12 +17,12 @@ void CollisionSystem::updateComponent(Level& t_level)
 {
 	searchEntities();
 
-	vector<CollisionComponent*> playerCollider;
+	vector<CollisionComponent*> playerColliders;
 
 	for (Entity& player : m_playerEntitys) {
 		CollisionComponent* playerComp = dynamic_cast<CollisionComponent*>(player.getComponent(Types::Collider));
 		playerComp->updateCollider(player);
-		playerCollider.push_back(playerComp);
+		playerColliders.push_back(playerComp);
 		
 		m_positionComp = static_cast<PositionComponent*>(player.getComponent(Types::Position));
 		x1 = m_positionComp->getPositionX();
@@ -31,12 +31,12 @@ void CollisionSystem::updateComponent(Level& t_level)
 	}
 
 	// player 1 and player 2 collision check
-	if (checkCollision(playerCollider[0]->getAABBCollider(), playerCollider[1]->getAABBCollider())) {
+	if (checkCollision(playerColliders[0]->getAABBCollider(), playerColliders[1]->getAABBCollider())) {
 
 	}
 
 	// player 3 and player 4 collision check
-	if (checkCollision(playerCollider[2]->getAABBCollider(), playerCollider[3]->getAABBCollider())) {
+	if (checkCollision(playerColliders[2]->getAABBCollider(), playerColliders[3]->getAABBCollider())) {
 
 	}
 
@@ -133,12 +133,12 @@ void CollisionSystem::updateComponent(Level& t_level)
 
 			// red door open, check with player 1 and 3
 			if (!door->getRedDoor()) {
-				if (checkCollision(playerCollider[0]->getAABBCollider(), doorCollider->getAABBCollider())) {
+				if (checkCollision(playerColliders[0]->getAABBCollider(), doorCollider->getAABBCollider())) {
 					PlayerComponent* player = static_cast<PlayerComponent*>(m_playerEntitys[0].getComponent(Types::Player));
 					player->setMoveable(false);
 				}
 
-				if (checkCollision(playerCollider[2]->getAABBCollider(), doorCollider->getAABBCollider())) {
+				if (checkCollision(playerColliders[2]->getAABBCollider(), doorCollider->getAABBCollider())) {
 					PlayerComponent* player = static_cast<PlayerComponent*>(m_playerEntitys[2].getComponent(Types::Player));
 					player->setMoveable(false);
 				}
@@ -146,12 +146,12 @@ void CollisionSystem::updateComponent(Level& t_level)
 
 			// green door open, check with player 2 and 4
 			if (!door->getGreenDoor()) {
-				if (checkCollision(playerCollider[1]->getAABBCollider(), doorCollider->getAABBCollider())) {
+				if (checkCollision(playerColliders[1]->getAABBCollider(), doorCollider->getAABBCollider())) {
 					PlayerComponent* player = static_cast<PlayerComponent*>(m_playerEntitys[1].getComponent(Types::Player));
 					player->setMoveable(false);
 				}
 
-				if (checkCollision(playerCollider[3]->getAABBCollider(), doorCollider->getAABBCollider())) {
+				if (checkCollision(playerColliders[3]->getAABBCollider(), doorCollider->getAABBCollider())) {
 					PlayerComponent* player = static_cast<PlayerComponent*>(m_playerEntitys[3].getComponent(Types::Player));
 					player->setMoveable(false);
 				}
@@ -187,7 +187,42 @@ void CollisionSystem::updateComponent(Level& t_level)
 			}
 		}
 	}
+
+	bombCollision();
 }
+
+void CollisionSystem::bombCollision()
+{
+	for (Entity& bombEntity : m_bombEntitys) {
+		BombComponent* bombComp = static_cast<BombComponent*>(bombEntity.getComponent(Types::Bomb));
+
+		if (bombComp->getState() != BombState::Removed) {
+
+			CollisionComponent* bombCollider = static_cast<CollisionComponent*>(bombEntity.getComponent(Types::Collider));
+
+			for (Entity& playerEntity : m_playerEntitys) {
+
+				CollisionComponent* playerCollider = static_cast<CollisionComponent*>(playerEntity.getComponent(Types::Collider));
+
+				bombCollider->updateCollider(bombEntity);
+
+				if (checkCollision(bombCollider->getCircleCollider(), playerCollider->getAABBCollider())) {
+
+					PlayerComponent* playerComp = static_cast<PlayerComponent*>(playerEntity.getComponent(Types::Player));
+					
+					if (bombComp->getState() == BombState::Explode) {
+						playerComp->setDizzyState(true);
+					}
+					else {
+						bombComp->playerGetBomb(playerComp->getId());
+					}
+				}
+			}
+
+		}
+	}
+}
+
 
 void CollisionSystem::tileCollision(float x, float y, float width, float height, Level& t_mazeWalls)
 {
@@ -243,8 +278,6 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 	}
 
 }
-	
-
 
 /// <summary>
 /// search the vector entity and find all entity we need
@@ -254,6 +287,7 @@ void CollisionSystem::searchEntities() {
 	m_buttonEntitys.clear();
 	m_trapEntitys.clear();
 	m_doorEntitys.clear();
+	m_bombEntitys.clear();
 
 	for (Entity& e1 : entities) {
 		//get the all player entities from entities vector
@@ -275,6 +309,11 @@ void CollisionSystem::searchEntities() {
 		else if (e1.getType() == Types::Door)
 		{
 			m_doorEntitys.push_back(e1);
+		}
+		//get the all bomb entites from entities vector
+		else if (e1.getType() == Types::Bomb)
+		{
+			m_bombEntitys.push_back(e1);
 		}
 
 	}

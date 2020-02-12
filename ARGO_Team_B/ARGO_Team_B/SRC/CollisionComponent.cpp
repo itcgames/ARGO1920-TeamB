@@ -48,3 +48,8 @@ void CollisionComponent::updateCollider(Entity& t_entity)
 	c2MakePoly(&m_polyCollider);
 }
 
+void CollisionComponent::setCircleRadius(float radius)
+{
+	m_circlecollider.r = radius;
+}
+

@@ -13,3 +13,6 @@ void PlayerComponent::setMoveable(bool state) {
 	m_moveable = state;
 }
 
+void PlayerComponent::setDizzyState(bool dizzy) {
+	m_dizzy = dizzy;
+}

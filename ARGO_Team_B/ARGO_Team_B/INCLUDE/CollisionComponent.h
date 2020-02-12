@@ -18,6 +18,9 @@ public:
 	CollisionComponent(Entity& t_gameObject, int width, int height, int count);
 
 	void updateCollider(Entity& t_entity);
+
+	void setCircleRadius(float radius);
+
 	~CollisionComponent();
 
 	c2Circle getCircleCollider() { return m_circlecollider; }
