@@ -10,7 +10,9 @@ enum class Types {
 	Controller,
 	AnimatedSprite,
 	Collider,
-	Player
+	Door,
+	Player,
+	Goal
 };
 
 #endif // !COMPONENTENUM_H

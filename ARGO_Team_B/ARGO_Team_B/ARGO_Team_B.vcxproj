@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClCompile Include="SRC\AISystem.cpp" />
     <ClCompile Include="SRC\AnimatedSpriteComponent.cpp" />
+    <ClCompile Include="SRC\AnimationComponent.cpp" />
     <ClCompile Include="SRC\Assets.cpp" />
     <ClCompile Include="SRC\ButtonComponent.cpp" />
     <ClCompile Include="Src\CollisionComponent.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="SRC\ControlComponent.cpp" />
     <ClCompile Include="Src\ControlSystem.cpp" />
     <ClCompile Include="SRC\Game.cpp" />
+    <ClCompile Include="SRC\GoalComponent.cpp" />
     <ClCompile Include="SRC\HealthComponent.cpp" />
     <ClCompile Include="SRC\HealthSystem.cpp" />
     <ClCompile Include="SRC\Level.cpp" />
@@ -159,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INCLUDE\AnimatedSpriteComponent.h" />
+    <ClInclude Include="INCLUDE\AnimationComponent.h" />
     <ClInclude Include="Include\CollisionComponent.h" />
     <ClInclude Include="Include\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Command.h" />
@@ -174,6 +177,7 @@
     <ClInclude Include="INCLUDE\Entity.h" />
     <ClInclude Include="INCLUDE\Game.h" />
     <ClInclude Include="Include\Globals.h" />
+    <ClInclude Include="INCLUDE\GoalComponent.h" />
     <ClInclude Include="INCLUDE\HealthComponent.h" />
     <ClInclude Include="INCLUDE\HealthSystem.h" />
     <ClInclude Include="INCLUDE\Level.h" />

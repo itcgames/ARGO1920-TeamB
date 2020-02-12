@@ -1,7 +1,11 @@
+#ifndef BUTTONSYSTEM
+#define BUTTONSYSTEM
+
 #pragma once
 #include "System.h"
 #include "PositionComponent.h"
 #include "ButtonComponent.h"
+#include "RenderComponent.h"
 #include "TrapComponent.h"
 #include "DoorComponent.h"
 
@@ -11,6 +15,7 @@ public:
 	~ButtonSystem();
 
 	void updateComponent(Component* c) override;
-	void setTrapStates();
-	void setDoorStates();
+	void setObjectStates();
+
 };
+#endif

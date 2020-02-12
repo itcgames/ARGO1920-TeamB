@@ -4,7 +4,11 @@ tile::tile(SDL_Texture* tset, int x, int y, int tx, int ty, int w, int h)
     : sheet(tset), x(x), y(y), tx(tx), ty(ty), width(w), height(h) {
 
 }
+MazeWallObject::MazeWallObject(float x, float y, float width, float height)
+	: x(x), y(y), width(width), height(height)
+{
 
+}
 void tile::draw(SDL_Renderer* ren) {
     if (!ren || !sheet)
         return;
@@ -63,7 +67,22 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
 	{
 		if (layer->getType() == tmx::Layer::Type::Object)
 		{
+			const auto& objects = dynamic_cast<tmx::ObjectGroup*>(layer.get())->getObjects();
+			for (const auto& object : objects)
+			{
+				if (object.getName() == "MazeWall")
+				{
+					float x, y, width, height;
+					x = object.getPosition().x;
+					y = object.getPosition().y;
+					width = object.getAABB().width;
+					height = object.getAABB().height;
 
+					MazeWallObject o(x, y, width, height);
+
+					m_mazeWalls.push_back(o);
+				}
+			}
 		}
         // We're only looking to render the tiles on the map, so if
         // this layer isn't a tile layer, we'll move on.
@@ -119,8 +138,8 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
                 // Find the dimensions of the tile sheet. This is important,
                 // because our tile is only a small sprite on that sheet, not
                 // the whole sheet.
-                auto ts_width = 0;
-                auto ts_height = 0;
+                auto ts_width = 256;
+                auto ts_height = 1450;
                 SDL_QueryTexture(tilesets[tset_gid],
                     NULL, NULL, &ts_width, &ts_height);
 

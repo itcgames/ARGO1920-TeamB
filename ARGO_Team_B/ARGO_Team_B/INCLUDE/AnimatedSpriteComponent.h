@@ -51,7 +51,7 @@ private:
 	int m_NoOfFrames{0};
 
 	int m_currentFrame;
-	float m_time{ 20000 };
+	float m_time{ 8000};
 	int m_clock;
 };
 

@@ -213,6 +213,17 @@
     <ClCompile Include="SRC\TrapComponent.cpp" />
     <ClCompile Include="SRC\ButtonSystem.cpp" />
     <ClCompile Include="Src\Xbox360Controller.cpp" />
+<<<<<<< HEAD
+=======
+    <ClCompile Include="Src\CollisionComponent.cpp" />
+    <ClCompile Include="Src\CollisionSystem.cpp" />
+    <ClCompile Include="Src\PlayerComponent.cpp" />
+<<<<<<< HEAD
+    <ClCompile Include="SRC\AnimationComponent.cpp" />
+=======
+    <ClCompile Include="SRC\GoalComponent.cpp" />
+>>>>>>> 83ab7524e39251b518b4780bf65011a5e0d957e5
+>>>>>>> master
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INCLUDE\Command.h" />
@@ -238,5 +249,11 @@
     <ClInclude Include="INCLUDE\TrapComponent.h" />
     <ClInclude Include="INCLUDE\ButtonSystem.h" />
     <ClInclude Include="Include\Xbox360Controller.h" />
+    <ClInclude Include="Include\CollisionComponent.h" />
+    <ClInclude Include="Include\CollisionSystem.h" />
+    <ClInclude Include="Include\PlayerComponent.h" />
+    <ClInclude Include="Include\Globals.h" />
+    <ClInclude Include="INCLUDE\AnimationComponent.h" />
+    <ClInclude Include="INCLUDE\GoalComponent.h" />
   </ItemGroup>
 </Project>

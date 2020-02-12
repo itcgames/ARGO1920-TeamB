@@ -1,17 +1,21 @@
 #include "ButtonComponent.h"
 
-ButtonComponent::ButtonComponent(bool init, int id) {
+/// <summary>
+/// id is using for connect button and object
+/// the type is using for door system
+/// </summary>
+/// <param name="init"></param>
+/// <param name="id"></param>
+/// <param name="type"></param>
+ButtonComponent::ButtonComponent(bool init, int id, int type) {
 	m_acitve = init;
 	m_alive = true;
-	m_id = id;
-}
 
-ButtonComponent::ButtonComponent(bool red, bool green, int id) {
-	m_id = id;
-	m_alive = true;
+	m_redTeam = false;
+	m_greenTeam = false;
 
-	m_redTeam = red;
-	m_greenTeam = green;
+	m_id = id;
+	m_type = type;
 }
 
 ButtonComponent::~ButtonComponent() {
@@ -42,4 +46,16 @@ bool ButtonComponent::getAlive() {
 
 int ButtonComponent::getId() {
 	return m_id;
+}
+
+int ButtonComponent::getType(){
+	return m_type; 
+}
+
+bool ButtonComponent::getRedDoor() {
+	return m_redTeam;
+}
+
+bool ButtonComponent::getGreenDoor() {
+	return m_greenTeam;
 }
