@@ -18,6 +18,13 @@ public:
 	void moveDown();
 	void moveLeft();
 	void moveRight();
+
+	void backToPreviousePos();
+	void setPreviousePos();
+
+	float getLastX() { return m_lastX; }
+	float getLastY() { return m_lastY; }
+	void backToStart();
 private:
 	const float MAX_VELO = 10;
 	const float INC_VELO = 0.5f;
@@ -26,5 +33,15 @@ private:
 	float m_velocityY;
 	float m_currentX;
 	float m_currentY;
+
+	float m_startX;
+	float m_startY;
+
+	float m_previouseX;
+	float m_previouseY;
+
+	float m_lastX;
+	float m_lastY;
+
 };
 #endif // !POS

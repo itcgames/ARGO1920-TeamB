@@ -5,6 +5,7 @@
 #include "Command.h"
 
 #include "PositionComponent.h"
+#include "PlayerComponent.h"
 #include "Xbox360Controller.h"
 #include "Entity.h"
 

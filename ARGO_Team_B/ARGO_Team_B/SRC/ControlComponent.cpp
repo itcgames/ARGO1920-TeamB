@@ -76,6 +76,9 @@ void ControlComponent::update(float dt)
 void ControlComponent::handleInput()
 {
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
+
+	PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
+
 	if (posComp != nullptr)
 	{
 		m_controller->checkButton();
@@ -94,17 +97,24 @@ void ControlComponent::handleInput()
 		else if (m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
 			m_moving = MovingState::Down;
 		}
+		else if (!playerComp->getMoveable()) {
+			posComp->backToPreviousePos();
+			playerComp->setMoveable(true);
+		}
 		else {
 			m_moving = MovingState::Idle;
 		}
-		
-		m_controller->m_currentState.DpadUp = false;
+
+
+		/*m_controller->m_currentState.DpadUp = false;
 		m_controller->m_currentState.DpadDown= false;
 		m_controller->m_currentState.DpadLeft = false;
 		m_controller->m_currentState.DpadRight = false;
 		m_controller->m_currentState.LeftThumbStick.x = 0;
-		m_controller->m_currentState.LeftThumbStick.y = 0;
+		m_controller->m_currentState.LeftThumbStick.y = 0;*/
 	}
+
+
 }
 
 void ControlComponent::moveUp()

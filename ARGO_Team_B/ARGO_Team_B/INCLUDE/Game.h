@@ -12,6 +12,8 @@
 #include "ButtonSystem.h"
 #include "CollisionSystem.h"
 #include "ComponentsEnum.h"
+#include "TrapComponent.h"
+
 #include "Globals.h"
 #include <time.h>
 
@@ -40,11 +42,18 @@ private:
 	Entity m_button;
 	Entity m_button2;
 
+	Entity m_doorButton;
+
 	Entity m_spike;
 	Entity m_spike2;
 	Entity m_spike3;
 
+
+	Entity m_door1;
+	Entity m_door2;
+
 	Entity m_goalCheese;
+
 
 	// Systems
 	HealthSystem m_healthSystem;
@@ -52,7 +61,7 @@ private:
 	AISystem m_aiSystem;
 	RenderSystem m_renderSystem;
 	Level* tiled_map_level;
-	ButtonSystem m_trapSystem;
+	ButtonSystem m_buttonSystem;
 	CollisionSystem m_collisionSystem;
 	std::vector<Entity> m_goalCheeses;
 };

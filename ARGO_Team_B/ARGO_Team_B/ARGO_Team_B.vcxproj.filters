@@ -23,7 +23,11 @@
     <ClCompile Include="Src\CollisionComponent.cpp" />
     <ClCompile Include="Src\CollisionSystem.cpp" />
     <ClCompile Include="Src\PlayerComponent.cpp" />
+<<<<<<< HEAD
+    <ClCompile Include="SRC\AnimationComponent.cpp" />
+=======
     <ClCompile Include="SRC\GoalComponent.cpp" />
+>>>>>>> 83ab7524e39251b518b4780bf65011a5e0d957e5
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INCLUDE\Command.h" />
@@ -53,6 +57,10 @@
     <ClInclude Include="Include\CollisionSystem.h" />
     <ClInclude Include="Include\PlayerComponent.h" />
     <ClInclude Include="Include\Globals.h" />
+<<<<<<< HEAD
+    <ClInclude Include="INCLUDE\AnimationComponent.h" />
+=======
     <ClInclude Include="INCLUDE\GoalComponent.h" />
+>>>>>>> 83ab7524e39251b518b4780bf65011a5e0d957e5
   </ItemGroup>
 </Project>
