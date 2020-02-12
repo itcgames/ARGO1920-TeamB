@@ -21,6 +21,7 @@ private:
 
 	int width;
 	int height;
+	const char* currentImage;
 };
 
 #endif // !RENDERCOMPONENT_H
