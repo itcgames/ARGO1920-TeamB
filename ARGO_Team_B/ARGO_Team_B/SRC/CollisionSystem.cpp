@@ -291,6 +291,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			}
 		}
 	}
+	}
 }
 	
 
