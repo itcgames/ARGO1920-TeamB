@@ -3,10 +3,11 @@
 BombComponent::BombComponent() {
 	setState(BombState::Idle);
 
-	m_timer = 5.0f;
+	m_timer = 3.0f;
 	m_owned = false;
 	m_ownerId = 0;
 	blastRadius = 100.0f;
+	m_explosionTimer = 1.0f;
 }
 
 BombComponent::~BombComponent() {
@@ -25,4 +26,5 @@ void BombComponent::playerGetBomb(int id) {
 void BombComponent::playerPlaceBomb() {
 	m_owned = false;
 	m_ownerId = 0;
+	setState(BombState::Activate);
 }

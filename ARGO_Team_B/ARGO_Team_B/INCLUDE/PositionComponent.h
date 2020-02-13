@@ -20,6 +20,7 @@ public:
 
 	float getLastX() { return m_lastX; }
 	float getLastY() { return m_lastY; }
+
 	void backToStart();
 private:
 	float m_currentX;
@@ -33,6 +34,5 @@ private:
 
 	float m_lastX;
 	float m_lastY;
-
 };
 #endif // !POS

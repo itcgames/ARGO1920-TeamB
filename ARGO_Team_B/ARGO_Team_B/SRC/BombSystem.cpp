@@ -19,12 +19,18 @@ void BombSystem::updateComponent(float dt) {
 		BombComponent* bombComp = static_cast<BombComponent*>(bombEntity.getComponent(Types::Bomb));
 		int ownerId = bombComp->bombOwner();
 
-		if (bombComp->isPlayerOwnedBomb() && ownerId != 0) {
-			PositionComponent* bombPos = static_cast<PositionComponent*>(bombEntity.getComponent(Types::Position));
+		if (bombComp->isPlayerOwnedBomb() && ownerId != 0 ) {
+			PlayerComponent* playerComp = static_cast<PlayerComponent*>(m_playerEntitys[ownerId - 1].getComponent(Types::Player));
+			
+			if (playerComp->getInteract()) {
+				PositionComponent* bombPos = static_cast<PositionComponent*>(bombEntity.getComponent(Types::Position));
 
-			PositionComponent* playerPos = static_cast<PositionComponent*>(m_playerEntitys[ownerId].getComponent(Types::Position));
+				PositionComponent* playerPos = static_cast<PositionComponent*>(m_playerEntitys[ownerId - 1].getComponent(Types::Position));
 
-			bombPos->setPosition(playerPos->getPositionX(), playerPos->getPositionY());
+				bombPos->setPosition(playerPos->getPositionX(), playerPos->getPositionY());
+
+				bombComp->playerPlaceBomb();
+			}
 		}
 
 		/// <summary>
@@ -32,14 +38,32 @@ void BombSystem::updateComponent(float dt) {
 		/// when the timer less then 0, change the state to explode
 		/// </summary>
 		if (bombComp->getState() == BombState::Activate) {
-			int timer = bombComp->getBombTimer();
+			float timer = bombComp->getBombTimer();
 			if (timer <= 0.0f) {
 				bombComp->setState(BombState::Explode);
-				CollisionComponent* bombCollider = static_cast<CollisionComponent*>(m_playerEntitys[ownerId].getComponent(Types::Bomb));
+				CollisionComponent* bombCollider = static_cast<CollisionComponent*>(bombEntity.getComponent(Types::Collider));
 				bombCollider->setCircleRadius(bombComp->getBlastRadius());
+
+				RenderComponent* bombRender = static_cast<RenderComponent*>(bombEntity.getComponent(Types::Render));
+				bombRender->setImage("./Assets/explode.png",100,100);
 			}
-			timer -= dt;
-			bombComp->setBombTimer(timer);
+			else {
+
+				timer -= dt;
+				bombComp->setBombTimer(timer);
+			}
+		}
+		else if (bombComp->getState() == BombState::Explode) {
+			// animation for exlpode 
+			float timer = bombComp->getExplosionTimer();
+			if (timer <= 0.0f) {
+				bombComp->setState(BombState::Removed);
+			}
+			else {
+
+				timer -= dt;
+				bombComp->setExplosionTimer(timer);
+			}
 		}
 
 	}
@@ -61,7 +85,11 @@ void BombSystem::searchEntities() {
 		//get the all button entites from entities vector
 		else if (e1.getType() == Types::Bomb)
 		{
-			m_bombEntitys.push_back(e1);
+			BombComponent* bombComp = static_cast<BombComponent*>(e1.getComponent(Types::Bomb));
+			if (bombComp->getState() != BombState::Removed)
+			{
+				m_bombEntitys.push_back(e1);
+			}
 		}
 
 	}

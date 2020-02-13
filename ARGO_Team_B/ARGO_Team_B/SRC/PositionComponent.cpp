@@ -70,3 +70,4 @@ void PositionComponent::moveRight()
 	m_lastX = m_currentX;
 	m_currentX += 3;
 }
+

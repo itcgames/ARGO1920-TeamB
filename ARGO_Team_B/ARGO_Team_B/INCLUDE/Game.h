@@ -13,8 +13,12 @@
 #include "CollisionSystem.h"
 #include "ComponentsEnum.h"
 #include "TrapComponent.h"
-
+#include "ButtonComponent.h"
+#include "PlayerComponent.h"
+#include "StateMachineSystem.h"
+#include "BombSystem.h"
 #include "Globals.h"
+
 #include <time.h>
 
 class Game
@@ -63,6 +67,8 @@ private:
 	Level* tiled_map_level;
 	ButtonSystem m_buttonSystem;
 	CollisionSystem m_collisionSystem;
+	StateMachineSystem m_stateMachine;
 	std::vector<Entity> m_goalCheeses;
+	BombSystem m_bombSystem;
 };
 #endif // !GAME

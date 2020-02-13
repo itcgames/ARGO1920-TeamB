@@ -20,7 +20,7 @@ void ControlSystem::updateComponent(Component* c)
 	}
 }
 
-void ControlSystem::handleInput() {
+void ControlSystem::handleInput(float dt) {
 	for (Entity& e : entities)
 	{
 		ControlComponent* cont = dynamic_cast<ControlComponent*>(e.getComponent(Types::Controller));
@@ -28,6 +28,14 @@ void ControlSystem::handleInput() {
 		if (cont != NULL)
 		{
 			cont->handleInput();
+		}
+
+		PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(e.getComponent(Types::Player));
+
+		if (playerComp->getSwipeCooldown() > 0.0f) {
+			float timer = playerComp->getSwipeCooldown();
+			timer -= dt;
+			playerComp->setSwipeCooldown(timer);
 		}
 	}
 }

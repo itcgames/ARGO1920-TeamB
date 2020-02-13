@@ -8,6 +8,7 @@
 #include "PlayerComponent.h"
 #include "PositionComponent.h"
 #include "CollisionComponent.h"
+#include "RenderComponent.h"
 
 class BombSystem : public System {
 public:

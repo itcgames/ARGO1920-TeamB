@@ -21,6 +21,9 @@ public :
 	float getBombTimer() { return m_timer; }
 	void setBombTimer(float time) { m_timer = time; }
 
+	float getExplosionTimer() { return m_explosionTimer; }
+	void setExplosionTimer(float time) { m_explosionTimer = time; }
+
 	void playerGetBomb(int id);
 	void playerPlaceBomb();
 
@@ -32,6 +35,7 @@ private:
 	BombState m_currentState;
 
 	float m_timer;
+	float m_explosionTimer;
 
 	bool m_owned;
 	int m_ownerId;

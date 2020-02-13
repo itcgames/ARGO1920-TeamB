@@ -2,6 +2,10 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="SRC\AISystem.cpp" />
+<<<<<<< HEAD
+=======
+    <ClCompile Include="SRC\AnimatedSpriteComponent.cpp" />
+>>>>>>> 6c0f4e338be6ef208eeebe820f8b2ba288229a2d
     <ClCompile Include="SRC\AnimationComponent.cpp" />
     <ClCompile Include="SRC\Assets.cpp" />
     <ClCompile Include="SRC\ButtonComponent.cpp" />
@@ -25,10 +29,19 @@
     <ClCompile Include="SRC\TrapComponent.cpp" />
     <ClCompile Include="SRC\ButtonSystem.cpp" />
     <ClCompile Include="Src\Xbox360Controller.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="SRC\BombComponent.cpp" />
     <ClCompile Include="SRC\BombSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+=======
+    <ClCompile Include="SRC\StateMachineSystem.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="INCLUDE\AnimatedSpriteComponent.h" />
+>>>>>>> 6c0f4e338be6ef208eeebe820f8b2ba288229a2d
     <ClInclude Include="INCLUDE\AnimationComponent.h" />
     <ClInclude Include="Include\CollisionComponent.h" />
     <ClInclude Include="Include\CollisionSystem.h" />
@@ -58,7 +71,24 @@
     <ClInclude Include="INCLUDE\TrapComponent.h" />
     <ClInclude Include="INCLUDE\ButtonSystem.h" />
     <ClInclude Include="Include\Xbox360Controller.h" />
+<<<<<<< HEAD
     <ClInclude Include="INCLUDE\BombComponent.h" />
     <ClInclude Include="INCLUDE\BombSystem.h" />
+=======
+    <ClInclude Include="INCLUDE\StateMachineSystem.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\state.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\idleState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="States">
+      <UniqueIdentifier>{d7d8adc9-bf3e-4b9b-8312-6ee413954fd0}</UniqueIdentifier>
+    </Filter>
+>>>>>>> 6c0f4e338be6ef208eeebe820f8b2ba288229a2d
   </ItemGroup>
 </Project>

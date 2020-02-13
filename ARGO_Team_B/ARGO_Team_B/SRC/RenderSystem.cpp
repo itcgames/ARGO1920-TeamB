@@ -19,6 +19,7 @@ void RenderSystem::updateComponent(Component* c)
 
 void RenderSystem::draw()
 {
+
 	for (Entity& e : entities)
 	{
 		for (Component* c : e.getComponents())
@@ -28,7 +29,7 @@ void RenderSystem::draw()
 			{
 				for (Component* c2 : e.getComponents())
 				{
-					PositionComponent* posComp = dynamic_cast<PositionComponent*>(c2);			
+					PositionComponent* posComp = dynamic_cast<PositionComponent*>(c2);
 					if (posComp != nullptr)
 					{
 						for (Component* c3 : e.getComponents())
@@ -45,14 +46,14 @@ void RenderSystem::draw()
 
 							BombComponent* bombComp = dynamic_cast<BombComponent*>(c3);
 
-							if (healthComp != nullptr)
-							{
+							if (healthComp != nullptr) {
+
 								if (healthComp->getAlive() == true)
 								{
 									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
 								}
 							}
-							else if (trapComp != nullptr){
+							else if (trapComp != nullptr) {
 								if (trapComp->getAlive()) {
 									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
 								}
@@ -72,17 +73,19 @@ void RenderSystem::draw()
 								{
 									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
 								}
-
 							}
 							else if (bombComp != nullptr) {
 								if (bombComp->getState() != BombState::Removed && !bombComp->isPlayerOwnedBomb()) {
 									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
 								}
 							}
-						}		
+						}
 					}
+
 				}
 			}
 		}
 	}
 }
+	
+

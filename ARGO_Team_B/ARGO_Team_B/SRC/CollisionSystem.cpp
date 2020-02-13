@@ -64,19 +64,24 @@ void CollisionSystem::updateComponent(Level& t_level)
 				{
 				case 1:
 					if (checkCollision(playerCollision->getAABBCollider(), buttonCollider->getAABBCollider())) {
-
-						button->setState(true);
+						if (player->getInteract()) {
+							button->setState(true);
+						}
 					}
 					break;
 				case 2:
 					if (checkCollision(playerCollision->getAABBCollider(), buttonCollider->getAABBCollider())) {
 						// 1,3 for red team
 						if (player->getId() == 1 || player->getId() == 3) {
-							button->setRedDoor(true);
+							if (player->getInteract()) {
+								button->setRedDoor(true);
+							}
 						}
 						// 2,4 for green team
 						if (player->getId() == 2 || player->getId() == 4) {
-							button->setGreenDoor(true);
+							if (player->getInteract()) {
+								button->setGreenDoor(true);
+							}
 						}
 					}
 					break;
@@ -214,7 +219,10 @@ void CollisionSystem::bombCollision()
 						playerComp->setDizzyState(true);
 					}
 					else {
-						bombComp->playerGetBomb(playerComp->getId());
+						if (playerComp->getInteract()) {
+							bombComp->playerGetBomb(playerComp->getId());
+							playerComp->setInteract(false);
+						}
 					}
 				}
 			}

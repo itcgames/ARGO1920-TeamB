@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "PositionComponent.h"
 #include "CollisionComponent.h"
+#include "PlayerComponent.h"
 #include "RenderComponent.h"
 #include "Globals.h"
 
@@ -24,15 +25,13 @@ public:
 		if (t_gameObject.getId() == 0 || t_gameObject.getId() == 1) {
 			if (posComp->getPositionY() > 40) {
 				posComp->moveUp();
-				CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
-				colComp->updateCollider(t_gameObject);
+
 			}
 		}
 		else if (t_gameObject.getId() == 2 || t_gameObject.getId() == 3) {
 			if (posComp->getPositionY() > SCR_H / 2 + 50) {
 				posComp->moveUp();
-				CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
-				colComp->updateCollider(t_gameObject);
+
 			}
 		}
 	}
@@ -48,15 +47,13 @@ public:
 		if (t_gameObject.getId() == 2 || t_gameObject.getId() == 3) {
 			if (posComp->getPositionY() < SCR_H - 75) {
 				posComp->moveDown();
-				CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
-				colComp->updateCollider(t_gameObject);
+
 			}
 		}
 		else if (t_gameObject.getId() == 0 || t_gameObject.getId() == 1) {
 			if (posComp->getPositionY() < SCR_H / 2 - 45) {
 				posComp->moveDown();
-				CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
-				colComp->updateCollider(t_gameObject);
+
 			}
 		}
 	}
@@ -71,8 +68,7 @@ public:
 
 		if (posComp->getPositionX() > 30) {
 			posComp->moveLeft();
-			CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
-			colComp->updateCollider(t_gameObject);
+
 		}
 	}
 };
@@ -87,11 +83,18 @@ public:
 
 		if (posComp->getPositionX() < SCR_W - 90) {
 			posComp->moveRight();
-			CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
-			colComp->updateCollider(t_gameObject);
 		}
 
 	}
 };
 
+class InteractCommand : public Command {
+public:
+	virtual void execute(Entity& t_gameObject)
+	{
+		PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(t_gameObject.getComponent(Types::Player));
+
+		playerComp->setInteract(true);
+	}
+};
 #endif

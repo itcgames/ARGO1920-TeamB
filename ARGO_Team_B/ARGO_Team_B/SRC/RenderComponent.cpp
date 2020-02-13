@@ -38,3 +38,21 @@ void RenderComponent::setImage(const char* name)
 		}
 	}
 }
+
+void RenderComponent::setImage(const char* name, int width, int height)
+{
+	if (currentImage != name) {
+		this->width = width;
+		this->height = height;
+		srcrect = { 0, 0, width , height };
+
+		currentImage = name;
+		image = IMG_Load(name);
+		texture = SDL_CreateTextureFromSurface(m_renderer, image);
+
+		if (!texture)
+		{
+			std::cout << name << " texture failed to load!" << std::endl;
+		}
+	}
+}
