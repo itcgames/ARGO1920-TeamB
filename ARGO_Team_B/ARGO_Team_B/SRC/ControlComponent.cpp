@@ -17,6 +17,7 @@ void ControlComponent::handleInput()
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
 
 	PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
+	
 
 	if (posComp != nullptr)
 	{
