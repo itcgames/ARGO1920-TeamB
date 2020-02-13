@@ -3,6 +3,7 @@
 #include"Component.h"
 #include"Entity.h"
 #include<vector>
+#include "AnimatedSpriteComponent.h"
 class System {
 public:
 	System();
