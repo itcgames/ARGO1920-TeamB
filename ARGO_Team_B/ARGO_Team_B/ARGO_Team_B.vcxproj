@@ -162,6 +162,7 @@
   <ItemGroup>
     <ClInclude Include="INCLUDE\AnimatedSpriteComponent.h" />
     <ClInclude Include="INCLUDE\AnimationComponent.h" />
+    <ClInclude Include="Include\AttackState.h" />
     <ClInclude Include="Include\CollisionComponent.h" />
     <ClInclude Include="Include\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Command.h" />
@@ -180,18 +181,23 @@
     <ClInclude Include="INCLUDE\GoalComponent.h" />
     <ClInclude Include="INCLUDE\HealthComponent.h" />
     <ClInclude Include="INCLUDE\HealthSystem.h" />
-    <ClInclude Include="INCLUDE\idleState.h" />
+    <ClInclude Include="Include\IdleState.h" />
+    <ClInclude Include="Include\InteractState.h" />
     <ClInclude Include="INCLUDE\Level.h" />
     <ClInclude Include="INCLUDE\MoveCommand.h" />
     <ClInclude Include="Include\PlayerComponent.h" />
     <ClInclude Include="INCLUDE\PositionComponent.h" />
     <ClInclude Include="INCLUDE\RenderComponent.h" />
     <ClInclude Include="INCLUDE\RenderSystem.h" />
-    <ClInclude Include="INCLUDE\state.h" />
+    <ClInclude Include="Include\State.h" />
     <ClInclude Include="INCLUDE\StateMachineSystem.h" />
+    <ClInclude Include="Include\State.h" />
+    <ClInclude Include="Include\StateMachineSystem.h" />
+    <ClInclude Include="Include\StunnedState.h" />
     <ClInclude Include="INCLUDE\System.h" />
     <ClInclude Include="INCLUDE\TrapComponent.h" />
     <ClInclude Include="INCLUDE\ButtonSystem.h" />
+    <ClInclude Include="Include\WalkingState.h" />
     <ClInclude Include="Include\Xbox360Controller.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

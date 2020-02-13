@@ -3,13 +3,13 @@
 AnimatedSpriteComponent::AnimatedSpriteComponent()
 {	
 	m_currentFrame = 0;
+	m_current = new IdleState();
 }
 
 AnimatedSpriteComponent::AnimatedSpriteComponent(SDL_Texture& t_texture) :
 	m_texture(&t_texture),
 	m_currentFrame(0)
 {
-
 }
 
 AnimatedSpriteComponent::AnimatedSpriteComponent(const char* t_texture, int t_height, int t_width, int t_noOfFrames, SDL_Renderer* t_renderer) :
@@ -29,8 +29,7 @@ AnimatedSpriteComponent::AnimatedSpriteComponent(const char* t_texture, int t_he
 	m_texture = SDL_CreateTextureFromSurface(m_renderer, m_surface);
 
 	for (int i = 0; i < m_NoOfFrames; i++)
-	{
-		
+	{	
 		rect.x = frameWidth * i;
 		rect.y = 0;
 		m_frames.push_back(rect);
@@ -62,6 +61,21 @@ void AnimatedSpriteComponent::update()
 			m_currentFrame = 0;	
 		}
 		m_clock = 0;
+	}
+	if (m_current ==  new WalkingState) {
+		walking();
+	}
+	if (m_current == new IdleState) {
+		idle();
+	}
+	if (m_current == new StunnedState) {
+		stunned();
+	}
+	if (m_current == new AttackState) {
+		attack();
+	}
+	if (m_current == new InteractState) {
+		interact();
 	}
 }
 
@@ -119,4 +133,34 @@ int AnimatedSpriteComponent::getWidth()
 int AnimatedSpriteComponent::getHeight()
 {
 	return m_imageHeight;
+}
+
+void AnimatedSpriteComponent::setCurrent(State* t_s)
+{
+	m_current = t_s;
+}
+
+void AnimatedSpriteComponent::idle()
+{
+	m_current->idle(this);
+}
+
+void AnimatedSpriteComponent::walking()
+{
+	m_current->walking(this);
+}
+
+void AnimatedSpriteComponent::stunned()
+{
+	m_current->stunned(this);
+}
+
+void AnimatedSpriteComponent::attack()
+{
+	m_current->attack(this);
+}
+
+void AnimatedSpriteComponent::interact()
+{
+	m_current->interact(this);
 }

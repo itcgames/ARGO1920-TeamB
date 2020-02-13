@@ -299,7 +299,7 @@ void Game::render()
 	SDL_RenderClear(p_renderer);
 	tiled_map_level->draw(p_renderer);
 	m_renderSystem.draw();
-	m_stateMachine.update();
+	// m_stateMachine.update();
 	SDL_RenderPresent(p_renderer);
 }
 

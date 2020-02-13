@@ -21,6 +21,12 @@ void System::update()
 
 void System::updateComponent(Component* c)
 {
+	AnimatedSpriteComponent* cont = dynamic_cast<AnimatedSpriteComponent*>(c);
+
+	if (cont != NULL)
+	{
+		cont->update();
+	}
 }
 
 void System::addEntity(Entity e)

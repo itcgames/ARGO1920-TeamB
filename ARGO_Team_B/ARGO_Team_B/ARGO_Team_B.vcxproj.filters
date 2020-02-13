@@ -64,12 +64,18 @@
     <ClInclude Include="INCLUDE\StateMachineSystem.h">
       <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="INCLUDE\state.h">
+    <ClInclude Include="Include\WalkingState.h" />
+    <ClInclude Include="Include\State.h">
       <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="INCLUDE\idleState.h">
+    <ClInclude Include="INCLUDE\StateMachineSystem.h" />
+    <ClInclude Include="Include\AttackState.h" />
+    <ClInclude Include="Include\IdleState.h">
       <Filter>States</Filter>
     </ClInclude>
+    <ClInclude Include="Include\InteractState.h" />
+    <ClInclude Include="Include\State.h" />
+    <ClInclude Include="Include\StunnedState.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="States">
