@@ -41,6 +41,16 @@ void PositionComponent::setPreviousePos() {
 	m_previouseY = m_currentY;
 }
 
+void PositionComponent::setAngle(double t_angle)
+{
+	m_angle = t_angle;
+}
+
+double PositionComponent::getAngle()
+{
+	return m_angle;
+}
+
 void PositionComponent::backToStart()
 {
 	m_currentX = m_startX;
@@ -59,7 +69,8 @@ void PositionComponent::moveUp()
 	}
 
 	m_lastY = m_currentY;
-	m_currentY-=3;
+	m_acceleration = rand() % 4;
+	m_currentY-=m_acceleration;
 }
 
 void PositionComponent::moveDown()
@@ -68,7 +79,8 @@ void PositionComponent::moveDown()
 	if (m_velocityY < MAX_VELO) {
 	}
 	m_lastY= m_currentY;
-	m_currentY += 3;
+	m_acceleration = rand() % 4;
+	m_currentY += m_acceleration;
 }
 
 void PositionComponent::moveLeft()
@@ -77,7 +89,8 @@ void PositionComponent::moveLeft()
 		m_velocityX -= INC_VELO;
 	}
 	m_lastX = m_currentX;
-	m_currentX -= 3;
+	m_acceleration = rand() % 4;
+	m_currentX -= m_acceleration;
 }
 
 void PositionComponent::moveRight()
@@ -86,5 +99,6 @@ void PositionComponent::moveRight()
 		m_velocityX += INC_VELO;
 	}
 	m_lastX = m_currentX;
-	m_currentX += 3;
+	m_acceleration = rand() % 4;
+	m_currentX += m_acceleration;
 }

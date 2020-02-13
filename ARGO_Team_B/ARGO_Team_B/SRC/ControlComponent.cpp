@@ -88,15 +88,23 @@ void ControlComponent::handleInput()
 			dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
 		if (m_controller->m_currentState.LeftThumbStick.y < -m_controller->dpadThreshold) {
 			m_moving = MovingState::Up;
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x, m_controller->m_currentState.LeftThumbStick.y);
+			posComp->setAngle((angle * 180/3.14));
 		}
 		else if (m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
 			m_moving = MovingState::Left;
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x, m_controller->m_currentState.LeftThumbStick.y);
+			posComp->setAngle((angle * 180 / 3.14));
 		}
 		else if (m_controller->m_currentState.LeftThumbStick.x > m_controller->dpadThreshold) {
 			m_moving = MovingState::Right;
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x, m_controller->m_currentState.LeftThumbStick.y);
+			posComp->setAngle((angle * 180 / 3.14));
 		}
 		else if (m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
 			m_moving = MovingState::Down;
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x, m_controller->m_currentState.LeftThumbStick.y);
+			posComp->setAngle((angle * 180 / 3.14));
 		}
 		else if (!playerComp->getMoveable()) {
 			posComp->backToPreviousePos();
@@ -114,8 +122,6 @@ void ControlComponent::handleInput()
 		m_controller->m_currentState.LeftThumbStick.x = 0;
 		m_controller->m_currentState.LeftThumbStick.y = 0;*/
 	}
-
-
 }
 
 void ControlComponent::moveUp()
@@ -123,7 +129,7 @@ void ControlComponent::moveUp()
 	RenderComponent* renderComp = dynamic_cast<RenderComponent*>(m_entity.getComponent(Types::Render));
 	p_walkUp = new WalkUpCommand();
 	p_walkUp->execute(m_entity);
-	renderComp->setAngle(270);
+	
 }
 
 void ControlComponent::moveLeft()
@@ -131,7 +137,6 @@ void ControlComponent::moveLeft()
 	RenderComponent* renderComp = dynamic_cast<RenderComponent*>(m_entity.getComponent(Types::Render));
 	p_walkLeft = new WalkLeftCommand();
 	p_walkLeft->execute(m_entity);
-	renderComp->setAngle(180);
 }
 
 void ControlComponent::moveRight()
@@ -139,7 +144,6 @@ void ControlComponent::moveRight()
 	RenderComponent* renderComp = dynamic_cast<RenderComponent*>(m_entity.getComponent(Types::Render));
 	p_walkRight = new WalkRightCommand();
 	p_walkRight->execute(m_entity);
-	renderComp->setAngle(0);
 }
 
 void ControlComponent::moveDown()
@@ -147,6 +151,5 @@ void ControlComponent::moveDown()
 	RenderComponent* renderComp = dynamic_cast<RenderComponent*>(m_entity.getComponent(Types::Render));
 	p_walkDown = new WalkDownCommand();
 	p_walkDown->execute(m_entity);
-	renderComp->setAngle(90);
 }
 
