@@ -9,6 +9,11 @@ MazeWallObject::MazeWallObject(float x, float y, float width, float height)
 {
 
 }
+Breakable::Breakable(float x, float y, float width, float height,bool alive)
+	: x(x), y(y), width(width), height(height),alive(alive)
+{
+
+}
 void tile::draw(SDL_Renderer* ren) {
     if (!ren || !sheet)
         return;
@@ -68,6 +73,7 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
 		if (layer->getType() == tmx::Layer::Type::Object)
 		{
 			const auto& objects = dynamic_cast<tmx::ObjectGroup*>(layer.get())->getObjects();
+			
 			for (const auto& object : objects)
 			{
 				if (object.getName() == "MazeWall")
@@ -82,6 +88,32 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
 
 					m_mazeWalls.push_back(o);
 				}
+				else if (object.getName() == "BreakableWall")
+				{
+
+					float x, y, width, height;
+					bool alive;
+					x = object.getPosition().x;
+					y = object.getPosition().y;
+					width = object.getAABB().width;
+					height = object.getAABB().height;
+					alive = object.visible();
+					Breakable o(x, y, width, height,alive);
+					
+					m_breakable.push_back(o);
+				}
+				if (object.getName() == "Teleport")
+				{
+					float x, y, width, height;
+					x = object.getPosition().x;
+					y = object.getPosition().y;
+					width = object.getAABB().width;
+					height = object.getAABB().height;
+
+					MazeWallObject o(x, y, width, height);
+
+					m_teleport.push_back(o);
+				}
 			}
 		}
         // We're only looking to render the tiles on the map, so if
@@ -94,6 +126,7 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
 
         // Grab all of this layer's tiles. 
         auto& layer_tiles = tile_layer->getTiles();
+
 
         // Remember when we needed the size of the Tiled map? This
         // is where it comes into play. Because we're making a simple

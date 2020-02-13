@@ -228,8 +228,8 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			}
 		}
 		////bottom of tile
-		if (y>=t_mazeWalls.m_mazeWalls[i].y+t_mazeWalls.m_mazeWalls[i].height &&
-			y<=t_mazeWalls.m_mazeWalls[i].y &&
+		if (y >= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height &&
+			y <= t_mazeWalls.m_mazeWalls[i].y &&
 			x > t_mazeWalls.m_mazeWalls[i].x - width &&
 			x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width)
 		{
@@ -242,6 +242,55 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 		}
 	}
 
+	for (int i = 0; i < t_mazeWalls.m_teleport.size(); i++)
+	{
+		//right of tile
+		if (x <= t_mazeWalls.m_teleport[i].x + t_mazeWalls.m_teleport[i].width &&
+			x >= t_mazeWalls.m_teleport[i].x &&
+			y + height >= t_mazeWalls.m_teleport[i].y &&
+			y <= t_mazeWalls.m_teleport[i].y + t_mazeWalls.m_teleport[i].height)
+		{
+			std::cout << "right collision!" << std::endl;
+			m_positionComp->setPosition(t_mazeWalls.m_teleport[1].x - 65, t_mazeWalls.m_teleport[1].y);
+		}
+
+		//left of tile
+		if (x + width >= t_mazeWalls.m_teleport[i].x &&
+			x + width < t_mazeWalls.m_teleport[i].x + t_mazeWalls.m_teleport[i].width &&
+			y + height >= t_mazeWalls.m_teleport[i].y &&
+			y <= t_mazeWalls.m_teleport[i].y + t_mazeWalls.m_teleport[i].height
+			)
+		{
+			std::cout << "left collision!" << std::endl;
+			m_positionComp->setPosition(t_mazeWalls.m_teleport[0].x + 35, t_mazeWalls.m_teleport[0].y);
+		}
+		//top of tile
+		if (y + height >= t_mazeWalls.m_teleport[i].y &&
+			y + height <= t_mazeWalls.m_teleport[i].y + t_mazeWalls.m_teleport[i].height &&
+			x > t_mazeWalls.m_teleport[i].x - width &&
+			x <= t_mazeWalls.m_teleport[i].x + t_mazeWalls.m_teleport[i].width
+			)
+		{
+			{
+				std::cout << "top collision!" << std::endl;
+				m_positionComp->setPosition(t_mazeWalls.m_teleport[0].x, t_mazeWalls.m_teleport[0].y + 35);
+
+			}
+		}
+		////bottom of tile
+		if (y >= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height &&
+			y <= t_mazeWalls.m_mazeWalls[i].y &&
+			x > t_mazeWalls.m_mazeWalls[i].x - width &&
+			x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width)
+		{
+			{
+				std::cout << "bottom collision!" << std::endl;
+				//m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y + RAT_W);
+				m_positionComp->setPosition(t_mazeWalls.m_teleport[0].x, t_mazeWalls.m_teleport[0].y - 75);
+
+			}
+		}
+	}
 }
 	
 

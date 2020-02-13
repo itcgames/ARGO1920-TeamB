@@ -22,14 +22,14 @@ public:
 		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
 
 		if (t_gameObject.getId() == 0 || t_gameObject.getId() == 1) {
-			if (posComp->getPositionY() > 40) {
+			//if (posComp->getPositionY() > 30) {
 				posComp->moveUp();
 				CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
 				colComp->updateCollider(t_gameObject);
-			}
+			//}
 		}
 		else if (t_gameObject.getId() == 2 || t_gameObject.getId() == 3) {
-			if (posComp->getPositionY() > SCR_H / 2 + 50) {
+			if (posComp->getPositionY() > SCR_H + 50) {
 				posComp->moveUp();
 				CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
 				colComp->updateCollider(t_gameObject);
@@ -46,18 +46,18 @@ public:
 		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
 
 		if (t_gameObject.getId() == 2 || t_gameObject.getId() == 3) {
-			if (posComp->getPositionY() < SCR_H - 75) {
+			//if (posComp->getPositionY() < SCR_H - 75) {
 				posComp->moveDown();
 				CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
 				colComp->updateCollider(t_gameObject);
-			}
+			//}
 		}
 		else if (t_gameObject.getId() == 0 || t_gameObject.getId() == 1) {
-			if (posComp->getPositionY() < SCR_H / 2 - 45) {
+			//if (posComp->getPositionY() < SCR_H - 45) {
 				posComp->moveDown();
 				CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
 				colComp->updateCollider(t_gameObject);
-			}
+			//}
 		}
 	}
 };
