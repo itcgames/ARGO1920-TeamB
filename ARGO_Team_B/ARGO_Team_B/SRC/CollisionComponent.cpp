@@ -65,15 +65,38 @@ void CollisionComponent::updateCollider(Entity& t_entity)
 	m_circlecollider.p = c2v{ entityPos->getPositionX(), entityPos->getPositionY() };
 
 
+	float offsetX  = entityPos->getPositionX() + m_width /2;
+	float offsetY = entityPos->getPositionY();
+	float offsetX2 = entityPos->getPositionX()- m_width / 2;
+
 	/// <summary>
 	/// Update Capsule
 	/// </summary>
-	m_capsuleCollider.a.x = (entityPos->getPositionX() * cos(entityPos->getAngle() * 3.14/180)) - (entityPos->getPositionY() + m_capsuleCollider.r * sin(entityPos->getAngle() * 3.14 / 180));
-	m_capsuleCollider.a.y = entityPos->getPositionX() * sin(entityPos->getAngle() * 3.14 / 180) + entityPos->getPositionY() + m_capsuleCollider.r * cos(entityPos->getAngle() * 3.14 / 180);
 
-	m_capsuleCollider.b.x = (entityPos->getPositionX() + m_width * cos(entityPos->getAngle())) + ((entityPos->getPositionY() + m_capsuleCollider.r) * sin(entityPos->getAngle()));
-	m_capsuleCollider.b.y = (entityPos->getPositionX() + m_width * sin(entityPos->getAngle())) + ((entityPos->getPositionY() + m_capsuleCollider.r) * cos(entityPos->getAngle()));
+	m_capsuleCollider.a.x = entityPos->getPositionX();
+	m_capsuleCollider.a.y = entityPos->getPositionY();
+	m_capsuleCollider.b.x = entityPos->getPositionX();
+	m_capsuleCollider.b.y = entityPos->getPositionY();
+	
+	/*float x_rotated = ((x - x_origin) * cos(angle)) - ((y_origin - y) * sin(angle)) + x_origin;
+	float y_rotated = ((y_origin - y) * cos(angle)) - ((x - x_origin) * sin(angle)) + y_origin;*/
 
+	float aX = ((m_capsuleCollider.a.x - offsetX) * cos(entityPos->getAngle() * (3.14 / 180)) - ((offsetY - m_capsuleCollider.a.y ) * sin(entityPos->getAngle() * 3.14 / 180)));
+	float aY = ((offsetY - m_capsuleCollider.a.y) * cos(entityPos->getAngle() * (3.14 / 180)) - ((m_capsuleCollider.a.x - offsetX) * sin(entityPos->getAngle() * 3.14 / 180)));
+
+	float bX = ((m_capsuleCollider.b.x - offsetX) * cos(entityPos->getAngle() * (3.14 / 180)) - ((offsetY - m_capsuleCollider.b.y) * sin(entityPos->getAngle() * 3.14 / 180)));
+	float bY = ((offsetY - m_capsuleCollider.b.y) * cos(entityPos->getAngle() * (3.14 / 180)) - ((m_capsuleCollider.b.x - offsetX) * sin(entityPos->getAngle() * 3.14 / 180)));
+
+	//m_capsuleCollider.a.x = (m_capsuleCollider.a.x * cos(entityPos->getAngle() * (3.14 / 180)) - (m_capsuleCollider.a.y * sin(entityPos->getAngle() * 3.14 / 180)));
+	//m_capsuleCollider.a.y = (m_capsuleCollider.a.x * sin(entityPos->getAngle() * (3.14 / 180)) + (m_capsuleCollider.a.y * cos(entityPos->getAngle() * 3.14 / 180)));
+	/*
+	m_capsuleCollider.b.x = (m_capsuleCollider.b.x * cos(entityPos->getAngle() * 3.14 / 180)) - (m_capsuleCollider.b.y * sin(entityPos->getAngle() * 3.14 / 180));
+	m_capsuleCollider.b.y = (m_capsuleCollider.b.x * sin(entityPos->getAngle() * 3.14 / 180)) + (m_capsuleCollider.b.y * cos(entityPos->getAngle() * 3.14 / 180)); */
+
+	m_capsuleCollider.a.x = aX + offsetX;
+	m_capsuleCollider.a.y = aY + offsetY;
+	m_capsuleCollider.b.x = bX + offsetX2;
+	m_capsuleCollider.b.y = bY + offsetY;
 
 	/// <summary>
 	/// Updating Rectangle
