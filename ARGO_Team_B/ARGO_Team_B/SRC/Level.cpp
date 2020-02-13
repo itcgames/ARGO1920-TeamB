@@ -14,6 +14,11 @@ Breakable::Breakable(float x, float y, float width, float height,bool alive)
 {
 
 }
+TeleportObject::TeleportObject(float x, float y, float width, float height)
+	: x(x), y(y), width(width), height(height) 
+{
+
+}
 void tile::draw(SDL_Renderer* ren) {
     if (!ren || !sheet)
         return;
@@ -102,7 +107,7 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
 					
 					m_breakable.push_back(o);
 				}
-				if (object.getName() == "Teleport")
+				else if (object.getName() == "Teleport")
 				{
 					float x, y, width, height;
 					x = object.getPosition().x;
@@ -110,7 +115,7 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
 					width = object.getAABB().width;
 					height = object.getAABB().height;
 
-					MazeWallObject o(x, y, width, height);
+					TeleportObject o(x, y, width, height);
 
 					m_teleport.push_back(o);
 				}
