@@ -193,7 +193,6 @@
     <ClInclude Include="INCLUDE\PositionComponent.h" />
     <ClInclude Include="INCLUDE\RenderComponent.h" />
     <ClInclude Include="INCLUDE\RenderSystem.h" />
-    <ClInclude Include="Include\State.h" />
     <ClInclude Include="INCLUDE\StateMachineSystem.h" />
     <ClInclude Include="Include\State.h" />
     <ClInclude Include="Include\StateMachineSystem.h" />
