@@ -18,7 +18,7 @@ class AudioObserver : public Observer
 	public:
 		enum SFX
 		{
-			TEST, TEST1, TEST2
+			TEST, TEST1, TEST2,doorsoudnasdjghas
 		};
 
 		AudioObserver() {};
@@ -28,6 +28,7 @@ class AudioObserver : public Observer
 			test = Mix_LoadWAV("Assets/Sfx/click.wav");
 			test1 = Mix_LoadWAV("Assets/Sfx/click.wav");
 			test2 = Mix_LoadWAV("Assets/Sfx/click.wav");
+			m_bgm1 = Mix_LoadMUS("Assets/Sfx/music.mp3");
 			
 		}
 		//Function to be called when a message is received from the subject

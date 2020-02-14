@@ -43,7 +43,6 @@ private:
 	vector<Entity> m_trapEntitys;
 	vector<Entity> m_doorEntitys;
 	vector<Entity> m_goalEntitys;
-	Mix_Chunk* test = NULL;
 	vector<Entity> m_bombEntitys;
 	float x1, y1;
 	PositionComponent* m_positionComp;
