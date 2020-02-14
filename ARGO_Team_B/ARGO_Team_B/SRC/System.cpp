@@ -16,6 +16,7 @@ void System::update()
 		{
 			updateComponent(c);
 		}
+
 	}
 }
 

@@ -45,11 +45,11 @@ Game::Game()
 	// Player
 	m_player.addComponent(new PlayerComponent(1), Types::Player); // This must allways be first added
 	m_player.addComponent(new HealthComponent(100), Types::Health);
-	m_player.addComponent(new PositionComponent(600, 300), Types::Position);
+	m_player.addComponent(new PositionComponent(150, 100), Types::Position);
 	m_player.addComponent(new CollisionComponent(m_player, 60, 30), Types::Collider);
 	m_player.addComponent(new ControlComponent(m_player), Types::Controller);
 	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
-	m_player.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheet.png", 30, 300, 5, p_renderer), Types::AnimatedSprite);
+	//m_player.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheet.png", 60, 30, 5, p_renderer), Types::AnimatedSprite);
 
 
 	// Alien
@@ -141,6 +141,12 @@ Game::Game()
 		//m_trapSystem.addEntity(m_goalCheese);
 	}
 
+	//bomb
+	m_bomb.addComponent(new BombComponent(), Types::Bomb);
+	m_bomb.addComponent(new PositionComponent(700, 200), Types::Position);
+	m_bomb.addComponent(new CollisionComponent(m_bomb, 30.0f, 30, 30), Types::Collider);
+	m_bomb.addComponent(new RenderComponent("Assets\\bomb.png", 30, 30, p_renderer), Types::Render);
+
 	// Systems
 	//HEALTH All entities
 	m_healthSystem.addEntity(m_player);
@@ -170,6 +176,7 @@ Game::Game()
 	
 	m_collisionSystem.addEntity(m_door1);
 
+	m_collisionSystem.addEntity(m_bomb);
 	//DRAW Draw all of entities
 	m_renderSystem.addEntity(m_player);
 	m_renderSystem.addEntity(m_alien);
@@ -200,6 +207,8 @@ Game::Game()
 	m_renderSystem.addEntity(m_spike3);
 
 
+	m_renderSystem.addEntity(m_bomb);
+
 	//Connect button entity and other entity that require switch	 
 	m_buttonSystem.addEntity(m_button);
 	m_buttonSystem.addEntity(m_button2);
@@ -209,6 +218,13 @@ Game::Game()
 	m_buttonSystem.addEntity(m_spike2);
 	m_buttonSystem.addEntity(m_spike3);
 	m_buttonSystem.addEntity(m_door1);
+
+	// bomb system
+	m_bombSystem.addEntity(m_bomb);
+	m_bombSystem.addEntity(m_player);
+	m_bombSystem.addEntity(m_alien);
+	m_bombSystem.addEntity(m_dog);
+	m_bombSystem.addEntity(m_cat);
 }
 
 /// <summary>
@@ -236,7 +252,7 @@ void Game::run()
 		{
 			timeSinceLastUpdate -= timePerFrame;
 			processEvents();
-			update(timePerFrame);
+			update(timePerFrame / 1000.0f);
 		}
 		render();
 	}
@@ -287,7 +303,7 @@ void Game::update(float dt)
 	//m_controlSystem.update();
 	m_stateMachine.update();
 	m_collisionSystem.updateComponent(*tiled_map_level);
-
+	m_bombSystem.updateComponent(dt);
 }
 
 /// <summary>

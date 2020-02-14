@@ -17,12 +17,12 @@ void CollisionSystem::updateComponent(Level& t_level)
 {
 	searchEntities();
 
-	vector<CollisionComponent*> playerCollider;
+	vector<CollisionComponent*> playerColliders;
 
 	for (Entity& player : m_playerEntitys) {
 		CollisionComponent* playerComp = dynamic_cast<CollisionComponent*>(player.getComponent(Types::Collider));
 		playerComp->updateCollider(player);
-		playerCollider.push_back(playerComp);
+		playerColliders.push_back(playerComp);
 		
 		m_positionComp = static_cast<PositionComponent*>(player.getComponent(Types::Position));
 		x1 = m_positionComp->getPositionX();
@@ -31,12 +31,12 @@ void CollisionSystem::updateComponent(Level& t_level)
 	}
 
 	// player 1 and player 2 collision check
-	if (checkCollision(playerCollider[0]->getAABBCollider(), playerCollider[1]->getAABBCollider())) {
+	if (checkCollision(playerColliders[0]->getAABBCollider(), playerColliders[1]->getAABBCollider())) {
 
 	}
 
 	// player 3 and player 4 collision check
-	if (checkCollision(playerCollider[2]->getAABBCollider(), playerCollider[3]->getAABBCollider())) {
+	if (checkCollision(playerColliders[2]->getAABBCollider(), playerColliders[3]->getAABBCollider())) {
 
 	}
 
@@ -64,19 +64,24 @@ void CollisionSystem::updateComponent(Level& t_level)
 				{
 				case 1:
 					if (checkCollision(playerCollision->getAABBCollider(), buttonCollider->getAABBCollider())) {
-
-						button->setState(true);
+						if (player->getInteract()) {
+							button->setState(true);
+						}
 					}
 					break;
 				case 2:
 					if (checkCollision(playerCollision->getAABBCollider(), buttonCollider->getAABBCollider())) {
 						// 1,3 for red team
 						if (player->getId() == 1 || player->getId() == 3) {
-							button->setRedDoor(true);
+							if (player->getInteract()) {
+								button->setRedDoor(true);
+							}
 						}
 						// 2,4 for green team
 						if (player->getId() == 2 || player->getId() == 4) {
-							button->setGreenDoor(true);
+							if (player->getInteract()) {
+								button->setGreenDoor(true);
+							}
 						}
 					}
 					break;
@@ -133,12 +138,12 @@ void CollisionSystem::updateComponent(Level& t_level)
 
 			// red door open, check with player 1 and 3
 			if (!door->getRedDoor()) {
-				if (checkCollision(playerCollider[0]->getAABBCollider(), doorCollider->getAABBCollider())) {
+				if (checkCollision(playerColliders[0]->getAABBCollider(), doorCollider->getAABBCollider())) {
 					PlayerComponent* player = static_cast<PlayerComponent*>(m_playerEntitys[0].getComponent(Types::Player));
 					player->setMoveable(false);
 				}
 
-				if (checkCollision(playerCollider[2]->getAABBCollider(), doorCollider->getAABBCollider())) {
+				if (checkCollision(playerColliders[2]->getAABBCollider(), doorCollider->getAABBCollider())) {
 					PlayerComponent* player = static_cast<PlayerComponent*>(m_playerEntitys[2].getComponent(Types::Player));
 					player->setMoveable(false);
 				}
@@ -146,12 +151,12 @@ void CollisionSystem::updateComponent(Level& t_level)
 
 			// green door open, check with player 2 and 4
 			if (!door->getGreenDoor()) {
-				if (checkCollision(playerCollider[1]->getAABBCollider(), doorCollider->getAABBCollider())) {
+				if (checkCollision(playerColliders[1]->getAABBCollider(), doorCollider->getAABBCollider())) {
 					PlayerComponent* player = static_cast<PlayerComponent*>(m_playerEntitys[1].getComponent(Types::Player));
 					player->setMoveable(false);
 				}
 
-				if (checkCollision(playerCollider[3]->getAABBCollider(), doorCollider->getAABBCollider())) {
+				if (checkCollision(playerColliders[3]->getAABBCollider(), doorCollider->getAABBCollider())) {
 					PlayerComponent* player = static_cast<PlayerComponent*>(m_playerEntitys[3].getComponent(Types::Player));
 					player->setMoveable(false);
 				}
@@ -187,7 +192,45 @@ void CollisionSystem::updateComponent(Level& t_level)
 			}
 		}
 	}
+
+	bombCollision();
 }
+
+void CollisionSystem::bombCollision()
+{
+	for (Entity& bombEntity : m_bombEntitys) {
+		BombComponent* bombComp = static_cast<BombComponent*>(bombEntity.getComponent(Types::Bomb));
+
+		if (bombComp->getState() != BombState::Removed) {
+
+			CollisionComponent* bombCollider = static_cast<CollisionComponent*>(bombEntity.getComponent(Types::Collider));
+
+			for (Entity& playerEntity : m_playerEntitys) {
+
+				CollisionComponent* playerCollider = static_cast<CollisionComponent*>(playerEntity.getComponent(Types::Collider));
+
+				bombCollider->updateCollider(bombEntity);
+
+				if (checkCollision(bombCollider->getCircleCollider(), playerCollider->getAABBCollider())) {
+
+					PlayerComponent* playerComp = static_cast<PlayerComponent*>(playerEntity.getComponent(Types::Player));
+					
+					if (bombComp->getState() == BombState::Explode) {
+						playerComp->setDizzyState(true);
+					}
+					else {
+						if (playerComp->getInteract()) {
+							bombComp->playerGetBomb(playerComp->getId());
+							playerComp->setInteract(false);
+						}
+					}
+				}
+			}
+
+		}
+	}
+}
+
 
 void CollisionSystem::tileCollision(float x, float y, float width, float height, Level& t_mazeWalls)
 {
@@ -199,7 +242,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			y + height >= t_mazeWalls.m_mazeWalls[i].y &&
 			y <= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height)
 		{
-			std::cout << "right collision!" << std::endl;
+			std::cout << "right tile WALL collision!" << std::endl;
 			m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
 			//m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x + RAT_H, y);
 		}
@@ -210,7 +253,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			y + height >= t_mazeWalls.m_mazeWalls[i].y &&
 			y <= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height)
 		{
-			std::cout << "left collision!" << std::endl;
+			std::cout << "left tile WALL collision!" << std::endl;
 			//m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x - RAT_W, y);
 			m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
 		}
@@ -221,20 +264,20 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width)
 		{
 			{
-				std::cout << "top collision!" << std::endl;
+				std::cout << "top tile WALL collision!" << std::endl;
 				//m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y - RAT_H);
 				m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
 
 			}
 		}
 		////bottom of tile
-		if (y>=t_mazeWalls.m_mazeWalls[i].y+t_mazeWalls.m_mazeWalls[i].height &&
-			y<=t_mazeWalls.m_mazeWalls[i].y &&
+		if (y >= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height &&
+			y <= t_mazeWalls.m_mazeWalls[i].y &&
 			x > t_mazeWalls.m_mazeWalls[i].x - width &&
 			x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width)
 		{
 			{
-				std::cout << "bottom collision!" << std::endl;
+				std::cout << "bottom tile WALL collision!" << std::endl;
 				//m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y + RAT_W);
 				m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
 
@@ -242,9 +285,49 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 		}
 	}
 
-}
-	
+	for (int i = 0; i < t_mazeWalls.m_teleport.size(); i++)
+	{
+		//right of tile
+		if (x <= t_mazeWalls.m_teleport[i].x + t_mazeWalls.m_teleport[i].width &&
+			x >= t_mazeWalls.m_teleport[i].x &&
+			y + height >= t_mazeWalls.m_teleport[i].y &&
+			y <= t_mazeWalls.m_teleport[i].y + t_mazeWalls.m_teleport[i].height)
+		{
+			std::cout << "right TELEPORT collision!" << std::endl;
+			m_positionComp->setPosition(t_mazeWalls.m_teleport[1].x - 65, t_mazeWalls.m_teleport[1].y);
+		}
 
+		//left of tile
+		if (x + width >= t_mazeWalls.m_teleport[i].x &&
+			x + width < t_mazeWalls.m_teleport[i].x + t_mazeWalls.m_teleport[i].width &&
+			y + height >= t_mazeWalls.m_teleport[i].y &&
+			y <= t_mazeWalls.m_teleport[i].y + t_mazeWalls.m_teleport[i].height
+			)
+		{
+			std::cout << "left TELEPORT collision!" << std::endl;
+			m_positionComp->setPosition(t_mazeWalls.m_teleport[0].x + 35, t_mazeWalls.m_teleport[0].y);
+		}
+		//top of tile
+		if (y + height >= t_mazeWalls.m_teleport[i].y &&
+			y + height <= t_mazeWalls.m_teleport[i].y + t_mazeWalls.m_teleport[i].height &&
+			x > t_mazeWalls.m_teleport[i].x - width &&
+			x <= t_mazeWalls.m_teleport[i].x + t_mazeWalls.m_teleport[i].width
+			)
+		{
+			std::cout << "top TELEPORT collision!" << std::endl;
+			m_positionComp->setPosition(t_mazeWalls.m_teleport[2].x, t_mazeWalls.m_teleport[2].y + 35);
+		}
+		////bottom of tile
+		if (y >= t_mazeWalls.m_teleport[i].y + t_mazeWalls.m_teleport[i].height &&
+			y <= t_mazeWalls.m_teleport[i].y &&
+			x > t_mazeWalls.m_teleport[i].x - width &&
+			x <= t_mazeWalls.m_teleport[i].x + t_mazeWalls.m_teleport[i].width)
+		{
+				std::cout << "bottom TELEPORT collision!" << std::endl;
+				m_positionComp->setPosition(t_mazeWalls.m_teleport[3].x, t_mazeWalls.m_teleport[3].y - 75);
+		}
+	}
+}
 
 /// <summary>
 /// search the vector entity and find all entity we need
@@ -254,6 +337,7 @@ void CollisionSystem::searchEntities() {
 	m_buttonEntitys.clear();
 	m_trapEntitys.clear();
 	m_doorEntitys.clear();
+	m_bombEntitys.clear();
 
 	for (Entity& e1 : entities) {
 		//get the all player entities from entities vector
@@ -276,6 +360,11 @@ void CollisionSystem::searchEntities() {
 		{
 			m_doorEntitys.push_back(e1);
 		}
+		//get the all bomb entites from entities vector
+		else if (e1.getType() == Types::Bomb)
+		{
+			m_bombEntitys.push_back(e1);
+		}
 
 	}
 }
@@ -289,7 +378,7 @@ void CollisionSystem::searchEntities() {
 bool CollisionSystem::checkCollision(c2Circle t_collider, c2AABB t_otherCollider)
 {
 	if (c2CircletoAABB(t_collider, t_otherCollider)) {
-		std::cout << "Collision" << std::endl;
+		//std::cout << "Collision" << std::endl;
 		//handleCollision();
 		return true;
 	}
@@ -305,7 +394,7 @@ bool CollisionSystem::checkCollision(c2Circle t_collider, c2AABB t_otherCollider
 bool CollisionSystem::checkCollision(c2AABB t_collider, c2AABB t_otherCollider)
 {
 	if (c2AABBtoAABB(t_collider, t_otherCollider)) {
-		std::cout << "Collision" << std::endl;
+		//std::cout << "Collision" << std::endl;
 		//handleCollision();
 		return true;
 	}
@@ -321,7 +410,7 @@ bool CollisionSystem::checkCollision(c2AABB t_collider, c2AABB t_otherCollider)
 bool CollisionSystem::checkCollision(c2AABB t_collider, c2Poly t_otherCollider)
 {
 	if (c2AABBtoPoly(t_collider, &t_otherCollider, nullptr)) {
-		std::cout << "Collision" << std::endl;
+		//std::cout << "Collision" << std::endl;
 		//handleCollision();
 		return true;
 	}

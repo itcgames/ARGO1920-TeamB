@@ -29,7 +29,15 @@ void ControlSystem::handleInput(float dt) {
 			cont->handleInput();
 		}
 
-		cont->update(dt);
+		 //cont->update(dt);
+		
+		PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(e.getComponent(Types::Player));
+
+		if (playerComp->getSwipeCooldown() > 0.0f) {
+			float timer = playerComp->getSwipeCooldown();
+			timer -= dt;
+			playerComp->setSwipeCooldown(timer);
+		}
 	}
 }
 

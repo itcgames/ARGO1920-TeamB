@@ -5,6 +5,8 @@
     <ClCompile Include="SRC\AnimatedSpriteComponent.cpp" />
     <ClCompile Include="SRC\AnimationComponent.cpp" />
     <ClCompile Include="SRC\Assets.cpp" />
+    <ClCompile Include="SRC\BombComponent.cpp" />
+    <ClCompile Include="SRC\BombSystem.cpp" />
     <ClCompile Include="SRC\ButtonComponent.cpp" />
     <ClCompile Include="Src\CollisionComponent.cpp" />
     <ClCompile Include="Src\CollisionSystem.cpp" />
@@ -22,13 +24,11 @@
     <ClCompile Include="SRC\PositionComponent.cpp" />
     <ClCompile Include="SRC\RenderComponent.cpp" />
     <ClCompile Include="SRC\RenderSystem.cpp" />
+    <ClCompile Include="SRC\StateMachineSystem.cpp" />
     <ClCompile Include="SRC\System.cpp" />
     <ClCompile Include="SRC\TrapComponent.cpp" />
     <ClCompile Include="SRC\ButtonSystem.cpp" />
     <ClCompile Include="Src\Xbox360Controller.cpp" />
-    <ClCompile Include="SRC\StateMachineSystem.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
     <ClCompile Include="INCLUDE\WalkingState.cpp" />
     <ClCompile Include="INCLUDE\InteractState.cpp" />
     <ClCompile Include="INCLUDE\StunnedState.cpp" />
@@ -37,6 +37,7 @@
   <ItemGroup>
     <ClInclude Include="INCLUDE\AnimatedSpriteComponent.h" />
     <ClInclude Include="INCLUDE\AnimationComponent.h" />
+    <ClInclude Include="INCLUDE\BombSystem.h" />
     <ClInclude Include="Include\CollisionComponent.h" />
     <ClInclude Include="Include\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Command.h" />
@@ -55,21 +56,20 @@
     <ClInclude Include="INCLUDE\GoalComponent.h" />
     <ClInclude Include="INCLUDE\HealthComponent.h" />
     <ClInclude Include="INCLUDE\HealthSystem.h" />
+    <ClInclude Include="INCLUDE\idleState.h" />
     <ClInclude Include="INCLUDE\Level.h" />
     <ClInclude Include="INCLUDE\MoveCommand.h" />
     <ClInclude Include="Include\PlayerComponent.h" />
     <ClInclude Include="INCLUDE\PositionComponent.h" />
     <ClInclude Include="INCLUDE\RenderComponent.h" />
     <ClInclude Include="INCLUDE\RenderSystem.h" />
+    <ClInclude Include="INCLUDE\state.h" />
     <ClInclude Include="INCLUDE\System.h" />
+    <ClInclude Include="INCLUDE\BombComponent.h" />
     <ClInclude Include="INCLUDE\TrapComponent.h" />
     <ClInclude Include="INCLUDE\ButtonSystem.h" />
     <ClInclude Include="Include\Xbox360Controller.h" />
-    <ClInclude Include="INCLUDE\StateMachineSystem.h">
-      <Filter>States</Filter>
-    </ClInclude>
     <ClInclude Include="Include\WalkingState.h" />
-    <ClInclude Include="INCLUDE\StateMachineSystem.h" />
     <ClInclude Include="Include\AttackState.h" />
     <ClInclude Include="Include\InteractState.h" />
     <ClInclude Include="Include\State.h" />
@@ -82,5 +82,6 @@
     <Filter Include="States">
       <UniqueIdentifier>{d7d8adc9-bf3e-4b9b-8312-6ee413954fd0}</UniqueIdentifier>
     </Filter>
+    <ClInclude Include="INCLUDE\CameraShakeTest.h" />
   </ItemGroup>
 </Project>

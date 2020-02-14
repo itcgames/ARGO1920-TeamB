@@ -140,6 +140,8 @@
     <ClCompile Include="SRC\AnimatedSpriteComponent.cpp" />
     <ClCompile Include="SRC\AnimationComponent.cpp" />
     <ClCompile Include="SRC\Assets.cpp" />
+    <ClCompile Include="SRC\BombComponent.cpp" />
+    <ClCompile Include="SRC\BombSystem.cpp" />
     <ClCompile Include="SRC\ButtonComponent.cpp" />
     <ClCompile Include="Src\CollisionComponent.cpp" />
     <ClCompile Include="Src\CollisionSystem.cpp" />
@@ -167,6 +169,8 @@
     <ClInclude Include="INCLUDE\AnimatedSpriteComponent.h" />
     <ClInclude Include="INCLUDE\AnimationComponent.h" />
     <ClInclude Include="Include\AttackState.h" />
+    <ClInclude Include="INCLUDE\BombSystem.h" />
+    <ClInclude Include="INCLUDE\CameraShakeTest.h" />
     <ClInclude Include="Include\CollisionComponent.h" />
     <ClInclude Include="Include\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Command.h" />
@@ -195,9 +199,9 @@
     <ClInclude Include="INCLUDE\RenderSystem.h" />
     <ClInclude Include="INCLUDE\StateMachineSystem.h" />
     <ClInclude Include="Include\State.h" />
-    <ClInclude Include="Include\StateMachineSystem.h" />
     <ClInclude Include="Include\StunnedState.h" />
     <ClInclude Include="INCLUDE\System.h" />
+    <ClInclude Include="INCLUDE\BombComponent.h" />
     <ClInclude Include="INCLUDE\TrapComponent.h" />
     <ClInclude Include="INCLUDE\ButtonSystem.h" />
     <ClInclude Include="Include\WalkingState.h" />

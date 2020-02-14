@@ -12,7 +12,8 @@ enum class Types {
 	Collider,
 	Door,
 	Player,
-	Goal
+	Goal,
+	Bomb
 };
 
 #endif // !COMPONENTENUM_H

@@ -24,6 +24,7 @@ public:
 
 	float getLastX() { return m_lastX; }
 	float getLastY() { return m_lastY; }
+
 	void backToStart();
 private:
 	const float MAX_VELO = 10;
@@ -42,6 +43,5 @@ private:
 
 	float m_lastX;
 	float m_lastY;
-
 };
 #endif // !POS
