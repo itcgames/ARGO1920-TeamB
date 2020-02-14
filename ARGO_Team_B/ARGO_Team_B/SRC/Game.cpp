@@ -52,7 +52,7 @@ Game::Game()
 	// Player
 	m_player.addComponent(new PlayerComponent(1), Types::Player); // This must allways be first added
 	m_player.addComponent(new HealthComponent(100), Types::Health);
-	m_player.addComponent(new PositionComponent(600, 100), Types::Position);
+	m_player.addComponent(new PositionComponent(200, 100), Types::Position);
 	m_player.addComponent(new CollisionComponent(m_player, 60, 30), Types::Collider);
 	m_player.addComponent(new ControlComponent(m_player), Types::Controller);
 	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
@@ -316,7 +316,7 @@ void Game::update(float dt)
 	m_collisionSystem.updateComponent(*tiled_map_level,m_observer);
 
 	m_stateMachine.update();
-	m_bombSystem.updateComponent(dt);
+	m_bombSystem.updateComponent(dt,m_observer);
 }
 
 /// <summary>

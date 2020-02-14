@@ -14,7 +14,6 @@
 
 #include <vector>
 #include "Observer.h"
-#include <SDL_mixer.h>
 #include "Level.h"
 using namespace std;
 
@@ -25,7 +24,7 @@ public:
 	~CollisionSystem();
 	void updateComponent(Component* component) override;
 	void updateComponent(Level &t_level,AudioObserver * t_observer);
-	void tileCollision(float x, float y, float width, float height, Level& t_mazeWalls);
+	void tileCollision(float x, float y, float width, float height, Level& t_mazeWalls,AudioObserver* t_observer);
 private:
 
 	void searchEntities();
@@ -36,7 +35,7 @@ private:
 
 	void searchCheese();
 
-	void bombCollision();
+	void bombCollision(AudioObserver* t_observer);
 
 	vector<Entity> m_playerEntitys;
 	vector<Entity> m_buttonEntitys;

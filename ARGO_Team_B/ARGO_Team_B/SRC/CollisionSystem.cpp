@@ -31,7 +31,7 @@ void CollisionSystem::updateComponent(Level& t_level,AudioObserver* t_observer)
 		m_positionComp = static_cast<PositionComponent*>(player.getComponent(Types::Position));
 		x1 = m_positionComp->getPositionX();
 		y1 = m_positionComp->getPositionY();
-		tileCollision(x1, y1, RAT_W, RAT_H, t_level);
+		tileCollision(x1, y1, RAT_W, RAT_H, t_level,t_observer);
 	}
 
 	// player 1 and player 2 collision check
@@ -62,8 +62,7 @@ void CollisionSystem::updateComponent(Level& t_level,AudioObserver* t_observer)
 				CollisionComponent* playerCollision = static_cast<CollisionComponent*>(playerEntitys.getComponent(Types::Collider));
 
 					
-					//Mix_PlayChannel(-1, test, 0);
-					button->setState(true);
+				
 				PlayerComponent* player = static_cast<PlayerComponent*>(playerEntitys.getComponent(Types::Player));
 				
 				// check for 2 different button, 1 for trap button, 2 for door button
@@ -73,6 +72,7 @@ void CollisionSystem::updateComponent(Level& t_level,AudioObserver* t_observer)
 					if (checkCollision(playerCollision->getAABBCollider(), buttonCollider->getAABBCollider())) {
 						if (player->getInteract()) {
 							button->setState(true);
+							t_observer->onNotify(AudioObserver::CLICK);
 						}
 					}
 					break;
@@ -122,7 +122,7 @@ void CollisionSystem::updateComponent(Level& t_level,AudioObserver* t_observer)
 				PositionComponent* playerPos = static_cast<PositionComponent*>(playerEntitys.getComponent(Types::Position));
 				if (playerHealth->getAlive()) {
 					if (checkCollision( player->getAABBCollider(), trapCollider->getPolyCollider()) ) {
-						t_observer->onNotify(AudioObserver::TEST);
+						t_observer->onNotify(AudioObserver::CLICK);
 						cout << "player die" << endl;
 						playerPos->backToStart();
 						//playerHealth->dead();
@@ -195,16 +195,17 @@ void CollisionSystem::updateComponent(Level& t_level,AudioObserver* t_observer)
 					if (checkCollision(goalCollider->getAABBCollider(), playerCollider->getAABBCollider()))
 					{
 						std::cout << "Player with ID : " << player->getId() << "Collected the cheese" << std::endl;
+						t_observer->onNotify(AudioObserver::PICKUPCHEESE);
 						goal->setAlive(false);
 					}
 			}
 		}
 	}
 
-	bombCollision();
+	bombCollision(t_observer);
 }
 
-void CollisionSystem::bombCollision()
+void CollisionSystem::bombCollision(AudioObserver* t_observer)
 {
 	for (Entity& bombEntity : m_bombEntitys) {
 		BombComponent* bombComp = static_cast<BombComponent*>(bombEntity.getComponent(Types::Bomb));
@@ -229,6 +230,7 @@ void CollisionSystem::bombCollision()
 					else {
 						if (playerComp->getInteract()) {
 							bombComp->playerGetBomb(playerComp->getId());
+							t_observer->onNotify(AudioObserver::PICKUPBOMB);
 							playerComp->setInteract(false);
 						}
 					}
@@ -240,7 +242,7 @@ void CollisionSystem::bombCollision()
 }
 
 
-void CollisionSystem::tileCollision(float x, float y, float width, float height, Level& t_mazeWalls)
+void CollisionSystem::tileCollision(float x, float y, float width, float height, Level& t_mazeWalls,AudioObserver* t_observer)
 {
 	for (int i = 0; i < t_mazeWalls.m_mazeWalls.size(); i++)
 	{
@@ -301,6 +303,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			y + height >= t_mazeWalls.m_teleport[i].y &&
 			y <= t_mazeWalls.m_teleport[i].y + t_mazeWalls.m_teleport[i].height)
 		{
+			t_observer->onNotify(AudioObserver::PORTAL);
 			std::cout << "right TELEPORT collision!" << std::endl;
 			m_positionComp->setPosition(t_mazeWalls.m_teleport[1].x - 65, t_mazeWalls.m_teleport[1].y);
 		}
@@ -312,6 +315,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			y <= t_mazeWalls.m_teleport[i].y + t_mazeWalls.m_teleport[i].height
 			)
 		{
+			t_observer->onNotify(AudioObserver::PORTAL);
 			std::cout << "left TELEPORT collision!" << std::endl;
 			m_positionComp->setPosition(t_mazeWalls.m_teleport[0].x + 35, t_mazeWalls.m_teleport[0].y);
 		}
@@ -322,6 +326,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			x <= t_mazeWalls.m_teleport[i].x + t_mazeWalls.m_teleport[i].width
 			)
 		{
+			t_observer->onNotify(AudioObserver::PORTAL);
 			std::cout << "top TELEPORT collision!" << std::endl;
 			m_positionComp->setPosition(t_mazeWalls.m_teleport[2].x, t_mazeWalls.m_teleport[2].y + 35);
 		}
@@ -331,6 +336,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			x > t_mazeWalls.m_teleport[i].x - width &&
 			x <= t_mazeWalls.m_teleport[i].x + t_mazeWalls.m_teleport[i].width)
 		{
+			t_observer->onNotify(AudioObserver::PORTAL);
 				std::cout << "bottom TELEPORT collision!" << std::endl;
 				m_positionComp->setPosition(t_mazeWalls.m_teleport[3].x, t_mazeWalls.m_teleport[3].y - 75);
 		}

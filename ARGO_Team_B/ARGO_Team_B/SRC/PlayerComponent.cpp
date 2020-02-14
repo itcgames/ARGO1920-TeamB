@@ -5,6 +5,8 @@ PlayerComponent::PlayerComponent(int id) {
 	m_moveable = true;
 	m_interact = false;
 	m_swipeCooldown = 0.5f;
+	m_alive = true;
+	m_dizzy = false;
 }
 
 PlayerComponent::~PlayerComponent() {
