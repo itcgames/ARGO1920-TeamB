@@ -8,9 +8,12 @@ enum class Types {
 	Button,
 	Traps,
 	Controller,
+	AnimatedSprite,
 	Collider,
+	Door,
 	Player,
-	Goal
+	Goal,
+	Bomb
 };
 
 #endif // !COMPONENTENUM_H

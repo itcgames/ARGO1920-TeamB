@@ -8,6 +8,8 @@ class RenderComponent : public Component {
 public:
 	RenderComponent(const char* name, int width, int height, SDL_Renderer* renderer);
 	void draw(int x, int y);
+	void setImage(const char* name);
+	void setImage(const char* name, int width, int height);
 	void setAngle(double t_angle) { m_angle = t_angle; }
 private:
 	double m_angle;
@@ -20,6 +22,7 @@ private:
 
 	int width;
 	int height;
+	const char* currentImage;
 };
 
 #endif // !RENDERCOMPONENT_H

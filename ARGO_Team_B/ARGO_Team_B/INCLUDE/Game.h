@@ -12,7 +12,13 @@
 #include "ButtonSystem.h"
 #include "CollisionSystem.h"
 #include "ComponentsEnum.h"
+#include "TrapComponent.h"
+#include "ButtonComponent.h"
+#include "PlayerComponent.h"
+#include "StateMachineSystem.h"
+#include "BombSystem.h"
 #include "Globals.h"
+
 #include <time.h>
 #include "Observer.h"
 class Game
@@ -40,11 +46,18 @@ private:
 	Entity m_button;
 	Entity m_button2;
 
+	Entity m_doorButton;
+
 	Entity m_spike;
 	Entity m_spike2;
 	Entity m_spike3;
 
+
+	Entity m_door1;
+	Entity m_door2;
+
 	Entity m_goalCheese;
+	Entity m_bomb;
 
 	// Systems
 	HealthSystem m_healthSystem;
@@ -52,9 +65,11 @@ private:
 	AISystem m_aiSystem;
 	RenderSystem m_renderSystem;
 	Level* tiled_map_level;
-	ButtonSystem m_trapSystem;
+	ButtonSystem m_buttonSystem;
 	CollisionSystem m_collisionSystem;
+	StateMachineSystem m_stateMachine;
 	std::vector<Entity> m_goalCheeses;
 	AudioObserver * m_observer;
+	BombSystem m_bombSystem;
 };
 #endif // !GAME

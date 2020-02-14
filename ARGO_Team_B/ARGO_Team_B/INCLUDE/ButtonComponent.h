@@ -1,11 +1,11 @@
+#ifndef BUTTONCOMPONENT
+#define BUTTONCOMPONENT
+
 #pragma once
 #include "Component.h"
 class ButtonComponent : public Component {
 public:
-	ButtonComponent(bool init, int id);
-
-	ButtonComponent(bool red, bool green, int id);
-
+	ButtonComponent(bool init, int id, int type);
 
 	~ButtonComponent();
 
@@ -17,7 +17,11 @@ public:
 	bool getState();
 	bool getAlive();
 
+	bool getRedDoor();
+	bool getGreenDoor();
+
 	int getId();
+	int getType();
 private:
 	bool m_acitve;
 	bool m_alive;
@@ -26,5 +30,6 @@ private:
 	bool m_greenTeam;
 
 	int m_id;
-
+	int m_type;
 };
+#endif

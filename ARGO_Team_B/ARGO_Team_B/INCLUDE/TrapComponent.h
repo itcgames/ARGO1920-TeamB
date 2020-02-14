@@ -1,3 +1,6 @@
+#ifndef TRAPCOMPONENT
+#define TRAPCOMPONENT
+
 #pragma once
 #include "Component.h"
 
@@ -14,3 +17,4 @@ private:
 	bool m_alive;
 	int m_id;
 };
+#endif

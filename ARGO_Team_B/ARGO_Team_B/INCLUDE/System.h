@@ -3,6 +3,9 @@
 #include"Component.h"
 #include"Entity.h"
 #include<vector>
+
+using namespace std;
+
 class System {
 public:
 	System();

@@ -7,10 +7,15 @@
 #include "ButtonComponent.h"
 #include "TrapComponent.h"
 #include "HealthComponent.h"
+#include "DoorComponent.h"
 #include "GoalComponent.h"
+#include "PositionComponent.h"
+#include "BombComponent.h"
+
 #include <vector>
 #include "Observer.h"
 #include <SDL_mixer.h>
+#include "Level.h"
 using namespace std;
 
 class CollisionSystem : public System 
@@ -19,19 +24,28 @@ public:
 	CollisionSystem();
 	~CollisionSystem();
 	void updateComponent(Component* component) override;
-	void updateComponent(AudioObserver * t_observer);
-
+	void updateComponent(Level &t_level,AudioObserver * t_observer);
+	void tileCollision(float x, float y, float width, float height, Level& t_mazeWalls);
 private:
-	void searchPlayer();
-	void searchButton();
-	void searchTrap();
+
+	void searchEntities();
+
+	bool checkCollision(c2Circle t_collider, c2AABB t_otherCollider);
+	bool checkCollision(c2AABB t_collider, c2AABB t_otherCollider);
+	bool checkCollision(c2AABB t_collider, c2Poly t_otherCollider);
+
 	void searchCheese();
-	bool checkCollision(c2Circle t_collider, c2Circle t_otherCollider);
+
+	void bombCollision();
 
 	vector<Entity> m_playerEntitys;
 	vector<Entity> m_buttonEntitys;
 	vector<Entity> m_trapEntitys;
+	vector<Entity> m_doorEntitys;
 	vector<Entity> m_goalEntitys;
 	Mix_Chunk* test = NULL;
+	vector<Entity> m_bombEntitys;
+	float x1, y1;
+	PositionComponent* m_positionComp;
 };
 #endif // !COLLISION_SYSTEM
