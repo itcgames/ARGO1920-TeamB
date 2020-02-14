@@ -1,9 +1,8 @@
-#ifndef STATE_H
-#define STATE_H
-
+#pragma once
 #include <iostream>
 
-class AnimatedSpriteComponent;
+#include "AnimatedSpriteComponent.h"
+
 class State
 {
 public:
@@ -93,6 +92,4 @@ public:
 /// ------------------------ interact State -----------------------------
 /// </summary>
 
-
-#endif // !STATE_H
 

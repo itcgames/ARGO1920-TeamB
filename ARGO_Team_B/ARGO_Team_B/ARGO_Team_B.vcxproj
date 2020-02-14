@@ -132,6 +132,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="INCLUDE\AttackState.cpp" />
+    <ClCompile Include="INCLUDE\InteractState.cpp" />
+    <ClCompile Include="INCLUDE\StunnedState.cpp" />
+    <ClCompile Include="INCLUDE\WalkingState.cpp" />
     <ClCompile Include="SRC\AISystem.cpp" />
     <ClCompile Include="SRC\AnimatedSpriteComponent.cpp" />
     <ClCompile Include="SRC\AnimationComponent.cpp" />

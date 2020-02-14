@@ -1,5 +1,4 @@
-#ifndef STATEMACHINE_H
-#define STATEMACHINE_H
+#pragma once
 
 #include "System.h"
 #include "AnimatedSpriteComponent.h"
@@ -17,6 +16,3 @@ public:
 	void setPrevious(/* State */);
 
 };
-
-#endif // !STATEMACHINE_H
-

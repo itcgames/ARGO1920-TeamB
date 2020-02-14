@@ -1,26 +1,15 @@
-#ifndef ATTACK_STATE
-#define ATTACK_STATE
+#pragma once
 
 #include "State.h"
-class AnimatedSpriteComponent;
+
+
 class AttackState : public State
 {
 public:
-	AttackState() {};
-	~AttackState() {};
+	AttackState();
+	~AttackState();
 
-	void stunned(AnimatedSpriteComponent* t_a)
-	{
-		std::cout << "Attack -> stunned" << std::endl;
-		t_a->setCurrent(new StunnedState());
-		delete this;
-	}
+	void stunned(AnimatedSpriteComponent* t_a);
 
-	void idle(AnimatedSpriteComponent* t_a) {
-		std::cout << "attack -> Idle" << std::endl;
-		t_a->setCurrent(new IdleState());
-		delete this;
-	}
+	void idle(AnimatedSpriteComponent* t_a);
 };
-
-#endif // !ATTACK_STATE

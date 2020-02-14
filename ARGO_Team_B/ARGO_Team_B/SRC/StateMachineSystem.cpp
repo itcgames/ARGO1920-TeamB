@@ -24,6 +24,7 @@ void StateMachineSystem::updateComponent(Component* c)
 
 void StateMachineSystem::setCurrent()
 {
+	AttackState::attack
 }
 
 void StateMachineSystem::setPrevious()

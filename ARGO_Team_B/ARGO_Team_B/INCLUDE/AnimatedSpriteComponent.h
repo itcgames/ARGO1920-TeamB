@@ -1,20 +1,32 @@
-#ifndef ANIMATEDSPRTIE_H
-#define ANIMATEDSPRITE_H
+#pragma once
 
 #include "Component.h"
 #include "ComponentsEnum.h"
 #include "SDL_image.h"
 #include <iostream>
 #include <vector>
-
-#include "IdleState.h"
-#include "StunnedState.h"
-#include "WalkingState.h"
-#include "AttackState.h"
-#include "InteractState.h"
-
 class AnimatedSpriteComponent : public Component
 {
+private:
+	class State* m_current;
+	/*State* m_idleState;
+	State* m_walkingState;
+	State* m_stunnedState;
+	State* m_attackState;
+	State* m_interactState;*/
+
+	SDL_Texture* m_texture;
+	SDL_Surface* m_surface;
+	int m_imageHeight;
+	int m_imageWidth;
+	SDL_Renderer* m_renderer = nullptr;
+	SDL_Rect m_intRect{ 0,0,75,32 };
+	std::vector<SDL_Rect> m_frames;
+	int m_NoOfFrames{ 0 };
+	int m_currentFrame;
+	float m_time{ 8000 };
+	int m_clock;
+
 public:
 	AnimatedSpriteComponent();
 	AnimatedSpriteComponent(SDL_Texture& t_texture);
@@ -44,25 +56,4 @@ public:
 	//void setprevious(State* t_s);
 	//State* getCurrent();
 	//State* getPrevious();
-
-private:
-	class State* m_current;
-	/*State* m_idleState;
-	State* m_walkingState;
-	State* m_stunnedState;
-	State* m_attackState;
-	State* m_interactState;*/
-
-	SDL_Texture* m_texture;
-	SDL_Surface* m_surface;
-	int m_imageHeight;
-	int m_imageWidth;
-	SDL_Renderer* m_renderer = nullptr;
-	SDL_Rect m_intRect{ 0,0,75,32 };
-	std::vector<SDL_Rect> m_frames;
-	int m_NoOfFrames{0};
-	int m_currentFrame;
-	float m_time{ 8000};
-	int m_clock;
 };
-#endif // !ANIMATEDSPRTIE_H

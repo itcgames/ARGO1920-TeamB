@@ -29,6 +29,10 @@
     <ClCompile Include="SRC\StateMachineSystem.cpp">
       <Filter>States</Filter>
     </ClCompile>
+    <ClCompile Include="INCLUDE\WalkingState.cpp" />
+    <ClCompile Include="INCLUDE\InteractState.cpp" />
+    <ClCompile Include="INCLUDE\StunnedState.cpp" />
+    <ClCompile Include="INCLUDE\AttackState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INCLUDE\AnimatedSpriteComponent.h" />
@@ -65,17 +69,14 @@
       <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="Include\WalkingState.h" />
-    <ClInclude Include="Include\State.h">
-      <Filter>States</Filter>
-    </ClInclude>
     <ClInclude Include="INCLUDE\StateMachineSystem.h" />
     <ClInclude Include="Include\AttackState.h" />
-    <ClInclude Include="Include\IdleState.h">
-      <Filter>States</Filter>
-    </ClInclude>
     <ClInclude Include="Include\InteractState.h" />
     <ClInclude Include="Include\State.h" />
     <ClInclude Include="Include\StunnedState.h" />
+    <ClInclude Include="Include\State.h" />
+    <ClInclude Include="Include\StateMachineSystem.h" />
+    <ClInclude Include="Include\IdleState.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="States">

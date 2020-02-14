@@ -1,8 +1,11 @@
-#ifndef IDLE_STATE_H
-#define IDLE_STATE_H
-
+#pragma once
 #include "State.h"
-class AnimatedSpriteComponent;
+
+#include "StunnedState.h"
+#include "WalkingState.h"
+#include "AttackState.h"
+#include "InteractState.h"
+
 class IdleState : public State
 {
 public:
@@ -36,4 +39,3 @@ public:
 	}
 };
 
-#endif // !IDLE_STATE_H

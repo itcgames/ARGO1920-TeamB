@@ -1,5 +1,11 @@
 #include "AnimatedSpriteComponent.h"
 
+#include "IdleState.h"
+#include "StunnedState.h"
+#include "WalkingState.h"
+#include "AttackState.h"
+#include "InteractState.h"
+
 AnimatedSpriteComponent::AnimatedSpriteComponent()
 {	
 	m_currentFrame = 0;

@@ -1,31 +1,16 @@
-#ifndef INTERACT_STATE
-#define INTERACT_STATE
+#pragma once
 
 #include "State.h"
-class AnimatedSpriteComponent;
+
 class InteractState : public State
 {
 public:
-	InteractState() {};
-	~InteractState() {};
-	void walking(AnimatedSpriteComponent* t_a)
-	{
-		std::cout << "Interact -> Walking" << std::endl;
-		t_a->setCurrent(new WalkingState());
-		delete this;
-	}
+	InteractState();
+	~InteractState();
+	void walking(AnimatedSpriteComponent* t_a);
 
-	void attack(AnimatedSpriteComponent* t_a) {
-		std::cout << "Interact -> attack" << std::endl;
-		t_a->setCurrent(new AttackState());
-		delete this;
-	}
+	void attack(AnimatedSpriteComponent* t_a);
 
-	void idle(AnimatedSpriteComponent* t_a) {
-		std::cout << "Interact -> Idle " << std::endl;
-		t_a->setCurrent(new IdleState());
-		delete this;
-	}
+	void idle(AnimatedSpriteComponent* t_a);
 };
 
-#endif // !INTERACT_STATE
