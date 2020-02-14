@@ -16,6 +16,7 @@
 #include "ButtonComponent.h"
 #include "PlayerComponent.h"
 #include "StateMachineSystem.h"
+#include "BombSystem.h"
 #include "Globals.h"
 
 #include <time.h>
@@ -56,7 +57,7 @@ private:
 	Entity m_door2;
 
 	Entity m_goalCheese;
-
+	Entity m_bomb;
 
 	// Systems
 	HealthSystem m_healthSystem;
@@ -68,5 +69,6 @@ private:
 	CollisionSystem m_collisionSystem;
 	StateMachineSystem m_stateMachine;
 	std::vector<Entity> m_goalCheeses;
+	BombSystem m_bombSystem;
 };
 #endif // !GAME

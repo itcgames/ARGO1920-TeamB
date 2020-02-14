@@ -1,210 +1,77 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="SRC\StateMachineSystem.cpp">
-      <Filter>src\FSm</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\Assets.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\Command.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\Game.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\Level.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\main.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Xbox360Controller.cpp">
-      <Filter>Include\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\AISystem.cpp">
-      <Filter>src\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\ButtonSystem.cpp">
-      <Filter>src\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\CollisionSystem.cpp">
-      <Filter>src\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\ControlSystem.cpp">
-      <Filter>src\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\HealthSystem.cpp">
-      <Filter>src\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\RenderSystem.cpp">
-      <Filter>src\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\System.cpp">
-      <Filter>src\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\AnimatedSpriteComponent.cpp">
-      <Filter>src\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\AnimationComponent.cpp">
-      <Filter>src\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\ButtonComponent.cpp">
-      <Filter>src\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\CollisionComponent.cpp">
-      <Filter>src\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\ControlComponent.cpp">
-      <Filter>src\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\DoorComponent.cpp">
-      <Filter>src\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\GoalComponent.cpp">
-      <Filter>src\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\HealthComponent.cpp">
-      <Filter>src\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\PlayerComponent.cpp">
-      <Filter>src\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\RenderComponent.cpp">
-      <Filter>src\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\PositionComponent.cpp">
-      <Filter>src\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="SRC\TrapComponent.cpp">
-      <Filter>src\Components</Filter>
-    </ClCompile>
+    <ClCompile Include="Src\States\AttackState.cpp" />
+    <ClCompile Include="Src\States\InteractState.cpp" />
+    <ClCompile Include="Src\States\StunnedState.cpp" />
+    <ClCompile Include="Src\States\WalkingState.cpp" />
+    <ClCompile Include="Src\Systems\AISystem.cpp" />
+    <ClCompile Include="Src\Components\AnimatedSpriteComponent.cpp" />
+    <ClCompile Include="Src\Components\AnimationComponent.cpp" />
+    <ClCompile Include="Src\Utils\Assets.cpp" />
+    <ClCompile Include="Src\Components\BombComponent.cpp" />
+    <ClCompile Include="Src\Systems\BombSystem.cpp" />
+    <ClCompile Include="Src\Components\ButtonComponent.cpp" />
+    <ClCompile Include="Src\Components\CollisionComponent.cpp" />
+    <ClCompile Include="Src\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="Src\Components\DoorComponent.cpp" />
+    <ClCompile Include="Src\Components\ControlComponent.cpp" />
+    <ClCompile Include="Src\Systems\ControlSystem.cpp" />
+    <ClCompile Include="Src\Game.cpp" />
+    <ClCompile Include="Src\Components\GoalComponent.cpp" />
+    <ClCompile Include="Src\Components\HealthComponent.cpp" />
+    <ClCompile Include="Src\Systems\HealthSystem.cpp" />
+    <ClCompile Include="Src\Level.cpp" />
+    <ClCompile Include="Src\main.cpp" />
+    <ClCompile Include="Src\Components\PlayerComponent.cpp" />
+    <ClCompile Include="Src\Components\RenderComponent.cpp" />
+    <ClCompile Include="Src\Systems\RenderSystem.cpp" />
+    <ClCompile Include="Src\Systems\StateMachineSystem.cpp" />
+    <ClCompile Include="Src\Systems\System.cpp" />
+    <ClCompile Include="Src\Components\TrapComponent.cpp" />
+    <ClCompile Include="Src\Systems\ButtonSystem.cpp" />
+    <ClCompile Include="Src\Utils\Xbox360Controller.cpp" />
+    <ClCompile Include="SRC\Components\PositionComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="INCLUDE\StateMachineSystem.h">
-      <Filter>Include\States</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\state.h">
-      <Filter>Include\States</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\idleState.h">
-      <Filter>Include\States</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\Assets.h">
-      <Filter>Include</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\Command.h">
-      <Filter>Include</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\Game.h">
-      <Filter>Include</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\Entity.h">
-      <Filter>Include</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Globals.h">
-      <Filter>Include</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\Level.h">
-      <Filter>Include</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Xbox360Controller.h">
-      <Filter>Include</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\AISystem.h">
-      <Filter>Include\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\ButtonSystem.h">
-      <Filter>Include\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\CollisionSystem.h">
-      <Filter>Include\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\ControlSystem.h">
-      <Filter>Include\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\HealthSystem.h">
-      <Filter>Include\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\RenderSystem.h">
-      <Filter>Include\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\System.h">
-      <Filter>Include\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\AnimatedSpriteComponent.h">
-      <Filter>Include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\AnimationComponent.h">
-      <Filter>Include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\ButtonComponent.h">
-      <Filter>Include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\CollisionComponent.h">
-      <Filter>Include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\Component.h">
-      <Filter>Include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\DoorComponent.h">
-      <Filter>Include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\ControlComponent.h">
-      <Filter>Include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\ComponentsEnum.h">
-      <Filter>Include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\GoalComponent.h">
-      <Filter>Include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\HealthComponent.h">
-      <Filter>Include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\MoveCommand.h">
-      <Filter>Include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\PlayerComponent.h">
-      <Filter>Include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\RenderComponent.h">
-      <Filter>Include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\PositionComponent.h">
-      <Filter>Include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="INCLUDE\TrapComponent.h">
-      <Filter>Include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\cute_c2.h">
-      <Filter>src\Components</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Include">
-      <UniqueIdentifier>{40e50282-112b-499b-91c5-96cc21b0b73c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{eb9e846e-4d68-4ffb-9865-e071eb66cfea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Include\States">
-      <UniqueIdentifier>{d7d8adc9-bf3e-4b9b-8312-6ee413954fd0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\FSm">
-      <UniqueIdentifier>{da601784-8c69-4820-9356-98a90e2bfc31}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Components">
-      <UniqueIdentifier>{5e4c8c12-1e3c-46c3-9e57-beb29f1a835f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Include\Components">
-      <UniqueIdentifier>{47a46937-0a7d-44aa-9abb-87228a9cc7ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Include\Systems">
-      <UniqueIdentifier>{04428c0b-b377-41d4-a8e8-f1c11e8bad0e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Systems">
-      <UniqueIdentifier>{bf276858-f122-4470-8a90-79ca5591b800}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="Include\Components\AnimatedSpriteComponent.h" />
+    <ClInclude Include="Include\Components\AnimationComponent.h" />
+    <ClInclude Include="Include\States\AttackState.h" />
+    <ClInclude Include="INCLUDE\CameraShakeTest.h" />
+    <ClInclude Include="Include\Components\CollisionComponent.h" />
+    <ClInclude Include="Include\Command.h" />
+    <ClInclude Include="Include\Utils\ComponentsEnum.h" />
+    <ClInclude Include="Include\Components\ControlComponent.h" />
+    <ClInclude Include="Include\Utils\cute_c2.h" />
+    <ClInclude Include="Include\Utils\Assets.h" />
+    <ClInclude Include="Include\Components\ButtonComponent.h" />
+    <ClInclude Include="Include\Components\Component.h" />
+    <ClInclude Include="Include\Components\DoorComponent.h" />
+    <ClInclude Include="Include\Entity.h" />
+    <ClInclude Include="Include\Game.h" />
+    <ClInclude Include="Include\Utils\Globals.h" />
+    <ClInclude Include="Include\Components\GoalComponent.h" />
+    <ClInclude Include="Include\Components\HealthComponent.h" />
+    <ClInclude Include="Include\States\IdleState.h" />
+    <ClInclude Include="Include\States\InteractState.h" />
+    <ClInclude Include="Include\Level.h" />
+    <ClInclude Include="Include\Components\PlayerComponent.h" />
+    <ClInclude Include="Include\Components\PositionComponent.h" />
+    <ClInclude Include="Include\Components\RenderComponent.h" />
+    <ClInclude Include="Include\Systems\StateMachineSystem.h" />
+    <ClInclude Include="Include\States\State.h" />
+    <ClInclude Include="Include\States\StunnedState.h" />
+    <ClInclude Include="Include\Systems\System.h" />
+    <ClInclude Include="Include\Components\BombComponent.h" />
+    <ClInclude Include="Include\Systems\AISystem.h" />
+    <ClInclude Include="Include\Systems\BombSystem.h" />
+    <ClInclude Include="Include\Systems\ButtonSystem.h" />
+    <ClInclude Include="Include\Systems\CollisionSystem.h" />
+    <ClInclude Include="Include\Systems\ControlSystem.h" />
+    <ClInclude Include="Include\Systems\HealthSystem.h" />
+    <ClInclude Include="Include\Systems\RenderSystem.h" />
+    <ClInclude Include="Include\Components\TrapComponent.h" />
+    <ClInclude Include="Include\States\WalkingState.h" />
+    <ClInclude Include="Include\Utils\Xbox360Controller.h" />
   </ItemGroup>
 </Project>
