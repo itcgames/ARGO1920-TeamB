@@ -14,7 +14,7 @@
 #include "ComponentsEnum.h"
 #include "Globals.h"
 #include <time.h>
-
+#include "Observer.h"
 class Game
 {
 public:
@@ -55,5 +55,6 @@ private:
 	ButtonSystem m_trapSystem;
 	CollisionSystem m_collisionSystem;
 	std::vector<Entity> m_goalCheeses;
+	AudioObserver * m_observer;
 };
 #endif // !GAME

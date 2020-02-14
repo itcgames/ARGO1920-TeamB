@@ -12,7 +12,7 @@ void CollisionSystem::updateComponent(Component* component)
 {
 }
 
-void CollisionSystem::updateComponent() 
+void CollisionSystem::updateComponent(AudioObserver* t_observer)
 {
 	searchPlayer();
 
@@ -50,6 +50,8 @@ void CollisionSystem::updateComponent()
 
 				if (checkCollision(player->getCollider(), buttonCollider->getCollider())) {
 
+					t_observer->onNotify(AudioObserver::TEST);
+					//Mix_PlayChannel(-1, test, 0);
 					button->setState(true);
 				}
 			}

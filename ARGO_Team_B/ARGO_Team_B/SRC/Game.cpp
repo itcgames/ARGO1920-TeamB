@@ -176,6 +176,9 @@ Game::Game()
 	m_trapSystem.addEntity(m_spike);
 	m_trapSystem.addEntity(m_spike2);
 	m_trapSystem.addEntity(m_spike3);
+	m_observer = new AudioObserver();
+	m_observer->load();
+	//m_observer->StartBGM(1);
 	
 }
 
@@ -256,7 +259,7 @@ void Game::update(float dt)
 	m_controlSystem.handleInput();
 	//m_controlSystem.update();
 
-	m_collisionSystem.updateComponent();
+	m_collisionSystem.updateComponent(m_observer);
 
 }
 

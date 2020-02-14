@@ -9,6 +9,8 @@
 #include "HealthComponent.h"
 #include "GoalComponent.h"
 #include <vector>
+#include "Observer.h"
+#include <SDL_mixer.h>
 using namespace std;
 
 class CollisionSystem : public System 
@@ -17,7 +19,7 @@ public:
 	CollisionSystem();
 	~CollisionSystem();
 	void updateComponent(Component* component) override;
-	void updateComponent();
+	void updateComponent(AudioObserver * t_observer);
 
 private:
 	void searchPlayer();
@@ -30,5 +32,6 @@ private:
 	vector<Entity> m_buttonEntitys;
 	vector<Entity> m_trapEntitys;
 	vector<Entity> m_goalEntitys;
+	Mix_Chunk* test = NULL;
 };
 #endif // !COLLISION_SYSTEM
