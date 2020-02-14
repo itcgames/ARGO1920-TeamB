@@ -1,4 +1,4 @@
-#include "../INCLUDE/Assets.h"
+#include "Assets.h"
 #include <iostream>
 
 Assets::Assets() {}
