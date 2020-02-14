@@ -11,6 +11,7 @@
 #include "ButtonComponent.h"
 #include "DoorComponent.h"
 #include "GoalComponent.h"
+#include "CollisionComponent.h"
 
 class RenderSystem : public System {
 public:

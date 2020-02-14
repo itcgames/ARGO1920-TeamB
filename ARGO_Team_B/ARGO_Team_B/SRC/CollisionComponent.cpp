@@ -34,11 +34,23 @@ CollisionComponent::CollisionComponent(Entity& t_gameObject, int width, int heig
 	m_height(height)
 {
 	PositionComponent* entityPos = static_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
-	m_polyCollider.count = count;
-	m_polyCollider.verts[0] = { entityPos->getPositionX() + width / 2, entityPos->getPositionY() + height / 2 };
-	m_polyCollider.verts[1] = { entityPos->getPositionX(), entityPos->getPositionY() + height};
-	m_polyCollider.verts[2] = { entityPos->getPositionX() + width, entityPos->getPositionY() + height};
-	c2MakePoly(&m_polyCollider);
+
+	if (count == 3)
+	{
+		m_polyCollider.count = count;
+		m_polyCollider.verts[0] = { entityPos->getPositionX() + width / 2, entityPos->getPositionY() + height / 2 };
+		m_polyCollider.verts[1] = { entityPos->getPositionX(), entityPos->getPositionY() + height };
+		m_polyCollider.verts[2] = { entityPos->getPositionX() + width, entityPos->getPositionY() + height };
+	}
+	else if (count == 4)
+	{
+		m_polyCollider.count = count;
+		m_polyCollider.verts[0] = { entityPos->getPositionX(), entityPos->getPositionY()};
+		m_polyCollider.verts[1] = { entityPos->getPositionX()+ width, entityPos->getPositionY()};
+		m_polyCollider.verts[2] = { entityPos->getPositionX()+ width, entityPos->getPositionY() + height };
+		m_polyCollider.verts[3] = { entityPos->getPositionX(), entityPos->getPositionY() + height };
+	}
+		c2MakePoly(&m_polyCollider);
 }
 
 CollisionComponent::CollisionComponent(Entity& t_gameObject, int t_width, int t_height, float radius):
@@ -64,39 +76,34 @@ void CollisionComponent::updateCollider(Entity& t_entity)
 	PositionComponent* entityPos = static_cast<PositionComponent*>(t_entity.getComponent(Types::Position));
 	m_circlecollider.p = c2v{ entityPos->getPositionX(), entityPos->getPositionY() };
 
-
-	float offsetX  = entityPos->getPositionX() + m_width /2;
-	float offsetY = entityPos->getPositionY();
-	float offsetX2 = entityPos->getPositionX()- m_width / 2;
-
 	/// <summary>
 	/// Update Capsule
 	/// </summary>
 
-	m_capsuleCollider.a.x = entityPos->getPositionX();
-	m_capsuleCollider.a.y = entityPos->getPositionY();
-	m_capsuleCollider.b.x = entityPos->getPositionX();
-	m_capsuleCollider.b.y = entityPos->getPositionY();
-	
-	/*float x_rotated = ((x - x_origin) * cos(angle)) - ((y_origin - y) * sin(angle)) + x_origin;
-	float y_rotated = ((y_origin - y) * cos(angle)) - ((x - x_origin) * sin(angle)) + y_origin;*/
+	//m_capsuleCollider.a.x = entityPos->getPositionX() - offsetX;
+	//m_capsuleCollider.a.y = offsetY - entityPos->getPositionY();
+	//m_capsuleCollider.b.x = entityPos->getPositionX() - offsetX2;
+	//m_capsuleCollider.b.y = offsetY - entityPos->getPositionY();
+	//
+	///*float x_rotated = ((x - x_origin) * cos(angle)) - ((y_origin - y) * sin(angle)) + x_origin;
+	//float y_rotated = ((y_origin - y) * cos(angle)) - ((x - x_origin) * sin(angle)) + y_origin;*/
 
-	float aX = ((m_capsuleCollider.a.x - offsetX) * cos(entityPos->getAngle() * (3.14 / 180)) - ((offsetY - m_capsuleCollider.a.y ) * sin(entityPos->getAngle() * 3.14 / 180)));
-	float aY = ((offsetY - m_capsuleCollider.a.y) * cos(entityPos->getAngle() * (3.14 / 180)) - ((m_capsuleCollider.a.x - offsetX) * sin(entityPos->getAngle() * 3.14 / 180)));
+	//float aX = (m_capsuleCollider.a.x * cos(entityPos->getAngle() * (3.14 / 180)) - (m_capsuleCollider.a.y  * sin(entityPos->getAngle() * 3.14 / 180)));
+	//float aY = (m_capsuleCollider.a.x * sin(entityPos->getAngle() * (3.14 / 180)) + (m_capsuleCollider.a.y * cos(entityPos->getAngle() * 3.14 / 180)));
 
-	float bX = ((m_capsuleCollider.b.x - offsetX) * cos(entityPos->getAngle() * (3.14 / 180)) - ((offsetY - m_capsuleCollider.b.y) * sin(entityPos->getAngle() * 3.14 / 180)));
-	float bY = ((offsetY - m_capsuleCollider.b.y) * cos(entityPos->getAngle() * (3.14 / 180)) - ((m_capsuleCollider.b.x - offsetX) * sin(entityPos->getAngle() * 3.14 / 180)));
+	//float bX = (m_capsuleCollider.b.x  * cos(entityPos->getAngle() * (3.14 / 180)) - (m_capsuleCollider.b.y * sin(entityPos->getAngle() * 3.14 / 180)));
+	//float bY = (m_capsuleCollider.b.x * sin(entityPos->getAngle() * (3.14 / 180)) + (m_capsuleCollider.b.y * cos(entityPos->getAngle() * 3.14 / 180)));
 
-	//m_capsuleCollider.a.x = (m_capsuleCollider.a.x * cos(entityPos->getAngle() * (3.14 / 180)) - (m_capsuleCollider.a.y * sin(entityPos->getAngle() * 3.14 / 180)));
-	//m_capsuleCollider.a.y = (m_capsuleCollider.a.x * sin(entityPos->getAngle() * (3.14 / 180)) + (m_capsuleCollider.a.y * cos(entityPos->getAngle() * 3.14 / 180)));
-	/*
-	m_capsuleCollider.b.x = (m_capsuleCollider.b.x * cos(entityPos->getAngle() * 3.14 / 180)) - (m_capsuleCollider.b.y * sin(entityPos->getAngle() * 3.14 / 180));
-	m_capsuleCollider.b.y = (m_capsuleCollider.b.x * sin(entityPos->getAngle() * 3.14 / 180)) + (m_capsuleCollider.b.y * cos(entityPos->getAngle() * 3.14 / 180)); */
+	////m_capsuleCollider.a.x = (m_capsuleCollider.a.x * cos(entityPos->getAngle() * (3.14 / 180)) - (m_capsuleCollider.a.y * sin(entityPos->getAngle() * 3.14 / 180)));
+	////m_capsuleCollider.a.y = (m_capsuleCollider.a.x * sin(entityPos->getAngle() * (3.14 / 180)) + (m_capsuleCollider.a.y * cos(entityPos->getAngle() * 3.14 / 180)));
+	///*
+	//m_capsuleCollider.b.x = (m_capsuleCollider.b.x * cos(entityPos->getAngle() * 3.14 / 180)) - (m_capsuleCollider.b.y * sin(entityPos->getAngle() * 3.14 / 180));
+	//m_capsuleCollider.b.y = (m_capsuleCollider.b.x * sin(entityPos->getAngle() * 3.14 / 180)) + (m_capsuleCollider.b.y * cos(entityPos->getAngle() * 3.14 / 180)); */
 
-	m_capsuleCollider.a.x = aX + offsetX;
-	m_capsuleCollider.a.y = aY + offsetY;
-	m_capsuleCollider.b.x = bX + offsetX2;
-	m_capsuleCollider.b.y = bY + offsetY;
+	//m_capsuleCollider.a.x = aX + offsetX;
+	//m_capsuleCollider.a.y = aY + offsetY;
+	//m_capsuleCollider.b.x = bX + offsetX2;
+	//m_capsuleCollider.b.y = bY + offsetY;
 
 	/// <summary>
 	/// Updating Rectangle
@@ -113,6 +120,42 @@ void CollisionComponent::updateCollider(Entity& t_entity)
 
 	//m_recCollider.min = { entityPos->getPositionX(), entityPos->getPositionY() };
 	//m_recCollider.max = { entityPos->getPositionX() + m_width, entityPos->getPositionY() + m_height };
+
+
+	float offsetX = entityPos->getPositionX();
+	float offsetY = entityPos->getPositionY();
+
+	/// <summary>
+	/// Poly Collider Update
+	/// </summary>
+	if (m_polyCollider.count == 4)
+	{
+		float s = sin(entityPos->getAngle() * (3.14 / 180));
+		float c = cos(entityPos->getAngle() * (3.14 / 180));
+
+		float newX;
+		float newY;
+
+		
+
+		for (int i = 0; i < m_polyCollider.count; i++)
+		{
+			m_polyCollider.verts[i].x -= offsetX;
+			m_polyCollider.verts[i].y -= offsetY;
+
+			newX= (m_polyCollider.verts[i].x * c ) - (m_polyCollider.verts[i].y * s);
+			newY = (m_polyCollider.verts[i].x * s) + (m_polyCollider.verts[i].y * c);
+
+			m_polyCollider.verts[i] = { newX, newY };
+
+			m_polyCollider.verts[i].x += offsetX;
+			m_polyCollider.verts[i].y += offsetY;
+
+			
+		}
+		c2MakePoly(&m_polyCollider);
+	}
+
 
 	//m_polyCollider.verts[0] = { entityPos->getPositionX() + m_width / 2, entityPos->getPositionY() + m_height / 2 };
 	//m_polyCollider.verts[1] = { entityPos->getPositionX(), entityPos->getPositionY() + m_height };

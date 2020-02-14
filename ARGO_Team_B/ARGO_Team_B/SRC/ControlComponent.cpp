@@ -89,22 +89,22 @@ void ControlComponent::handleInput()
 		if (m_controller->m_currentState.LeftThumbStick.y < -m_controller->dpadThreshold) {
 			m_moving = MovingState::Up;
 			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x, m_controller->m_currentState.LeftThumbStick.y);
-			posComp->setAngle((angle * 180/3.14));
+			posComp->setAngle((angle * (180/3.14)));
 		}
 		else if (m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
 			m_moving = MovingState::Left;
 			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x, m_controller->m_currentState.LeftThumbStick.y);
-			posComp->setAngle((angle * 180 / 3.14));
+			posComp->setAngle((angle * (180 / 3.14)));
 		}
 		else if (m_controller->m_currentState.LeftThumbStick.x > m_controller->dpadThreshold) {
 			m_moving = MovingState::Right;
 			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x, m_controller->m_currentState.LeftThumbStick.y);
-			posComp->setAngle((angle * 180 / 3.14));
+			posComp->setAngle((angle * (180 / 3.14)));
 		}
 		else if (m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
 			m_moving = MovingState::Down;
 			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x, m_controller->m_currentState.LeftThumbStick.y);
-			posComp->setAngle((angle * 180 / 3.14));
+			posComp->setAngle((angle * (180 / 3.14)));
 		}
 		else if (!playerComp->getMoveable()) {
 			posComp->backToPreviousePos();

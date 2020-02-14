@@ -46,7 +46,7 @@ Game::Game()
 	m_player.addComponent(new PlayerComponent(1), Types::Player); // This must allways be first added
 	m_player.addComponent(new HealthComponent(100), Types::Health);
 	m_player.addComponent(new PositionComponent(600, 300), Types::Position);
-	m_player.addComponent(new CollisionComponent(m_player, 60, 30, 15.0f), Types::Collider);
+	m_player.addComponent(new CollisionComponent(m_player, 60, 30, 4), Types::Collider);
 	m_player.addComponent(new ControlComponent(m_player), Types::Controller);
 	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
 	//m_player.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheet.png", 30, 300, 5, p_renderer), Types::AnimatedSprite);
