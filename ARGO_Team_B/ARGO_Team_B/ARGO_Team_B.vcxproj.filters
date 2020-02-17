@@ -35,6 +35,7 @@
     <ClCompile Include="INCLUDE\MenuScene.cpp" />
     <ClCompile Include="INCLUDE\GameScene.cpp" />
     <ClCompile Include="INCLUDE\CreditsScene.cpp" />
+    <ClCompile Include="INCLUDE\LTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INCLUDE\Observer.h" />
@@ -81,5 +82,6 @@
     <ClInclude Include="INCLUDE\MenuScene.h" />
     <ClInclude Include="INCLUDE\CreditsScene.h" />
     <ClInclude Include="INCLUDE\GUIElement.h" />
+    <ClInclude Include="INCLUDE\LTexture.h" />
   </ItemGroup>
 </Project>

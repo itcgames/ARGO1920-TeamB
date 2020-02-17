@@ -33,7 +33,7 @@ Game::Game()
 		std::cout << "Failed to initialise IMG" << std::endl;
 	}
 	SDL_SetRenderDrawColor(p_renderer, 150, 150, 150, 255); // Black Opaque Background
-	m_currentState = GameStates::Game;
+	m_currentState = GameStates::MainMenu;
 	m_menuScene = new MenuScene(p_renderer,&m_currentState);
 	m_gameScene = new GameScene(p_renderer,&m_currentState);
 	m_creditsScene = new CreditsScene(p_renderer,&m_currentState);

@@ -22,6 +22,7 @@
     <ClInclude Include="INCLUDE\CreditsScene.h" />
     <ClInclude Include="INCLUDE\GameScene.h" />
     <ClInclude Include="INCLUDE\GUIElement.h" />
+    <ClInclude Include="INCLUDE\LTexture.h" />
     <ClInclude Include="INCLUDE\MenuScene.h" />
     <ClInclude Include="INCLUDE\Observer.h" />
     <ClInclude Include="INCLUDE\Subject.h" />
@@ -67,6 +68,7 @@
   <ItemGroup>
     <ClCompile Include="INCLUDE\CreditsScene.cpp" />
     <ClCompile Include="INCLUDE\GameScene.cpp" />
+    <ClCompile Include="INCLUDE\LTexture.cpp" />
     <ClCompile Include="INCLUDE\MenuScene.cpp" />
     <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="SRC\CollisionSystem.cpp" />

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="64" height="36" tilewidth="30" tileheight="30" infinite="0" nextlayerid="12" nextobjectid="163">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="64" height="36" tilewidth="30" tileheight="30" infinite="0" nextlayerid="12" nextobjectid="170">
  <tileset firstgid="1" source="../tileset/city.tsx"/>
  <layer id="1" name="BorderWalls" width="64" height="36">
   <data encoding="csv">
@@ -202,66 +202,69 @@
 </data>
  </layer>
  <objectgroup id="10" name="Teleport">
-  <object id="147" name="Teleport" x="164.94" y="30.072" width="15" height="30"/>
+  <object id="147" name="Teleport" x="165" y="30" width="15" height="30"/>
   <object id="150" name="Teleport" x="1020.2" y="1020.24" width="15" height="30"/>
-  <object id="158" name="Teleport" x="1470" y="44.9091" width="30" height="15"/>
+  <object id="158" name="Teleport" x="1470" y="45" width="30" height="15"/>
   <object id="160" name="Teleport" x="1680" y="1019.75" width="30" height="15"/>
  </objectgroup>
  <objectgroup id="11" name="Divider">
-  <object id="151" name="MazeWall" x="30" y="539.818" width="1861.9" height="30.1818"/>
+  <object id="151" name="MazeWall" x="30" y="540" width="1860" height="30"/>
+  <object id="165" name="MazeWall" x="0" y="0" width="1920" height="30"/>
+  <object id="166" name="MazeWall" x="0" y="30" width="30" height="1020"/>
+  <object id="167" name="MazeWall" x="1890" y="30" width="30" height="1020"/>
+  <object id="168" name="MazeWall" x="2" y="1050" width="1920" height="30"/>
  </objectgroup>
  <objectgroup id="5" name="MazeWallsCollision">
-  <object id="1" name="MazeWall" x="119.903" y="29.716" width="25.1477" height="238.171"/>
-  <object id="2" name="MazeWall" x="145.148" y="239.989" width="97.9489" height="27.7159"/>
-  <object id="4" name="MazeWall" x="243.273" y="132.671" width="23.2727" height="135.119"/>
-  <object id="5" name="MazeWall" x="146.637" y="330.273" width="120.148" height="22.5682"/>
-  <object id="6" name="MazeWall" x="120.159" y="330.114" width="26.4659" height="209.761"/>
-  <object id="7" name="MazeWall" x="217.58" y="423.421" width="139.864" height="18.9431"/>
-  <object id="8" name="MazeWall" x="332.784" y="272.576" width="24.4091" height="150.333"/>
-  <object id="10" name="MazeWall" x="423.375" y="153.818" width="22.625" height="116.119"/>
-  <object id="11" name="MazeWall" x="453.491" y="414.321" width="22.7866" height="59.589"/>
-  <object id="12" name="MazeWall" x="446.221" y="392.771" width="185.87" height="21.2159"/>
-  <object id="13" name="MazeWall" x="632.273" y="392.636" width="23.5" height="146.716"/>
-  <object id="16" name="MazeWall" x="540.091" y="239.864" width="29.8977" height="90.25"/>
-  <object id="17" name="MazeWall" x="446" y="153.818" width="150" height="19.6137"/>
-  <object id="23" name="MazeWall" x="753.125" y="333.228" width="23.233" height="80.8977"/>
-  <object id="26" name="MazeWall" x="776.5" y="333.091" width="148.5" height="20.0909"/>
-  <object id="27" name="MazeWall" x="875.75" y="423.125" width="139.625" height="19.9773"/>
-  <object id="28" name="MazeWall" x="904.625" y="180" width="20.25" height="153.125"/>
-  <object id="29" name="MazeWall" x="925.106" y="94.625" width="124.957" height="19.9375"/>
-  <object id="30" name="MazeWall" x="1105.68" y="214" width="220.631" height="19.9773"/>
-  <object id="31" name="MazeWall" x="1084.81" y="184.938" width="20.75" height="49.375"/>
-  <object id="35" name="MazeWall" x="752.239" y="93.6363" width="24.6705" height="80.2727"/>
-  <object id="36" name="MazeWall" x="1230.02" y="119.682" width="29.9205" height="28.3182"/>
-  <object id="37" name="MazeWall" x="994.375" y="275.5" width="21.25" height="148.136"/>
-  <object id="38" name="MazeWall" x="1113.5" y="234.273" width="22.875" height="151.636"/>
-  <object id="39" name="MazeWall" x="1234.13" y="234.045" width="21.25" height="146.693"/>
-  <object id="40" name="MazeWall" x="1136.91" y="484.011" width="155.301" height="19.9176"/>
-  <object id="41" name="MazeWall" x="1113.84" y="483.341" width="22.5" height="56"/>
-  <object id="42" name="MazeWall" x="1292.47" y="483.625" width="24.5313" height="55.5"/>
-  <object id="44" name="MazeWall" x="1476.13" y="300.125" width="20.1818" height="52.5"/>
-  <object id="46" name="MazeWall" x="1680.07" y="29.7045" width="29.8182" height="30.4432"/>
-  <object id="47" name="MazeWall" x="1684.09" y="124.773" width="23.7273" height="48.125"/>
-  <object id="49" name="MazeWall" x="1325.79" y="210.045" width="19.125" height="172.205"/>
-  <object id="50" name="MazeWall" x="1440.29" y="29.9545" width="29.4659" height="206.863"/>
-  <object id="51" name="MazeWall" x="1380.08" y="299.932" width="29.9208" height="29.9375"/>
-  <object id="52" name="MazeWall" x="1496.7" y="305.58" width="68.3864" height="17.0795"/>
-  <object id="53" name="MazeWall" x="1563.69" y="390.149" width="20.5455" height="149.751"/>
-  <object id="54" name="MazeWall" x="1654" y="427.273" width="21.6364" height="112.295"/>
-  <object id="55" name="MazeWall" x="1744.18" y="389.455" width="21.6364" height="149.705"/>
-  <object id="57" name="MazeWall" x="1707.91" y="153.909" width="183.83" height="19"/>
-  <object id="58" name="MazeWall" x="1563.18" y="30.1818" width="23.7273" height="141.273"/>
-  <object id="59" name="MazeWall" x="1654.55" y="246.909" width="20" height="72.2841"/>
-  <object id="62" name="MazeWall" x="1829.79" y="239.909" width="61.9091" height="29.7159"/>
-  <object id="63" name="MazeWall" x="1410.38" y="426.011" width="153.065" height="15.7386"/>
-  <object id="65" name="MazeWall" x="596" y="153.796" width="156.091" height="19.9432"/>
-  <object id="66" name="MazeWall" x="904.594" y="29.8978" width="20.5" height="150.08"/>
-  <object id="67" name="MazeWall" x="1050.03" y="94.7506" width="112.75" height="19.8381"/>
-  <object id="68" name="MazeWall" x="1746" y="246" width="17.2727" height="144.182"/>
-  <object id="73" name="MazeWall" x="1324.46" y="30.1021" width="20.625" height="179.91"/>
-  <object id="74" name="MazeWall" x="1564.94" y="246.279" width="18.5455" height="143.834"/>
-  <object id="75" name="MazeWall" x="423.841" y="270.18" width="22.25" height="143.751"/>
-  <object id="77" name="MazeWall" x="333.031" y="123.076" width="24.125" height="149.424"/>
+  <object id="1" name="MazeWall" x="120" y="30" width="30" height="230"/>
+  <object id="2" name="MazeWall" x="150" y="240" width="90" height="20"/>
+  <object id="4" name="MazeWall" x="240" y="120" width="30" height="140"/>
+  <object id="5" name="MazeWall" x="150" y="335" width="120" height="20"/>
+  <object id="6" name="MazeWall" x="120" y="335" width="30" height="205"/>
+  <object id="7" name="MazeWall" x="215" y="425" width="145" height="20"/>
+  <object id="8" name="MazeWall" x="330" y="270" width="30" height="150"/>
+  <object id="10" name="MazeWall" x="420" y="150" width="25" height="120"/>
+  <object id="11" name="MazeWall" x="450" y="420" width="30" height="60"/>
+  <object id="12" name="MazeWall" x="450" y="395" width="180" height="25"/>
+  <object id="13" name="MazeWall" x="630" y="395" width="30" height="145"/>
+  <object id="16" name="MazeWall" x="540" y="250" width="30" height="70"/>
+  <object id="17" name="MazeWall" x="450" y="150" width="150" height="20"/>
+  <object id="23" name="MazeWall" x="750" y="330" width="30" height="90"/>
+  <object id="26" name="MazeWall" x="780" y="330" width="150" height="20"/>
+  <object id="27" name="MazeWall" x="875" y="425" width="145" height="25"/>
+  <object id="28" name="MazeWall" x="900" y="180" width="25" height="150"/>
+  <object id="29" name="MazeWall" x="930" y="90" width="120" height="30"/>
+  <object id="30" name="MazeWall" x="1110" y="210" width="210" height="30"/>
+  <object id="31" name="MazeWall" x="1080" y="185" width="30" height="50"/>
+  <object id="35" name="MazeWall" x="750" y="100" width="30" height="70"/>
+  <object id="37" name="MazeWall" x="995" y="270" width="25" height="150"/>
+  <object id="38" name="MazeWall" x="1110" y="240" width="30" height="150"/>
+  <object id="39" name="MazeWall" x="1230" y="240" width="30" height="150"/>
+  <object id="40" name="MazeWall" x="1140" y="480" width="150" height="30"/>
+  <object id="41" name="MazeWall" x="1110" y="480" width="30" height="60"/>
+  <object id="42" name="MazeWall" x="1290" y="480" width="30" height="60"/>
+  <object id="44" name="MazeWall" x="1470" y="300" width="30" height="60"/>
+  <object id="46" name="MazeWall" x="1685" y="35" width="20" height="20"/>
+  <object id="47" name="MazeWall" x="1680" y="120" width="30" height="60"/>
+  <object id="49" name="MazeWall" x="1320" y="210" width="30" height="180"/>
+  <object id="50" name="MazeWall" x="1440" y="30" width="30" height="210"/>
+  <object id="51" name="MazeWall" x="1385" y="305" width="20" height="20"/>
+  <object id="52" name="MazeWall" x="1500" y="300" width="60" height="30"/>
+  <object id="53" name="MazeWall" x="1560" y="390" width="30" height="150"/>
+  <object id="54" name="MazeWall" x="1650" y="420" width="30" height="120"/>
+  <object id="55" name="MazeWall" x="1740" y="390" width="30" height="150"/>
+  <object id="57" name="MazeWall" x="1710" y="150" width="180" height="30"/>
+  <object id="58" name="MazeWall" x="1560" y="30" width="30" height="150"/>
+  <object id="59" name="MazeWall" x="1650" y="240" width="30" height="90"/>
+  <object id="62" name="MazeWall" x="1830" y="240" width="60" height="30"/>
+  <object id="63" name="MazeWall" x="1410" y="420" width="150" height="30"/>
+  <object id="65" name="MazeWall" x="600" y="150" width="150" height="20"/>
+  <object id="66" name="MazeWall" x="900" y="30" width="25" height="150"/>
+  <object id="67" name="MazeWall" x="1050" y="90" width="120" height="30"/>
+  <object id="68" name="MazeWall" x="1740" y="240" width="30" height="150"/>
+  <object id="73" name="MazeWall" x="1320" y="30" width="30" height="180"/>
+  <object id="74" name="MazeWall" x="1560" y="240" width="30" height="150"/>
+  <object id="75" name="MazeWall" x="420" y="270" width="25" height="150"/>
+  <object id="77" name="MazeWall" x="330" y="120" width="30" height="150"/>
   <object id="79" name="MazeWall" x="123.312" y="570.271" width="23.375" height="202.75"/>
   <object id="80" name="MazeWall" x="123.04" y="843.511" width="23.375" height="206.063"/>
   <object id="81" name="MazeWall" x="237.216" y="633.733" width="88.898" height="23.8295"/>
@@ -322,8 +325,9 @@
   <object id="143" name="MazeWall" x="1710.15" y="1019.9" width="29.9205" height="30.063"/>
   <object id="153" name="MazeWall" x="1172.42" y="570.011" width="24.0604" height="149.733"/>
   <object id="154" name="MazeWall" x="1323.44" y="632.96" width="23.375" height="148.83"/>
-  <object id="156" name="MazeWall" x="145.364" y="60" width="34.6364" height="27.5455"/>
+  <object id="156" name="MazeWall" x="150" y="60" width="30" height="30"/>
   <object id="157" name="MazeWall" x="1020.27" y="990.136" width="33.2728" height="29.7273"/>
-  <object id="159" name="MazeWall" x="1500.05" y="30.017" width="30" height="30"/>
+  <object id="159" name="MazeWall" x="1500" y="30" width="30" height="30"/>
+  <object id="169" name="MazeWall" x="1235" y="125" width="20" height="20"/>
  </objectgroup>
 </map>
