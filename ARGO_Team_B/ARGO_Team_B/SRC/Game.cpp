@@ -153,6 +153,10 @@ Game::Game()
 	m_bomb.addComponent(new CollisionComponent(m_bomb, 30.0f, 30, 30), Types::Collider);
 	m_bomb.addComponent(new RenderComponent("Assets\\bomb.png", 30, 30, p_renderer), Types::Render);
 
+	//game manager and ui detail
+	m_gameManager.addComponent(new GameComponent(), Types::Game);
+	m_gameManager.addComponent(new PositionComponent((float)SCR_W/2, (float)SCR_H/2), Types::Position);
+
 	// Systems
 	//HEALTH All entities
 	m_healthSystem.addEntity(m_player);
@@ -212,10 +216,13 @@ Game::Game()
 	m_renderSystem.addEntity(m_spike2);
 	m_renderSystem.addEntity(m_spike3);
 
+
 	m_observer = new AudioObserver();
 	m_observer->load();
 	m_observer->StartBGM(0);
-	
+
+	m_font = new FontObserver(p_renderer);
+	m_font->loadFont();
 
 	m_renderSystem.addEntity(m_bomb);
 
@@ -235,7 +242,17 @@ Game::Game()
 	m_bombSystem.addEntity(m_alien);
 	m_bombSystem.addEntity(m_dog);
 	m_bombSystem.addEntity(m_cat);
+	
+	// game system
+	m_gameSystem.addEntity(m_player);
+	m_gameSystem.addEntity(m_alien);
+	m_gameSystem.addEntity(m_dog);
+	m_gameSystem.addEntity(m_cat);
+	m_gameSystem.addEntity(m_gameManager);
+
+	m_gameSystem.setupComponent();
 }
+
 
 /// <summary>
 /// ~Game()
@@ -316,6 +333,7 @@ void Game::update(float dt)
 
 	m_stateMachine.update();
 	m_bombSystem.updateComponent(dt,m_observer);
+	m_gameSystem.update(dt);
 }
 
 /// <summary>
@@ -327,6 +345,7 @@ void Game::render()
 	SDL_RenderClear(p_renderer);
 	tiled_map_level->draw(p_renderer);
 	m_renderSystem.draw();
+	m_gameSystem.draw(m_font);
 	// m_stateMachine.update();
 	SDL_RenderPresent(p_renderer);
 }

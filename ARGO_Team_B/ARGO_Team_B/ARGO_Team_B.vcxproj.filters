@@ -41,6 +41,8 @@
     <ClInclude Include="INCLUDE\Subject.h" />
     <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
+    <ClInclude Include="INCLUDE\Components\GameComponent.h" />
+    <ClInclude Include="INCLUDE\GameSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />
@@ -74,5 +76,7 @@
     <ClCompile Include="SRC\main.cpp" />
     <ClCompile Include="SRC\Components\PositionComponent.cpp" />
     <ClCompile Include="SRC\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="SRC\Components\GameComponent.cpp" />
+    <ClCompile Include="SRC\GameSystem.cpp" />
   </ItemGroup>
 </Project>

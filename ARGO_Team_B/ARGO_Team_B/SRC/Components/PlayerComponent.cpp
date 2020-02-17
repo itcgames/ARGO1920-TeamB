@@ -29,3 +29,8 @@ void PlayerComponent::setSwipeCooldown(float time)
 {
 	m_swipeCooldown = time;
 }
+
+void PlayerComponent::gainCheese(int num)
+{
+	m_cheese += num;
+}

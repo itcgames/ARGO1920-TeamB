@@ -23,6 +23,9 @@ public:
 
 	void setSwipeCooldown(float time);
 	float getSwipeCooldown() { return m_swipeCooldown; }
+
+	void gainCheese(int num);
+	int getCheese() { return m_cheese; }
 private:
 	int m_id;
 	bool m_alive;
@@ -31,5 +34,7 @@ private:
 
 	bool m_interact;
 	float m_swipeCooldown;
+
+	int m_cheese;
 };
 #endif
