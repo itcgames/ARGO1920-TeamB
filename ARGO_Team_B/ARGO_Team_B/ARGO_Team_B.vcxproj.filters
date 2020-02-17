@@ -34,6 +34,7 @@
     <ClCompile Include="SRC\Utils\Xbox360Controller.cpp" />
     <ClCompile Include="INCLUDE\MenuScene.cpp" />
     <ClCompile Include="INCLUDE\GameScene.cpp" />
+    <ClCompile Include="INCLUDE\CreditsScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INCLUDE\Observer.h" />
@@ -79,5 +80,6 @@
     <ClInclude Include="INCLUDE\GameScene.h" />
     <ClInclude Include="INCLUDE\MenuScene.h" />
     <ClInclude Include="INCLUDE\CreditsScene.h" />
+    <ClInclude Include="INCLUDE\GUIElement.h" />
   </ItemGroup>
 </Project>

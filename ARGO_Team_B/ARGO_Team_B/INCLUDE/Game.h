@@ -8,6 +8,7 @@
 #include "GameScene.h"
 #include "MenuScene.h"
 #include "CreditsScene.h"
+#include "Observer.h"
 class Game
 {
 public:
@@ -24,10 +25,10 @@ private:
 	SDL_Renderer* p_renderer;
 	bool m_quit = false;
 
-	GameStates m_currentState = GameStates::Game;
+	GameStates m_currentState;
 	GameScene* m_gameScene;
 	MenuScene* m_menuScene;
 	CreditsScene* m_creditsScene;
-	
+	AudioObserver* m_observer;
 };
 #endif // !GAME

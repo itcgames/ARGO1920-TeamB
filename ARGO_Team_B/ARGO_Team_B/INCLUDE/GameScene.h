@@ -22,10 +22,9 @@
 class GameScene
 {
 public:
-	GameScene(SDL_Renderer* t_renderer);
+	GameScene(SDL_Renderer* t_renderer,GameStates* t_state);
 	~GameScene();
 	void update(float dt);
-	void processEvents();
 	void render(SDL_Renderer* t_renderer);
 private:
 

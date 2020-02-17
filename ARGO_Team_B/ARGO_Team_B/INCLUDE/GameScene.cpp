@@ -1,6 +1,7 @@
 #include "GameScene.h"
 
-GameScene::GameScene(SDL_Renderer* t_renderer)
+GameScene::GameScene(SDL_Renderer* t_renderer, GameStates* t_state):
+	m_currentState(t_state)
 {
 	/// <summary>
 	/// FOR ALL ENTITY
@@ -168,10 +169,10 @@ GameScene::GameScene(SDL_Renderer* t_renderer)
 	m_renderSystem.addEntity(m_spike);
 	m_renderSystem.addEntity(m_spike2);
 	m_renderSystem.addEntity(m_spike3);
-
 	m_observer = new AudioObserver();
 	m_observer->load();
-	m_observer->StartBGM(0);
+	m_observer->StartBGM(1);
+
 
 
 	m_renderSystem.addEntity(m_bomb);
@@ -207,10 +208,6 @@ void GameScene::update(float dt)
 	m_collisionSystem.updateComponent(*tiled_map_level, m_observer);
 	m_stateMachine.update();
 	m_bombSystem.updateComponent(dt, m_observer);
-}
-
-void GameScene::processEvents()
-{
 }
 
 void GameScene::render(SDL_Renderer * t_renderer)

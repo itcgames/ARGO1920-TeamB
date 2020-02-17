@@ -33,14 +33,11 @@ Game::Game()
 		std::cout << "Failed to initialise IMG" << std::endl;
 	}
 	SDL_SetRenderDrawColor(p_renderer, 150, 150, 150, 255); // Black Opaque Background
+	m_currentState = GameStates::Game;
+	m_menuScene = new MenuScene(p_renderer,&m_currentState);
+	m_gameScene = new GameScene(p_renderer,&m_currentState);
+	m_creditsScene = new CreditsScene(p_renderer,&m_currentState);
 
-	//Allocate 128 channels for a max for 128 audio chunks playing at one time
-	Mix_AllocateChannels(128);
-
-	// Initialise Game Variables
-
-	// Extra info for systems
-	m_gameScene = new GameScene(p_renderer);
 	
 }
 
@@ -111,12 +108,14 @@ void Game::update(float dt)
 {
 	switch (m_currentState)
 	{
+	case GameStates::MainMenu:
+		m_menuScene->update(dt);
+		break;
 	case GameStates::Game:
 		m_gameScene->update(dt);
 		break;
-	case GameStates::MainMenu:
-		break;
 	case GameStates::Credits:
+		m_creditsScene->update(dt);
 		break;
 	default:
 		break;
@@ -133,12 +132,14 @@ void Game::render()
 	SDL_RenderClear(p_renderer);
 	switch (m_currentState)
 	{
+	case GameStates::MainMenu:
+		m_menuScene->render(p_renderer);
+		break;
 	case GameStates::Game:
 		m_gameScene->render(p_renderer);
 		break;
-	case GameStates::MainMenu:
-		break;
 	case GameStates::Credits:
+		m_creditsScene->render(p_renderer);
 		break;
 	default:
 		break;
