@@ -37,7 +37,9 @@ void ControlComponent::handleInput(StateMachineSystem& t_stateSystem)
 		if (m_controller->m_currentState.DpadUp || m_controller->m_currentState.LeftThumbStick.y < -m_controller->dpadThreshold) {
 			p_walkUp = new WalkUpCommand();
 			p_walkUp->execute(m_entity);
-			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x, m_controller->m_currentState.LeftThumbStick.y);
+		
+			float lenght = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / lenght, (m_controller->m_currentState.LeftThumbStick.y / lenght )* -1);	
 			posComp->setangle((angle * (180 / 3.14)));
 
 			// Walk up animation
@@ -46,7 +48,9 @@ void ControlComponent::handleInput(StateMachineSystem& t_stateSystem)
 		if (m_controller->m_currentState.DpadLeft || m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
 			p_walkLeft = new WalkLeftCommand();
 			p_walkLeft->execute(m_entity);
-			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x, m_controller->m_currentState.LeftThumbStick.y);
+
+			float lenght = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / lenght, (m_controller->m_currentState.LeftThumbStick.y / lenght) * -1);
 			posComp->setangle((angle * (180 / 3.14)));
 
 			// Walk down animation
@@ -55,7 +59,9 @@ void ControlComponent::handleInput(StateMachineSystem& t_stateSystem)
 		if (m_controller->m_currentState.DpadRight || m_controller->m_currentState.LeftThumbStick.x > m_controller->dpadThreshold) {
 			p_walkRight = new WalkRightCommand();
 			p_walkRight->execute(m_entity);
-			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x, m_controller->m_currentState.LeftThumbStick.y);
+			
+			float lenght = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / lenght, (m_controller->m_currentState.LeftThumbStick.y / lenght) * -1);
 			posComp->setangle((angle * (180 / 3.14)));
 
 			// Walk right animation
@@ -64,7 +70,9 @@ void ControlComponent::handleInput(StateMachineSystem& t_stateSystem)
 		if (m_controller->m_currentState.DpadDown || m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
 			p_walkDown = new WalkDownCommand();
 			p_walkDown->execute(m_entity);
-			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x, m_controller->m_currentState.LeftThumbStick.y);
+
+			float lenght = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / lenght, (m_controller->m_currentState.LeftThumbStick.y / lenght) * -1);
 			posComp->setangle((angle * (180 / 3.14)));
 
 			// Walk down animation

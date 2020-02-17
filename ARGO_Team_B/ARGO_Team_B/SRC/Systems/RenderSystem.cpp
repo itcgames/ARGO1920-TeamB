@@ -50,33 +50,33 @@ void RenderSystem::draw()
 
 								if (healthComp->getAlive() == true)
 								{
-									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
+									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY(), posComp->getangle());
 								}
 							}
 							else if (trapComp != nullptr) {
 								if (trapComp->getAlive()) {
-									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
+									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY(), posComp->getangle());
 								}
 							}
 							else if (btnComp != nullptr) {
 								if (btnComp->getAlive()) {
-									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
+									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY(), posComp->getangle());
 								}
 							}
 							else if (doorcomp != nullptr) {
 								if (!doorcomp->getGreenDoor() || !doorcomp->getRedDoor()) {
-									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
+									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY(), posComp->getangle());
 								}
 							}
 							else if (goalComp != nullptr) {
 								if (goalComp->getAlive())
 								{
-									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
+									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY(), posComp->getangle());
 								}
 							}
 							else if (bombComp != nullptr) {
 								if (bombComp->getState() != BombState::Removed && !bombComp->isPlayerOwnedBomb()) {
-									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
+									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY(), posComp->getangle());
 								}
 							}
 						}

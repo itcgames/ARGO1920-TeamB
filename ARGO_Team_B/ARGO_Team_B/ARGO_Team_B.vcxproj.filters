@@ -5,6 +5,7 @@
     <ClInclude Include="INCLUDE\Entity.h" />
     <ClInclude Include="INCLUDE\Game.h" />
     <ClInclude Include="INCLUDE\Level.h" />
+    <ClInclude Include="Include\PlayerComponent.h" />
     <ClInclude Include="INCLUDE\Utils\Assets.h" />
     <ClInclude Include="INCLUDE\Utils\cute_c2.h" />
     <ClInclude Include="INCLUDE\Utils\Globals.h" />
@@ -60,7 +61,6 @@
     <ClCompile Include="SRC\Systems\AISystem.cpp" />
     <ClCompile Include="SRC\Systems\BombSystem.cpp" />
     <ClCompile Include="SRC\Systems\ButtonSystem.cpp" />
-    <ClCompile Include="SRC\Systems\CollisionSystem.cpp" />
     <ClCompile Include="SRC\Systems\ControlSystem.cpp" />
     <ClCompile Include="SRC\Systems\HealthSystem.cpp" />
     <ClCompile Include="SRC\Systems\RenderSystem.cpp" />
@@ -72,5 +72,6 @@
     <ClCompile Include="SRC\Level.cpp" />
     <ClCompile Include="SRC\main.cpp" />
     <ClCompile Include="PositionComponent.cpp" />
+    <ClCompile Include="SRC\CollisionSystem.cpp" />
   </ItemGroup>
 </Project>
