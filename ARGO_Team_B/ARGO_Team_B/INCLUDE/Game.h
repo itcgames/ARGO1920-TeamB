@@ -20,7 +20,7 @@
 #include "Globals.h"
 
 #include <time.h>
-
+#include "Observer.h"
 class Game
 {
 public:
@@ -69,6 +69,7 @@ private:
 	CollisionSystem m_collisionSystem;
 	StateMachineSystem m_stateMachine;
 	std::vector<Entity> m_goalCheeses;
+	AudioObserver * m_observer;
 	BombSystem m_bombSystem;
 };
 #endif // !GAME

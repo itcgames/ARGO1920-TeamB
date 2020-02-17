@@ -2,6 +2,8 @@
 
 DoorComponent::DoorComponent(int id) {
 	m_id = id;
+	m_redOpen = false;
+	m_greenOpen = false;
 }
 
 DoorComponent::~DoorComponent() {

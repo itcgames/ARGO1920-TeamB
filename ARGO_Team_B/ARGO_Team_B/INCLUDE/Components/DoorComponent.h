@@ -1,3 +1,6 @@
+#ifndef DOORCOMPONENT
+#define DOORCOMPONENT
+
 #pragma once
 #include "Component.h"
 
@@ -18,3 +21,5 @@ private:
 	bool m_redOpen;
 	bool m_greenOpen;
 };
+
+#endif

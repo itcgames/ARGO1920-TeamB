@@ -34,6 +34,13 @@ Game::Game()
 	}
 	SDL_SetRenderDrawColor(p_renderer, 150, 150, 150, 255); // Black Opaque Background
 
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, NULL, 2048) < 0)
+	{
+		printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+	}
+	//Allocate 128 channels for a max for 128 audio chunks playing at one time
+	Mix_AllocateChannels(128);
+
 	// Initialise Game Variables
 
 	// Extra info for systems
@@ -46,11 +53,10 @@ Game::Game()
 	m_player.addComponent(new PlayerComponent(1), Types::Player); // This must allways be first added
 	m_player.addComponent(new HealthComponent(100), Types::Health);
 	m_player.addComponent(new PositionComponent(150, 100), Types::Position);
-	m_player.addComponent(new CollisionComponent(m_player, 60, 30), Types::Collider);
+	m_player.addComponent(new CollisionComponent(m_player, 60.0f, RAT_H, RAT_W), Types::Collider);
 	m_player.addComponent(new ControlComponent(m_player), Types::Controller);
 	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
 	//m_player.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheet.png", 60, 30, 5, p_renderer), Types::AnimatedSprite);
-
 
 	// Alien
 	m_alien.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added
@@ -187,7 +193,7 @@ Game::Game()
 	/// <summary>
 	/// STATE MACHINE
 	/// </summary>
-	m_stateMachine.addEntity(m_player);
+	//m_stateMachine.addEntity(m_player);
 
 
 	const auto MAP_PATH = "Assets/map/test.tmx";
@@ -206,6 +212,10 @@ Game::Game()
 	m_renderSystem.addEntity(m_spike2);
 	m_renderSystem.addEntity(m_spike3);
 
+	m_observer = new AudioObserver();
+	m_observer->load();
+	m_observer->StartBGM(0);
+	
 
 	m_renderSystem.addEntity(m_bomb);
 
@@ -301,9 +311,11 @@ void Game::update(float dt)
 
 	m_controlSystem.handleInput(dt);
 	//m_controlSystem.update();
+
+	m_collisionSystem.updateComponent(*tiled_map_level,m_observer);
+
 	m_stateMachine.update();
-	m_collisionSystem.updateComponent(*tiled_map_level);
-	m_bombSystem.updateComponent(dt);
+	m_bombSystem.updateComponent(dt,m_observer);
 }
 
 /// <summary>
@@ -315,7 +327,7 @@ void Game::render()
 	SDL_RenderClear(p_renderer);
 	tiled_map_level->draw(p_renderer);
 	m_renderSystem.draw();
-	m_stateMachine.update();
+	// m_stateMachine.update();
 	SDL_RenderPresent(p_renderer);
 }
 
