@@ -12,7 +12,7 @@ public:
 	~PositionComponent();
 	float getPositionX();
 	float getPositionY();
-	float getVeloX() { return m_velocityX;}
+	float getVeloX() { return m_velocityX; }
 	float getVeloY() { return m_velocityY; }
 	void setPosition(float t_x, float t_y);
 	void setVelo(float t_x, float t_y);

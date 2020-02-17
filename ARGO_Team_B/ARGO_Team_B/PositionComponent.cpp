@@ -59,7 +59,7 @@ void PositionComponent::backToStart()
 
 void PositionComponent::backToPreviousePos() {
 	m_currentX = m_previouseX;
-	m_currentY = m_previouseY ;
+	m_currentY = m_previouseY;
 }
 
 void PositionComponent::moveUp()
