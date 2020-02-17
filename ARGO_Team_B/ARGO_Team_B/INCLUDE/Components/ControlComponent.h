@@ -4,11 +4,11 @@
 #include "Component.h"
 #include "Command.h"
 
-
 #include "PositionComponent.h"
 #include "PlayerComponent.h"
 #include "Xbox360Controller.h"
 #include "Entity.h"
+
 
 enum class MovingState {
 	Up,
@@ -27,6 +27,8 @@ public:
 	~ControlComponent();
 	void update(float dt);
 	void handleInput();
+
+	Xbox360Controller* m_controller;
 private:
 	void moveUp();
 	void moveLeft();
@@ -35,8 +37,10 @@ private:
 
 	int m_compNum;
 
-	Xbox360Controller* m_controller;
+	
 	Entity& m_entity;
+
+	MacroCommand* m_commandSquence = new MacroCommand();
 
 	/// <summary>
 	/// Commands

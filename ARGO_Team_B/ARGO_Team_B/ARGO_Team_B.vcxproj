@@ -31,6 +31,7 @@
     <ClInclude Include="INCLUDE\Components\GoalComponent.h" />
     <ClInclude Include="INCLUDE\Components\HealthComponent.h" />
     <ClInclude Include="INCLUDE\Components\PlayerComponent.h" />
+    <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
     <ClInclude Include="INCLUDE\Components\RenderComponent.h" />
     <ClInclude Include="INCLUDE\Components\TrapComponent.h" />
     <ClInclude Include="INCLUDE\Entity.h" />
@@ -56,10 +57,8 @@
     <ClInclude Include="INCLUDE\Utils\cute_c2.h" />
     <ClInclude Include="INCLUDE\Utils\Globals.h" />
     <ClInclude Include="INCLUDE\Utils\Xbox360Controller.h" />
-    <ClInclude Include="PositionComponent.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="SRC\CollisionSystem.cpp" />
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />
     <ClCompile Include="SRC\Components\AnimationComponent.cpp" />
@@ -71,6 +70,7 @@
     <ClCompile Include="SRC\Components\GoalComponent.cpp" />
     <ClCompile Include="SRC\Components\HealthComponent.cpp" />
     <ClCompile Include="SRC\Components\PlayerComponent.cpp" />
+    <ClCompile Include="SRC\Components\PositionComponent.cpp" />
     <ClCompile Include="SRC\Components\RenderComponent.cpp" />
     <ClCompile Include="SRC\Components\TrapComponent.cpp" />
     <ClCompile Include="SRC\Game.cpp" />
@@ -89,6 +89,7 @@
     <ClCompile Include="SRC\Systems\StateMachineSystem.cpp" />
     <ClCompile Include="SRC\Systems\System.cpp" />
     <ClCompile Include="SRC\Utils\Assets.cpp" />
+    <ClCompile Include="SRC\Utils\Command.cpp" />
     <ClCompile Include="SRC\Utils\Xbox360Controller.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

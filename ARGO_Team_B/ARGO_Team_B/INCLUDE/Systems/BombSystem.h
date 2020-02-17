@@ -10,6 +10,8 @@
 #include "CollisionComponent.h"
 #include "RenderComponent.h"
 #include "Observer.h"
+#include "ControlComponent.h"
+
 class BombSystem : public System {
 public:
 	BombSystem();
