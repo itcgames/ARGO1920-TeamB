@@ -21,7 +21,14 @@ class AudioObserver : public Observer
 			CLICK, PORTAL, PICKUPCHEESE, PICKUPBOMB,EXPLOSION,PLACEBOMB,OPENDOOR
 		};
 
-		AudioObserver() {};
+		AudioObserver() {
+			if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, NULL, 2048) < 0)
+			{
+				printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+			}
+			//Allocate 128 channels for a max for 128 audio chunks playing at one time
+			Mix_AllocateChannels(128);
+		};
 		//Load all resources
 		void load()
 		{

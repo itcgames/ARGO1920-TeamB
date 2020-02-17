@@ -1,53 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="INCLUDE\Command.h" />
-    <ClInclude Include="INCLUDE\Entity.h" />
-    <ClInclude Include="INCLUDE\Game.h" />
-    <ClInclude Include="INCLUDE\Level.h" />
-    <ClInclude Include="INCLUDE\Utils\Assets.h" />
-    <ClInclude Include="INCLUDE\Utils\cute_c2.h" />
-    <ClInclude Include="INCLUDE\Utils\Globals.h" />
-    <ClInclude Include="INCLUDE\Utils\Xbox360Controller.h" />
-    <ClInclude Include="INCLUDE\Systems\AISystem.h" />
-    <ClInclude Include="INCLUDE\Systems\BombSystem.h" />
-    <ClInclude Include="INCLUDE\Systems\ButtonSystem.h" />
-    <ClInclude Include="INCLUDE\Systems\ControlSystem.h" />
-    <ClInclude Include="INCLUDE\Systems\HealthSystem.h" />
-    <ClInclude Include="INCLUDE\Systems\RenderSystem.h" />
-    <ClInclude Include="INCLUDE\Systems\StateMachineSystem.h" />
-    <ClInclude Include="INCLUDE\Systems\System.h" />
-    <ClInclude Include="INCLUDE\States\AttackState.h" />
-    <ClInclude Include="INCLUDE\States\IdleState.h" />
-    <ClInclude Include="INCLUDE\States\InteractState.h" />
-    <ClInclude Include="INCLUDE\States\State.h" />
-    <ClInclude Include="INCLUDE\States\StunnedState.h" />
-    <ClInclude Include="INCLUDE\States\WalkingState.h" />
-    <ClInclude Include="INCLUDE\Components\AnimatedSpriteComponent.h" />
-    <ClInclude Include="INCLUDE\Components\AnimationComponent.h" />
-    <ClInclude Include="INCLUDE\Components\BombComponent.h" />
-    <ClInclude Include="INCLUDE\Components\ButtonComponent.h" />
-    <ClInclude Include="INCLUDE\Components\CollisionComponent.h" />
-    <ClInclude Include="INCLUDE\Components\Component.h" />
-    <ClInclude Include="INCLUDE\Components\ControlComponent.h" />
-    <ClInclude Include="INCLUDE\Components\DoorComponent.h" />
-    <ClInclude Include="INCLUDE\Components\GoalComponent.h" />
-    <ClInclude Include="INCLUDE\Components\HealthComponent.h" />
-    <ClInclude Include="INCLUDE\Components\PlayerComponent.h" />
-    <ClInclude Include="INCLUDE\Components\RenderComponent.h" />
-    <ClInclude Include="INCLUDE\Components\TrapComponent.h" />
-    <ClInclude Include="PositionComponent.h" />
-<<<<<<< HEAD
-    <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
-    <ClInclude Include="INCLUDE\Observer.h" />
-    <ClInclude Include="INCLUDE\Subject.h" />
-    <ClInclude Include="INCLUDE\Scene.h" />
-    <ClInclude Include="INCLUDE\MainMenu.h" />
-=======
-    <ClInclude Include="INCLUDE\Utils\Enums.h" />
->>>>>>> 5d90f6c401530efe78c788f2034b52042d585251
-  </ItemGroup>
-  <ItemGroup>
+    <ClCompile Include="PositionComponent.cpp" />
+    <ClCompile Include="SRC\CollisionSystem.cpp" />
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />
     <ClCompile Include="SRC\Components\AnimationComponent.cpp" />
     <ClCompile Include="SRC\Components\BombComponent.cpp" />
@@ -60,6 +15,9 @@
     <ClCompile Include="SRC\Components\PlayerComponent.cpp" />
     <ClCompile Include="SRC\Components\RenderComponent.cpp" />
     <ClCompile Include="SRC\Components\TrapComponent.cpp" />
+    <ClCompile Include="SRC\Game.cpp" />
+    <ClCompile Include="SRC\Level.cpp" />
+    <ClCompile Include="SRC\main.cpp" />
     <ClCompile Include="SRC\States\AttackState.cpp" />
     <ClCompile Include="SRC\States\InteractState.cpp" />
     <ClCompile Include="SRC\States\StunnedState.cpp" />
@@ -74,11 +32,52 @@
     <ClCompile Include="SRC\Systems\System.cpp" />
     <ClCompile Include="SRC\Utils\Assets.cpp" />
     <ClCompile Include="SRC\Utils\Xbox360Controller.cpp" />
-    <ClCompile Include="SRC\Game.cpp" />
-    <ClCompile Include="SRC\Level.cpp" />
-    <ClCompile Include="SRC\main.cpp" />
-    <ClCompile Include="PositionComponent.cpp" />
-    <ClCompile Include="SRC\CollisionSystem.cpp" />
-    <ClCompile Include="INCLUDE\MainMenu.cpp" />
+    <ClCompile Include="INCLUDE\MenuScene.cpp" />
+    <ClCompile Include="INCLUDE\GameScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="INCLUDE\Observer.h" />
+    <ClInclude Include="INCLUDE\Subject.h" />
+    <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
+    <ClInclude Include="INCLUDE\Command.h" />
+    <ClInclude Include="INCLUDE\Components\AnimatedSpriteComponent.h" />
+    <ClInclude Include="INCLUDE\Components\AnimationComponent.h" />
+    <ClInclude Include="INCLUDE\Components\BombComponent.h" />
+    <ClInclude Include="INCLUDE\Components\ButtonComponent.h" />
+    <ClInclude Include="INCLUDE\Components\CollisionComponent.h" />
+    <ClInclude Include="INCLUDE\Components\Component.h" />
+    <ClInclude Include="INCLUDE\Components\ControlComponent.h" />
+    <ClInclude Include="INCLUDE\Components\DoorComponent.h" />
+    <ClInclude Include="INCLUDE\Components\GoalComponent.h" />
+    <ClInclude Include="INCLUDE\Components\HealthComponent.h" />
+    <ClInclude Include="INCLUDE\Components\PlayerComponent.h" />
+    <ClInclude Include="INCLUDE\Components\RenderComponent.h" />
+    <ClInclude Include="INCLUDE\Components\TrapComponent.h" />
+    <ClInclude Include="INCLUDE\Entity.h" />
+    <ClInclude Include="INCLUDE\Game.h" />
+    <ClInclude Include="INCLUDE\Level.h" />
+    <ClInclude Include="INCLUDE\States\AttackState.h" />
+    <ClInclude Include="INCLUDE\States\IdleState.h" />
+    <ClInclude Include="INCLUDE\States\InteractState.h" />
+    <ClInclude Include="INCLUDE\States\State.h" />
+    <ClInclude Include="INCLUDE\States\StunnedState.h" />
+    <ClInclude Include="INCLUDE\States\WalkingState.h" />
+    <ClInclude Include="INCLUDE\Systems\AISystem.h" />
+    <ClInclude Include="INCLUDE\Systems\BombSystem.h" />
+    <ClInclude Include="INCLUDE\Systems\ButtonSystem.h" />
+    <ClInclude Include="INCLUDE\Systems\ControlSystem.h" />
+    <ClInclude Include="INCLUDE\Systems\HealthSystem.h" />
+    <ClInclude Include="INCLUDE\Systems\RenderSystem.h" />
+    <ClInclude Include="INCLUDE\Systems\StateMachineSystem.h" />
+    <ClInclude Include="INCLUDE\Systems\System.h" />
+    <ClInclude Include="INCLUDE\Utils\Assets.h" />
+    <ClInclude Include="INCLUDE\Utils\Enums.h" />
+    <ClInclude Include="INCLUDE\Utils\cute_c2.h" />
+    <ClInclude Include="INCLUDE\Utils\Globals.h" />
+    <ClInclude Include="INCLUDE\Utils\Xbox360Controller.h" />
+    <ClInclude Include="PositionComponent.h" />
+    <ClInclude Include="INCLUDE\GameScene.h" />
+    <ClInclude Include="INCLUDE\MenuScene.h" />
+    <ClInclude Include="INCLUDE\CreditsScene.h" />
   </ItemGroup>
 </Project>

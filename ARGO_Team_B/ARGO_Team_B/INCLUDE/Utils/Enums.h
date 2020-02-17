@@ -23,5 +23,10 @@ enum class States {
 	Stunned,
 	Walking
 };
-
+enum class GameStates
+{
+	Game,
+	MainMenu,
+	Credits
+};
 #endif // !ENUMS_H
