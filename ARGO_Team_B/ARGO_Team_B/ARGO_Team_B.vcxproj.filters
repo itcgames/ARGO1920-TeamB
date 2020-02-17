@@ -5,7 +5,6 @@
     <ClInclude Include="INCLUDE\Entity.h" />
     <ClInclude Include="INCLUDE\Game.h" />
     <ClInclude Include="INCLUDE\Level.h" />
-    <ClInclude Include="Include\PlayerComponent.h" />
     <ClInclude Include="INCLUDE\Utils\Assets.h" />
     <ClInclude Include="INCLUDE\Utils\ComponentsEnum.h" />
     <ClInclude Include="INCLUDE\Utils\cute_c2.h" />
@@ -14,7 +13,6 @@
     <ClInclude Include="INCLUDE\Systems\AISystem.h" />
     <ClInclude Include="INCLUDE\Systems\BombSystem.h" />
     <ClInclude Include="INCLUDE\Systems\ButtonSystem.h" />
-    <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Systems\ControlSystem.h" />
     <ClInclude Include="INCLUDE\Systems\HealthSystem.h" />
     <ClInclude Include="INCLUDE\Systems\RenderSystem.h" />
@@ -40,6 +38,11 @@
     <ClInclude Include="INCLUDE\Components\RenderComponent.h" />
     <ClInclude Include="INCLUDE\Components\TrapComponent.h" />
     <ClInclude Include="PositionComponent.h" />
+    <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
+    <ClInclude Include="INCLUDE\Observer.h" />
+    <ClInclude Include="INCLUDE\Subject.h" />
+    <ClInclude Include="INCLUDE\Scene.h" />
+    <ClInclude Include="INCLUDE\MainMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />
@@ -73,5 +76,6 @@
     <ClCompile Include="SRC\main.cpp" />
     <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="SRC\CollisionSystem.cpp" />
+    <ClCompile Include="INCLUDE\MainMenu.cpp" />
   </ItemGroup>
 </Project>

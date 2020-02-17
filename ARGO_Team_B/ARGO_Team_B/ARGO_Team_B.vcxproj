@@ -19,6 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="INCLUDE\MainMenu.h" />
+    <ClInclude Include="INCLUDE\Observer.h" />
+    <ClInclude Include="INCLUDE\Scene.h" />
+    <ClInclude Include="INCLUDE\Subject.h" />
+    <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Command.h" />
     <ClInclude Include="INCLUDE\Components\AnimatedSpriteComponent.h" />
     <ClInclude Include="INCLUDE\Components\AnimationComponent.h" />
@@ -45,7 +50,6 @@
     <ClInclude Include="INCLUDE\Systems\AISystem.h" />
     <ClInclude Include="INCLUDE\Systems\BombSystem.h" />
     <ClInclude Include="INCLUDE\Systems\ButtonSystem.h" />
-    <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Systems\ControlSystem.h" />
     <ClInclude Include="INCLUDE\Systems\HealthSystem.h" />
     <ClInclude Include="INCLUDE\Systems\RenderSystem.h" />
@@ -59,6 +63,7 @@
     <ClInclude Include="PositionComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="INCLUDE\MainMenu.cpp" />
     <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="SRC\CollisionSystem.cpp" />
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />
