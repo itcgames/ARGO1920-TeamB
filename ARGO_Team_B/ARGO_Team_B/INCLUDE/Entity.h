@@ -6,7 +6,7 @@
 #include <string>
 
 #include "Component.h"
-#include "ComponentsEnum.h"
+#include "Enums.h"
 
 class Entity
 {

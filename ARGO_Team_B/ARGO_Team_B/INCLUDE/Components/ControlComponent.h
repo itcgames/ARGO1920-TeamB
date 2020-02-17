@@ -4,6 +4,8 @@
 #include "Component.h"
 #include "Command.h"
 
+#include "StateMachineSystem.h"
+#include "Enums.h"
 
 #include "PositionComponent.h"
 #include "PlayerComponent.h"
@@ -25,8 +27,8 @@ public:
 	static int s_controlID;
 	ControlComponent(Entity & t_gameObject);
 	~ControlComponent();
-	void update(float dt);
-	void handleInput();
+	void handleInput(StateMachineSystem& t_stateSystem);
+
 private:
 	void moveUp();
 	void moveLeft();

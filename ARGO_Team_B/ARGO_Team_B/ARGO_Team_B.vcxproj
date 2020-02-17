@@ -52,7 +52,7 @@
     <ClInclude Include="INCLUDE\Systems\StateMachineSystem.h" />
     <ClInclude Include="INCLUDE\Systems\System.h" />
     <ClInclude Include="INCLUDE\Utils\Assets.h" />
-    <ClInclude Include="INCLUDE\Utils\ComponentsEnum.h" />
+    <ClInclude Include="INCLUDE\Utils\Enums.h" />
     <ClInclude Include="INCLUDE\Utils\cute_c2.h" />
     <ClInclude Include="INCLUDE\Utils\Globals.h" />
     <ClInclude Include="INCLUDE\Utils\Xbox360Controller.h" />

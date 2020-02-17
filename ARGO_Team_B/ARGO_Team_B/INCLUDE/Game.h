@@ -11,7 +11,7 @@
 #include "Level.h"
 #include "ButtonSystem.h"
 #include "CollisionSystem.h"
-#include "ComponentsEnum.h"
+#include "Enums.h"
 #include "TrapComponent.h"
 #include "ButtonComponent.h"
 #include "PlayerComponent.h"
