@@ -6,7 +6,6 @@
     <ClInclude Include="INCLUDE\Game.h" />
     <ClInclude Include="INCLUDE\Level.h" />
     <ClInclude Include="INCLUDE\Utils\Assets.h" />
-    <ClInclude Include="INCLUDE\Utils\ComponentsEnum.h" />
     <ClInclude Include="INCLUDE\Utils\cute_c2.h" />
     <ClInclude Include="INCLUDE\Utils\Globals.h" />
     <ClInclude Include="INCLUDE\Utils\Xbox360Controller.h" />
@@ -38,11 +37,15 @@
     <ClInclude Include="INCLUDE\Components\RenderComponent.h" />
     <ClInclude Include="INCLUDE\Components\TrapComponent.h" />
     <ClInclude Include="PositionComponent.h" />
+<<<<<<< HEAD
     <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Observer.h" />
     <ClInclude Include="INCLUDE\Subject.h" />
     <ClInclude Include="INCLUDE\Scene.h" />
     <ClInclude Include="INCLUDE\MainMenu.h" />
+=======
+    <ClInclude Include="INCLUDE\Utils\Enums.h" />
+>>>>>>> 5d90f6c401530efe78c788f2034b52042d585251
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />

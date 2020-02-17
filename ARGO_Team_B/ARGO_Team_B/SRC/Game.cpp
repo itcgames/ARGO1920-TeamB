@@ -56,7 +56,7 @@ Game::Game()
 	m_player.addComponent(new CollisionComponent(m_player, 50.0f, RAT_H, RAT_W), Types::Collider);
 	m_player.addComponent(new ControlComponent(m_player), Types::Controller);
 	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
-	//m_player.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheet.png", 60, 30, 5, p_renderer), Types::AnimatedSprite);
+	m_player.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheet.png", 60, 30, 5, p_renderer), Types::AnimatedSprite);
 
 	// Alien
 	m_alien.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added
@@ -193,7 +193,7 @@ Game::Game()
 	/// <summary>
 	/// STATE MACHINE
 	/// </summary>
-	//m_stateMachine.addEntity(m_player);
+	m_stateMachine.addEntity(m_player);
 
 
 	const auto MAP_PATH = "Assets/map/test.tmx";
@@ -270,9 +270,6 @@ void Game::run()
 }
 
 
-
-
-
 /// <summary>
 /// processEvents()
 /// Method used to poll events in SDL such as keyboard events or window close events
@@ -308,12 +305,8 @@ void Game::update(float dt)
 	m_healthSystem.update();
 	m_aiSystem.update();
 	m_buttonSystem.update();
-
-	m_controlSystem.handleInput(dt);
-	//m_controlSystem.update();
-
+	m_controlSystem.handleInput(dt, m_stateMachine);
 	m_collisionSystem.updateComponent(*tiled_map_level,m_observer);
-
 	m_stateMachine.update();
 	m_bombSystem.updateComponent(dt,m_observer);
 }
@@ -327,7 +320,6 @@ void Game::render()
 	SDL_RenderClear(p_renderer);
 	tiled_map_level->draw(p_renderer);
 	m_renderSystem.draw();
-	// m_stateMachine.update();
 	SDL_RenderPresent(p_renderer);
 }
 

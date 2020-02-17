@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Component.h"
-#include "ComponentsEnum.h"
+#include "Enums.h"
 #include "SDL_image.h"
 #include <iostream>
 #include <vector>
@@ -9,11 +9,6 @@ class AnimatedSpriteComponent : public Component
 {
 private:
 	class State* m_current;
-	/*State* m_idleState;
-	State* m_walkingState;
-	State* m_stunnedState;
-	State* m_attackState;
-	State* m_interactState;*/
 
 	SDL_Texture* m_texture;
 	SDL_Surface* m_surface;
