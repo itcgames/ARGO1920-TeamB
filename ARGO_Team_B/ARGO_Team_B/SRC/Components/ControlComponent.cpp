@@ -98,7 +98,10 @@ void ControlComponent::handleInput()
 			p_walkUp = new WalkUpCommand();
 			p_walkUp->execute(m_entity);
 			//renderComp->setAngle(270);
-			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x, m_controller->m_currentState.LeftThumbStick.y);
+			
+			float lenght = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / lenght, (m_controller->m_currentState.LeftThumbStick.y / lenght )* -1);
+			
 			posComp->setangle((angle * (180 / 3.14)));
 		}
 
@@ -106,7 +109,9 @@ void ControlComponent::handleInput()
 			p_walkLeft = new WalkLeftCommand();
 			p_walkLeft->execute(m_entity);
 			//renderComp->setAngle(180);
-			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x, m_controller->m_currentState.LeftThumbStick.y);
+			float lenght = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / lenght, (m_controller->m_currentState.LeftThumbStick.y / lenght) * -1);
+
 			posComp->setangle((angle * (180 / 3.14)));
 		}
 		//else {
@@ -116,18 +121,20 @@ void ControlComponent::handleInput()
 		if (m_controller->m_currentState.DpadRight || m_controller->m_currentState.LeftThumbStick.x > m_controller->dpadThreshold) {
 			p_walkRight = new WalkRightCommand();
 			p_walkRight->execute(m_entity);
-			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x, m_controller->m_currentState.LeftThumbStick.y);
+			float lenght = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / lenght, (m_controller->m_currentState.LeftThumbStick.y / lenght) * -1);
+
 			posComp->setangle((angle * (180 / 3.14)));
-			//renderComp->setAngle(0);
 		}
 
 		if (m_controller->m_currentState.DpadDown || m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
 			p_walkDown = new WalkDownCommand();
 			p_walkDown->execute(m_entity);
 
-			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x, m_controller->m_currentState.LeftThumbStick.y);
+			float lenght = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / lenght, (m_controller->m_currentState.LeftThumbStick.y / lenght) * -1);
+
 			posComp->setangle((angle * (180 / 3.14)));
-			//renderComp->setAngle(90);
 		}
 	}
 	else if (!playerComp->getMoveable()) {

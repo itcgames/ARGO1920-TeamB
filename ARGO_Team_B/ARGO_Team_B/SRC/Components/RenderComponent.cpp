@@ -19,10 +19,10 @@ RenderComponent::RenderComponent(const char* name, int width, int height, SDL_Re
 	}
 }
 
-void RenderComponent::draw(int x, int y)
+void RenderComponent::draw(int x, int y, double angle)
 {
 	dstrect = { x, y, this->width, this->height };
-	SDL_RenderCopyEx(m_renderer, texture, &srcrect, &dstrect, m_angle, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(m_renderer, texture, &srcrect, &dstrect, angle, NULL, SDL_FLIP_NONE);
 }
 
 void RenderComponent::setImage(const char* name)
