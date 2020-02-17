@@ -1,8 +1,7 @@
 #include "ControlComponent.h"
 
-ControlComponent::ControlComponent(Entity & t_gameObject):
-	m_entity(t_gameObject),
-	m_moving(MovingState::Idle)
+ControlComponent::ControlComponent(Entity & t_gameObject) :
+	m_entity(t_gameObject) 
 {
 	m_compNum = s_controlID++;
 	m_controller = new Xbox360Controller(m_compNum);
@@ -12,71 +11,9 @@ ControlComponent::~ControlComponent()
 {
 }
 
-//void ControlComponent::update(float dt)
-//{
-//	PositionComponent* posComp =
-//		dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
-//	if (posComp != nullptr)
-//	{
-//		switch (m_moving) {
-//		case MovingState::Up:
-//			if (m_entity.getId() == 0 || m_entity.getId() == 1) {
-//				if (posComp->getPositionY() > 40) {
-//					moveUp();
-//				}
-//			}
-//			else if (m_entity.getId() == 2 || m_entity.getId() == 3) {
-//				if (posComp->getPositionY() > SCR_H / 2 + 50) {
-//					moveUp();
-//				}
-//			}
-//			break;
-//		case MovingState::Down:
-//			if (m_entity.getId() == 2 || m_entity.getId() == 3) {
-//				if (posComp->getPositionY() < SCR_H - 75) {
-//					moveDown();
-//				}
-//			}
-//			else if (m_entity.getId() == 0 || m_entity.getId() == 1) {
-//				if (posComp->getPositionY() < SCR_H / 2 - 45) {
-//					moveDown();
-//				}
-//			}
-//			break;
-//		case MovingState::Left:
-//			if (posComp->getPositionX() > 30) {
-//				moveLeft();
-//			}
-//			break;
-//		case MovingState::Right:
-//			if (posComp->getPositionX() < SCR_W - 90) {
-//				moveRight();
-//			}
-//			break;
-//		case MovingState::Idle:
-//			if (posComp->getVeloX() > 0 || posComp->getVeloX() < 0) {
-//				posComp->setVelo(posComp->getVeloX() * 0.90f, posComp->getVeloY());
-//			}
-//			else {
-//				posComp->setVelo(0, posComp->getVeloY());
-//			}
-//
-//			if (posComp->getVeloY() > 0 || posComp->getVeloY() < 0) {
-//				posComp->setVelo(posComp->getVeloX(), posComp->getVeloY() * 0.90f);
-//			}
-//			else {
-//				posComp->setVelo(posComp->getVeloX(), 0 );
-//			}
-//			break;
-//		}
-//		posComp->setPosition(posComp->getPositionX() + posComp->getVeloX() / dt, posComp->getPositionY() + posComp->getVeloY() / dt);
-//	}
-//}
-
-void ControlComponent::handleInput()
+void ControlComponent::handleInput(StateMachineSystem& t_stateSystem)
 {
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
-
 	PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
 
 	//reset interact 
@@ -91,6 +28,10 @@ void ControlComponent::handleInput()
 			p_interact->execute(m_entity);
 			m_commandSquence->add(p_interact);
 			SDL_HapticRumblePlay(m_controller->m_controllerHaptic, 0.25, 200);
+			playerComp->setSwipeCooldown(0.5f);
+			playerComp->setInteract(true);
+
+			t_stateSystem.setCurrent(States::Interact);
 		}
 
 		if (m_controller->m_currentState.DpadUp || m_controller->m_currentState.LeftThumbStick.y < -m_controller->dpadThreshold) {
@@ -99,58 +40,50 @@ void ControlComponent::handleInput()
 
 			m_commandSquence->add(p_walkUp);
 
-			//renderComp->setAngle(270);
-
-			float lenght = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
-			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / lenght, (m_controller->m_currentState.LeftThumbStick.y / lenght )* -1);
-			
+			float length = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
 			posComp->setangle((angle * (180 / 3.14)));
-		}
 
-		if (m_controller->m_currentState.DpadLeft || m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
+			t_stateSystem.setCurrent(States::Walking);
+		}
+		else if (m_controller->m_currentState.DpadLeft || m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
 			p_walkLeft = new WalkLeftCommand();
 			p_walkLeft->execute(m_entity);
 
 			m_commandSquence->add(p_walkLeft);
 
-			//renderComp->setAngle(180);
-
-			float lenght = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
-			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / lenght, (m_controller->m_currentState.LeftThumbStick.y / lenght) * -1);
-
+			float length = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
 			posComp->setangle((angle * (180 / 3.14)));
-		}
-		//else {
-		//	m_moving = MovingState::Idle;
-		//}
 
-		if (m_controller->m_currentState.DpadRight || m_controller->m_currentState.LeftThumbStick.x > m_controller->dpadThreshold) {
+			t_stateSystem.setCurrent(States::Walking);
+		}
+		else if (m_controller->m_currentState.DpadRight || m_controller->m_currentState.LeftThumbStick.x > m_controller->dpadThreshold) {
 			p_walkRight = new WalkRightCommand();
 			p_walkRight->execute(m_entity);
-
 			m_commandSquence->add(p_walkRight);
 
-			float lenght = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
-			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / lenght, (m_controller->m_currentState.LeftThumbStick.y / lenght) * -1);
-
+			float length = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
 			posComp->setangle((angle * (180 / 3.14)));
-		}
 
-		if (m_controller->m_currentState.DpadDown || m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
+			t_stateSystem.setCurrent(States::Walking);
+		}
+		else if (m_controller->m_currentState.DpadDown || m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
 			p_walkDown = new WalkDownCommand();
 			p_walkDown->execute(m_entity);
 
 			m_commandSquence->add(p_walkDown);
 
-			float lenght = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
-			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / lenght, (m_controller->m_currentState.LeftThumbStick.y / lenght) * -1);
-
+			float length = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
 			posComp->setangle((angle * (180 / 3.14)));
+
+			t_stateSystem.setCurrent(States::Walking);
 		}
 	}
 	else if (!playerComp->getMoveable()) {
 		posComp->backToPreviousePos();
-		posComp->slowDown();
 		playerComp->setMoveable(true);
 	}
 

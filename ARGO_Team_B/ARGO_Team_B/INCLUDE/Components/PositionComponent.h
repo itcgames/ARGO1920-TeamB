@@ -27,8 +27,6 @@ public:
 	void backToPreviousePos();
 	void setPreviousePos();
 
-	void slowDown();
-
 	void setangle(double t_angle);
 
 	double getangle();

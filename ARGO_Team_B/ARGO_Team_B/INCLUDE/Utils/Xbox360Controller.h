@@ -27,7 +27,7 @@ struct GamePadstate
 	bool Xbox;
 	float RTtigger;
 	float LTtigger;
-	SDL_Point RighThumbStick;
+	SDL_Point RightThumbStick;
 	SDL_Point LeftThumbStick;
 };
 

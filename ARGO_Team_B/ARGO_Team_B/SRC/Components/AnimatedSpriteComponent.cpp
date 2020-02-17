@@ -6,10 +6,12 @@
 #include "AttackState.h"
 #include "InteractState.h"
 
-AnimatedSpriteComponent::AnimatedSpriteComponent()
+#include <typeinfo>
+
+AnimatedSpriteComponent::AnimatedSpriteComponent() :
+	m_current(new IdleState)
 {	
 	m_currentFrame = 0;
-	m_current = new IdleState();
 }
 
 AnimatedSpriteComponent::AnimatedSpriteComponent(SDL_Texture& t_texture) :
@@ -67,21 +69,6 @@ void AnimatedSpriteComponent::update()
 			m_currentFrame = 0;	
 		}
 		m_clock = 0;
-	}
-	if (m_current ==  new WalkingState) {
-		walking();
-	}
-	if (m_current == new IdleState) {
-		idle();
-	}
-	if (m_current == new StunnedState) {
-		stunned();
-	}
-	if (m_current == new AttackState) {
-		attack();
-	}
-	if (m_current == new InteractState) {
-		interact();
 	}
 }
 
@@ -144,29 +131,4 @@ int AnimatedSpriteComponent::getHeight()
 void AnimatedSpriteComponent::setCurrent(State* t_s)
 {
 	m_current = t_s;
-}
-
-void AnimatedSpriteComponent::idle()
-{
-	m_current->idle(this);
-}
-
-void AnimatedSpriteComponent::walking()
-{
-	m_current->walking(this);
-}
-
-void AnimatedSpriteComponent::stunned()
-{
-	m_current->stunned(this);
-}
-
-void AnimatedSpriteComponent::attack()
-{
-	m_current->attack(this);
-}
-
-void AnimatedSpriteComponent::interact()
-{
-	m_current->interact(this);
 }

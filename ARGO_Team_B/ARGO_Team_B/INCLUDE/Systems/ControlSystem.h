@@ -6,11 +6,11 @@
 #include "System.h"
 #include "PositionComponent.h"
 #include "ControlComponent.h"
+#include "StateMachineSystem.h"
 
 
 #include <vector>
 #include "xbox360Controller.h"
-
 
 
 class ControlSystem : public System
@@ -23,10 +23,11 @@ public:
 	ControlSystem();
 	~ControlSystem();
 	void updateComponent(Component* c) override;
-	void handleInput(float dt);
+	void handleInput(float dt, StateMachineSystem& t_stateSystem);
 	void handleInput(SDL_Keycode key);
 
 	int contNum= 0;
 	int i = 0;
 };
+
 #endif // !CONTROL_SYSTEM
