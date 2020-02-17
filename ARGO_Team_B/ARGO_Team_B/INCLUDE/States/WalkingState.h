@@ -9,8 +9,8 @@ public:
 	WalkingState();
 	~WalkingState();
 
-	void idle(AnimatedSpriteComponent* t_a);
-	void stunned(AnimatedSpriteComponent* t_a);
-	void attack(AnimatedSpriteComponent* t_a);
+	void idle(AnimatedSpriteComponent* t_a)override;
+	void stunned(AnimatedSpriteComponent* t_a)override;
+	void attack(AnimatedSpriteComponent* t_a)override;
 
 };

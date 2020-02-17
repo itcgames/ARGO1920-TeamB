@@ -42,11 +42,6 @@ public:
 	/// States Information
 	/// </summary>
 	void setCurrent(State* t_s);
-	void idle();
-	void walking();
-	void stunned();
-	void attack();
-	void interact();
 
 	//void setprevious(State* t_s);
 	//State* getCurrent();

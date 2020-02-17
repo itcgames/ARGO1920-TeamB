@@ -22,5 +22,4 @@ void StunnedState::idle(AnimatedSpriteComponent* t_a)
 {
 	std::cout << "Stunned -> idle" << std::endl;
 	t_a->setCurrent(new IdleState());
-	delete this;
 }
