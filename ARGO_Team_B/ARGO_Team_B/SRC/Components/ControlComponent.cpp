@@ -150,6 +150,7 @@ void ControlComponent::handleInput()
 	}
 	else if (!playerComp->getMoveable()) {
 		posComp->backToPreviousePos();
+		posComp->slowDown();
 		playerComp->setMoveable(true);
 	}
 
