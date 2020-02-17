@@ -1,7 +1,9 @@
 #include "RenderComponent.h"
 #include<iostream>
 
-RenderComponent::RenderComponent(const char* name, int width, int height, SDL_Renderer* renderer)
+RenderComponent::RenderComponent(const char* name, int width, int height, SDL_Renderer* renderer) :
+	m_angle{ 0 },
+	currentImage(name)
 {
 	this->width = width;
 	this->height = height;
@@ -20,5 +22,37 @@ RenderComponent::RenderComponent(const char* name, int width, int height, SDL_Re
 void RenderComponent::draw(int x, int y)
 {
 	dstrect = { x, y, this->width, this->height };
-	SDL_RenderCopy(m_renderer, texture, &srcrect, &dstrect);
+	SDL_RenderCopyEx(m_renderer, texture, &srcrect, &dstrect, m_angle, NULL, SDL_FLIP_NONE);
+}
+
+void RenderComponent::setImage(const char* name)
+{
+	if (currentImage != name) {
+		currentImage = name;
+		image = IMG_Load(name);
+		texture = SDL_CreateTextureFromSurface(m_renderer, image);
+
+		if (!texture)
+		{
+			std::cout << name << " texture failed to load!" << std::endl;
+		}
+	}
+}
+
+void RenderComponent::setImage(const char* name, int width, int height)
+{
+	if (currentImage != name) {
+		this->width = width;
+		this->height = height;
+		srcrect = { 0, 0, width , height };
+
+		currentImage = name;
+		image = IMG_Load(name);
+		texture = SDL_CreateTextureFromSurface(m_renderer, image);
+
+		if (!texture)
+		{
+			std::cout << name << " texture failed to load!" << std::endl;
+		}
+	}
 }

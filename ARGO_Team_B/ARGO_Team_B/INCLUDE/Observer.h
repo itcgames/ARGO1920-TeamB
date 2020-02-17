@@ -18,7 +18,7 @@ class AudioObserver : public Observer
 	public:
 		enum SFX
 		{
-			CLICK, PORTAL, PICKUPCHEESE, PICKUPBOMB,EXPLOSION,PLACEBOMB,
+			CLICK, PORTAL, PICKUPCHEESE, PICKUPBOMB,EXPLOSION,PLACEBOMB,OPENDOOR
 		};
 
 		AudioObserver() {};

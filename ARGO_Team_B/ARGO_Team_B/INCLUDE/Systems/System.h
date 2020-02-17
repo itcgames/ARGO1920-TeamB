@@ -3,6 +3,10 @@
 #include"Component.h"
 #include"Entity.h"
 #include<vector>
+#include "AnimatedSpriteComponent.h"
+
+using namespace std;
+
 class System {
 public:
 	System();

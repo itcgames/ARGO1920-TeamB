@@ -52,12 +52,11 @@ Game::Game()
 	// Player
 	m_player.addComponent(new PlayerComponent(1), Types::Player); // This must allways be first added
 	m_player.addComponent(new HealthComponent(100), Types::Health);
-	m_player.addComponent(new PositionComponent(200, 100), Types::Position);
-	m_player.addComponent(new CollisionComponent(m_player, 60, 30), Types::Collider);
+	m_player.addComponent(new PositionComponent(150, 100), Types::Position);
+	m_player.addComponent(new CollisionComponent(m_player, 60.0f, RAT_H, RAT_W), Types::Collider);
 	m_player.addComponent(new ControlComponent(m_player), Types::Controller);
 	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
 	//m_player.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheet.png", 60, 30, 5, p_renderer), Types::AnimatedSprite);
-
 
 	// Alien
 	m_alien.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added
@@ -194,7 +193,7 @@ Game::Game()
 	/// <summary>
 	/// STATE MACHINE
 	/// </summary>
-	m_stateMachine.addEntity(m_player);
+	//m_stateMachine.addEntity(m_player);
 
 
 	const auto MAP_PATH = "Assets/map/test.tmx";
@@ -328,7 +327,7 @@ void Game::render()
 	SDL_RenderClear(p_renderer);
 	tiled_map_level->draw(p_renderer);
 	m_renderSystem.draw();
-	m_stateMachine.update();
+	// m_stateMachine.update();
 	SDL_RenderPresent(p_renderer);
 }
 
