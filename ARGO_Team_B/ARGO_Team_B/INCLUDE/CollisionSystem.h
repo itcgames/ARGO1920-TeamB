@@ -13,18 +13,18 @@
 #include "BombComponent.h"
 
 #include <vector>
-#include "Level.h"
 #include "Observer.h"
+#include "Level.h"
 using namespace std;
 
-class CollisionSystem : public System
+class CollisionSystem : public System 
 {
 public:
 	CollisionSystem();
 	~CollisionSystem();
 	void updateComponent(Component* component) override;
-	void updateComponent(Level& t_level, AudioObserver* t_observer);
-	void tileCollision(float x, float y, float width, float height, Level& t_mazeWalls, AudioObserver* t_observer);
+	void updateComponent(Level &t_level,AudioObserver * t_observer);
+	void tileCollision(float x, float y, float width, float height, Level& t_mazeWalls,AudioObserver* t_observer);
 private:
 
 	void searchEntities();
@@ -35,7 +35,7 @@ private:
 
 	void searchCheese();
 
-	void bombCollision();
+	void bombCollision(AudioObserver* t_observer);
 
 	vector<Entity> m_playerEntitys;
 	vector<Entity> m_buttonEntitys;
@@ -45,6 +45,5 @@ private:
 	vector<Entity> m_bombEntitys;
 	float x1, y1;
 	PositionComponent* m_positionComp;
-
 };
 #endif // !COLLISION_SYSTEM

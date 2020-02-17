@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PositionComponent.cpp" />
+    <ClCompile Include="SRC\CollisionSystem.cpp" />
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />
     <ClCompile Include="SRC\Components\AnimationComponent.cpp" />
     <ClCompile Include="SRC\Components\BombComponent.cpp" />
@@ -82,7 +83,6 @@
     <ClCompile Include="SRC\Systems\AISystem.cpp" />
     <ClCompile Include="SRC\Systems\BombSystem.cpp" />
     <ClCompile Include="SRC\Systems\ButtonSystem.cpp" />
-    <ClCompile Include="SRC\Systems\CollisionSystem.cpp" />
     <ClCompile Include="SRC\Systems\ControlSystem.cpp" />
     <ClCompile Include="SRC\Systems\HealthSystem.cpp" />
     <ClCompile Include="SRC\Systems\RenderSystem.cpp" />
@@ -158,7 +158,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SDL_SDK)/lib;%(AdditionalLibraryDirectories).\DLLs;./SRC;./SRC/Components;./SRC/Utils;./SRC/States;./SRC/Systems</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;tmxlite.lib;libtmxlite-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;tmxlite.lib;libtmxlite-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

@@ -34,6 +34,13 @@ Game::Game()
 	}
 	SDL_SetRenderDrawColor(p_renderer, 150, 150, 150, 255); // Black Opaque Background
 
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, NULL, 2048) < 0)
+	{
+		printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+	}
+	//Allocate 128 channels for a max for 128 audio chunks playing at one time
+	Mix_AllocateChannels(128);
+
 	// Initialise Game Variables
 
 	// Extra info for systems
@@ -205,6 +212,10 @@ Game::Game()
 	m_renderSystem.addEntity(m_spike2);
 	m_renderSystem.addEntity(m_spike3);
 
+	m_observer = new AudioObserver();
+	m_observer->load();
+	m_observer->StartBGM(0);
+	
 
 	m_renderSystem.addEntity(m_bomb);
 
@@ -300,9 +311,11 @@ void Game::update(float dt)
 
 	m_controlSystem.handleInput(dt);
 	//m_controlSystem.update();
+
+	m_collisionSystem.updateComponent(*tiled_map_level,m_observer);
+
 	m_stateMachine.update();
-	m_collisionSystem.updateComponent(*tiled_map_level);
-	m_bombSystem.updateComponent(dt);
+	m_bombSystem.updateComponent(dt,m_observer);
 }
 
 /// <summary>

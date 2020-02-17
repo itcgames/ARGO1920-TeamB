@@ -12,7 +12,7 @@ void BombSystem::updateComponent(Component* component) {
 
 }
 
-void BombSystem::updateComponent(float dt) {
+void BombSystem::updateComponent(float dt,AudioObserver * t_observer) {
 	searchEntities();
 
 	for (Entity& bombEntity : m_bombEntitys) {
@@ -28,8 +28,10 @@ void BombSystem::updateComponent(float dt) {
 				PositionComponent* playerPos = static_cast<PositionComponent*>(m_playerEntitys[ownerId - 1].getComponent(Types::Position));
 
 				bombPos->setPosition(playerPos->getPositionX(), playerPos->getPositionY());
-
+				
 				bombComp->playerPlaceBomb();
+				t_observer->onNotify(AudioObserver::PLACEBOMB);
+
 			}
 		}
 
@@ -41,6 +43,7 @@ void BombSystem::updateComponent(float dt) {
 			float timer = bombComp->getBombTimer();
 			if (timer <= 0.0f) {
 				bombComp->setState(BombState::Explode);
+				t_observer->onNotify(AudioObserver::EXPLOSION);
 				CollisionComponent* bombCollider = static_cast<CollisionComponent*>(bombEntity.getComponent(Types::Collider));
 				bombCollider->setCircleRadius(bombComp->getBlastRadius());
 
@@ -55,6 +58,7 @@ void BombSystem::updateComponent(float dt) {
 		}
 		else if (bombComp->getState() == BombState::Explode) {
 			// animation for exlpode 
+			
 			float timer = bombComp->getExplosionTimer();
 			if (timer <= 0.0f) {
 				bombComp->setState(BombState::Removed);
