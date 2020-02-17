@@ -44,7 +44,7 @@ void CollisionComponent::updateCollider(Entity& t_entity)
 
 	m_recCollider.min = { entityPos->getPositionX(), entityPos->getPositionY() };
 	m_recCollider.max = { entityPos->getPositionX() + m_width, entityPos->getPositionY() + m_height };
-
+	
 	m_polyCollider.verts[0] = { entityPos->getPositionX() + m_width / 2, entityPos->getPositionY() + m_height / 2 };
 	m_polyCollider.verts[1] = { entityPos->getPositionX(), entityPos->getPositionY() + m_height };
 	m_polyCollider.verts[2] = { entityPos->getPositionX() + m_width, entityPos->getPositionY() + m_height };
