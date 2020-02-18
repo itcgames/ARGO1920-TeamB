@@ -8,7 +8,7 @@ Game::Game()
 {
 	srand(time(NULL));
 	// Initialise SDL
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+	if (SDL_Init(SDL_INIT_EVERYTHING ) < 0)
 	{
 		std::cout << "Failed to initialise SDL" << std::endl;
 	}

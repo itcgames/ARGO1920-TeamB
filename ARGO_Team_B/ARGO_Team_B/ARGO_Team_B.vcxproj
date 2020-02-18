@@ -32,6 +32,7 @@
     <ClInclude Include="INCLUDE\Components\HealthComponent.h" />
     <ClInclude Include="INCLUDE\Components\PlayerComponent.h" />
     <ClInclude Include="INCLUDE\Components\RenderComponent.h" />
+    <ClInclude Include="INCLUDE\Components\ShaderComponent.h" />
     <ClInclude Include="INCLUDE\Components\TrapComponent.h" />
     <ClInclude Include="INCLUDE\Entity.h" />
     <ClInclude Include="INCLUDE\Game.h" />
@@ -72,6 +73,7 @@
     <ClCompile Include="SRC\Components\HealthComponent.cpp" />
     <ClCompile Include="SRC\Components\PlayerComponent.cpp" />
     <ClCompile Include="SRC\Components\RenderComponent.cpp" />
+    <ClCompile Include="SRC\Components\ShaderComponent.cpp" />
     <ClCompile Include="SRC\Components\TrapComponent.cpp" />
     <ClCompile Include="SRC\Game.cpp" />
     <ClCompile Include="SRC\Level.cpp" />
