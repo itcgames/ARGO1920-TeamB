@@ -4,29 +4,22 @@
 #include "Component.h"
 #include "Command.h"
 
+#include "StateMachineSystem.h"
+#include "Enums.h"
 
 #include "PositionComponent.h"
 #include "PlayerComponent.h"
 #include "Xbox360Controller.h"
 #include "Entity.h"
 
-enum class MovingState {
-	Up,
-	Down,
-	Left,
-	Right,
-	Idle
-};
-
 class ControlComponent : public Component
 {
 public:
-	MovingState m_moving;
 	static int s_controlID;
 	ControlComponent(Entity & t_gameObject);
 	~ControlComponent();
-	void update(float dt);
-	void handleInput();
+	void handleInput(StateMachineSystem& t_stateSystem);
+
 private:
 	void moveUp();
 	void moveLeft();
@@ -49,4 +42,4 @@ private:
 
 };
 
-#endif // !CONTROL_cOMPONENT_H
+#endif // !CONTROL_COMPONENT_H

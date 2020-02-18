@@ -1,5 +1,5 @@
-#ifndef COMPONENTENUM_H
-#define COMPONENTENUM_H
+#ifndef ENUMS_H
+#define ENUMS_H
 
 enum class Types {
 	Health,
@@ -16,4 +16,12 @@ enum class Types {
 	Bomb
 };
 
-#endif // !COMPONENTENUM_H
+enum class States {
+	Attack,
+	Idle,
+	Interact,
+	Stunned,
+	Walking
+};
+
+#endif // !ENUMS_H

@@ -65,8 +65,8 @@ void Xbox360Controller::checkButton() {
 
 	m_currentState.LeftThumbStick.x = SDL_GameControllerGetAxis(m_controllerHandles, SDL_CONTROLLER_AXIS_LEFTX);
 	m_currentState.LeftThumbStick.y = SDL_GameControllerGetAxis(m_controllerHandles, SDL_CONTROLLER_AXIS_LEFTY);
-	m_currentState.RighThumbStick.x = SDL_GameControllerGetAxis(m_controllerHandles, SDL_CONTROLLER_AXIS_RIGHTX);
-	m_currentState.RighThumbStick.y = SDL_GameControllerGetAxis(m_controllerHandles, SDL_CONTROLLER_AXIS_RIGHTY);
+	m_currentState.RightThumbStick.x = SDL_GameControllerGetAxis(m_controllerHandles, SDL_CONTROLLER_AXIS_RIGHTX);
+	m_currentState.RightThumbStick.y = SDL_GameControllerGetAxis(m_controllerHandles, SDL_CONTROLLER_AXIS_RIGHTY);
 
 	/*std::cout << "controller : " << m_joystick_index;
 	std::cout << " X : " << m_currentState.LeftThumbStick.x << std::endl;
