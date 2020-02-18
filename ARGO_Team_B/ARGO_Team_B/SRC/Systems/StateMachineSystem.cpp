@@ -13,13 +13,17 @@ void StateMachineSystem::updateComponent(Component* c)
 {
 	for (Entity& e : entities)
 	{
-		AnimatedSpriteComponent* animated = dynamic_cast<AnimatedSpriteComponent*>(e.getComponent(Types::AnimatedSprite));
-		PositionComponent* pos = dynamic_cast<PositionComponent*>(e.getComponent(Types::Position));
-		if (animated != nullptr)
+		if (e.getEntityType() == EntityType::Rat)
 		{
-			animated->setCurrent(m_current);
-			animated->update();
-			animated->render(pos->getPositionX(), pos->getPositionY());
+
+			AnimatedSpriteComponent* animated = dynamic_cast<AnimatedSpriteComponent*>(e.getComponent(Types::AnimatedSprite));
+			PositionComponent* pos = dynamic_cast<PositionComponent*>(e.getComponent(Types::Position));
+			if (animated != nullptr)
+			{
+				//animated->setCurrent(m_current);
+				animated->update();
+				animated->render(pos->getPositionX(), pos->getPositionY(), pos->getangle());
+			}
 		}
 	}
 }

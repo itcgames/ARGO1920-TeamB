@@ -71,6 +71,8 @@
     <ClCompile Include="SRC\Level.cpp" />
     <ClCompile Include="SRC\main.cpp" />
     <ClCompile Include="SRC\CollisionSystem.cpp" />
+    <ClCompile Include="SRC\Components\PositionComponent.cpp" />
+    <ClCompile Include="SRC\Utils\Command.cpp" />
     <ClCompile Include="Src\States\IdleState.cpp" />
     <ClCompile Include="SRC\Components\PositionComponent.cpp" />
   </ItemGroup>

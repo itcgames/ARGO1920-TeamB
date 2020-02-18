@@ -90,6 +90,7 @@
     <ClCompile Include="SRC\Systems\StateMachineSystem.cpp" />
     <ClCompile Include="SRC\Systems\System.cpp" />
     <ClCompile Include="SRC\Utils\Assets.cpp" />
+    <ClCompile Include="SRC\Utils\Command.cpp" />
     <ClCompile Include="SRC\Utils\Xbox360Controller.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

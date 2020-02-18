@@ -9,7 +9,7 @@
 #include <typeinfo>
 
 AnimatedSpriteComponent::AnimatedSpriteComponent() :
-	m_current(new IdleState)
+	m_currentState(new IdleState)
 {	
 	m_currentFrame = 0;
 }
@@ -28,7 +28,7 @@ AnimatedSpriteComponent::AnimatedSpriteComponent(const char* t_texture, int t_he
 	m_imageHeight = t_height;
 	m_imageWidth = t_width;
 
-	int frameWidth= m_imageWidth / t_noOfFrames;
+	int frameWidth= m_imageWidth;
 
 	SDL_Rect rect;
 	rect.h = m_imageHeight;
@@ -46,13 +46,13 @@ AnimatedSpriteComponent::AnimatedSpriteComponent(const char* t_texture, int t_he
 }  
 
 
-void AnimatedSpriteComponent::render(int t_posX, int t_posY)
+void AnimatedSpriteComponent::render(int t_posX, int t_posY, float t_angle)
 {
 	SDL_Rect rendFrame = getFrame(m_currentFrame);
 	rendFrame.y = m_frames[m_currentFrame].y;
 	rendFrame.x = m_frames[m_currentFrame].x;
-	SDL_Rect destRect = { t_posX, t_posY, m_imageWidth / m_NoOfFrames, m_imageHeight};
-	SDL_RenderCopy(m_renderer, m_texture, &rendFrame, &destRect);
+	SDL_Rect destRect = { t_posX, t_posY, m_imageWidth, m_imageHeight};
+	SDL_RenderCopyEx(m_renderer, m_texture, &rendFrame, &destRect, t_angle, NULL, SDL_FLIP_NONE);
 }
 
 void AnimatedSpriteComponent::update()
@@ -69,6 +69,28 @@ void AnimatedSpriteComponent::update()
 			m_currentFrame = 0;	
 		}
 		m_clock = 0;
+	}
+}
+
+void AnimatedSpriteComponent::updateSpriteState(SpriteSheet& t_spriteSheet)
+{
+	m_frames.clear();
+
+	m_imageHeight = t_spriteSheet.frameSize.x;
+	m_imageWidth = t_spriteSheet.frameSize.y;
+
+	int frameWidth = m_imageWidth;
+
+	SDL_Rect rect;
+	rect.h = m_imageHeight;
+	rect.w = frameWidth;
+	m_texture = t_spriteSheet.m_texture;
+
+	for (int i = 0; i < m_NoOfFrames; i++)
+	{
+		rect.x = frameWidth * i;
+		rect.y = 0;
+		m_frames.push_back(rect);
 	}
 }
 
@@ -130,5 +152,20 @@ int AnimatedSpriteComponent::getHeight()
 
 void AnimatedSpriteComponent::setCurrent(State* t_s)
 {
-	m_current = t_s;
+	m_currentState = t_s;
+}
+
+void AnimatedSpriteComponent::setPrevious(State* t_s)
+{
+	m_previousState = t_s	;
+}
+
+State* AnimatedSpriteComponent::getCurrent()
+{
+	return m_currentState;
+}
+
+State* AnimatedSpriteComponent::getPrevious()
+{
+	return m_previousState;
 }

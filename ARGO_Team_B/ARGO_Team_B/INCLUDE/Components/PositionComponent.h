@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include "Component.h"
+#include <math.h>
+
 class PositionComponent : public Component
 {
 public:
@@ -33,11 +35,14 @@ public:
 	float getLastY() { return m_lastY; }
 
 	void backToStart();
+
+	bool m_isMoving{ false };
 private:
-	const float MAX_VELO = 10;
+	const int MAX_VELO = 8;
 	const float INC_VELO = 0.5f;
 
 	float m_velocityX;
+	float m_velocity;
 	float m_velocityY;
 	float m_currentX;
 	float m_currentY;

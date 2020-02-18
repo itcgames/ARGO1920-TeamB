@@ -17,7 +17,10 @@
 #include "PlayerComponent.h"
 #include "StateMachineSystem.h"
 #include "BombSystem.h"
+
 #include "Globals.h"
+
+
 
 #include <time.h>
 #include "Observer.h"
@@ -38,10 +41,10 @@ private:
 	bool m_quit = false;
 
 	// Entities
-	Entity m_player;
-	Entity m_alien;
-	Entity m_dog;
-	Entity m_cat;
+	Entity m_Rat1;
+	Entity m_Rat4;
+	Entity m_Rat2;
+	Entity m_Rat3;
 	
 	Entity m_button;
 	Entity m_button2;

@@ -10,6 +10,10 @@
 #include "StunnedState.h"
 #include "WalkingState.h"
 
+#include <vector>
+
+
+
 class StateMachineSystem : public System
 {
 private:
@@ -22,4 +26,8 @@ public:
 	void updateComponent(Component* c) override;
 
 	void setCurrent(States t_state);
+
+	SDL_Surface* surface;
+
+
 };
