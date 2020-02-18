@@ -37,7 +37,7 @@
     <ClInclude Include="INCLUDE\Components\PlayerComponent.h" />
     <ClInclude Include="INCLUDE\Components\RenderComponent.h" />
     <ClInclude Include="INCLUDE\Components\TrapComponent.h" />
-    <ClInclude Include="PositionComponent.h" />
+    <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
     <ClInclude Include="INCLUDE\Utils\Enums.h" />
   </ItemGroup>
   <ItemGroup>
@@ -70,8 +70,9 @@
     <ClCompile Include="SRC\Game.cpp" />
     <ClCompile Include="SRC\Level.cpp" />
     <ClCompile Include="SRC\main.cpp" />
-    <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="SRC\CollisionSystem.cpp" />
+    <ClCompile Include="SRC\Components\PositionComponent.cpp" />
+    <ClCompile Include="SRC\Utils\Command.cpp" />
     <ClCompile Include="Src\States\IdleState.cpp" />
   </ItemGroup>
 </Project>
