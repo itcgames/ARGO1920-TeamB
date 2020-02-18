@@ -4,13 +4,13 @@ tile::tile(SDL_Texture* tset, int x, int y, int tx, int ty, int w, int h,bool al
     : sheet(tset), x(x), y(y), tx(tx), ty(ty), width(w), height(h),m_alive(alive){
 
 }
-MazeWallObject::MazeWallObject(float x, float y, float width, float height)
-	: x(x), y(y), width(width), height(height)
+MazeWallObject::MazeWallObject(float x, float y, float width, float height, bool alive)
+	: x(x), y(y), width(width), height(height),alive(alive)
 {
 
 }
-Breakable::Breakable(float x, float y, float width, float height,bool alive)
-	: x(x), y(y), width(width), height(height),alive(alive)
+Breakable::Breakable(float x, float y, float width, float height)
+	: x(x), y(y), width(width), height(height)
 {
 
 }
@@ -88,8 +88,8 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
 					y = object.getPosition().y;
 					width = object.getAABB().width;
 					height = object.getAABB().height;
-
-					MazeWallObject o(x, y, width, height);
+					bool alive = true;
+					MazeWallObject o(x, y, width, height,alive);
 
 					m_mazeWalls.push_back(o);
 				}
@@ -102,8 +102,7 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
 					y = object.getPosition().y;
 					width = object.getAABB().width;
 					height = object.getAABB().height;
-					alive = object.visible();
-					Breakable o(x, y, width, height,alive);
+					Breakable o(x, y, width, height);
 					
 					m_breakable.push_back(o);
 				}
@@ -202,16 +201,11 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
 
 void Level::draw(SDL_Renderer* ren) 
 {
-    //for (auto& tile : tiles) 
-    //{
-    //    tile.draw(ren);
-    //}
-   // tiles.erase(tiles.begin());
-    tiles.at(1000).m_alive = false;
     for (int i = 0; i < tiles.size(); ++i)
     {
         if (tiles.at(i).m_alive)
         {
+			
             tiles.at(i).draw(ren);
         }
     

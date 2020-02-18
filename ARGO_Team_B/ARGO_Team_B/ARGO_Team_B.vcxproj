@@ -21,10 +21,10 @@
   <ItemGroup>
     <ClInclude Include="INCLUDE\CreditsScene.h" />
     <ClInclude Include="INCLUDE\GameScene.h" />
-    <ClInclude Include="INCLUDE\GUIElement.h" />
     <ClInclude Include="INCLUDE\LTexture.h" />
     <ClInclude Include="INCLUDE\MenuScene.h" />
     <ClInclude Include="INCLUDE\Observer.h" />
+    <ClInclude Include="INCLUDE\ResourceManager.h" />
     <ClInclude Include="INCLUDE\Subject.h" />
     <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Command.h" />
@@ -70,6 +70,7 @@
     <ClCompile Include="INCLUDE\GameScene.cpp" />
     <ClCompile Include="INCLUDE\LTexture.cpp" />
     <ClCompile Include="INCLUDE\MenuScene.cpp" />
+    <ClCompile Include="INCLUDE\ResourceManager.cpp" />
     <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="SRC\CollisionSystem.cpp" />
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />
@@ -169,7 +170,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SDL_SDK)/lib;%(AdditionalLibraryDirectories).\DLLs;./SRC;./SRC/Components;./SRC/Utils;./SRC/States;./SRC/Systems</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;tmxlite.lib;libtmxlite-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;tmxlite.lib;libtmxlite-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

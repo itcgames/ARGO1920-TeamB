@@ -38,8 +38,8 @@ struct MazeWallObject {
 	int y;
 	int width;
 	int height;
-
-	MazeWallObject(float x = 0, float y = 0, float width = 0, float height = 0);
+	bool alive;
+	MazeWallObject(float x = 0, float y = 0, float width = 0, float height = 0,bool alive=true);
 };
 struct TeleportObject {
 	int x;
@@ -54,8 +54,7 @@ struct Breakable {
 	int y;
 	int width;
 	int height;
-	bool alive;
-	Breakable(float x = 0, float y = 0, float width = 0, float height = 0,bool alive=true);
+	Breakable(float x = 0, float y = 0, float width = 0, float height = 0);
 };
 class Level
 {

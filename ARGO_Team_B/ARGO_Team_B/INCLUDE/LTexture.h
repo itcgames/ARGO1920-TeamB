@@ -1,4 +1,3 @@
-#pragma once
 #include <SDL.h>
 #include <string>
 #include <SDL_image.h>

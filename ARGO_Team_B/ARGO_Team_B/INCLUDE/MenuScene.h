@@ -8,46 +8,55 @@
 
 #include <iostream>
 #include "LTexture.h"
+#include "Xbox360Controller.h"
 class MenuScene
 {
-	public:
-		MenuScene(SDL_Renderer* t_renderer,GameStates * t_state);
-		~MenuScene();
-		void init();
-		void update(float dt);
-		void render(SDL_Renderer* t_renderer);
-		
-	private:
-		GameStates* m_currentState;
-		int m_playX, m_playY, m_playW, m_playH;
-		int m_localPlayX, m_localPlayY, m_localPlayW, m_localPlayH;
-		int m_onlinePlayX, m_onlinePlayY, m_onlinePlayW, m_onlinePlayH;
-		int m_CreditsX, m_CreditsY, m_CreditsW, m_CreditsH;
-		int m_bgX, m_bgY, m_bgW, m_bgH;
-		int m_quitX, m_quitY, m_quitW, m_quitH;
-		int m_titleX, m_titleY;
+public:
+	MenuScene(SDL_Renderer * t_renderer,GameStates * t_gamestate);
+	~MenuScene();
+	void handleEvents(SDL_Event& t_event);
+	void update(float dt);
+	void render(SDL_Renderer* t_renderer);
 
-		//Title button
-		LTexture m_title;
+private:
+	GameStates* m_currentState;
+	int m_playX, m_playY, m_playW, m_playH;
+	int m_localPlayX, m_localPlayY, m_localPlayW, m_localPlayH;
+	int m_onlinePlayX, m_onlinePlayY, m_onlinePlayW, m_onlinePlayH;
+	int m_CreditsX, m_CreditsY, m_CreditsW, m_CreditsH;
+	int m_bgX, m_bgY, m_bgW, m_bgH;
+	int m_quitX, m_quitY, m_quitW, m_quitH;
+	int m_selectorX, m_selectorY, m_selectorW, m_selectorH;
+	int m_titleX, m_titleY;
 
-		// Bot Play button
-		LTexture m_botPlay;
+	//Title button
+	LTexture m_title;
 
-		// Local Play button
-		LTexture m_localPlay;
+	// Bot Play button
+	LTexture m_botPlay;
 
-		// Online Play button
-		LTexture m_onlinePlay;
+	// Local Play button
+	LTexture m_localPlay;
 
-		// Quit Game button
-		LTexture m_quitGame;
+	// Online Play button
+	LTexture m_onlinePlay;
 
-		// Credits button
-		LTexture m_Credits;
+	// Quit Game button
+	LTexture m_quitGame;
 
-		//background Image
-		LTexture m_bg;
+	// Credits button
+	LTexture m_Credits;
 
+	// Credits button
+	LTexture m_selector;
+
+	//background Image
+	LTexture m_bg;
+
+	int m_selectedItem = 0;
+	const int JOYSTICK_DEAD_ZONE = 16000;
+	bool activateJoystick = false;
+
+	Xbox360Controller* m_controller;
 };
 #endif // !MENU_SCENE_H
-

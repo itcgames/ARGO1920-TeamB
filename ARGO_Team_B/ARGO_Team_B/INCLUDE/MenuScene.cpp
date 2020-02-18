@@ -1,8 +1,8 @@
 #include "MenuScene.h"
 
-MenuScene::MenuScene(SDL_Renderer* t_renderer, GameStates* t_state):
-	m_currentState(t_state)
-	
+MenuScene::MenuScene(SDL_Renderer* t_renderer, GameStates* t_gamestate) :
+	m_currentState(t_gamestate)
+
 {
 	if (!m_bg.loadFromFile("./Assets/menu/backgroundImage.png", t_renderer, 1))
 	{
@@ -58,20 +58,82 @@ MenuScene::MenuScene(SDL_Renderer* t_renderer, GameStates* t_state):
 	m_quitW = m_quitGame.getWidth();
 	m_quitH = m_quitGame.getHeight();
 
-
-
+	if (!m_selector.loadFromFile("./Assets/menu/selector.png", t_renderer, 1))
+	{
+		printf("Failed to load BG texture!\n");
+	}
+	m_selectorX = m_playX;
+	m_selectorY = m_playY;
+	m_selectorW = m_selector.getWidth();
+	m_selectorH = m_selector.getHeight();
 }
 
 MenuScene::~MenuScene()
 {
 }
 
-void MenuScene::init()
+void MenuScene::handleEvents(SDL_Event& t_event)
 {
+	switch (t_event.type)
+	{
+		if (t_event.jaxis.which == 0)
+		{
+			//X axis motion
+			if (t_event.jaxis.axis == 1)
+			{
+				//Below of dead zone
+				if (t_event.jaxis.value < -JOYSTICK_DEAD_ZONE)
+				{
+					m_selectorY += 100;
+				}
+				//Above of dead zone
+				else if (t_event.jaxis.value > JOYSTICK_DEAD_ZONE)
+				{
+					m_selectorY -= 100;
+				}
+				else
+				{
+					m_selectorY = 0;
+				}
+			}
+		}
+	}
 }
 
 void MenuScene::update(float dt)
 {
+	
+	//case SDL_JOYBUTTONDOWN:
+	//	//Play rumble at 75% strenght for 500 milliseconds
+	//	//SDL_HapticRumblePlay(gControllerHaptic, 0.75, 500);
+
+	//	switch (e.jbutton.button)
+	//	{
+	//	case 0:
+	//		for (auto& b : m_buttons)
+	//		{
+	//			if (b->m_visible) {
+	//				b->mousePress();
+
+	//				if (b->isClicked)
+	//				{
+	//					for (auto& c : m_buttons)
+	//					{
+	//						c->goToTransition();
+	//					}
+	//					for (auto& l : m_labels)
+	//					{
+	//						l->goToTransition();
+	//					}
+	//				}
+	//			}
+	//		}
+	//		break;
+	//	}
+	//}
+	//default:
+	//	break;
+	//}
 }
 
 void MenuScene::render(SDL_Renderer* t_renderer)
@@ -81,5 +143,6 @@ void MenuScene::render(SDL_Renderer* t_renderer)
 	m_localPlay.render(m_localPlayX, m_localPlayY, t_renderer, 1, 1);
 	m_onlinePlay.render(m_onlinePlayX, m_onlinePlayY, t_renderer, 1, 1);
 	m_Credits.render(m_CreditsX, m_CreditsY, t_renderer, 1, 1);
-	m_quitGame.render(m_playX, m_quitY, t_renderer, 1, 1);
+	m_quitGame.render(m_quitX, m_quitY, t_renderer, 1, 1);
+	m_selector.render(m_selectorX, m_selectorY, t_renderer, 1, 1);
 }
