@@ -1,6 +1,6 @@
 #include "MenuScene.h"
 
-MenuScene::MenuScene(SDL_Renderer* t_renderer, GameStates* t_gamestate) :
+MenuScene::MenuScene(SDL_Renderer* t_renderer, GameStates* t_gamestate, ControlComponent* t_control) :
 	m_currentState(t_gamestate)
 
 {
@@ -66,6 +66,8 @@ MenuScene::MenuScene(SDL_Renderer* t_renderer, GameStates* t_gamestate) :
 	m_selectorY = m_playY;
 	m_selectorW = m_selector.getWidth();
 	m_selectorH = m_selector.getHeight();
+
+	m_controller = t_control->getController();
 }
 
 MenuScene::~MenuScene()
@@ -74,30 +76,31 @@ MenuScene::~MenuScene()
 
 void MenuScene::handleEvents(SDL_Event& t_event)
 {
-	switch (t_event.type)
+	m_controller->checkButton();
+	int m_movement = 100;
+	if(m_controller->m_currentState.LeftThumbStick.y < -m_controller->dpadThreshold)
 	{
-		if (t_event.jaxis.which == 0)
-		{
-			//X axis motion
-			if (t_event.jaxis.axis == 1)
-			{
-				//Below of dead zone
-				if (t_event.jaxis.value < -JOYSTICK_DEAD_ZONE)
-				{
-					m_selectorY += 100;
-				}
-				//Above of dead zone
-				else if (t_event.jaxis.value > JOYSTICK_DEAD_ZONE)
-				{
-					m_selectorY -= 100;
-				}
-				else
-				{
-					m_selectorY = 0;
-				}
-			}
-		}
+		m_selectorY = m_selectorY- m_movement;
 	}
+	if (m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold)
+	{
+		m_selectorY = m_selectorY + m_movement;
+	}
+	if (m_selectorY > 550)
+	{
+
+		m_selectorY = 150;
+	}
+	if (m_selectorY < 150)
+	{
+		m_selectorY = 550;
+	}
+	
+					
+				
+					
+					
+	
 }
 
 void MenuScene::update(float dt)

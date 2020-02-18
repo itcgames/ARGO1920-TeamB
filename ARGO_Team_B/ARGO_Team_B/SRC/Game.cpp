@@ -6,6 +6,8 @@
 /// </summary>
 Game::Game()
 {
+	ControlComponent* controlComp = new ControlComponent(m_player);
+
 	srand(time(NULL));
 	// Initialise SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -43,7 +45,7 @@ Game::Game()
 	m_player.addComponent(new HealthComponent(100), Types::Health);
 	m_player.addComponent(new PositionComponent(150, 100), Types::Position);
 	m_player.addComponent(new CollisionComponent(m_player, 50.0f, RAT_H, RAT_W), Types::Collider);
-	m_player.addComponent(new ControlComponent(m_player), Types::Controller);
+	m_player.addComponent(controlComp, Types::Controller);
 	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
 	m_player.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheet.png", 60, 30, 5, p_renderer), Types::AnimatedSprite);
 
@@ -226,7 +228,7 @@ Game::Game()
 	m_bombSystem.addEntity(m_cat);
 
 	m_currentState = GameStates::MainMenu;
-	m_menuScene = new MenuScene(p_renderer,&m_currentState);
+	m_menuScene = new MenuScene(p_renderer,&m_currentState, controlComp);
 	//m_gameScene = new GameScene(p_renderer, &m_currentState);
 	//m_creditsScene = new CreditsScene(p_renderer, &m_currentState);
 

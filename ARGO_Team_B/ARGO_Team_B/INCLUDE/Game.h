@@ -75,5 +75,6 @@ private:
 	//GameScene* m_gameScene;
 	MenuScene* m_menuScene;
 	//CreditsScene* m_creditsScene;
+
 };
 #endif // !GAME

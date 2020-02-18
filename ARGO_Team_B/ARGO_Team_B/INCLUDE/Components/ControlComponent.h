@@ -28,6 +28,7 @@ public:
 	ControlComponent(Entity & t_gameObject);
 	~ControlComponent();
 	void handleInput(StateMachineSystem& t_stateSystem);
+	Xbox360Controller* getController() { return m_controller; }
 
 private:
 	void moveUp();

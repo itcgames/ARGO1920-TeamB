@@ -8,11 +8,14 @@
 
 #include <iostream>
 #include "LTexture.h"
+#include "ControlComponent.h"
 #include "Xbox360Controller.h"
+
+
 class MenuScene
 {
 public:
-	MenuScene(SDL_Renderer * t_renderer,GameStates * t_gamestate);
+	MenuScene(SDL_Renderer * t_renderer,GameStates * t_gamestate, ControlComponent* t_control);
 	~MenuScene();
 	void handleEvents(SDL_Event& t_event);
 	void update(float dt);
