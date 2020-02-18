@@ -6,6 +6,9 @@ PlayerComponent::PlayerComponent(int id) {
 	m_interact = false;
 	m_swipeCooldown = 0.5f;
 	m_dizzy = false;
+	m_getACheese = false;
+	m_cheese = 0;
+	m_alive = false;
 }
 
 PlayerComponent::~PlayerComponent() {
@@ -33,4 +36,15 @@ void PlayerComponent::setSwipeCooldown(float time)
 void PlayerComponent::gainCheese(int num)
 {
 	m_cheese += num;
+	m_getACheese = true;
+}
+
+void PlayerComponent::setGetCheeseOff()
+{
+	m_getACheese = false;
+}
+
+bool PlayerComponent::getACheese()
+{
+	return m_getACheese;
 }

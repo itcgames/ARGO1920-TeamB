@@ -92,7 +92,7 @@ class FontObserver : public Observer {
 public:
 	enum FontType
 	{
-		TIMER,COUNTER 
+		TIMER,COUNTER,PLAYERTAG
 	};
 
 	FontObserver(SDL_Renderer* renderer){
@@ -114,6 +114,11 @@ public:
 		if (counter == NULL) {
 			cout << "counter.ttf failed to load! " << TTF_GetError() << endl;
 		}
+
+		playerTag = TTF_OpenFont("Assets/ttf/playerTag.ttf", 28);
+		if (counter == NULL) {
+			cout << "playerTag.ttf failed to load! " << TTF_GetError() << endl;
+		}
 	}
 
 	void drawText(int x, int y,int width,int height, const char* text,SDL_Color color, FontType type) {
@@ -125,17 +130,25 @@ public:
 		case FontObserver::COUNTER:
 			surface = TTF_RenderText_Solid(counter, text, color);
 			break;
+		case FontObserver::PLAYERTAG:
+			surface = TTF_RenderText_Solid(playerTag, text, color);
+			break;
 		default:
 			break;
 		}
 		SDL_Texture* message = SDL_CreateTextureFromSurface(m_renderer, surface);
 		SDL_Rect message_rect = { x, y, width, height };
 		SDL_RenderCopy(m_renderer, message, NULL, &message_rect);
+
+		// free memory
+		SDL_FreeSurface(surface);
+		SDL_DestroyTexture(message);
 	}
 private:
 
 	TTF_Font* timer = NULL;
 	TTF_Font* counter = NULL;
+	TTF_Font* playerTag = NULL;
 	SDL_Renderer* m_renderer = NULL;
 	SDL_Surface* surface = NULL;
 };

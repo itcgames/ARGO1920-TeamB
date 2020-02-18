@@ -156,7 +156,7 @@ Game::Game()
 	//game manager and ui detail
 	m_gameManager.addComponent(new GameComponent(), Types::Game);
 	m_gameManager.addComponent(new PositionComponent((float)SCR_W/2, (float)SCR_H/2), Types::Position);
-
+	m_gameManager.addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
 	// Systems
 	//HEALTH All entities
 	m_healthSystem.addEntity(m_player);
