@@ -15,10 +15,13 @@ Game::Game()
 
 	// Create a Window
 	p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCR_W, SCR_H, SDL_WINDOW_SHOWN);
+	// Dion Debug window
+	// p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 550, 300, SDL_WINDOW_SHOWN);
+
 	if (NULL == p_window)
 	{
 		std::cout << "Error: Could not create window" << std::endl;
-	}
+	}	
 
 	// Create a Renderer
 	p_renderer = SDL_CreateRenderer(p_window, -1, 0);
@@ -56,7 +59,7 @@ Game::Game()
 	m_player.addComponent(new CollisionComponent(m_player, 50.0f, RAT_H, RAT_W), Types::Collider);
 	m_player.addComponent(new ControlComponent(m_player), Types::Controller);
 	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
-	//m_player.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheet.png", 60, 30, 5, p_renderer), Types::AnimatedSprite);
+	m_player.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheet.png", 60, 30, 5, p_renderer), Types::AnimatedSprite);
 
 	// Alien
 	m_alien.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added
@@ -96,11 +99,11 @@ Game::Game()
 	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 30, 30, p_renderer), Types::Render);
 	
 	//door button
-	m_doorButton.addComponent(new ButtonComponent(false, 1, 2), Types::Button);
+	/*m_doorButton.addComponent(new ButtonComponent(false, 1, 2), Types::Button);
 	m_doorButton.addComponent(new PositionComponent(100, 650), Types::Position);
 	m_doorButton.addComponent(new CollisionComponent(m_doorButton, 30, 30), Types::Collider);
 	m_doorButton.addComponent(new RenderComponent("Assets\\DoorButton.png", 30, 30, p_renderer), Types::Render);
-
+*/
 	//Trap 1
 	m_spike.addComponent(new TrapComponent(false, 1), Types::Traps);
 	m_spike.addComponent(new PositionComponent(600,600), Types::Position);
@@ -121,11 +124,11 @@ Game::Game()
 
 
 	//door 1
-	m_door1.addComponent(new DoorComponent(1),Types::Door);
+	/*m_door1.addComponent(new DoorComponent(1),Types::Door);
 	m_door1.addComponent(new PositionComponent(800, 300), Types::Position);
 	m_door1.addComponent(new CollisionComponent(m_door1, 200, 20), Types::Collider);
 	m_door1.addComponent(new RenderComponent("Assets\\Door.png", 200, 20, p_renderer), Types::Render);
-
+*/
 	// cheeses
 	m_goalCheeses.reserve(15);
 	for (int i = 0; i < 15; ++i)
@@ -178,13 +181,13 @@ Game::Game()
 
 	m_collisionSystem.addEntity(m_button);
 	m_collisionSystem.addEntity(m_button2);
-	m_collisionSystem.addEntity(m_doorButton);
+	//m_collisionSystem.addEntity(m_doorButton);
 
 	m_collisionSystem.addEntity(m_spike);
 	m_collisionSystem.addEntity(m_spike2);
 	m_collisionSystem.addEntity(m_spike3);
 	
-	m_collisionSystem.addEntity(m_door1);
+	//m_collisionSystem.addEntity(m_door1);
 
 	m_collisionSystem.addEntity(m_bomb);
 	//DRAW Draw all of entities
@@ -197,7 +200,7 @@ Game::Game()
 	/// <summary>
 	/// STATE MACHINE
 	/// </summary>
-	//m_stateMachine.addEntity(m_player);
+	m_stateMachine.addEntity(m_player);
 
 
 	const auto MAP_PATH = "Assets/map/test.tmx";
@@ -210,8 +213,8 @@ Game::Game()
 
 	m_renderSystem.addEntity(m_button);
 	m_renderSystem.addEntity(m_button2);
-	m_renderSystem.addEntity(m_doorButton);
-	m_renderSystem.addEntity(m_door1);
+	//m_renderSystem.addEntity(m_doorButton);
+	//m_renderSystem.addEntity(m_door1);
 	m_renderSystem.addEntity(m_spike);
 	m_renderSystem.addEntity(m_spike2);
 	m_renderSystem.addEntity(m_spike3);
@@ -229,12 +232,12 @@ Game::Game()
 	//Connect button entity and other entity that require switch	 
 	m_buttonSystem.addEntity(m_button);
 	m_buttonSystem.addEntity(m_button2);
-	m_buttonSystem.addEntity(m_doorButton);
+	//m_buttonSystem.addEntity(m_doorButton);
 
 	m_buttonSystem.addEntity(m_spike);
 	m_buttonSystem.addEntity(m_spike2);
 	m_buttonSystem.addEntity(m_spike3);
-	m_buttonSystem.addEntity(m_door1);
+	//m_buttonSystem.addEntity(m_door1);
 
 	// bomb system
 	m_bombSystem.addEntity(m_bomb);
@@ -287,9 +290,6 @@ void Game::run()
 }
 
 
-
-
-
 /// <summary>
 /// processEvents()
 /// Method used to poll events in SDL such as keyboard events or window close events
@@ -325,12 +325,8 @@ void Game::update(float dt)
 	m_healthSystem.update();
 	m_aiSystem.update();
 	m_buttonSystem.update();
-
-	m_controlSystem.handleInput(dt);
-	//m_controlSystem.update();
-
+	m_controlSystem.handleInput(dt, m_stateMachine);
 	m_collisionSystem.updateComponent(*tiled_map_level,m_observer);
-
 	m_stateMachine.update();
 	m_bombSystem.updateComponent(dt,m_observer);
 	m_gameSystem.update(dt);

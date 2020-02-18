@@ -7,6 +7,6 @@ public:
 	StunnedState();
 	~StunnedState();
 
-	void walking(AnimatedSpriteComponent* t_a);
-	void idle(AnimatedSpriteComponent* t_a);
+	void walking(AnimatedSpriteComponent* t_a)override;
+	void idle(AnimatedSpriteComponent* t_a)override;
 };

@@ -6,7 +6,6 @@
     <ClInclude Include="INCLUDE\Game.h" />
     <ClInclude Include="INCLUDE\Level.h" />
     <ClInclude Include="INCLUDE\Utils\Assets.h" />
-    <ClInclude Include="INCLUDE\Utils\ComponentsEnum.h" />
     <ClInclude Include="INCLUDE\Utils\cute_c2.h" />
     <ClInclude Include="INCLUDE\Utils\Globals.h" />
     <ClInclude Include="INCLUDE\Utils\Xbox360Controller.h" />
@@ -43,6 +42,7 @@
     <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
     <ClInclude Include="INCLUDE\Components\GameComponent.h" />
     <ClInclude Include="INCLUDE\GameSystem.h" />
+    <ClInclude Include="INCLUDE\Utils\Enums.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />
@@ -78,5 +78,8 @@
     <ClCompile Include="SRC\Systems\CollisionSystem.cpp" />
     <ClCompile Include="SRC\Components\GameComponent.cpp" />
     <ClCompile Include="SRC\GameSystem.cpp" />
+    <ClCompile Include="SRC\CollisionSystem.cpp" />
+    <ClCompile Include="SRC\Utils\Command.cpp" />
+    <ClCompile Include="Src\States\IdleState.cpp" />
   </ItemGroup>
 </Project>

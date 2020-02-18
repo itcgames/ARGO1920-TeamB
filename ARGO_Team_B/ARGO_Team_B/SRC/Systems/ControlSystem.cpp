@@ -3,10 +3,12 @@
 ControlSystem::ControlSystem() {
 		Xbox360Controller * controller= new Xbox360Controller(0);
 		m_controllers.push_back(controller);
-	
 }
 
-ControlSystem::~ControlSystem() {}
+ControlSystem::~ControlSystem() 
+{
+}
+
 void ControlSystem::updateComponent(Component* c)
 {
 	for (Entity& e : entities)
@@ -14,22 +16,20 @@ void ControlSystem::updateComponent(Component* c)
 		ControlComponent* cont = dynamic_cast<ControlComponent*>(e.getComponent(Types::Controller));
 		if (cont != NULL)
 		{
-			cont->handleInput();
+			// cont->handleInput();
 		}
 	}
 }
 
-void ControlSystem::handleInput(float dt) {
+void ControlSystem::handleInput(float dt, StateMachineSystem& t_stateSystem) {
 	for (Entity& e : entities)
 	{
 		ControlComponent* cont = dynamic_cast<ControlComponent*>(e.getComponent(Types::Controller));
 
 		if (cont != NULL)
 		{
-			cont->handleInput();
+			cont->handleInput(t_stateSystem);
 		}
-
-		 //cont->update(dt);
 		
 		PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(e.getComponent(Types::Player));
 
@@ -67,38 +67,7 @@ void ControlSystem::handleInput(SDL_Keycode key)
 					default:
 						break;
 				}
-
-				//for (int i = 0; i < NOOFPLAYERS; i++)
-				//	{
-				//		if (e.getId() == m_controllers.at(i)->getID())
-				//		{
-				//			PositionComponent* posComp = dynamic_cast<PositionComponent*>(c);
-				//			if (posComp != nullptr)
-				//			{
-
-				//			m_controllers.at(i)->checkButton();
-
-				//			if (m_controllers.at(i)->m_currentState.DpadUp) {
-				//				posComp->moveUp();
-				//			}
-
-				//			if (m_controllers.at(i)->m_currentState.DpadLeft) {
-				//				posComp->moveLeft();
-				//			}
-
-				//			if (m_controllers.at(i)->m_currentState.DpadRight) {
-				//				posComp->moveRight();
-				//			}
-
-				//			if (m_controllers.at(i)->m_currentState.DpadDown) {
-				//				posComp->moveDown();
-				//			}// !if
-				//			}
-				//		} // !if
-				//	} // !if
-				//}// !if
-
-			}// !for
-		}// !if
-	}// !for
+			}
+		}
+	}
 } // !void

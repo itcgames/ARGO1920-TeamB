@@ -92,7 +92,7 @@ class FontObserver : public Observer {
 public:
 	enum FontType
 	{
-		TIMER,COUNTER,PLAYERTAG
+		TIMER1,TIMER2,COUNTER,PLAYERTAG
 	};
 
 	FontObserver(SDL_Renderer* renderer){
@@ -105,10 +105,16 @@ public:
 	}
 
 	void loadFont() {
-		timer = TTF_OpenFont("Assets/ttf/timer2.ttf", 28);
-		if (timer == NULL) {
+		timer1 = TTF_OpenFont("Assets/ttf/timer1.ttf", 28);
+		if (timer1 == NULL) {
 			cout << "timer.ttf failed to load! " << TTF_GetError() << endl;
 		}
+
+		timer2 = TTF_OpenFont("Assets/ttf/timer2.ttf", 28);
+		if (timer2 == NULL) {
+			cout << "timer.ttf failed to load! " << TTF_GetError() << endl;
+		}
+
 
 		counter = TTF_OpenFont("Assets/ttf/counter.ttf", 28);
 		if (counter == NULL) {
@@ -124,8 +130,11 @@ public:
 	void drawText(int x, int y,int width,int height, const char* text,SDL_Color color, FontType type) {
 		switch (type)
 		{
-		case FontObserver::TIMER:
-			surface = TTF_RenderText_Solid(timer, text, color);
+		case FontObserver::TIMER1:
+			surface = TTF_RenderText_Solid(timer1, text, color);
+			break;
+		case FontObserver::TIMER2:
+			surface = TTF_RenderText_Solid(timer2, text, color);
 			break;
 		case FontObserver::COUNTER:
 			surface = TTF_RenderText_Solid(counter, text, color);
@@ -146,7 +155,8 @@ public:
 	}
 private:
 
-	TTF_Font* timer = NULL;
+	TTF_Font* timer1 = NULL;
+	TTF_Font* timer2 = NULL;
 	TTF_Font* counter = NULL;
 	TTF_Font* playerTag = NULL;
 	SDL_Renderer* m_renderer = NULL;

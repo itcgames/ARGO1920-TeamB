@@ -91,6 +91,17 @@ void GameSystem::update(float dt) {
 	else {
 		startCountdown -= dt;
 		m_game->setStartCountdown(startCountdown);
+
+		for (PlayerComponent* playerComp : m_players) {
+			playerComp->setMoveable(false);
+		}
+
+		if (startCountdown <= 0) {
+			for (PlayerComponent* playerComp : m_players) {
+				playerComp->setMoveable(true);
+			}
+		}
+
 	}
 }
 
@@ -127,7 +138,7 @@ void GameSystem::draw(FontObserver* text) {
 		if (m_game->getGameTimer() <= 30.0f) {
 			color = { 225, 0, 0 , 255 };
 		}
-		text->drawText(860, 510, 100, 100, c, color, FontObserver::TIMER);
+		text->drawText(860, 510, 100, 100, c, color, FontObserver::TIMER2);
 
 		for (tempCheeseData* textData : m_cheeseTextData) {
 			string cheeseCounter =  to_string(textData->m_count);
@@ -148,7 +159,7 @@ void GameSystem::draw(FontObserver* text) {
 		float countdown = m_game->getstartCountdown() + 1;
 		string timerText = to_string((int)countdown);
 		const char* startTimer = timerText.data();
-		text->drawText(860, 485, 100, 150, startTimer, color, FontObserver::TIMER);
+		text->drawText(860, 485, 100, 150, startTimer, color, FontObserver::TIMER1);
 
 		// show rat with player number at start
 		for (Entity& player : m_playerEntities) {

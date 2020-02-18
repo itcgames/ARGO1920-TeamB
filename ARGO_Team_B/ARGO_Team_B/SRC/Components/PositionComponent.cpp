@@ -64,42 +64,29 @@ void PositionComponent::backToPreviousePos() {
 
 void PositionComponent::moveUp()
 {
-	if (m_velocityY > -MAX_VELO) {
-		m_velocityY -= INC_VELO;
-	}
-
 	m_lastY = m_currentY;
-	m_acceleration = rand() % 4;
+	m_acceleration = rand() % MAX_VELO;
 	m_currentY -= m_acceleration;
 }
 
 void PositionComponent::moveDown()
 {
-	m_velocityY += INC_VELO;
-	if (m_velocityY < MAX_VELO) {
-	}
 	m_lastY = m_currentY;
-	m_acceleration = rand() % 4;
+	m_acceleration = rand() % MAX_VELO;
 	m_currentY += m_acceleration;
 }
 
 void PositionComponent::moveLeft()
 {
-	if (m_velocityX > -MAX_VELO) {
-		m_velocityX -= INC_VELO;
-	}
 	m_lastX = m_currentX;
-	m_acceleration = rand() % 4;
+	m_acceleration = rand() % MAX_VELO;
 	m_currentX -= m_acceleration;
 }
 
 void PositionComponent::moveRight()
 {
-	if (m_velocityX < MAX_VELO) {
-		m_velocityX += INC_VELO;
-	}
 	m_lastX = m_currentX;
-	m_acceleration = rand() % 4;
+	m_acceleration = rand() % MAX_VELO;
 	m_currentX += m_acceleration;
 }
 

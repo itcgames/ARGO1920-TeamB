@@ -9,7 +9,7 @@ public:
 	AttackState();
 	~AttackState();
 
-	void stunned(AnimatedSpriteComponent* t_a);
+	void stunned(AnimatedSpriteComponent* t_a) override;
 
-	void idle(AnimatedSpriteComponent* t_a);
+	void idle(AnimatedSpriteComponent* t_a) override;
 };
