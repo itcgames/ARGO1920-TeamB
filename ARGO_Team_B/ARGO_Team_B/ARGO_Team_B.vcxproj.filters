@@ -32,15 +32,13 @@
     <ClCompile Include="SRC\Systems\System.cpp" />
     <ClCompile Include="SRC\Utils\Assets.cpp" />
     <ClCompile Include="SRC\Utils\Xbox360Controller.cpp" />
-    <ClCompile Include="INCLUDE\MenuScene.cpp" />
-    <ClCompile Include="INCLUDE\GameScene.cpp" />
-    <ClCompile Include="INCLUDE\CreditsScene.cpp" />
-    <ClCompile Include="INCLUDE\LTexture.cpp" />
-    <ClCompile Include="INCLUDE\ResourceManager.cpp" />
+    <ClCompile Include="SRC\Menu\CreditsScene.cpp" />
+    <ClCompile Include="SRC\Menu\GameScene.cpp" />
+    <ClCompile Include="SRC\Menu\MenuScene.cpp" />
+    <ClCompile Include="SRC\Utils\ResourceManager.cpp" />
+    <ClCompile Include="SRC\Utils\LTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="INCLUDE\Observer.h" />
-    <ClInclude Include="INCLUDE\Subject.h" />
     <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Command.h" />
     <ClInclude Include="INCLUDE\Components\AnimatedSpriteComponent.h" />
@@ -82,7 +80,9 @@
     <ClInclude Include="INCLUDE\GameScene.h" />
     <ClInclude Include="INCLUDE\MenuScene.h" />
     <ClInclude Include="INCLUDE\CreditsScene.h" />
-    <ClInclude Include="INCLUDE\LTexture.h" />
-    <ClInclude Include="INCLUDE\ResourceManager.h" />
+    <ClInclude Include="INCLUDE\Utils\Subject.h" />
+    <ClInclude Include="INCLUDE\Utils\Observer.h" />
+    <ClInclude Include="INCLUDE\Utils\LTexture.h" />
+    <ClInclude Include="INCLUDE\Utils\ResourceManager.h" />
   </ItemGroup>
 </Project>
