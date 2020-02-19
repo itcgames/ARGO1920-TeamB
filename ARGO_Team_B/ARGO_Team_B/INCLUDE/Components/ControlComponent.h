@@ -28,7 +28,7 @@ public:
 	void handleInput();
 
 	Xbox360Controller* m_controller;
-	void handleInput(StateMachineSystem& t_stateSystem);
+	void handleInput(StateMachineSystem& t_stateSystem,SDL_Renderer * t_renderer);
 
 private:
 	void moveUp();

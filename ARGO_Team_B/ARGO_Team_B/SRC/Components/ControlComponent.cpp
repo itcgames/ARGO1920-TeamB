@@ -11,7 +11,7 @@ ControlComponent::~ControlComponent()
 {
 }
 
-void ControlComponent::handleInput(StateMachineSystem& t_stateSystem)
+void ControlComponent::handleInput(StateMachineSystem& t_stateSystem, SDL_Renderer* t_renderer)
 {
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
 	PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
@@ -45,8 +45,9 @@ void ControlComponent::handleInput(StateMachineSystem& t_stateSystem)
 			posComp->setangle((angle * (180 / 3.14)));
 
 			t_stateSystem.setCurrent(States::Walking);
+
 		}
-		else if (m_controller->m_currentState.DpadLeft || m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
+		 if (m_controller->m_currentState.DpadLeft || m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
 			p_walkLeft = new WalkLeftCommand();
 			p_walkLeft->execute(m_entity);
 
@@ -55,10 +56,9 @@ void ControlComponent::handleInput(StateMachineSystem& t_stateSystem)
 			float length = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
 			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
 			posComp->setangle((angle * (180 / 3.14)));
-
 			t_stateSystem.setCurrent(States::Walking);
 		}
-		else if (m_controller->m_currentState.DpadRight || m_controller->m_currentState.LeftThumbStick.x > m_controller->dpadThreshold) {
+		 if (m_controller->m_currentState.DpadRight || m_controller->m_currentState.LeftThumbStick.x > m_controller->dpadThreshold) {
 			p_walkRight = new WalkRightCommand();
 			p_walkRight->execute(m_entity);
 			m_commandSquence->add(p_walkRight);
@@ -66,10 +66,9 @@ void ControlComponent::handleInput(StateMachineSystem& t_stateSystem)
 			float length = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
 			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
 			posComp->setangle((angle * (180 / 3.14)));
-
 			t_stateSystem.setCurrent(States::Walking);
 		}
-		else if (m_controller->m_currentState.DpadDown || m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
+		 if (m_controller->m_currentState.DpadDown || m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
 			p_walkDown = new WalkDownCommand();
 			p_walkDown->execute(m_entity);
 
@@ -78,7 +77,7 @@ void ControlComponent::handleInput(StateMachineSystem& t_stateSystem)
 			float length = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
 			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
 			posComp->setangle((angle * (180 / 3.14)));
-
+	
 			t_stateSystem.setCurrent(States::Walking);
 		}
 	}

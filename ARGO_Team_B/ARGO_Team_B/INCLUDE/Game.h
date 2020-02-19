@@ -22,6 +22,7 @@
 
 #include <time.h>
 #include "Observer.h"
+
 class Game
 {
 public:
@@ -76,5 +77,6 @@ private:
 	FontObserver* m_font;
 	BombSystem m_bombSystem;
 	GameSystem m_gameSystem;
+	std::vector<ParticleSystem*> m_particles;
 };
 #endif // !GAME

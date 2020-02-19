@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClInclude Include="INCLUDE\Components\GameComponent.h" />
     <ClInclude Include="INCLUDE\GameSystem.h" />
+    <ClInclude Include="INCLUDE\Particle.h" />
+    <ClInclude Include="INCLUDE\ParticleSystem.h" />
     <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Command.h" />
     <ClInclude Include="INCLUDE\Components\AnimatedSpriteComponent.h" />
@@ -59,10 +61,14 @@
     <ClInclude Include="INCLUDE\Utils\Enums.h" />
     <ClInclude Include="INCLUDE\Utils\cute_c2.h" />
     <ClInclude Include="INCLUDE\Utils\Globals.h" />
+    <ClInclude Include="INCLUDE\Utils\LTexture.h" />
     <ClInclude Include="INCLUDE\Utils\Xbox360Controller.h" />
     <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="INCLUDE\Particle.cpp" />
+    <ClCompile Include="INCLUDE\ParticleSystem.cpp" />
+    <ClCompile Include="SRC\Utils\LTexture.cpp" />
     <ClCompile Include="SRC\Components\GameComponent.cpp" />
     <ClCompile Include="SRC\Components\PositionComponent.cpp" />
     <ClCompile Include="SRC\GameSystem.cpp" />

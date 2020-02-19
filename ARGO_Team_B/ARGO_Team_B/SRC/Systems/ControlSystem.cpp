@@ -21,14 +21,14 @@ void ControlSystem::updateComponent(Component* c)
 	}
 }
 
-void ControlSystem::handleInput(float dt, StateMachineSystem& t_stateSystem) {
+void ControlSystem::handleInput(float dt, StateMachineSystem& t_stateSystem,SDL_Renderer * t_renderer) {
 	for (Entity& e : entities)
 	{
 		ControlComponent* cont = dynamic_cast<ControlComponent*>(e.getComponent(Types::Controller));
 
 		if (cont != NULL)
 		{
-			cont->handleInput(t_stateSystem);
+			cont->handleInput(t_stateSystem,t_renderer);
 		}
 		
 		PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(e.getComponent(Types::Player));

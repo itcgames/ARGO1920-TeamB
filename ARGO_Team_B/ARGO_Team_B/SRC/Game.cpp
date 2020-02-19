@@ -325,11 +325,21 @@ void Game::update(float dt)
 	m_healthSystem.update();
 	m_aiSystem.update();
 	m_buttonSystem.update();
-	m_controlSystem.handleInput(dt, m_stateMachine);
-	m_collisionSystem.updateComponent(*tiled_map_level,m_observer);
+	m_controlSystem.handleInput(dt, m_stateMachine,p_renderer);
+	m_collisionSystem.updateComponent(*tiled_map_level,m_observer,m_particles,p_renderer);
 	m_stateMachine.update();
 	m_bombSystem.updateComponent(dt,m_observer);
 	m_gameSystem.update(dt);
+	for (int i = 0; i < m_particles.size(); i++) {
+		// Loops through particle systems
+		m_particles.at(i)->update();
+
+		//Checks if the particle system is empty
+		if (m_particles.at(i)->m_particles.size() <= 0) {
+			// Deletes the particle system
+			m_particles.erase(m_particles.begin() + i);
+		}
+	}
 }
 
 /// <summary>
@@ -343,6 +353,9 @@ void Game::render()
 	m_renderSystem.draw();
 	m_gameSystem.draw(m_font);
 	// m_stateMachine.update();
+	for (ParticleSystem* ps : m_particles) {
+		ps->draw(p_renderer); // Draw particle system
+	}
 	SDL_RenderPresent(p_renderer);
 }
 
