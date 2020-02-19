@@ -12,6 +12,7 @@ struct SpriteSheet
 	SDL_Texture* m_texture = NULL;
 	SDL_Point frameSize{ 0,0 };
 	int t_noOfFrames;
+	float frameRate;
 
 };
 
@@ -35,9 +36,9 @@ private:
 	int m_clock;
 
 public:
-	AnimatedSpriteComponent();
-	AnimatedSpriteComponent(SDL_Texture& t_texture);
-	AnimatedSpriteComponent(const char* t_texture, int t_height, int t_width, int t_noOfFrames, SDL_Renderer* t_renderer);
+	AnimatedSpriteComponent(SDL_Renderer* t_renderer);
+	AnimatedSpriteComponent(SDL_Texture& t_texture, SDL_Renderer* t_renderer);
+	AnimatedSpriteComponent(const char* t_texture, int t_height, int t_width, int t_noOfFrames, float t_time, SDL_Renderer* t_renderer);
 	void update();
 
 	void updateSpriteState(SpriteSheet& t_spriteSheet);

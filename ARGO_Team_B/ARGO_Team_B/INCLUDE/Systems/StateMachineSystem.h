@@ -19,15 +19,24 @@ class StateMachineSystem : public System
 private:
 	State* m_current;
 
+	
+
 public:
 	StateMachineSystem();
 	~StateMachineSystem();
 
+	void setupSprites();
+	void checkStates(State* t_state);
 	void updateComponent(Component* c) override;
+
 
 	void setCurrent(States t_state);
 
-	SDL_Surface* surface;
+	void setRenderer(SDL_Renderer* t_rend);
+
+	SDL_Renderer* m_renderer;
+	SDL_Surface* m_surface;
+	std::vector<SpriteSheet*> m_spriteSheets;
 
 
 };

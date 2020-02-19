@@ -1,4 +1,9 @@
 #include "Command.h"
+#include "IdleState.h"
+#include "WalkingState.h"
+#include "InteractState.h"
+#include "StunnedState.h"
+
 
 /// <summary>
 /// -------------------------------- Macro Commands ---------------------------------------------
@@ -31,7 +36,6 @@ void MacroCommand::execute(Entity & t_e)
 		c->execute(t_e);
 
 	}
-
 }
 
 void MacroCommand::clear()
@@ -47,13 +51,18 @@ void WalkUpCommand::execute(Entity& t_gameObject)
 {
 	{
 		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
-
+		AnimatedSpriteComponent* anim = dynamic_cast<AnimatedSpriteComponent*>(t_gameObject.getComponent(Types::AnimatedSprite));
+		
 		if (t_gameObject.getId() == 0 || t_gameObject.getId() == 1) {
 			//if (posComp->getPositionY() > 30) {
 				posComp->moveUp();
 				CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
 				colComp->updateCollider(t_gameObject);
 			//}
+				if (anim->getPrevious()->m_type != States::Walking)
+				{
+					anim->setCurrent(new WalkingState);
+				}
 		}
 		else if (t_gameObject.getId() == 2 || t_gameObject.getId() == 3) {
 			if (posComp->getPositionY() > SCR_H + 50) {
@@ -70,16 +79,20 @@ void WalkUpCommand::execute(Entity& t_gameObject)
 /// </summary>
 void WalkDownCommand::execute(Entity& t_gameObject)
 {
-	RenderComponent* renderComp = dynamic_cast<RenderComponent*>(t_gameObject.getComponent(Types::Render));
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
+	AnimatedSpriteComponent* anim = dynamic_cast<AnimatedSpriteComponent*>(t_gameObject.getComponent(Types::AnimatedSprite));
 
 	if (t_gameObject.getId() == 2 || t_gameObject.getId() == 3) {
+		//anim->setPrevious(anim->getCurrent());
 		//if (posComp->getPositionY() < SCR_H - 75) {
 		posComp->moveDown();
 		CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
 		colComp->updateCollider(t_gameObject);
 		//}
-
+		if (anim->getPrevious()->m_type != States::Walking)
+		{
+			anim->setCurrent(new WalkingState);
+		}
 	}
 	else if (t_gameObject.getId() == 0 || t_gameObject.getId() == 1) {
 		//if (posComp->getPositionY() < SCR_H - 45) {
@@ -95,12 +108,16 @@ void WalkDownCommand::execute(Entity& t_gameObject)
 /// </summary>
 void WalkLeftCommand::execute(Entity& t_gameObject)
 {
-	RenderComponent* renderComp = dynamic_cast<RenderComponent*>(t_gameObject.getComponent(Types::Render));
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
+	AnimatedSpriteComponent* anim = dynamic_cast<AnimatedSpriteComponent*>(t_gameObject.getComponent(Types::AnimatedSprite));
 
 	if (posComp->getPositionX() > 30) {
+		//anim->setPrevious(anim->getCurrent());
 		posComp->moveLeft();
-
+		if (anim->getPrevious()->m_type != States::Walking)
+		{
+			anim->setCurrent(new WalkingState);
+		}
 	}
 }
 
@@ -109,15 +126,18 @@ void WalkLeftCommand::execute(Entity& t_gameObject)
 /// </summary>
 void WalkRightCommand::execute(Entity& t_gameObject)
 {
-	RenderComponent* renderComp = dynamic_cast<RenderComponent*>(t_gameObject.getComponent(Types::Render));
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
-	
+	AnimatedSpriteComponent* anim = dynamic_cast<AnimatedSpriteComponent*>(t_gameObject.getComponent(Types::AnimatedSprite));
 
 	if (posComp->getPositionX() < SCR_W - 90) {
+		//anim->setPrevious(anim->getCurrent());
 		posComp->moveRight();
 
+		if (anim->getPrevious()->m_type != States::Walking)
+		{
+			anim->setCurrent(new WalkingState);
+		}
 	}
-
 }
 
 /// <summary>
@@ -125,13 +145,16 @@ void WalkRightCommand::execute(Entity& t_gameObject)
 /// </summary>
 void InteractCommand::execute(Entity& t_gameObject)
 {
+	AnimatedSpriteComponent* anim = dynamic_cast<AnimatedSpriteComponent*>(t_gameObject.getComponent(Types::AnimatedSprite));
 	PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(t_gameObject.getComponent(Types::Player));
-
-
-
+	//anim->setPrevious(anim->getCurrent());
 
 	playerComp->setSwipeCooldown(0.5f);
 	playerComp->setInteract(true);
 
+	if (anim->getPrevious()->m_type != States::Interact)
+	{
+		anim->setCurrent(new InteractState);
+	}
 	playerComp->setInteract(true);
 }

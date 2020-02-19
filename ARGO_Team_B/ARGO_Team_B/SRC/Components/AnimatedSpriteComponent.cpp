@@ -8,23 +8,30 @@
 
 #include <typeinfo>
 
-AnimatedSpriteComponent::AnimatedSpriteComponent() :
-	m_currentState(new IdleState)
+AnimatedSpriteComponent::AnimatedSpriteComponent(SDL_Renderer* t_renderer) :
+	m_currentState(new IdleState),
+	m_renderer(t_renderer)
 {	
 	m_currentFrame = 0;
+	m_previousState = m_currentState;
 }
 
-AnimatedSpriteComponent::AnimatedSpriteComponent(SDL_Texture& t_texture) :
+AnimatedSpriteComponent::AnimatedSpriteComponent(SDL_Texture& t_texture, SDL_Renderer* t_renderer) :
 	m_texture(&t_texture),
-	m_currentFrame(0)
+	m_currentFrame(0),
+	m_currentState(new IdleState)
+	, m_renderer(t_renderer)
 {
+	m_previousState = m_currentState;
 }
 
-AnimatedSpriteComponent::AnimatedSpriteComponent(const char* t_texture, int t_height, int t_width, int t_noOfFrames, SDL_Renderer* t_renderer) :
+AnimatedSpriteComponent::AnimatedSpriteComponent(const char* t_texture, int t_height, int t_width, int t_noOfFrames,float t_time, SDL_Renderer* t_renderer) :
 	m_currentFrame(0),
 	m_NoOfFrames(t_noOfFrames),
-	m_renderer(t_renderer)
+	m_renderer(t_renderer),
+	m_currentState(new IdleState)
 {
+	m_previousState = m_currentState;
 	m_imageHeight = t_height;
 	m_imageWidth = t_width;
 
@@ -42,21 +49,31 @@ AnimatedSpriteComponent::AnimatedSpriteComponent(const char* t_texture, int t_he
 		rect.y = 0;
 		m_frames.push_back(rect);
 	}
+
+	m_time = t_time;
 	
 }  
 
 
 void AnimatedSpriteComponent::render(int t_posX, int t_posY, float t_angle)
 {
-	SDL_Rect rendFrame = getFrame(m_currentFrame);
-	rendFrame.y = m_frames[m_currentFrame].y;
-	rendFrame.x = m_frames[m_currentFrame].x;
-	SDL_Rect destRect = { t_posX, t_posY, m_imageWidth, m_imageHeight};
-	SDL_RenderCopyEx(m_renderer, m_texture, &rendFrame, &destRect, t_angle, NULL, SDL_FLIP_NONE);
+	if (m_frames.size() != 0)
+	{
+		SDL_Rect rendFrame = getFrame(m_currentFrame);
+		rendFrame.y = m_frames[m_currentFrame].y;
+		rendFrame.x = m_frames[m_currentFrame].x;
+		SDL_Rect destRect = { t_posX, t_posY, m_imageWidth, m_imageHeight };
+		SDL_RenderCopyEx(m_renderer, m_texture, &rendFrame, &destRect, t_angle, NULL, SDL_FLIP_NONE);
+	}
 }
 
 void AnimatedSpriteComponent::update()
 {
+	if (m_previousState != m_currentState)
+	{
+		m_previousState = m_currentState;
+	}
+
 	m_clock++;
 	if (m_clock > m_time)
 	{
@@ -66,15 +83,18 @@ void AnimatedSpriteComponent::update()
 		}
 		else
 		{
-			m_currentFrame = 0;	
+			m_currentFrame = 0;
+			m_currentState = new IdleState();
 		}
 		m_clock = 0;
+		
 	}
 }
 
 void AnimatedSpriteComponent::updateSpriteState(SpriteSheet& t_spriteSheet)
 {
 	m_frames.clear();
+	m_currentFrame = 0;
 
 	m_imageHeight = t_spriteSheet.frameSize.x;
 	m_imageWidth = t_spriteSheet.frameSize.y;
@@ -85,6 +105,7 @@ void AnimatedSpriteComponent::updateSpriteState(SpriteSheet& t_spriteSheet)
 	rect.h = m_imageHeight;
 	rect.w = frameWidth;
 	m_texture = t_spriteSheet.m_texture;
+	m_time = t_spriteSheet.frameRate;
 
 	for (int i = 0; i < m_NoOfFrames; i++)
 	{
