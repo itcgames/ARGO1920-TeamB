@@ -224,12 +224,11 @@ void CollisionSystem::bombCollision(AudioObserver* t_observer)
 					if (bombComp->getState() == BombState::Explode) {
 						playerComp->setDizzyState(true);
 					}
-					else {
-						if (playerComp->getInteract()) {
-							bombComp->playerGetBomb(playerComp->getId());
-							t_observer->onNotify(AudioObserver::PICKUPBOMB);
-							playerComp->setInteract(false);
-						}
+					else if(bombComp->getState() != BombState::Activate){
+						bombComp->playerGetBomb(playerComp->getId());
+						t_observer->onNotify(AudioObserver::PICKUPBOMB);
+						playerComp->setInteract(false);
+						
 					}
 				}
 			}

@@ -1,9 +1,11 @@
 #pragma once
-#include "Observer.h"
+//#include "Observer.h"
 #include <map>
 #include <SDL.h>
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
+
+using namespace std;
 
 class Observer
 {

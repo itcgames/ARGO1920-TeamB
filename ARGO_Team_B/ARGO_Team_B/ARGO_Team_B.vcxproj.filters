@@ -78,7 +78,6 @@
     <ClCompile Include="SRC\Systems\CollisionSystem.cpp" />
     <ClCompile Include="SRC\Components\GameComponent.cpp" />
     <ClCompile Include="SRC\GameSystem.cpp" />
-    <ClCompile Include="SRC\CollisionSystem.cpp" />
     <ClCompile Include="SRC\Utils\Command.cpp" />
     <ClCompile Include="Src\States\IdleState.cpp" />
   </ItemGroup>

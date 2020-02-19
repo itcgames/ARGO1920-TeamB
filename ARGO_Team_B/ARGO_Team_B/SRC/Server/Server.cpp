@@ -53,8 +53,8 @@ void Server::DisconnectClient(std::shared_ptr<Connection> connection) //Disconne
 	std::cout << "Total connections: " << m_connections.size() << std::endl;
 }
 
-void Server::SendStringToAll(const std::string& data) {
+void Server::SendStringToAll(const std::string& data, PacketType type) {
 	for (auto connection : m_connections) {
-		SendString(connection, data);
+		SendString(connection, data, type);
 	}
 }

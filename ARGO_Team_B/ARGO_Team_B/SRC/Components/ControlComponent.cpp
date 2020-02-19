@@ -46,7 +46,20 @@ void ControlComponent::handleInput(StateMachineSystem& t_stateSystem)
 
 			t_stateSystem.setCurrent(States::Walking);
 		}
-		else if (m_controller->m_currentState.DpadLeft || m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
+		else if (m_controller->m_currentState.DpadDown || m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
+			p_walkDown = new WalkDownCommand();
+			p_walkDown->execute(m_entity);
+
+			m_commandSquence->add(p_walkDown);
+
+			float length = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
+			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
+			posComp->setangle((angle * (180 / 3.14)));
+
+			t_stateSystem.setCurrent(States::Walking);
+		}
+
+		if (m_controller->m_currentState.DpadLeft || m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
 			p_walkLeft = new WalkLeftCommand();
 			p_walkLeft->execute(m_entity);
 
@@ -69,18 +82,7 @@ void ControlComponent::handleInput(StateMachineSystem& t_stateSystem)
 
 			t_stateSystem.setCurrent(States::Walking);
 		}
-		else if (m_controller->m_currentState.DpadDown || m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
-			p_walkDown = new WalkDownCommand();
-			p_walkDown->execute(m_entity);
 
-			m_commandSquence->add(p_walkDown);
-
-			float length = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
-			double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
-			posComp->setangle((angle * (180 / 3.14)));
-
-			t_stateSystem.setCurrent(States::Walking);
-		}
 	}
 	else if (!playerComp->getMoveable()) {
 		posComp->backToPreviousePos();

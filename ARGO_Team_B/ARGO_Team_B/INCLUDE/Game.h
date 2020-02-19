@@ -58,7 +58,8 @@ private:
 	Entity m_door2;
 
 	Entity m_goalCheese;
-	Entity m_bomb;
+
+	std::vector<Entity> m_bomb;
 
 	Entity m_gameManager;
 

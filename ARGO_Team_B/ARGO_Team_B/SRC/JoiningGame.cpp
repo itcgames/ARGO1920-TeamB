@@ -2,7 +2,10 @@
 
 JoiningGame::JoiningGame() {
 	m_startCountdown = 5;
-	//MyClient = new Client("149.153.106.159", 1111); //Create client to connect to server on port 1111
+	m_playerId = 0;
+	m_gameConnented = false;
+	//
+	MyClient = new Client("149.153.106.159", 1111); //Create client to connect to server on port 1111
 }
 
 JoiningGame::~JoiningGame() {
@@ -19,11 +22,33 @@ void JoiningGame::update(float dt) {
 		MyClient = new Client("149.153.106.159", 1111);
 	}
 
-	if (!MyClient->Connect()) {
-		delete MyClient;
+	if (!m_gameConnented) {
+		if (!MyClient->Connect()) {
+			delete MyClient;
+		}
+		else {
+			m_playerId = 0;
+			m_gameConnented = true;
+		}
 	}
 	else {
-		
+		// game play here
+		if (m_startCountdown > 0) {
+
+			if (preStartCounter != MyClient->getStartCountdown()) {
+				preStartCounter = MyClient->getStartCountdown();
+				vector<int> temp = intConverter(preStartCounter);
+				if (temp.size() == 1) {
+					m_startCountdown = temp[0];
+				}
+
+			}
+
+			cout << "Timer: " << m_startCountdown << endl;
+		}
+		else {
+			// game play
+		}
 	}
 }
 

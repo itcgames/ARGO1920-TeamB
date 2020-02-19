@@ -7,6 +7,7 @@
 #include <vector> //for std::vector
 #include <shared_mutex> //for shared_mutex
 
+
 class Connection
 {
 public:
@@ -28,12 +29,13 @@ public: //Public functions
 	~Server();
 	bool ListenForNewConnection();
 	int getTotalConnections() { return m_connections.size(); }
-	void SendStringToAll(const std::string& data);
+	void SendStringToAll(const std::string& data, PacketType type);
 
 private: //Private functions
 	bool sendall(std::shared_ptr<Connection> connection, const char * data, const int totalBytes);
 	bool recvall(std::shared_ptr<Connection> connection, char * data, int totalBytes);
-	void SendString(std::shared_ptr<Connection> connection, const std::string & str);
+	void SendString(std::shared_ptr<Connection> connection, const std::string & str, PacketType type);
+	void SendString(std::shared_ptr<Connection> connection, const std::string& str);
 	bool Getint32_t(std::shared_ptr<Connection> connection, std::int32_t & int32_t);
 	bool GetPacketType(std::shared_ptr<Connection> connection, PacketType & packetType);
 	bool GetString(std::shared_ptr<Connection> connection, std::string & str);

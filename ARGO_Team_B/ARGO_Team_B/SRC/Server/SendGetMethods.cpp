@@ -45,7 +45,13 @@ bool Server::GetPacketType(std::shared_ptr<Connection> connection, PacketType & 
 	return true;//Return true if we were successful in retrieving the packet type
 }
 
-void Server::SendString(std::shared_ptr<Connection> connection, const std::string & str)
+void Server::SendString(std::shared_ptr<Connection> connection, const std::string & str, PacketType type)
+{
+	PS::DataMessage message(str);
+	connection->m_pm.Append(message.toPacket(type));
+}
+
+void Server::SendString(std::shared_ptr<Connection> connection, const std::string& str)
 {
 	PS::ChatMessage message(str);
 	connection->m_pm.Append(message.toPacket());

@@ -3,12 +3,15 @@
 
 #pragma once
 #include "Server/Server.h"
+#include "Server/PacketType.h"
 
 #include <algorithm>
 #include <string>
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include <mutex>
+#include <thread>
 
 using namespace std;
 
@@ -27,6 +30,8 @@ public :
 
 	void update(float dt);
 private:
+	void waitingConnection();
+
 	not_digit notADigit;
 	vector<int> intConverter(string message);
 	string preMessage;
@@ -35,8 +40,9 @@ private:
 
 	string m_timerMessage;
 
-	float m_startCountdown;
+	int m_startCountdown;
 
+	thread m_waitingPlayer;
 };
 
 #endif // !HOSTINGGAME 

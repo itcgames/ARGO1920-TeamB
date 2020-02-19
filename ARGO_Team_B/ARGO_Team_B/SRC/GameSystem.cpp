@@ -189,5 +189,4 @@ void GameSystem::draw(FontObserver* text) {
 	}
 	
 
-	
 }
