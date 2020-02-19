@@ -147,7 +147,7 @@ void InteractCommand::execute(Entity& t_gameObject)
 {
 	AnimatedSpriteComponent* anim = dynamic_cast<AnimatedSpriteComponent*>(t_gameObject.getComponent(Types::AnimatedSprite));
 	PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(t_gameObject.getComponent(Types::Player));
-	//anim->setPrevious(anim->getCurrent());
+	anim->setPrevious(anim->getCurrent());
 
 	playerComp->setSwipeCooldown(0.5f);
 	playerComp->setInteract(true);

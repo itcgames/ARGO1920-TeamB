@@ -26,7 +26,7 @@ public:
 	~StateMachineSystem();
 
 	void setupSprites();
-	void checkStates(State* t_state);
+	void checkStates(State* t_state, Entity* e);
 	void updateComponent(Component* c) override;
 
 
