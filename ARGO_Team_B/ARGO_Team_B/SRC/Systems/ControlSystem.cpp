@@ -21,14 +21,14 @@ void ControlSystem::updateComponent(Component* c)
 	}
 }
 
-void ControlSystem::handleInput(float dt, StateMachineSystem& t_stateSystem) {
+void ControlSystem::handleInput(float dt) {
 	for (Entity& e : entities)
 	{
 		ControlComponent* cont = dynamic_cast<ControlComponent*>(e.getComponent(Types::Control));
 
 		if (cont != NULL)
 		{
-			cont->handleInput(t_stateSystem);
+			cont->handleInput();
 		}
 		
 		PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(e.getComponent(Types::Player));
@@ -70,4 +70,17 @@ void ControlSystem::handleInput(SDL_Keycode key)
 			}
 		}
 	}
-} // !void
+}
+
+void ControlSystem::initStateSystem(StateMachineSystem* t_stateSystem)
+{
+	for (Entity& e : entities)
+	{
+		ControlComponent* control = dynamic_cast<ControlComponent*>(e.getComponent(Types::Control));
+		if (control != nullptr)
+		{
+			control->initStateSystem(t_stateSystem);
+		}
+	}
+}
+

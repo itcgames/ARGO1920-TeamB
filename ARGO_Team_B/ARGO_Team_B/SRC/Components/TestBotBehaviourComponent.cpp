@@ -17,11 +17,11 @@ void TestBotBehaviourComponent::update(StateMachineSystem& t_fsm)
 	ControlComponent *control = dynamic_cast<ControlComponent*>(m_entity.getComponent(Types::Control));
 	if (control != nullptr)
 	{
-		//control->controlDown(posComp, t_fsm);
-		//control->controlDown(posComp, t_fsm);
+		control->controlDown(posComp);
+		control->controlDown(posComp);
 
-		//control->controlUp(posComp, t_fsm);
-		//control->controlUp(posComp, t_fsm);
+		control->controlUp(posComp);
+		control->controlUp(posComp);
 
 	}
 }

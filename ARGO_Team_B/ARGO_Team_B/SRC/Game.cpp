@@ -162,7 +162,6 @@ Game::Game()
 	m_gameManager.addComponent(new GameComponent(), Types::Game);
 	m_gameManager.addComponent(new PositionComponent((float)SCR_W/2, (float)SCR_H/2), Types::Position);
 	m_gameManager.addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
-	
 	// Systems
 	//HEALTH All entities
 	m_healthSystem.addEntity(m_player);
@@ -199,11 +198,6 @@ Game::Game()
 	m_renderSystem.addEntity(m_dog);
 	m_renderSystem.addEntity(m_cat);
 	
-
-	/// <summary>
-	/// STATE MACHINE
-	/// </summary>
-	m_stateMachine.addEntity(m_player);
 
 	const auto MAP_PATH = "Assets/map/test.tmx";
 	tiled_map_level = new Level("Test");
@@ -257,10 +251,11 @@ Game::Game()
 
 	m_gameSystem.setupComponent();
 
-	m_aiSystem = new AISystem(&m_stateMachine);
-	m_aiSystem->addEntity(m_cat);
+	m_aiSystem.addEntity(m_cat);
 
-
+	m_stateMachine = new StateMachineSystem();
+	m_stateMachine->addEntity(m_player);
+	m_controlSystem.initStateSystem(m_stateMachine);
 }
 
 
@@ -330,11 +325,11 @@ void Game::processEvents()
 void Game::update(float dt)
 {
 	m_healthSystem.update();
-	m_aiSystem->update();
+	m_aiSystem.update();
 	m_buttonSystem.update();
-	m_controlSystem.handleInput(dt, m_stateMachine);
+	m_controlSystem.handleInput(dt);
 	m_collisionSystem.updateComponent(*tiled_map_level,m_observer);
-	m_stateMachine.update();
+	m_stateMachine->update();
 	m_bombSystem.updateComponent(dt,m_observer);
 	m_gameSystem.update(dt);
 }

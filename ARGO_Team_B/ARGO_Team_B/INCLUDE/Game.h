@@ -66,12 +66,12 @@ private:
 	// Systems
 	HealthSystem m_healthSystem;
 	ControlSystem m_controlSystem;
-	System* m_aiSystem;
+	AISystem m_aiSystem;
 	RenderSystem m_renderSystem;
 	Level* tiled_map_level;
 	ButtonSystem m_buttonSystem;
 	CollisionSystem m_collisionSystem;
-	StateMachineSystem m_stateMachine;
+	StateMachineSystem* m_stateMachine;
 	std::vector<Entity> m_goalCheeses;
 	AudioObserver * m_observer;
 	FontObserver* m_font;

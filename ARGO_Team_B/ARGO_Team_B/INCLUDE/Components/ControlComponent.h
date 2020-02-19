@@ -18,12 +18,13 @@ public:
 
 	ControlComponent(Entity & t_gameObject);
 	~ControlComponent();
-	void handleInput(StateMachineSystem& t_stateSystem);
-	void controlInteract(PlayerComponent* t_player, StateMachineSystem& t_stateSystem);
-	void controlUp(PositionComponent* t_pos, StateMachineSystem& t_stateSystem);
-	void controlDown(PositionComponent* t_pos, StateMachineSystem& t_stateSystem);
-	void controlLeft(PositionComponent* t_pos, StateMachineSystem& t_stateSystem);
-	void controlRight(PositionComponent* t_pos, StateMachineSystem& t_stateSystem);
+	void initStateSystem(StateMachineSystem* t_stateSystem);
+	void handleInput();
+	void controlInteract(PlayerComponent* t_player);
+	void controlUp(PositionComponent* t_pos);
+	void controlDown(PositionComponent* t_pos);
+	void controlLeft(PositionComponent* t_pos);
+	void controlRight(PositionComponent* t_pos);
 
 
 private:
@@ -32,6 +33,7 @@ private:
 	void moveRight();
 	void moveDown();
 
+	StateMachineSystem* m_stateSystem;
 	int m_compNum;
 	Entity& m_entity;
 	MacroCommand* m_commandSquence = new MacroCommand();
