@@ -1,8 +1,8 @@
 #ifndef GAME
 #define GAME
-#include <iostream>
+
 #include <SDL.h>
-#include <SDL_image.h>
+#include "Enums.h"
 
 #include "HealthSystem.h"
 #include "ControlSystem.h"
@@ -11,7 +11,6 @@
 #include "Level.h"
 #include "ButtonSystem.h"
 #include "CollisionSystem.h"
-#include "ComponentsEnum.h"
 #include "TrapComponent.h"
 #include "ButtonComponent.h"
 #include "PlayerComponent.h"
@@ -21,6 +20,7 @@
 
 #include <time.h>
 #include "Observer.h"
+#include "MenuScene.h"
 class Game
 {
 public:
@@ -42,7 +42,7 @@ private:
 	Entity m_alien;
 	Entity m_dog;
 	Entity m_cat;
-	
+
 	Entity m_button;
 	Entity m_button2;
 
@@ -69,7 +69,12 @@ private:
 	CollisionSystem m_collisionSystem;
 	StateMachineSystem m_stateMachine;
 	std::vector<Entity> m_goalCheeses;
-	AudioObserver * m_observer;
+	AudioObserver* m_observer;
 	BombSystem m_bombSystem;
+	GameStates m_currentState;
+	//GameScene* m_gameScene;
+	MenuScene* m_menuScene;
+	//CreditsScene* m_creditsScene;
+
 };
 #endif // !GAME

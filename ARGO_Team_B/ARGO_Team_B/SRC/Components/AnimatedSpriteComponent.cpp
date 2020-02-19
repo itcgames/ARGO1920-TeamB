@@ -68,19 +68,19 @@ void AnimatedSpriteComponent::update()
 		}
 		m_clock = 0;
 	}
-	if (m_current ==  new WalkingState) {
+	if (m_current ==  new WalkingState()) {
 		walking();
 	}
-	if (m_current == new IdleState) {
+	if (m_current == new IdleState()) {
 		idle();
 	}
-	if (m_current == new StunnedState) {
+	if (m_current == new StunnedState()) {
 		stunned();
 	}
-	if (m_current == new AttackState) {
+	if (m_current == new AttackState()) {
 		attack();
 	}
-	if (m_current == new InteractState) {
+	if (m_current == new InteractState()) {
 		interact();
 	}
 }

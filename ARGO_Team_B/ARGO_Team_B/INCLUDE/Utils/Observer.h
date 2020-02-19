@@ -20,8 +20,14 @@ class AudioObserver : public Observer
 		{
 			CLICK, PORTAL, PICKUPCHEESE, PICKUPBOMB,EXPLOSION,PLACEBOMB,OPENDOOR
 		};
-
-		AudioObserver() {};
+		AudioObserver() {
+			if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, NULL, 2048) < 0)
+			{
+				printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+			}
+			//Allocate 128 channels for a max for 128 audio chunks playing at one time
+			Mix_AllocateChannels(128);
+		};
 		//Load all resources
 		void load()
 		{
@@ -32,7 +38,8 @@ class AudioObserver : public Observer
 			placeBomb = Mix_LoadWAV("Assets/Sfx/pickupCheese.ogg");
 			explosion = Mix_LoadWAV("Assets/Sfx/explosion.wav"); 
 			m_bgm1 = Mix_LoadMUS("Assets/Sfx/music.mp3");
-			
+			m_bgm2 = Mix_LoadMUS("Assets/Sfx/musicMenu.mp3");
+			m_bgm3 = Mix_LoadMUS("Assets/Sfx/musicMenu.mp3");
 		}
 		//Function to be called when a message is received from the subject
 		//\param sfx: Enum of sound effects
@@ -62,17 +69,21 @@ class AudioObserver : public Observer
 				break;
 			}
 		}
-		void StartBGM(int bgmSong) {
+		void StartBGM(int bgmSong) 
+		{
 			switch (bgmSong)
 			{
-			case 0:
+			case 1:
 				Mix_PlayMusic(m_bgm1, -1);
 				break;
-			case 1:
+			case 2:
 				Mix_PlayMusic(m_bgm2, -1);
 				break;
+			case 3:
+				Mix_PlayMusic(m_bgm3, -1);
+				break;
 			default:
-				Mix_PlayMusic(m_bgm1, -1);
+				break;
 			}
 		}
 private:
@@ -84,5 +95,6 @@ private:
 	Mix_Chunk* placeBomb = NULL;
 	Mix_Music* m_bgm1 = NULL;
 	Mix_Music* m_bgm2 = NULL;
+	Mix_Music* m_bgm3 = NULL;
 };
 

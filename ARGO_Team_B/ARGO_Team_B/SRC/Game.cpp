@@ -4,8 +4,10 @@
 /// Game()
 /// Main Game constructor used to initialise SDL, create a window and initialise SDL_IMG
 /// </summary>
-Game::Game() 
+Game::Game()
 {
+	ControlComponent* controlComp = new ControlComponent(m_player);
+
 	srand(time(NULL));
 	// Initialise SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -34,17 +36,6 @@ Game::Game()
 	}
 	SDL_SetRenderDrawColor(p_renderer, 150, 150, 150, 255); // Black Opaque Background
 
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, NULL, 2048) < 0)
-	{
-		printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
-	}
-	//Allocate 128 channels for a max for 128 audio chunks playing at one time
-	Mix_AllocateChannels(128);
-
-	// Initialise Game Variables
-
-	// Extra info for systems
-
 	/// <summary>
 	/// FOR ALL ENTITY
 	/// the position component must create before the collision component
@@ -54,9 +45,9 @@ Game::Game()
 	m_player.addComponent(new HealthComponent(100), Types::Health);
 	m_player.addComponent(new PositionComponent(150, 100), Types::Position);
 	m_player.addComponent(new CollisionComponent(m_player, 50.0f, RAT_H, RAT_W), Types::Collider);
-	m_player.addComponent(new ControlComponent(m_player), Types::Controller);
+	m_player.addComponent(controlComp, Types::Controller);
 	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
-	//m_player.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheet.png", 60, 30, 5, p_renderer), Types::AnimatedSprite);
+	m_player.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheet.png", 60, 30, 5, p_renderer), Types::AnimatedSprite);
 
 	// Alien
 	m_alien.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added
@@ -94,7 +85,7 @@ Game::Game()
 	m_button2.addComponent(new PositionComponent(150, 650), Types::Position);
 	m_button2.addComponent(new CollisionComponent(m_button2, 30, 30), Types::Collider);
 	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 30, 30, p_renderer), Types::Render);
-	
+
 	//door button
 	m_doorButton.addComponent(new ButtonComponent(false, 1, 2), Types::Button);
 	m_doorButton.addComponent(new PositionComponent(100, 650), Types::Position);
@@ -103,7 +94,7 @@ Game::Game()
 
 	//Trap 1
 	m_spike.addComponent(new TrapComponent(false, 1), Types::Traps);
-	m_spike.addComponent(new PositionComponent(600,600), Types::Position);
+	m_spike.addComponent(new PositionComponent(600, 600), Types::Position);
 	m_spike.addComponent(new CollisionComponent(m_spike, RAT_H, RAT_H, 3), Types::Collider);
 	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, p_renderer), Types::Render);
 
@@ -121,7 +112,7 @@ Game::Game()
 
 
 	//door 1
-	m_door1.addComponent(new DoorComponent(1),Types::Door);
+	m_door1.addComponent(new DoorComponent(1), Types::Door);
 	m_door1.addComponent(new PositionComponent(800, 300), Types::Position);
 	m_door1.addComponent(new CollisionComponent(m_door1, 200, 20), Types::Collider);
 	m_door1.addComponent(new RenderComponent("Assets\\Door.png", 200, 20, p_renderer), Types::Render);
@@ -179,7 +170,7 @@ Game::Game()
 	m_collisionSystem.addEntity(m_spike);
 	m_collisionSystem.addEntity(m_spike2);
 	m_collisionSystem.addEntity(m_spike3);
-	
+
 	m_collisionSystem.addEntity(m_door1);
 
 	m_collisionSystem.addEntity(m_bomb);
@@ -188,12 +179,12 @@ Game::Game()
 	m_renderSystem.addEntity(m_alien);
 	m_renderSystem.addEntity(m_dog);
 	m_renderSystem.addEntity(m_cat);
-	
+
 
 	/// <summary>
 	/// STATE MACHINE
 	/// </summary>
-	//m_stateMachine.addEntity(m_player);
+	m_stateMachine.addEntity(m_player);
 
 
 	const auto MAP_PATH = "Assets/map/test.tmx";
@@ -211,11 +202,11 @@ Game::Game()
 	m_renderSystem.addEntity(m_spike);
 	m_renderSystem.addEntity(m_spike2);
 	m_renderSystem.addEntity(m_spike3);
-
 	m_observer = new AudioObserver();
 	m_observer->load();
-	m_observer->StartBGM(0);
-	
+	m_observer->StartBGM(1);
+
+
 
 	m_renderSystem.addEntity(m_bomb);
 
@@ -235,7 +226,13 @@ Game::Game()
 	m_bombSystem.addEntity(m_alien);
 	m_bombSystem.addEntity(m_dog);
 	m_bombSystem.addEntity(m_cat);
-}
+
+	m_currentState = GameStates::MainMenu;
+	m_menuScene = new MenuScene(p_renderer,&m_currentState, controlComp);
+	//m_gameScene = new GameScene(p_renderer, &m_currentState);
+	//m_creditsScene = new CreditsScene(p_renderer, &m_currentState);
+
+ }
 
 /// <summary>
 /// ~Game()
@@ -270,9 +267,6 @@ void Game::run()
 }
 
 
-
-
-
 /// <summary>
 /// processEvents()
 /// Method used to poll events in SDL such as keyboard events or window close events
@@ -289,12 +283,13 @@ void Game::processEvents()
 		switch (event.type)
 		{
 		case SDL_KEYDOWN:
-			m_controlSystem.handleInput(event.key.keysym.sym);
+			//m_controlSystem.handleInput(event.key.keysym.sym);
 			break;
 		case SDL_QUIT:
 			m_quit = true;
 			break;
 		}
+
 	}
 }
 
@@ -305,17 +300,29 @@ void Game::processEvents()
 /// <param name="dt">The time that has passed since the last update call in seconds</param>
 void Game::update(float dt)
 {
-	m_healthSystem.update();
-	m_aiSystem.update();
-	m_buttonSystem.update();
-
-	m_controlSystem.handleInput(dt);
-	//m_controlSystem.update();
-
-	m_collisionSystem.updateComponent(*tiled_map_level,m_observer);
-
-	m_stateMachine.update();
-	m_bombSystem.updateComponent(dt,m_observer);
+	//m_healthSystem.update();
+	//m_aiSystem.update();
+	//m_buttonSystem.update();
+	//m_controlSystem.handleInput(dt, m_stateMachine);
+	//m_collisionSystem.updateComponent(*tiled_map_level, m_observer);
+	//m_stateMachine.update();
+	//m_bombSystem.updateComponent(dt, m_observer);
+	switch (m_currentState)
+	{
+	case GameStates::MainMenu:
+		m_menuScene->handleEvents();
+		m_menuScene->update(dt);
+		break;
+	case GameStates::Game:
+		//m_gameScene->update(dt);
+		break;
+	case GameStates::Credits:
+		//m_creditsScene->update(dt);
+		break;
+	default:
+		break;
+	}
+	
 }
 
 /// <summary>
@@ -325,9 +332,23 @@ void Game::update(float dt)
 void Game::render()
 {
 	SDL_RenderClear(p_renderer);
-	tiled_map_level->draw(p_renderer);
-	m_renderSystem.draw();
-	// m_stateMachine.update();
+	//tiled_map_level->draw(p_renderer);
+	//m_renderSystem.draw();
+	switch (m_currentState)
+	{
+	case GameStates::MainMenu:
+		m_menuScene->render(p_renderer);
+		break;
+	case GameStates::Game:
+		//m_gameScene->render(p_renderer);
+		break;
+	case GameStates::Credits:
+		//m_creditsScene->render(p_renderer);
+		break;
+	default:
+		break;
+	}
+
 	SDL_RenderPresent(p_renderer);
 }
 

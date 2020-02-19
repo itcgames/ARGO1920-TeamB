@@ -69,7 +69,7 @@ void PositionComponent::moveUp()
 	}
 
 	m_lastY = m_currentY;
-	m_acceleration = rand() % 4;
+	m_acceleration = rand() % 8;
 	m_currentY -= m_acceleration;
 }
 
@@ -79,7 +79,7 @@ void PositionComponent::moveDown()
 	if (m_velocityY < MAX_VELO) {
 	}
 	m_lastY = m_currentY;
-	m_acceleration = rand() % 4;
+	m_acceleration = rand() % 8;
 	m_currentY += m_acceleration;
 }
 
@@ -89,7 +89,7 @@ void PositionComponent::moveLeft()
 		m_velocityX -= INC_VELO;
 	}
 	m_lastX = m_currentX;
-	m_acceleration = rand() % 4;
+	m_acceleration = rand() % 8;
 	m_currentX -= m_acceleration;
 }
 
@@ -99,7 +99,7 @@ void PositionComponent::moveRight()
 		m_velocityX += INC_VELO;
 	}
 	m_lastX = m_currentX;
-	m_acceleration = rand() % 4;
+	m_acceleration = rand() % 8;
 	m_currentX += m_acceleration;
 }
 

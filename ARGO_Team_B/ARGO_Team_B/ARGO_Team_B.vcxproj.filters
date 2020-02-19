@@ -6,7 +6,6 @@
     <ClInclude Include="INCLUDE\Game.h" />
     <ClInclude Include="INCLUDE\Level.h" />
     <ClInclude Include="INCLUDE\Utils\Assets.h" />
-    <ClInclude Include="INCLUDE\Utils\ComponentsEnum.h" />
     <ClInclude Include="INCLUDE\Utils\cute_c2.h" />
     <ClInclude Include="INCLUDE\Utils\Globals.h" />
     <ClInclude Include="INCLUDE\Utils\Xbox360Controller.h" />
@@ -38,23 +37,16 @@
     <ClInclude Include="INCLUDE\Components\RenderComponent.h" />
     <ClInclude Include="INCLUDE\Components\TrapComponent.h" />
     <ClInclude Include="INCLUDE\Observer.h" />
-    <ClInclude Include="INCLUDE\Subject.h" />
     <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
-    <ClInclude Include="INCLUDE\HostingGame.h" />
-    <ClInclude Include="INCLUDE\JoiningGame.h" />
-    <ClInclude Include="INCLUDE\Client\Client.h" />
-    <ClInclude Include="INCLUDE\Client\FileTransferData.h" />
-    <ClInclude Include="INCLUDE\Client\Packet.h" />
-    <ClInclude Include="INCLUDE\Client\PacketManager.h" />
-    <ClInclude Include="INCLUDE\Client\PacketStructs.h" />
-    <ClInclude Include="INCLUDE\Client\PacketType.h" />
-    <ClInclude Include="INCLUDE\Server\FileTransferData.h" />
-    <ClInclude Include="INCLUDE\Server\Packet.h" />
-    <ClInclude Include="INCLUDE\Server\PacketManager.h" />
-    <ClInclude Include="INCLUDE\Server\PacketStructs.h" />
-    <ClInclude Include="INCLUDE\Server\PacketType.h" />
-    <ClInclude Include="INCLUDE\Server\Server.h" />
+    <ClInclude Include="INCLUDE\CreditsScene.h" />
+    <ClInclude Include="INCLUDE\GameScene.h" />
+    <ClInclude Include="INCLUDE\Utils\LTexture.h" />
+    <ClInclude Include="INCLUDE\MenuScene.h" />
+    <ClInclude Include="INCLUDE\Utils\Observer.h" />
+    <ClInclude Include="INCLUDE\Utils\ResourceManager.h" />
+    <ClInclude Include="INCLUDE\Utils\Subject.h" />
+    <ClInclude Include="INCLUDE\Utils\Enums.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />
@@ -69,6 +61,9 @@
     <ClCompile Include="SRC\Components\PlayerComponent.cpp" />
     <ClCompile Include="SRC\Components\RenderComponent.cpp" />
     <ClCompile Include="SRC\Components\TrapComponent.cpp" />
+    <ClCompile Include="SRC\Game.cpp" />
+    <ClCompile Include="SRC\Level.cpp" />
+    <ClCompile Include="SRC\main.cpp" />
     <ClCompile Include="SRC\States\AttackState.cpp" />
     <ClCompile Include="SRC\States\InteractState.cpp" />
     <ClCompile Include="SRC\States\StunnedState.cpp" />
@@ -88,21 +83,10 @@
     <ClCompile Include="SRC\main.cpp" />
     <ClCompile Include="SRC\Components\PositionComponent.cpp" />
     <ClCompile Include="SRC\Systems\CollisionSystem.cpp" />
-    <ClCompile Include="SRC\HostingGame.cpp" />
-    <ClCompile Include="SRC\JoiningGame.cpp" />
-    <ClCompile Include="SRC\Client\Client.cpp" />
-    <ClCompile Include="SRC\Client\ClientIni.cpp" />
-    <ClCompile Include="SRC\Client\Packet.cpp" />
-    <ClCompile Include="SRC\Client\PacketManager.cpp" />
-    <ClCompile Include="SRC\Client\PacketStructs.cpp" />
-    <ClCompile Include="SRC\Client\SendGetMethods.cpp" />
-    <ClCompile Include="SRC\Server\FileTransferData.cpp" />
-    <ClCompile Include="SRC\Server\Packet.cpp" />
-    <ClCompile Include="SRC\Server\PacketManager.cpp" />
-    <ClCompile Include="SRC\Server\PacketStructs.cpp" />
-    <ClCompile Include="SRC\Server\ProcessPacket.cpp" />
-    <ClCompile Include="SRC\Server\SendGetMethods.cpp" />
-    <ClCompile Include="SRC\Server\Server.cpp" />
-    <ClCompile Include="SRC\Server\ServerIni.cpp" />
+    <ClCompile Include="SRC\Menu\CreditsScene.cpp" />
+    <ClCompile Include="SRC\Menu\GameScene.cpp" />
+    <ClCompile Include="SRC\Utils\LTexture.cpp" />
+    <ClCompile Include="SRC\Menu\MenuScene.cpp" />
+    <ClCompile Include="SRC\Utils\ResourceManager.cpp" />
   </ItemGroup>
 </Project>
