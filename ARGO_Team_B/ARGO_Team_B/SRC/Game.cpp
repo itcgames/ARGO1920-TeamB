@@ -131,23 +131,51 @@ Game::Game()
 */
 	// cheeses
 	m_goalCheeses.reserve(15);
-	for (int i = 0; i < 15; ++i)
+	
+	for (int i = 0; i < 100; ++i)
 	{
+		bool canSpawn=false;
+		float spawnPointX;
+		float spawnPointY;
+		int safety = 0;
 		m_goalCheeses.emplace_back();
-		m_goalCheeses.at(i).addComponent(new GoalComponent(), Types::Goal);
-		m_goalCheeses.at(i).addComponent(new PositionComponent(30 + rand() % 1830, 30 + rand() % 1050), Types::Position);
-		m_goalCheeses.at(i).addComponent(new CollisionComponent(m_goalCheeses.at(i), 30, 30), Types::Collider);
-		m_goalCheeses.at(i).addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
-		m_collisionSystem.addEntity(m_goalCheeses.at(i));
-		m_renderSystem.addEntity(m_goalCheeses.at(i));
-		m_buttonSystem.addEntity(m_goalCheeses.at(i));
-		//m_goalCheese.addComponent(new GoalComponent(), Types::Goal);
-		//m_goalCheese.addComponent(new CollisionComponent(), Types::Collider);
-		//m_goalCheese.addComponent(new PositionComponent(30+rand()%1830, 30+rand()%1050), Types::Position);
-		//m_goalCheese.addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
-		//m_collisionSystem.addEntity(m_goalCheese);
-		//m_renderSystem.addEntity(m_goalCheese);
-		//m_trapSystem.addEntity(m_goalCheese);
+		while (!canSpawn)
+		{
+			spawnPointX = rand() % 1870+40;
+			spawnPointY = rand() % 1030+40;
+			float centerX = 15;
+			float centerY = 15;
+			float leftE = centerX - 30;
+			float rightE = centerX + 30;
+			float lowE = centerY - 30;
+			float upperE = centerY + 30;
+			canSpawn = canspawnHere(spawnPointX, spawnPointY, leftE, lowE, rightE, upperE);
+			m_goalCheeses.at(i).addComponent(new GoalComponent(), Types::Goal);
+			m_goalCheeses.at(i).addComponent(new PositionComponent(spawnPointX, spawnPointY), Types::Position);
+			m_goalCheeses.at(i).addComponent(new CollisionComponent(m_goalCheeses.at(i), 30, 30), Types::Collider);
+			m_goalCheeses.at(i).addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
+			m_collisionSystem.addEntity(m_goalCheeses.at(i));
+			m_renderSystem.addEntity(m_goalCheeses.at(i));
+			m_buttonSystem.addEntity(m_goalCheeses.at(i));
+			if(canSpawn)
+			{
+				break;
+			}
+			safety++;
+			if (safety > 100)
+			{
+				break;
+			}
+
+
+			//m_goalCheese.addComponent(new GoalComponent(), Types::Goal);
+			//m_goalCheese.addComponent(new CollisionComponent(), Types::Collider);
+			//m_goalCheese.addComponent(new PositionComponent(30+rand()%1830, 30+rand()%1050), Types::Position);
+			//m_goalCheese.addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
+			//m_collisionSystem.addEntity(m_goalCheese);
+			//m_renderSystem.addEntity(m_goalCheese);
+			//m_trapSystem.addEntity(m_goalCheese);
+		}
 	}
 
 	//bomb
@@ -369,4 +397,16 @@ void Game::quit()
 	SDL_DestroyWindow(p_window);
 	IMG_Quit();
 	SDL_Quit();
+}
+
+bool Game::canspawnHere(float spx, float spy, float leftE, float lowE, float rightE, float upperE)
+{
+	if (spx > leftE && spx<= rightE)
+	{
+		if (spy>= lowE && spy<= upperE)
+		{
+			return false;
+		}
+	}
+	return true;
 }

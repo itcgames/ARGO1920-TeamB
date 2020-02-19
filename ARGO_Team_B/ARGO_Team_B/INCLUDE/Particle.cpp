@@ -31,7 +31,7 @@ Particle::Particle(float t_x, float t_y, int t_index,SDL_Renderer * t_renderer, 
 		m_particle->setColor(m_r, m_g, m_b);
 		m_particle->setAlpha(m_alpha);
 		m_particle->setScale(3);
-		m_lifetime = rand() % 75;	// Make each particle have a random lifetime
+		m_lifetime = rand() % 45;	// Make each particle have a random lifetime
 		m_velX = 6.0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6.0 - 18.1)));
 		m_velY = 6.0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6.0 - 18.1)));
 

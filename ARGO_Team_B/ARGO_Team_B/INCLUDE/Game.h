@@ -78,5 +78,6 @@ private:
 	BombSystem m_bombSystem;
 	GameSystem m_gameSystem;
 	std::vector<ParticleSystem*> m_particles;
+	bool canspawnHere(float spx, float spy, float leftE, float lowE, float rightE, float upperE);
 };
 #endif // !GAME
