@@ -12,7 +12,6 @@
     <ClInclude Include="INCLUDE\Systems\AISystem.h" />
     <ClInclude Include="INCLUDE\Systems\BombSystem.h" />
     <ClInclude Include="INCLUDE\Systems\ButtonSystem.h" />
-    <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Systems\ControlSystem.h" />
     <ClInclude Include="INCLUDE\Systems\HealthSystem.h" />
     <ClInclude Include="INCLUDE\Systems\RenderSystem.h" />
@@ -37,7 +36,12 @@
     <ClInclude Include="INCLUDE\Components\PlayerComponent.h" />
     <ClInclude Include="INCLUDE\Components\RenderComponent.h" />
     <ClInclude Include="INCLUDE\Components\TrapComponent.h" />
-    <ClInclude Include="PositionComponent.h" />
+    <ClInclude Include="INCLUDE\Observer.h" />
+    <ClInclude Include="INCLUDE\Subject.h" />
+    <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
+    <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
+    <ClInclude Include="INCLUDE\Components\GameComponent.h" />
+    <ClInclude Include="INCLUDE\GameSystem.h" />
     <ClInclude Include="INCLUDE\Utils\Enums.h" />
     <ClInclude Include="Include\Components\TestBotBehaviourComponent.h" />
   </ItemGroup>
@@ -71,9 +75,13 @@
     <ClCompile Include="SRC\Game.cpp" />
     <ClCompile Include="SRC\Level.cpp" />
     <ClCompile Include="SRC\main.cpp" />
-    <ClCompile Include="PositionComponent.cpp" />
+    <ClCompile Include="SRC\Components\PositionComponent.cpp" />
+    <ClCompile Include="SRC\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="SRC\Components\GameComponent.cpp" />
+    <ClCompile Include="SRC\GameSystem.cpp" />
     <ClCompile Include="SRC\CollisionSystem.cpp" />
-    <ClCompile Include="Src\States\IdleState.cpp" />
     <ClCompile Include="Src\Components\TestBotBehaviourComponent.cpp" />
+    <ClCompile Include="SRC\Utils\Command.cpp" />
+    <ClCompile Include="Src\States\IdleState.cpp" />
   </ItemGroup>
 </Project>

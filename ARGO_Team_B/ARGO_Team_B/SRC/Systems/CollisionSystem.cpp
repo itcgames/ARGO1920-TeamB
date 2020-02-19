@@ -1,13 +1,12 @@
-
-Skip to content
 #include "CollisionSystem.h"
+
 CollisionSystem::CollisionSystem()
 
 {
 
 
 
-
+	
 }
 
 CollisionSystem::~CollisionSystem()
@@ -18,7 +17,7 @@ void CollisionSystem::updateComponent(Component* component)
 {
 }
 
-void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer)
+void CollisionSystem::updateComponent(Level& t_level,AudioObserver* t_observer)
 {
 	searchEntities();
 
@@ -28,11 +27,11 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer)
 		CollisionComponent* playerComp = dynamic_cast<CollisionComponent*>(player.getComponent(Types::Collider));
 		playerComp->updateCollider(player);
 		playerColliders.push_back(playerComp);
-
+		
 		m_positionComp = static_cast<PositionComponent*>(player.getComponent(Types::Position));
 		x1 = m_positionComp->getPositionX();
 		y1 = m_positionComp->getPositionY();
-		tileCollision(x1, y1, RAT_W, RAT_H, t_level, t_observer);
+		tileCollision(x1, y1, RAT_W, RAT_H, t_level,t_observer);
 	}
 
 	// player 1 and player 2 collision check
@@ -62,34 +61,30 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer)
 			for (Entity& playerEntitys : m_playerEntitys) {
 				CollisionComponent* playerCollision = static_cast<CollisionComponent*>(playerEntitys.getComponent(Types::Collider));
 
-
-
+					
+				
 				PlayerComponent* player = static_cast<PlayerComponent*>(playerEntitys.getComponent(Types::Player));
-
+				
 				// check for 2 different button, 1 for trap button, 2 for door button
 				switch (button->getType())
 				{
 				case 1:
 					if (checkCollision(playerCollision->getAABBCollider(), buttonCollider->getAABBCollider())) {
-						if (player->getInteract()) {
-							button->setState(true);
-							t_observer->onNotify(AudioObserver::CLICK);
-						}
+
+						button->setState(true);
+						t_observer->onNotify(AudioObserver::CLICK);
+
 					}
 					break;
 				case 2:
 					if (checkCollision(playerCollision->getAABBCollider(), buttonCollider->getAABBCollider())) {
 						// 1,3 for red team
 						if (player->getId() == 1 || player->getId() == 3) {
-							if (player->getInteract()) {
-								button->setRedDoor(true);
-							}
+							button->setRedDoor(true);
 						}
 						// 2,4 for green team
 						if (player->getId() == 2 || player->getId() == 4) {
-							if (player->getInteract()) {
-								button->setGreenDoor(true);
-							}
+							button->setGreenDoor(true);
 						}
 					}
 					break;
@@ -122,7 +117,7 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer)
 				HealthComponent* playerHealth = static_cast<HealthComponent*>(playerEntitys.getComponent(Types::Health));
 				PositionComponent* playerPos = static_cast<PositionComponent*>(playerEntitys.getComponent(Types::Position));
 				if (playerHealth->getAlive()) {
-					if (checkCollision(player->getAABBCollider(), trapCollider->getPolyCollider())) {
+					if (checkCollision( player->getAABBCollider(), trapCollider->getPolyCollider()) ) {
 						t_observer->onNotify(AudioObserver::CLICK);
 						cout << "player die" << endl;
 						playerPos->backToStart();
@@ -175,30 +170,31 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer)
 
 	// check collision between player and traps
 	searchCheese();
-	for (Entity& goalEntity : m_goalEntitys)
+	for (Entity& goalEntity : m_goalEntitys) 
 	{
 
 		GoalComponent* goal = static_cast<GoalComponent*>(goalEntity.getComponent(Types::Goal));
 
 		// check is button on the map
-		if (goal->getAlive())
+		if (goal->getAlive()) 
 		{
 
 			CollisionComponent* goalCollider = static_cast<CollisionComponent*>(goalEntity.getComponent(Types::Collider));
 
 			goalCollider->updateCollider(goalEntity);
 
-			for (Entity& playerEntitys : m_playerEntitys)
+			for (Entity& playerEntitys : m_playerEntitys) 
 			{
 				CollisionComponent* playerCollider = static_cast<CollisionComponent*>(playerEntitys.getComponent(Types::Collider));
-
+				
 				PlayerComponent* player = static_cast<PlayerComponent*>(playerEntitys.getComponent(Types::Player));
-				if (checkCollision(goalCollider->getAABBCollider(), playerCollider->getAABBCollider()))
-				{
-					std::cout << "Player with ID : " << player->getId() << "Collected the cheese" << std::endl;
-					t_observer->onNotify(AudioObserver::PICKUPCHEESE);
-					goal->setAlive(false);
-				}
+					if (checkCollision(goalCollider->getAABBCollider(), playerCollider->getAABBCollider()))
+					{
+						//std::cout << "Player with ID : " << player->getId() << "Collected the cheese" << std::endl;
+						player->gainCheese(1);
+						t_observer->onNotify(AudioObserver::PICKUPCHEESE);
+						goal->setAlive(false);
+					}
 			}
 		}
 	}
@@ -224,7 +220,7 @@ void CollisionSystem::bombCollision(AudioObserver* t_observer)
 				if (checkCollision(bombCollider->getCircleCollider(), playerCollider->getAABBCollider())) {
 
 					PlayerComponent* playerComp = static_cast<PlayerComponent*>(playerEntity.getComponent(Types::Player));
-
+					
 					if (bombComp->getState() == BombState::Explode) {
 						playerComp->setDizzyState(true);
 					}
@@ -243,7 +239,7 @@ void CollisionSystem::bombCollision(AudioObserver* t_observer)
 }
 
 
-void CollisionSystem::tileCollision(float x, float y, float width, float height, Level& t_mazeWalls, AudioObserver* t_observer)
+void CollisionSystem::tileCollision(float x, float y, float width, float height, Level& t_mazeWalls,AudioObserver* t_observer)
 {
 	for (int i = 0; i < t_mazeWalls.m_mazeWalls.size(); i++)
 	{
@@ -338,8 +334,8 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			x <= t_mazeWalls.m_teleport[i].x + t_mazeWalls.m_teleport[i].width)
 		{
 			t_observer->onNotify(AudioObserver::PORTAL);
-			std::cout << "bottom TELEPORT collision!" << std::endl;
-			m_positionComp->setPosition(t_mazeWalls.m_teleport[3].x, t_mazeWalls.m_teleport[3].y - 75);
+				std::cout << "bottom TELEPORT collision!" << std::endl;
+				m_positionComp->setPosition(t_mazeWalls.m_teleport[3].x, t_mazeWalls.m_teleport[3].y - 75);
 		}
 	}
 }

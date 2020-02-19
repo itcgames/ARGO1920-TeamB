@@ -10,6 +10,23 @@ Xbox360Controller::Xbox360Controller(int currentControll) :
 {
 	if (connect()) {
 		m_controllerHandles = SDL_GameControllerOpen(m_joystick_index);
+
+		m_joystick = SDL_JoystickOpen(m_joystick_index);
+		if (m_joystick != NULL)
+		{
+			m_controllerHaptic = SDL_HapticOpenFromJoystick(m_joystick);
+			if (m_controllerHaptic == NULL)
+			{
+				std::cout << "controller doesnt support haptic" << std::endl;
+			}
+			else
+			{
+				if (SDL_HapticRumbleInit(m_controllerHaptic) < 0)
+				{
+					std::cout << "Unable to initialise Rumble" << std::endl;
+				}
+			}
+		}
 	}
 }
 

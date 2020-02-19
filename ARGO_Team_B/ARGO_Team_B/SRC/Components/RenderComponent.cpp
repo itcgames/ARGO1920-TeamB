@@ -9,6 +9,7 @@ RenderComponent::RenderComponent(const char* name, int width, int height, SDL_Re
 	this->height = height;
 	srcrect = { 0, 0, this->width, this->height };
 	dstrect = { 0, 0, this->width, this->height };
+	//center = { 0, 0 };
 	m_renderer = renderer;
 	image = IMG_Load(name);
 	texture = SDL_CreateTextureFromSurface(m_renderer, image);
@@ -22,6 +23,15 @@ RenderComponent::RenderComponent(const char* name, int width, int height, SDL_Re
 void RenderComponent::draw(int x, int y, double angle)
 {
 	dstrect = { x, y, this->width, this->height };
+	//center = { x + this->width / 2, y + this->height / 2 };
+	SDL_RenderCopyEx(m_renderer, texture, &srcrect, &dstrect, angle, NULL, SDL_FLIP_NONE);
+}
+
+void RenderComponent::draw(int x, int y, double angle, Uint8 alpha)
+{
+	dstrect = { x, y, this->width, this->height };
+	//center = { x + this->width / 2, y + this->height / 2 };
+	SDL_SetTextureAlphaMod(texture, alpha);
 	SDL_RenderCopyEx(m_renderer, texture, &srcrect, &dstrect, angle, NULL, SDL_FLIP_NONE);
 }
 

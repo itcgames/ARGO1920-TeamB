@@ -3,10 +3,8 @@
 
 #include "Component.h"
 #include "Command.h"
-
 #include "StateMachineSystem.h"
 #include "Enums.h"
-
 #include "PositionComponent.h"
 #include "PlayerComponent.h"
 #include "Xbox360Controller.h"
@@ -18,6 +16,10 @@ public:
 	static int s_controlID;
 	ControlComponent(Entity & t_gameObject);
 	~ControlComponent();
+	void update(float dt);
+	void handleInput();
+
+	Xbox360Controller* m_controller;
 	void handleInput(StateMachineSystem& t_stateSystem);
 
 private:
@@ -28,8 +30,10 @@ private:
 
 	int m_compNum;
 
-	Xbox360Controller* m_controller;
+	
 	Entity& m_entity;
+
+	MacroCommand* m_commandSquence = new MacroCommand();
 
 	/// <summary>
 	/// Commands

@@ -21,7 +21,7 @@ Game::Game()
 	if (NULL == p_window)
 	{
 		std::cout << "Error: Could not create window" << std::endl;
-	}
+	}	
 
 	// Create a Renderer
 	p_renderer = SDL_CreateRenderer(p_window, -1, 0);
@@ -99,11 +99,11 @@ Game::Game()
 	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 30, 30, p_renderer), Types::Render);
 	
 	//door button
-	m_doorButton.addComponent(new ButtonComponent(false, 1, 2), Types::Button);
+	/*m_doorButton.addComponent(new ButtonComponent(false, 1, 2), Types::Button);
 	m_doorButton.addComponent(new PositionComponent(100, 650), Types::Position);
 	m_doorButton.addComponent(new CollisionComponent(m_doorButton, 30, 30), Types::Collider);
 	m_doorButton.addComponent(new RenderComponent("Assets\\DoorButton.png", 30, 30, p_renderer), Types::Render);
-
+*/
 	//Trap 1
 	m_spike.addComponent(new TrapComponent(false, 1), Types::Traps);
 	m_spike.addComponent(new PositionComponent(600,600), Types::Position);
@@ -124,11 +124,11 @@ Game::Game()
 
 
 	//door 1
-	m_door1.addComponent(new DoorComponent(1),Types::Door);
+	/*m_door1.addComponent(new DoorComponent(1),Types::Door);
 	m_door1.addComponent(new PositionComponent(800, 300), Types::Position);
 	m_door1.addComponent(new CollisionComponent(m_door1, 200, 20), Types::Collider);
 	m_door1.addComponent(new RenderComponent("Assets\\Door.png", 200, 20, p_renderer), Types::Render);
-
+*/
 	// cheeses
 	m_goalCheeses.reserve(15);
 	for (int i = 0; i < 15; ++i)
@@ -156,6 +156,10 @@ Game::Game()
 	m_bomb.addComponent(new CollisionComponent(m_bomb, 30.0f, 30, 30), Types::Collider);
 	m_bomb.addComponent(new RenderComponent("Assets\\bomb.png", 30, 30, p_renderer), Types::Render);
 
+	//game manager and ui detail
+	m_gameManager.addComponent(new GameComponent(), Types::Game);
+	m_gameManager.addComponent(new PositionComponent((float)SCR_W/2, (float)SCR_H/2), Types::Position);
+	m_gameManager.addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
 	// Systems
 	//HEALTH All entities
 	m_healthSystem.addEntity(m_player);
@@ -177,13 +181,13 @@ Game::Game()
 
 	m_collisionSystem.addEntity(m_button);
 	m_collisionSystem.addEntity(m_button2);
-	m_collisionSystem.addEntity(m_doorButton);
+	//m_collisionSystem.addEntity(m_doorButton);
 
 	m_collisionSystem.addEntity(m_spike);
 	m_collisionSystem.addEntity(m_spike2);
 	m_collisionSystem.addEntity(m_spike3);
 	
-	m_collisionSystem.addEntity(m_door1);
+	//m_collisionSystem.addEntity(m_door1);
 
 	m_collisionSystem.addEntity(m_bomb);
 	//DRAW Draw all of entities
@@ -209,28 +213,31 @@ Game::Game()
 
 	m_renderSystem.addEntity(m_button);
 	m_renderSystem.addEntity(m_button2);
-	m_renderSystem.addEntity(m_doorButton);
-	m_renderSystem.addEntity(m_door1);
+	//m_renderSystem.addEntity(m_doorButton);
+	//m_renderSystem.addEntity(m_door1);
 	m_renderSystem.addEntity(m_spike);
 	m_renderSystem.addEntity(m_spike2);
 	m_renderSystem.addEntity(m_spike3);
 
+
 	m_observer = new AudioObserver();
 	m_observer->load();
 	m_observer->StartBGM(0);
-	
+
+	m_font = new FontObserver(p_renderer);
+	m_font->loadFont();
 
 	m_renderSystem.addEntity(m_bomb);
 
 	//Connect button entity and other entity that require switch	 
 	m_buttonSystem.addEntity(m_button);
 	m_buttonSystem.addEntity(m_button2);
-	m_buttonSystem.addEntity(m_doorButton);
+	//m_buttonSystem.addEntity(m_doorButton);
 
 	m_buttonSystem.addEntity(m_spike);
 	m_buttonSystem.addEntity(m_spike2);
 	m_buttonSystem.addEntity(m_spike3);
-	m_buttonSystem.addEntity(m_door1);
+	//m_buttonSystem.addEntity(m_door1);
 
 	// bomb system
 	m_bombSystem.addEntity(m_bomb);
@@ -238,7 +245,17 @@ Game::Game()
 	m_bombSystem.addEntity(m_alien);
 	m_bombSystem.addEntity(m_dog);
 	m_bombSystem.addEntity(m_cat);
+	
+	// game system
+	m_gameSystem.addEntity(m_player);
+	m_gameSystem.addEntity(m_alien);
+	m_gameSystem.addEntity(m_dog);
+	m_gameSystem.addEntity(m_cat);
+	m_gameSystem.addEntity(m_gameManager);
+
+	m_gameSystem.setupComponent();
 }
+
 
 /// <summary>
 /// ~Game()
@@ -312,6 +329,7 @@ void Game::update(float dt)
 	m_collisionSystem.updateComponent(*tiled_map_level,m_observer);
 	m_stateMachine.update();
 	m_bombSystem.updateComponent(dt,m_observer);
+	m_gameSystem.update(dt);
 }
 
 /// <summary>
@@ -323,6 +341,8 @@ void Game::render()
 	SDL_RenderClear(p_renderer);
 	tiled_map_level->draw(p_renderer);
 	m_renderSystem.draw();
+	m_gameSystem.draw(m_font);
+	// m_stateMachine.update();
 	SDL_RenderPresent(p_renderer);
 }
 

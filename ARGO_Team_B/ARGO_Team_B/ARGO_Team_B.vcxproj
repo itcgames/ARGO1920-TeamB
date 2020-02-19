@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="INCLUDE\Components\GameComponent.h" />
+    <ClInclude Include="INCLUDE\GameSystem.h" />
+    <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Command.h" />
     <ClInclude Include="INCLUDE\Components\AnimatedSpriteComponent.h" />
     <ClInclude Include="INCLUDE\Components\AnimationComponent.h" />
@@ -37,16 +40,17 @@
     <ClInclude Include="INCLUDE\Entity.h" />
     <ClInclude Include="INCLUDE\Game.h" />
     <ClInclude Include="INCLUDE\Level.h" />
+    <ClInclude Include="INCLUDE\Observer.h" />
     <ClInclude Include="INCLUDE\States\AttackState.h" />
     <ClInclude Include="INCLUDE\States\IdleState.h" />
     <ClInclude Include="INCLUDE\States\InteractState.h" />
     <ClInclude Include="INCLUDE\States\State.h" />
     <ClInclude Include="INCLUDE\States\StunnedState.h" />
     <ClInclude Include="INCLUDE\States\WalkingState.h" />
+    <ClInclude Include="INCLUDE\Subject.h" />
     <ClInclude Include="INCLUDE\Systems\AISystem.h" />
     <ClInclude Include="INCLUDE\Systems\BombSystem.h" />
     <ClInclude Include="INCLUDE\Systems\ButtonSystem.h" />
-    <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Systems\ControlSystem.h" />
     <ClInclude Include="INCLUDE\Systems\HealthSystem.h" />
     <ClInclude Include="INCLUDE\Systems\RenderSystem.h" />
@@ -57,12 +61,14 @@
     <ClInclude Include="INCLUDE\Utils\cute_c2.h" />
     <ClInclude Include="INCLUDE\Utils\Globals.h" />
     <ClInclude Include="INCLUDE\Utils\Xbox360Controller.h" />
-    <ClInclude Include="PositionComponent.h" />
+    <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Components\TestBotBehaviourComponent.cpp" />
-    <ClCompile Include="PositionComponent.cpp" />
-    <ClCompile Include="SRC\CollisionSystem.cpp" />
+    <ClCompile Include="SRC\Components\GameComponent.cpp" />
+    <ClCompile Include="SRC\Components\PositionComponent.cpp" />
+    <ClCompile Include="SRC\GameSystem.cpp" />
+    <ClCompile Include="SRC\Systems\CollisionSystem.cpp" />
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />
     <ClCompile Include="SRC\Components\AnimationComponent.cpp" />
     <ClCompile Include="SRC\Components\BombComponent.cpp" />
@@ -92,6 +98,7 @@
     <ClCompile Include="SRC\Systems\StateMachineSystem.cpp" />
     <ClCompile Include="SRC\Systems\System.cpp" />
     <ClCompile Include="SRC\Utils\Assets.cpp" />
+    <ClCompile Include="SRC\Utils\Command.cpp" />
     <ClCompile Include="SRC\Utils\Xbox360Controller.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -161,7 +168,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SDL_SDK)/lib;%(AdditionalLibraryDirectories).\DLLs;./SRC;./SRC/Components;./SRC/Utils;./SRC/States;./SRC/Systems</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;tmxlite.lib;libtmxlite-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;tmxlite.lib;libtmxlite-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
