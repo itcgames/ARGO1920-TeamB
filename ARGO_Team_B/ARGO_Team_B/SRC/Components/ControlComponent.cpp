@@ -13,7 +13,7 @@ ControlComponent::~ControlComponent()
 
 void ControlComponent::initStateSystem(StateMachineSystem* t_stateSystem)
 {
-	m_stateSystem = t_stateSystem;
+	m_stateSystem  = t_stateSystem;
 }
 
 void ControlComponent::handleInput()
@@ -66,7 +66,7 @@ void ControlComponent::controlInteract(PlayerComponent* t_player)
 	SDL_HapticRumblePlay(m_controller->m_controllerHaptic, 0.25, 200);
 	t_player->setSwipeCooldown(0.5f);
 	t_player->setInteract(true);
-	m_stateSystem->setCurrent(States::Interact);
+	//m_stateSystem->setCurrent(States::Interact);
 }
 
 void ControlComponent::controlUp(PositionComponent* t_pos)
@@ -77,7 +77,7 @@ void ControlComponent::controlUp(PositionComponent* t_pos)
 	float length = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
 	double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
 	t_pos->setangle((angle * (180 / 3.14)));
-	m_stateSystem->setCurrent(States::Walking);
+	//m_stateSystem->setCurrent(States::Walking);
 }
 
 void ControlComponent::controlDown(PositionComponent* t_pos)
@@ -87,8 +87,8 @@ void ControlComponent::controlDown(PositionComponent* t_pos)
 	m_commandSquence->add(p_walkDown);
 	float length = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
 	double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
-	t_pos->setangle((angle * (180 / 3.14)));
-	m_stateSystem->setCurrent(States::Walking);
+	//t_pos->setangle((angle * (180 / 3.14)));
+	//m_stateSystem->setCurrent(States::Walking);
 }
 
 void ControlComponent::controlLeft(PositionComponent* t_pos)
@@ -102,7 +102,7 @@ void ControlComponent::controlLeft(PositionComponent* t_pos)
 	double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
 	t_pos->setangle((angle * (180 / 3.14)));
 
-	m_stateSystem->setCurrent(States::Walking);
+	//m_stateSystem->setCurrent(States::Walking);
 }
 
 void ControlComponent::controlRight(PositionComponent* t_pos)
@@ -115,7 +115,7 @@ void ControlComponent::controlRight(PositionComponent* t_pos)
 	double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
 	t_pos->setangle((angle * (180 / 3.14)));
 
-	m_stateSystem->setCurrent(States::Walking);
+	//m_stateSystem->setCurrent(States::Walking);
 }
 
 void ControlComponent::moveUp()
