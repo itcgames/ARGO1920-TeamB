@@ -193,7 +193,7 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer,
 						//std::cout << "Player with ID : " << player->getId() << "Collected the cheese" << std::endl;
 						player->gainCheese(1);
 						t_observer->onNotify(AudioObserver::PICKUPCHEESE);
-						t_ps.push_back((new ParticleSystem(250,goalPos->getPositionX(), goalPos->getPositionY() , t_renderer,ParticleType::CheesePickup)));
+						t_ps.push_back((new ParticleSystem(250,goalPos->getPositionX(), goalPos->getPositionY() , t_renderer,ParticleType::Test)));
 						goal->setAlive(false);
 					}
 			}
