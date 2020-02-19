@@ -16,6 +16,7 @@
 #include "ButtonComponent.h"
 #include "PlayerComponent.h"
 #include "StateMachineSystem.h"
+#include "GameSystem.h"
 #include "BombSystem.h"
 
 #include "Globals.h"
@@ -62,6 +63,8 @@ private:
 	Entity m_goalCheese;
 	Entity m_bomb;
 
+	Entity m_gameManager;
+
 	// Systems
 	HealthSystem m_healthSystem;
 	ControlSystem m_controlSystem;
@@ -73,6 +76,8 @@ private:
 	StateMachineSystem m_stateMachine;
 	std::vector<Entity> m_goalCheeses;
 	AudioObserver * m_observer;
+	FontObserver* m_font;
 	BombSystem m_bombSystem;
+	GameSystem m_gameSystem;
 };
 #endif // !GAME

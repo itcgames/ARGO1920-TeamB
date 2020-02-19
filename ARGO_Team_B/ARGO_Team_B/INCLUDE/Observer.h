@@ -3,6 +3,7 @@
 #include <map>
 #include <SDL.h>
 #include <SDL_mixer.h>
+#include <SDL_ttf.h>
 
 class Observer
 {
@@ -86,3 +87,78 @@ private:
 	Mix_Music* m_bgm2 = NULL;
 };
 
+
+class FontObserver : public Observer {
+public:
+	enum FontType
+	{
+		TIMER1,TIMER2,COUNTER,PLAYERTAG
+	};
+
+	FontObserver(SDL_Renderer* renderer){
+		m_renderer = renderer;
+		if (TTF_Init() == -1) {
+			printf("TTF_Init: %s\n", TTF_GetError());
+			exit(2);
+		}
+		
+	}
+
+	void loadFont() {
+		timer1 = TTF_OpenFont("Assets/ttf/timer1.ttf", 28);
+		if (timer1 == NULL) {
+			cout << "timer.ttf failed to load! " << TTF_GetError() << endl;
+		}
+
+		timer2 = TTF_OpenFont("Assets/ttf/timer2.ttf", 28);
+		if (timer2 == NULL) {
+			cout << "timer.ttf failed to load! " << TTF_GetError() << endl;
+		}
+
+
+		counter = TTF_OpenFont("Assets/ttf/counter.ttf", 28);
+		if (counter == NULL) {
+			cout << "counter.ttf failed to load! " << TTF_GetError() << endl;
+		}
+
+		playerTag = TTF_OpenFont("Assets/ttf/playerTag.ttf", 28);
+		if (counter == NULL) {
+			cout << "playerTag.ttf failed to load! " << TTF_GetError() << endl;
+		}
+	}
+
+	void drawText(int x, int y,int width,int height, const char* text,SDL_Color color, FontType type) {
+		switch (type)
+		{
+		case FontObserver::TIMER1:
+			surface = TTF_RenderText_Solid(timer1, text, color);
+			break;
+		case FontObserver::TIMER2:
+			surface = TTF_RenderText_Solid(timer2, text, color);
+			break;
+		case FontObserver::COUNTER:
+			surface = TTF_RenderText_Solid(counter, text, color);
+			break;
+		case FontObserver::PLAYERTAG:
+			surface = TTF_RenderText_Solid(playerTag, text, color);
+			break;
+		default:
+			break;
+		}
+		SDL_Texture* message = SDL_CreateTextureFromSurface(m_renderer, surface);
+		SDL_Rect message_rect = { x, y, width, height };
+		SDL_RenderCopy(m_renderer, message, NULL, &message_rect);
+
+		// free memory
+		SDL_FreeSurface(surface);
+		SDL_DestroyTexture(message);
+	}
+private:
+
+	TTF_Font* timer1 = NULL;
+	TTF_Font* timer2 = NULL;
+	TTF_Font* counter = NULL;
+	TTF_Font* playerTag = NULL;
+	SDL_Renderer* m_renderer = NULL;
+	SDL_Surface* surface = NULL;
+};
