@@ -59,7 +59,7 @@ Game::Game() :
 	m_Rat1.addComponent(new PositionComponent(150, 100), Types::Position);
 	m_Rat1.addComponent(new CollisionComponent(m_Rat1, 30.0f, RAT_H, RAT_W), Types::Collider);
 	m_Rat1.addComponent(new ControlComponent(m_Rat1), Types::Controller);
-	m_Rat1.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
+	//m_Rat1.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
 	m_Rat1.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdle.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
 
 	// Alien
@@ -76,7 +76,7 @@ Game::Game() :
 	m_Rat2.addComponent(new PositionComponent(50, 700), Types::Position);
 	m_Rat2.addComponent(new CollisionComponent(m_Rat2, RAT_W, RAT_H), Types::Collider);
 	m_Rat2.addComponent(new ControlComponent(m_Rat2), Types::Controller);
-	m_Rat2.addComponent(new RenderComponent("./Assets/rat3.png", RAT_W, RAT_H, p_renderer), Types::Render);
+	//m_Rat2.addComponent(new RenderComponent("./Assets/rat3.png", RAT_W, RAT_H, p_renderer), Types::Render);
 	m_Rat2.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdle.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
 
 	// Cat
