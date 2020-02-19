@@ -26,6 +26,8 @@
     <ClInclude Include="INCLUDE\Utils\Observer.h" />
     <ClInclude Include="INCLUDE\Utils\ResourceManager.h" />
     <ClInclude Include="INCLUDE\Utils\Subject.h" />
+    <ClInclude Include="INCLUDE\Components\GameComponent.h" />
+    <ClInclude Include="INCLUDE\GameSystem.h" />
     <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Command.h" />
     <ClInclude Include="INCLUDE\Components\AnimatedSpriteComponent.h" />
@@ -67,7 +69,9 @@
     <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SRC\Components\GameComponent.cpp" />
     <ClCompile Include="SRC\Components\PositionComponent.cpp" />
+    <ClCompile Include="SRC\GameSystem.cpp" />
     <ClCompile Include="SRC\Systems\CollisionSystem.cpp" />
     <ClCompile Include="SRC\Menu\CreditsScene.cpp" />
     <ClCompile Include="SRC\Menu\GameScene.cpp" />
@@ -90,6 +94,7 @@
     <ClCompile Include="SRC\Level.cpp" />
     <ClCompile Include="SRC\main.cpp" />
     <ClCompile Include="SRC\States\AttackState.cpp" />
+    <ClCompile Include="Src\States\IdleState.cpp" />
     <ClCompile Include="SRC\States\InteractState.cpp" />
     <ClCompile Include="SRC\States\StunnedState.cpp" />
     <ClCompile Include="SRC\States\WalkingState.cpp" />
@@ -102,6 +107,7 @@
     <ClCompile Include="SRC\Systems\StateMachineSystem.cpp" />
     <ClCompile Include="SRC\Systems\System.cpp" />
     <ClCompile Include="SRC\Utils\Assets.cpp" />
+    <ClCompile Include="SRC\Utils\Command.cpp" />
     <ClCompile Include="SRC\Utils\Xbox360Controller.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

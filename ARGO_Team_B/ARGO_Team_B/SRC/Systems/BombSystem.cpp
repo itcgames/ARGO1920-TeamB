@@ -35,6 +35,8 @@ void BombSystem::updateComponent(float dt,AudioObserver * t_observer) {
 			}
 		}
 
+		
+
 		/// <summary>
 		/// if the bomb state change to activate then start count down
 		/// when the timer less then 0, change the state to explode
@@ -42,6 +44,17 @@ void BombSystem::updateComponent(float dt,AudioObserver * t_observer) {
 		if (bombComp->getState() == BombState::Activate) {
 			float timer = bombComp->getBombTimer();
 			if (timer <= 0.0f) {
+
+				for (int i = 0; i < m_playerEntitys.size(); i++)
+				{
+					ControlComponent* contComp = static_cast<ControlComponent*>(m_playerEntitys[i].getComponent(Types::Controller));
+					if (contComp != NULL)
+					{
+						SDL_HapticRumblePlay(contComp->m_controller->m_controllerHaptic, 0.75, 400);
+					}
+				}
+				
+
 				bombComp->setState(BombState::Explode);
 				t_observer->onNotify(AudioObserver::EXPLOSION);
 				CollisionComponent* bombCollider = static_cast<CollisionComponent*>(bombEntity.getComponent(Types::Collider));
@@ -53,6 +66,9 @@ void BombSystem::updateComponent(float dt,AudioObserver * t_observer) {
 			else {
 
 				timer -= dt;
+
+
+
 				bombComp->setBombTimer(timer);
 			}
 		}
@@ -69,7 +85,7 @@ void BombSystem::updateComponent(float dt,AudioObserver * t_observer) {
 				bombComp->setExplosionTimer(timer);
 			}
 		}
-
+		
 	}
 }
 

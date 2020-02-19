@@ -7,6 +7,7 @@
 #include "PlayerComponent.h"
 #include "RenderComponent.h"
 #include "Globals.h"
+#include <vector>
 
 class Command
 {
@@ -16,89 +17,46 @@ public:
 
 };
 
+class MacroCommand : public Command
+{
+public:
+	MacroCommand() { m_commands = new std::vector<Command*>(); };
+
+	virtual ~MacroCommand();
+	virtual void add(Command* t_c);
+	virtual void remove(Command* t_c);
+	virtual void execute(Entity& t_e);
+	virtual void clear();
+
+private:
+	int m_CommandsEnd{};
+	std::vector<Command* >*  m_commands;
+
+};
+
+
 class WalkUpCommand : public Command {
 public:
-	virtual void execute(Entity& t_gameObject)
-	{
-		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
-
-		if (t_gameObject.getId() == 0 || t_gameObject.getId() == 1) {
-			//if (posComp->getPositionY() > 30) {
-				posComp->moveUp();
-				CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
-				colComp->updateCollider(t_gameObject);
-			//}
-		}
-		else if (t_gameObject.getId() == 2 || t_gameObject.getId() == 3) {
-			if (posComp->getPositionY() > SCR_H + 50) {
-				posComp->moveUp();
-
-			}
-		}
-	}
+	virtual void execute(Entity& t_gameObject);
 };
 
 class WalkDownCommand : public Command {
 public:
-	virtual void execute(Entity& t_gameObject)
-	{
-		RenderComponent* renderComp = dynamic_cast<RenderComponent*>(t_gameObject.getComponent(Types::Render));
-		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
-
-		if (t_gameObject.getId() == 2 || t_gameObject.getId() == 3) {
-			//if (posComp->getPositionY() < SCR_H - 75) {
-				posComp->moveDown();
-				CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
-				colComp->updateCollider(t_gameObject);
-			//}
-
-		}
-		else if (t_gameObject.getId() == 0 || t_gameObject.getId() == 1) {
-			//if (posComp->getPositionY() < SCR_H - 45) {
-				posComp->moveDown();
-				CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
-				colComp->updateCollider(t_gameObject);
-			//}
-		}
-	}
+	virtual void execute(Entity& t_gameObject);
 };
 
 class WalkLeftCommand : public Command {
 public:
-	virtual void execute(Entity& t_gameObject)
-	{
-		RenderComponent* renderComp = dynamic_cast<RenderComponent*>(t_gameObject.getComponent(Types::Render));
-		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
-
-		if (posComp->getPositionX() > 30) {
-			posComp->moveLeft();
-
-		}
-	}
+	virtual void execute(Entity& t_gameObject);
 };
 
 class WalkRightCommand : public Command {
 public:
-	virtual void execute(Entity& t_gameObject)
-	{
-		RenderComponent* renderComp = dynamic_cast<RenderComponent*>(t_gameObject.getComponent(Types::Render));
-		PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
-
-
-		if (posComp->getPositionX() < SCR_W - 90) {
-			posComp->moveRight();
-		}
-
-	}
+	virtual void execute(Entity& t_gameObject);
 };
 
 class InteractCommand : public Command {
 public:
-	virtual void execute(Entity& t_gameObject)
-	{
-		PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(t_gameObject.getComponent(Types::Player));
-
-		playerComp->setInteract(true);
-	}
+	virtual void execute(Entity& t_gameObject);
 };
 #endif

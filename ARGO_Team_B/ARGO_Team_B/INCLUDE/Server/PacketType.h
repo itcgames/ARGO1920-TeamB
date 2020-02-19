@@ -1,6 +1,12 @@
 #pragma once
 enum class PacketType
 {
+	StartCountdown,
+	InGameStartCountdown,
+	PlayerData,
+	BombData,
+	TrapData,
+	ButtonData,
 	ChatMessage,
 	FileTransferRequestFile, //Sent to request a file
 	FileTransfer_EndOfFile, //Sent for when file transfer is complete

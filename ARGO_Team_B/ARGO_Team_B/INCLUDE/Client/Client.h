@@ -10,10 +10,11 @@ public: //Public functions
 	Client(const char * ip, const int port);
 	bool Connect();
 	void Disconnect();
-	void SendString(const std::string & str);
+	void SendString(const std::string & str, PacketType type);
 	bool RequestFile(const std::string & fileName);
 
-	std::string getProcessMessage() { m_processMessage; }
+	std::string getProcessMessage() { return m_processMessage; }
+	std::string getStartCountdown() { return m_startCountdown; }
 
 	~Client();
 private: //Private functions
@@ -40,4 +41,5 @@ private: //Private variables
 	std::thread m_ct; //Create thread to listen to server
 
 	std::string m_processMessage;
+	std::string m_startCountdown;
 };

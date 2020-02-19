@@ -44,10 +44,10 @@ bool Client::GetPacketType(PacketType & packetType)
 	return true;//Return true if we were successful in retrieving the PacketType type
 }
 
-void Client::SendString(const std::string & str)
+void Client::SendString(const std::string & str, PacketType type)
 {
-	PS::ChatMessage cm(str);
-	m_pm.Append(cm.toPacket());
+	PS::DataMessage cm(str);
+	m_pm.Append(cm.toPacket(type));
 }
 
 bool Client::GetString(std::string & str)

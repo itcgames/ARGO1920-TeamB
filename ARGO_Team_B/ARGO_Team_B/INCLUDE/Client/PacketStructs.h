@@ -22,4 +22,12 @@ namespace PS //Packet Structures Namespace
 		char m_databuffer[FileTransferData::m_bufferSize]; //buffer of data to be sent
 		int m_size; //size of data buffer
 	};
+	class DataMessage {
+	public:
+		DataMessage(const std::string& str);
+		std::shared_ptr<Packet> toPacket(PacketType type);
+	private:
+		std::string m_message;
+	};
+
 }

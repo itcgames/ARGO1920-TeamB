@@ -3,6 +3,7 @@
 
 #pragma once
 #include "Client/Client.h"
+#include "Observer.h"
 
 #include <algorithm>
 #include <string>
@@ -29,11 +30,13 @@ private:
 
 	not_digit notADigit;
 	vector<int> intConverter(string message);
-	string preMessage;
+	string preStartCounter;
 	
 	Client* MyClient;
 
 	int m_startCountdown;
+	int m_playerId;
+	bool m_gameConnented;
 };
 
 #endif // !JOININGGAEM

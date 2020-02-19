@@ -3,10 +3,8 @@
 
 #include "Component.h"
 #include "Command.h"
-
 #include "StateMachineSystem.h"
 #include "Enums.h"
-
 #include "PositionComponent.h"
 #include "PlayerComponent.h"
 #include "Xbox360Controller.h"
@@ -23,10 +21,13 @@ enum class MovingState {
 class ControlComponent : public Component
 {
 public:
-	MovingState m_moving;
 	static int s_controlID;
 	ControlComponent(Entity & t_gameObject);
 	~ControlComponent();
+	void update(float dt);
+	void handleInput();
+
+	Xbox360Controller* m_controller;
 	void handleInput(StateMachineSystem& t_stateSystem);
 	Xbox360Controller* getController() { return m_controller; }
 
@@ -38,8 +39,10 @@ private:
 
 	int m_compNum;
 
-	Xbox360Controller* m_controller;
+	
 	Entity& m_entity;
+
+	MacroCommand* m_commandSquence = new MacroCommand();
 
 	/// <summary>
 	/// Commands
@@ -52,4 +55,4 @@ private:
 
 };
 
-#endif // !CONTROL_cOMPONENT_H
+#endif // !CONTROL_COMPONENT_H

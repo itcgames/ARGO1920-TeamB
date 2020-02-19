@@ -6,8 +6,9 @@
 #include"SDL_image.h"
 class RenderComponent : public Component {
 public:
-	RenderComponent(const char* name, int width, int height, SDL_Renderer* renderer);
+	RenderComponent(const char* name, int width, int height,int imgWidth,int imgHeight, SDL_Renderer* renderer);
 	void draw(int x, int y, double angle);
+	void draw(int x, int y, double angle, Uint8 alpha);
 	void setImage(const char* name);
 	void setImage(const char* name, int width, int height);
 	void setAngle(double t_angle) { m_angle = t_angle; }
@@ -22,6 +23,7 @@ private:
 
 	int width;
 	int height;
+	SDL_Point center;
 	const char* currentImage;
 };
 

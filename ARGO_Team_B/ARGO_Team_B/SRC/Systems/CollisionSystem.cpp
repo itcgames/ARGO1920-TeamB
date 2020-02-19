@@ -70,25 +70,21 @@ void CollisionSystem::updateComponent(Level& t_level,AudioObserver* t_observer)
 				{
 				case 1:
 					if (checkCollision(playerCollision->getAABBCollider(), buttonCollider->getAABBCollider())) {
-						if (player->getInteract()) {
-							button->setState(true);
-							t_observer->onNotify(AudioObserver::CLICK);
-						}
+
+						button->setState(true);
+						t_observer->onNotify(AudioObserver::CLICK);
+
 					}
 					break;
 				case 2:
 					if (checkCollision(playerCollision->getAABBCollider(), buttonCollider->getAABBCollider())) {
 						// 1,3 for red team
 						if (player->getId() == 1 || player->getId() == 3) {
-							if (player->getInteract()) {
-								button->setRedDoor(true);
-							}
+							button->setRedDoor(true);
 						}
 						// 2,4 for green team
 						if (player->getId() == 2 || player->getId() == 4) {
-							if (player->getInteract()) {
-								button->setGreenDoor(true);
-							}
+							button->setGreenDoor(true);
 						}
 					}
 					break;
@@ -194,7 +190,8 @@ void CollisionSystem::updateComponent(Level& t_level,AudioObserver* t_observer)
 				PlayerComponent* player = static_cast<PlayerComponent*>(playerEntitys.getComponent(Types::Player));
 					if (checkCollision(goalCollider->getAABBCollider(), playerCollider->getAABBCollider()))
 					{
-						std::cout << "Player with ID : " << player->getId() << "Collected the cheese" << std::endl;
+						//std::cout << "Player with ID : " << player->getId() << "Collected the cheese" << std::endl;
+						player->gainCheese(1);
 						t_observer->onNotify(AudioObserver::PICKUPCHEESE);
 						goal->setAlive(false);
 					}
@@ -227,12 +224,11 @@ void CollisionSystem::bombCollision(AudioObserver* t_observer)
 					if (bombComp->getState() == BombState::Explode) {
 						playerComp->setDizzyState(true);
 					}
-					else {
-						if (playerComp->getInteract()) {
-							bombComp->playerGetBomb(playerComp->getId());
-							t_observer->onNotify(AudioObserver::PICKUPBOMB);
-							playerComp->setInteract(false);
-						}
+					else if(bombComp->getState() != BombState::Activate){
+						bombComp->playerGetBomb(playerComp->getId());
+						t_observer->onNotify(AudioObserver::PICKUPBOMB);
+						playerComp->setInteract(false);
+						
 					}
 				}
 			}
