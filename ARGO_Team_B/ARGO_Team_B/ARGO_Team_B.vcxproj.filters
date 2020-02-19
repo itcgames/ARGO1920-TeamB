@@ -39,6 +39,7 @@
     <ClInclude Include="INCLUDE\Components\TrapComponent.h" />
     <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="INCLUDE\Utils\Enums.h" />
+    <ClInclude Include="Include\Components\TestBotBehaviourComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />
@@ -73,5 +74,6 @@
     <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="SRC\CollisionSystem.cpp" />
     <ClCompile Include="Src\States\IdleState.cpp" />
+    <ClCompile Include="Src\Components\TestBotBehaviourComponent.cpp" />
   </ItemGroup>
 </Project>
