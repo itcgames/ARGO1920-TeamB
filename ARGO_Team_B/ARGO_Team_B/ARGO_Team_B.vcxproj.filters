@@ -41,6 +41,20 @@
     <ClInclude Include="INCLUDE\Subject.h" />
     <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
+    <ClInclude Include="INCLUDE\HostingGame.h" />
+    <ClInclude Include="INCLUDE\JoiningGame.h" />
+    <ClInclude Include="INCLUDE\Client\Client.h" />
+    <ClInclude Include="INCLUDE\Client\FileTransferData.h" />
+    <ClInclude Include="INCLUDE\Client\Packet.h" />
+    <ClInclude Include="INCLUDE\Client\PacketManager.h" />
+    <ClInclude Include="INCLUDE\Client\PacketStructs.h" />
+    <ClInclude Include="INCLUDE\Client\PacketType.h" />
+    <ClInclude Include="INCLUDE\Server\FileTransferData.h" />
+    <ClInclude Include="INCLUDE\Server\Packet.h" />
+    <ClInclude Include="INCLUDE\Server\PacketManager.h" />
+    <ClInclude Include="INCLUDE\Server\PacketStructs.h" />
+    <ClInclude Include="INCLUDE\Server\PacketType.h" />
+    <ClInclude Include="INCLUDE\Server\Server.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />
@@ -74,5 +88,21 @@
     <ClCompile Include="SRC\main.cpp" />
     <ClCompile Include="SRC\Components\PositionComponent.cpp" />
     <ClCompile Include="SRC\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="SRC\HostingGame.cpp" />
+    <ClCompile Include="SRC\JoiningGame.cpp" />
+    <ClCompile Include="SRC\Client\Client.cpp" />
+    <ClCompile Include="SRC\Client\ClientIni.cpp" />
+    <ClCompile Include="SRC\Client\Packet.cpp" />
+    <ClCompile Include="SRC\Client\PacketManager.cpp" />
+    <ClCompile Include="SRC\Client\PacketStructs.cpp" />
+    <ClCompile Include="SRC\Client\SendGetMethods.cpp" />
+    <ClCompile Include="SRC\Server\FileTransferData.cpp" />
+    <ClCompile Include="SRC\Server\Packet.cpp" />
+    <ClCompile Include="SRC\Server\PacketManager.cpp" />
+    <ClCompile Include="SRC\Server\PacketStructs.cpp" />
+    <ClCompile Include="SRC\Server\ProcessPacket.cpp" />
+    <ClCompile Include="SRC\Server\SendGetMethods.cpp" />
+    <ClCompile Include="SRC\Server\Server.cpp" />
+    <ClCompile Include="SRC\Server\ServerIni.cpp" />
   </ItemGroup>
 </Project>
