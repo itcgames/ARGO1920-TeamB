@@ -9,19 +9,20 @@ TestBotBehaviourComponent::~TestBotBehaviourComponent()
 {
 }
 
-void TestBotBehaviourComponent::update()
+void TestBotBehaviourComponent::update(StateMachineSystem& t_fsm)
 {
-	PositionComponent* pos = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
-	if (pos != nullptr)
+	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
+	PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
+
+	ControlComponent *control = dynamic_cast<ControlComponent*>(m_entity.getComponent(Types::Control));
+	if (control != nullptr)
 	{
-		pos->moveDown();
-		pos->moveDown();
-		pos->moveLeft();
-		pos->moveLeft();
-		pos->moveUp();
-		pos->moveUp();
-		pos->moveRight();
-		pos->moveRight();
+		//control->controlDown(posComp, t_fsm);
+		//control->controlDown(posComp, t_fsm);
+
+		//control->controlUp(posComp, t_fsm);
+		//control->controlUp(posComp, t_fsm);
+
 	}
 }
 

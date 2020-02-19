@@ -8,8 +8,8 @@
 #include "StateMachineSystem.h"
 #include "Enums.h"
 
-#include "PositionComponent.h"
-#include "PlayerComponent.h"
+#include "ControlComponent.h"
+
 #include "Xbox360Controller.h"
 #include "Entity.h"
 
@@ -18,7 +18,7 @@ class TestBotBehaviourComponent : public Component
 public:
 	TestBotBehaviourComponent(Entity& t_gameObject);
 	~TestBotBehaviourComponent();
-	void update();
+	void update(StateMachineSystem& t_fsm);
 private:
 	Entity& m_entity;
 	Command* p_walkUp;

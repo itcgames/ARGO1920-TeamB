@@ -57,7 +57,7 @@ Game::Game()
 	m_player.addComponent(new HealthComponent(100), Types::Health);
 	m_player.addComponent(new PositionComponent(150, 100), Types::Position);
 	m_player.addComponent(new CollisionComponent(m_player, 50.0f, RAT_H, RAT_W), Types::Collider);
-	m_player.addComponent(new ControlComponent(m_player), Types::Controller);
+	m_player.addComponent(new ControlComponent(m_player), Types::Control);
 	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
 	m_player.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheet.png", 60, 30, 5, p_renderer), Types::AnimatedSprite);
 
@@ -66,7 +66,7 @@ Game::Game()
 	m_alien.addComponent(new HealthComponent(150), Types::Health);
 	m_alien.addComponent(new PositionComponent(50, 300), Types::Position);
 	m_alien.addComponent(new CollisionComponent(m_alien, RAT_W, RAT_H), Types::Collider);
-	m_alien.addComponent(new ControlComponent(m_alien), Types::Controller);
+	m_alien.addComponent(new ControlComponent(m_alien), Types::Control);
 	m_alien.addComponent(new RenderComponent("./Assets/rat2.png", RAT_W, RAT_H, p_renderer), Types::Render);
 
 	// Dog
@@ -74,7 +74,7 @@ Game::Game()
 	m_dog.addComponent(new HealthComponent(75), Types::Health);
 	m_dog.addComponent(new PositionComponent(50, 700), Types::Position);
 	m_dog.addComponent(new CollisionComponent(m_dog, RAT_W, RAT_H), Types::Collider);
-	m_dog.addComponent(new ControlComponent(m_dog), Types::Controller);
+	m_dog.addComponent(new ControlComponent(m_dog), Types::Control);
 	m_dog.addComponent(new RenderComponent("./Assets/rat3.png", RAT_W, RAT_H, p_renderer), Types::Render);
 
 	// Cat
@@ -82,7 +82,7 @@ Game::Game()
 	m_cat.addComponent(new HealthComponent(50), Types::Health);
 	m_cat.addComponent(new PositionComponent(50, 900), Types::Position);
 	m_cat.addComponent(new CollisionComponent(m_cat, RAT_W, RAT_H), Types::Collider);
-	m_cat.addComponent(new ControlComponent(m_cat), Types::Controller);
+	m_cat.addComponent(new ControlComponent(m_cat), Types::Control);
 	m_cat.addComponent(new RenderComponent("./Assets/rat4.png", RAT_W, RAT_H, p_renderer), Types::Render);
 	m_cat.addComponent(new TestBotBehaviourComponent(m_cat), Types::TestBot);
 
@@ -162,6 +162,7 @@ Game::Game()
 	m_gameManager.addComponent(new GameComponent(), Types::Game);
 	m_gameManager.addComponent(new PositionComponent((float)SCR_W/2, (float)SCR_H/2), Types::Position);
 	m_gameManager.addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
+	
 	// Systems
 	//HEALTH All entities
 	m_healthSystem.addEntity(m_player);
@@ -256,7 +257,10 @@ Game::Game()
 
 	m_gameSystem.setupComponent();
 
-	m_aiSystem.addEntity(m_cat);
+	m_aiSystem = new AISystem(&m_stateMachine);
+	m_aiSystem->addEntity(m_cat);
+
+
 }
 
 
@@ -326,7 +330,7 @@ void Game::processEvents()
 void Game::update(float dt)
 {
 	m_healthSystem.update();
-	m_aiSystem.update();
+	m_aiSystem->update();
 	m_buttonSystem.update();
 	m_controlSystem.handleInput(dt, m_stateMachine);
 	m_collisionSystem.updateComponent(*tiled_map_level,m_observer);

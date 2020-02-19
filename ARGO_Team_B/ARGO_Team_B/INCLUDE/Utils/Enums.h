@@ -7,7 +7,7 @@ enum class Types {
 	Render,
 	Button,
 	Traps,
-	Controller,
+	Control,
 	AnimatedSprite,
 	Collider,
 	Door,

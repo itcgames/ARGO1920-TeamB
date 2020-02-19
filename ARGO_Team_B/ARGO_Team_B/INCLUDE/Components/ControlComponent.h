@@ -14,13 +14,17 @@ class ControlComponent : public Component
 {
 public:
 	static int s_controlID;
+	Xbox360Controller* m_controller;
+
 	ControlComponent(Entity & t_gameObject);
 	~ControlComponent();
-	void update(float dt);
-	void handleInput();
-
-	Xbox360Controller* m_controller;
 	void handleInput(StateMachineSystem& t_stateSystem);
+	void controlInteract(PlayerComponent* t_player, StateMachineSystem& t_stateSystem);
+	void controlUp(PositionComponent* t_pos, StateMachineSystem& t_stateSystem);
+	void controlDown(PositionComponent* t_pos, StateMachineSystem& t_stateSystem);
+	void controlLeft(PositionComponent* t_pos, StateMachineSystem& t_stateSystem);
+	void controlRight(PositionComponent* t_pos, StateMachineSystem& t_stateSystem);
+
 
 private:
 	void moveUp();
@@ -29,21 +33,13 @@ private:
 	void moveDown();
 
 	int m_compNum;
-
-	
 	Entity& m_entity;
-
 	MacroCommand* m_commandSquence = new MacroCommand();
-
-	/// <summary>
-	/// Commands
-	/// </summary>
 	Command* p_walkUp;
 	Command* p_walkDown;
 	Command* p_walkLeft;
 	Command* p_walkRight;
 	Command* p_interact;
-
 };
 
 #endif // !CONTROL_COMPONENT_H

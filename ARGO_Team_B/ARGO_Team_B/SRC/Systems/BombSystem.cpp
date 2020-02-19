@@ -47,7 +47,7 @@ void BombSystem::updateComponent(float dt,AudioObserver * t_observer) {
 
 				for (int i = 0; i < m_playerEntitys.size(); i++)
 				{
-					ControlComponent* contComp = static_cast<ControlComponent*>(m_playerEntitys[i].getComponent(Types::Controller));
+					ControlComponent* contComp = static_cast<ControlComponent*>(m_playerEntitys[i].getComponent(Types::Control));
 					if (contComp != NULL)
 					{
 						SDL_HapticRumblePlay(contComp->m_controller->m_controllerHaptic, 0.75, 400);

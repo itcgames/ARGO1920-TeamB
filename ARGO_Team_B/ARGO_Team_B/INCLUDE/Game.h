@@ -66,7 +66,7 @@ private:
 	// Systems
 	HealthSystem m_healthSystem;
 	ControlSystem m_controlSystem;
-	AISystem m_aiSystem;
+	System* m_aiSystem;
 	RenderSystem m_renderSystem;
 	Level* tiled_map_level;
 	ButtonSystem m_buttonSystem;
