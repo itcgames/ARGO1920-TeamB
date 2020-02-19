@@ -3,7 +3,7 @@
 
 #include <SDL.h>
 #include "System.h"
-#include "PositionComponent.h"
+#include "TestBotBehaviourComponent.h"
 
 class AISystem : public System
 {

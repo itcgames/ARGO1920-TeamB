@@ -6,16 +6,12 @@ AISystem::~AISystem() {}
 
 void AISystem::updateComponent(Component* component)
 {
-	PositionComponent* pc = dynamic_cast<PositionComponent*>(component);
-	if (nullptr != pc)
+	for (Entity& e : entities)
 	{
-		int x = pc->getPositionX();
-		int y = pc->getPositionY();
-		x += 3;
-		if (x > 1080)
+		TestBotBehaviourComponent* bot = dynamic_cast<TestBotBehaviourComponent*>(e.getComponent(Types::TestBot));
+		if (bot != nullptr)
 		{
-			x = 0;
+			bot->update();
 		}
-		pc->setPosition(x,y);
 	}
 }

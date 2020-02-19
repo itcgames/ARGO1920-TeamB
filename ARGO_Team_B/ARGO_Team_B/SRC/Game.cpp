@@ -14,9 +14,9 @@ Game::Game()
 	}
 
 	// Create a Window
-	//p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCR_W, SCR_H, SDL_WINDOW_SHOWN);
+	p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCR_W, SCR_H, SDL_WINDOW_SHOWN);
 	// Dion Debug window
-	p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 550, 300, SDL_WINDOW_SHOWN);
+	//p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_SHOWN);
 
 	if (NULL == p_window)
 	{
@@ -84,6 +84,7 @@ Game::Game()
 	m_cat.addComponent(new CollisionComponent(m_cat, RAT_W, RAT_H), Types::Collider);
 	m_cat.addComponent(new ControlComponent(m_cat), Types::Controller);
 	m_cat.addComponent(new RenderComponent("./Assets/rat4.png", RAT_W, RAT_H, p_renderer), Types::Render);
+	m_cat.addComponent(new TestBotBehaviourComponent(m_cat), Types::TestBot);
 
 	/*button test*/
 	//Button 1
@@ -98,12 +99,13 @@ Game::Game()
 	m_button2.addComponent(new CollisionComponent(m_button2, 30, 30), Types::Collider);
 	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 30, 30, p_renderer), Types::Render);
 	
-	//door button
-	/*m_doorButton.addComponent(new ButtonComponent(false, 1, 2), Types::Button);
+	/* //door button
+	m_doorButton.addComponent(new ButtonComponent(false, 1, 2), Types::Button);
 	m_doorButton.addComponent(new PositionComponent(100, 650), Types::Position);
 	m_doorButton.addComponent(new CollisionComponent(m_doorButton, 30, 30), Types::Collider);
 	m_doorButton.addComponent(new RenderComponent("Assets\\DoorButton.png", 30, 30, p_renderer), Types::Render);
 */
+
 	//Trap 1
 	m_spike.addComponent(new TrapComponent(false, 1), Types::Traps);
 	m_spike.addComponent(new PositionComponent(600,600), Types::Position);
@@ -202,7 +204,6 @@ Game::Game()
 	/// </summary>
 	m_stateMachine.addEntity(m_player);
 
-
 	const auto MAP_PATH = "Assets/map/test.tmx";
 	tiled_map_level = new Level("Test");
 	tiled_map_level->load(MAP_PATH, p_renderer);
@@ -254,6 +255,8 @@ Game::Game()
 	m_gameSystem.addEntity(m_gameManager);
 
 	m_gameSystem.setupComponent();
+
+	m_aiSystem.addEntity(m_cat);
 }
 
 

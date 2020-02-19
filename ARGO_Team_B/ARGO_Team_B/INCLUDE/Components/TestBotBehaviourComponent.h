@@ -18,14 +18,9 @@ class TestBotBehaviourComponent : public Component
 public:
 	TestBotBehaviourComponent(Entity& t_gameObject);
 	~TestBotBehaviourComponent();
-
+	void update();
 private:
-
 	Entity& m_entity;
-
-	/// <summary>
-	/// Commands
-	/// </summary>
 	Command* p_walkUp;
 	Command* p_walkDown;
 	Command* p_walkLeft;

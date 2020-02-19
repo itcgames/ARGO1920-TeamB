@@ -12,6 +12,7 @@
 #include "ButtonSystem.h"
 #include "CollisionSystem.h"
 #include "Enums.h"
+#include "TestBotBehaviourComponent.h"
 #include "TrapComponent.h"
 #include "ButtonComponent.h"
 #include "PlayerComponent.h"

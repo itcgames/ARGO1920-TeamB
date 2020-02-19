@@ -14,7 +14,8 @@ enum class Types {
 	Player,
 	Goal,
 	Bomb,
-	Game
+	Game,
+	TestBot
 };
 
 enum class States {
