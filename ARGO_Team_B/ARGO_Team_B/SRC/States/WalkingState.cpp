@@ -6,6 +6,7 @@
 
 WalkingState::WalkingState()
 {
+	m_type = States::Walking;
 }
 
 WalkingState::~WalkingState()

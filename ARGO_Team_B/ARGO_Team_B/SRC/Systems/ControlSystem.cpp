@@ -1,8 +1,6 @@
 #include "ControlSystem.h"
 
 ControlSystem::ControlSystem() {
-		Xbox360Controller * controller= new Xbox360Controller(0);
-		m_controllers.push_back(controller);
 }
 
 ControlSystem::~ControlSystem() 

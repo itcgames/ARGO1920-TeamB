@@ -9,7 +9,7 @@
 class IdleState : public State
 {
 public:
-	IdleState() {}
+	IdleState() { m_type = States::Idle; }
 	~IdleState() {}
 
 	void walking(AnimatedSpriteComponent* t_a) override;
