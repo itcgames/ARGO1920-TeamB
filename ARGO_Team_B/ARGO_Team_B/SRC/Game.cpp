@@ -60,7 +60,7 @@ Game::Game() :
 	m_Rat1.addComponent(new CollisionComponent(m_Rat1, 30.0f, RAT_H, RAT_W), Types::Collider);
 	m_Rat1.addComponent(new ControlComponent(m_Rat1), Types::Controller);
 	//m_Rat1.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
-	m_Rat1.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdle.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
+	m_Rat1.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
 
 	// Alien
 	m_Rat4.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added
@@ -68,7 +68,7 @@ Game::Game() :
 	m_Rat4.addComponent(new PositionComponent(50, 300), Types::Position);
 	m_Rat4.addComponent(new CollisionComponent(m_Rat4, RAT_W, RAT_H), Types::Collider);
 	m_Rat4.addComponent(new ControlComponent(m_Rat4), Types::Controller);
-	m_Rat4.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdle.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
+	m_Rat4.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
 
 	// Dog
 	m_Rat2.addComponent(new PlayerComponent(3), Types::Player); // This must allways be first added
@@ -77,7 +77,7 @@ Game::Game() :
 	m_Rat2.addComponent(new CollisionComponent(m_Rat2, RAT_W, RAT_H), Types::Collider);
 	m_Rat2.addComponent(new ControlComponent(m_Rat2), Types::Controller);
 	//m_Rat2.addComponent(new RenderComponent("./Assets/rat3.png", RAT_W, RAT_H, p_renderer), Types::Render);
-	m_Rat2.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdle.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
+	m_Rat2.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
 
 	// Cat
 	m_Rat3.addComponent(new PlayerComponent(4), Types::Player); // This must allways be first added
@@ -86,6 +86,7 @@ Game::Game() :
 	m_Rat3.addComponent(new CollisionComponent(m_Rat3, RAT_W, RAT_H), Types::Collider);
 	m_Rat3.addComponent(new ControlComponent(m_Rat3), Types::Controller);
 	m_Rat3.addComponent(new RenderComponent("./Assets/rat4.png", RAT_W, RAT_H, p_renderer), Types::Render);
+	m_Rat3.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
 
 	/*button test*/
 	//Button 1
@@ -206,6 +207,7 @@ Game::Game() :
 	m_stateMachine.addEntity(m_Rat1);
 	m_stateMachine.addEntity(m_Rat4);
 	m_stateMachine.addEntity(m_Rat2);
+	m_stateMachine.addEntity(m_Rat3);
 	m_stateMachine.setupSprites();
 
 	const auto MAP_PATH = "Assets/map/test.tmx";
