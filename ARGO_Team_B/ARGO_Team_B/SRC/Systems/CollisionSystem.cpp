@@ -198,7 +198,7 @@ void CollisionSystem::updateComponent(Level& t_level,AudioObserver* t_observer)
 	bombCollision(t_observer);
 }
 
-void CollisionSystem::bombCollision(AudioObserver* t_observer)
+void CollisionSystem::bombCollision(AudioObserver* t_observer, Level& t_level)
 {
 	for (Entity& bombEntity : m_bombEntitys) {
 		BombComponent* bombComp = static_cast<BombComponent*>(bombEntity.getComponent(Types::Bomb));
@@ -229,7 +229,6 @@ void CollisionSystem::bombCollision(AudioObserver* t_observer)
 					}
 				}
 			}
-
 		}
 	}
 }
@@ -434,4 +433,8 @@ void CollisionSystem::searchCheese()
 			m_goalEntitys.push_back(e1);
 		}
 	}
+}
+
+void CollisionSystem::TileBombCollision(Level* t_level, BombComponent* t_bomb)
+{
 }

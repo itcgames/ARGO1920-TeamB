@@ -214,7 +214,7 @@ Game::Game() :
 	m_stateMachine->addEntity(m_rat3);
 	m_stateMachine->setupSprites();
 
-	const auto MAP_PATH = "Assets/map/test.tmx";
+	const auto MAP_PATH = "Assets/map/testLevel.tmx";
 	tiled_map_level = new Level("Test");
 	tiled_map_level->load(MAP_PATH, p_renderer);
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="64" height="36" tilewidth="30" tileheight="30" infinite="0" nextlayerid="12" nextobjectid="166">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="64" height="36" tilewidth="30" tileheight="30" infinite="0" nextlayerid="12" nextobjectid="174">
  <tileset firstgid="1" source="../tileset/city.tsx"/>
  <layer id="1" name="BorderWalls" width="64" height="36">
   <data encoding="csv">
@@ -213,7 +213,7 @@
   <object id="165" name="MazeWall" x="30" y="1050" width="1861.9" height="30.1818"/>
  </objectgroup>
  <objectgroup id="5" name="MazeWallsCollision">
-  <object id="1" name="MazeWall" x="119.903" y="29.716" width="25.1477" height="238.171"/>
+  <object id="1" name="MazeWall" x="122.028" y="30.341" width="25.1477" height="238.171"/>
   <object id="2" name="MazeWall" x="145.148" y="239.989" width="97.9489" height="27.7159"/>
   <object id="4" name="MazeWall" x="243.273" y="132.671" width="23.2727" height="135.119"/>
   <object id="5" name="MazeWall" x="146.637" y="330.273" width="120.148" height="22.5682"/>
