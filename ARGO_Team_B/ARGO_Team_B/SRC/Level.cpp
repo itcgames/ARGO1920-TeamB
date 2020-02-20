@@ -113,6 +113,15 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
 					Point o(x, y);
 					m_cheese.push_back(o);
 				}
+				else if (object.getName() == "bombpoint")
+				{
+					float x, y;
+					x = object.getPosition().x;
+					y = object.getPosition().y;
+					Point o(x, y);
+					m_bomb.push_back(o);
+				}
+
 			}
 		}
         // We're only looking to render the tiles on the map, so if

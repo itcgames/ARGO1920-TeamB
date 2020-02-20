@@ -130,12 +130,6 @@ Game::Game()
 	m_door1.addComponent(new RenderComponent("Assets\\Door.png", 200, 20, p_renderer), Types::Render);
 */
 	
-	//bomb
-	m_bomb.addComponent(new BombComponent(), Types::Bomb);
-	m_bomb.addComponent(new PositionComponent(700, 200), Types::Position);
-	m_bomb.addComponent(new CollisionComponent(m_bomb, 30.0f, 30, 30), Types::Collider);
-	m_bomb.addComponent(new RenderComponent("Assets\\bomb.png", 30, 30, p_renderer), Types::Render);
-
 	//game manager and ui detail
 	m_gameManager.addComponent(new GameComponent(), Types::Game);
 	m_gameManager.addComponent(new PositionComponent((float)SCR_W/2, (float)SCR_H/2), Types::Position);
@@ -169,7 +163,6 @@ Game::Game()
 	
 	//m_collisionSystem.addEntity(m_door1);
 
-	m_collisionSystem.addEntity(m_bomb);
 	//DRAW Draw all of entities
 	m_renderSystem.addEntity(m_player);
 	m_renderSystem.addEntity(m_alien);
@@ -207,7 +200,6 @@ Game::Game()
 	m_font = new FontObserver(p_renderer);
 	m_font->loadFont();
 
-	m_renderSystem.addEntity(m_bomb);
 
 	//Connect button entity and other entity that require switch	 
 	m_buttonSystem.addEntity(m_button);
@@ -220,7 +212,7 @@ Game::Game()
 	//m_buttonSystem.addEntity(m_door1);
 
 	// bomb system
-	m_bombSystem.addEntity(m_bomb);
+	
 	m_bombSystem.addEntity(m_player);
 	m_bombSystem.addEntity(m_alien);
 	m_bombSystem.addEntity(m_dog);
@@ -237,34 +229,42 @@ Game::Game()
 	//cheeses
 
 	//cheeseSpawn(m_collisionSystem, m_renderSystem, m_buttonSystem, *tiled_map_level,p_renderer);
-	//m_goalCheeses.reserve(4);
+	m_goalCheeses.reserve(16);
 	for (int i = 0; i < tiled_map_level->m_cheese.size(); ++i)
 	{
 		m_goalCheeses.emplace_back();
 		bool canSpawn = false;
 		float spawnPointX;
 		float spawnPointY;
-		//m_goalCheeses.emplace_back();
-		//spawnPointX = rand() % 1840+60;
-		//spawnPointY = rand() % 1000+60;
 		spawnPointX = tiled_map_level->m_cheese[i].x;
 		spawnPointY = tiled_map_level->m_cheese[i].y;
-		//float centerX = 15;
-		//float centerY = 15;
-		//float leftE = centerX - 30;
-		//float rightE = centerX + 30;
-		//float lowE = centerY - 30;
-		//float upperE = centerY + 30;
-		//canSpawn = canspawnHere(spawnPointX, spawnPointY, leftE, lowE, rightE, upperE);
 		m_goalCheeses[i].addComponent(new GoalComponent(), Types::Goal);
 		m_goalCheeses[i].addComponent(new PositionComponent(spawnPointX, spawnPointY), Types::Position);
-		m_goalCheeses[i].addComponent(new CollisionComponent(m_goalCheeses[i], 30, 30), Types::Collider);
+		m_goalCheeses[i].addComponent(new CollisionComponent(m_goalCheeses[i],30.0f, 30, 30), Types::Collider);
 		m_goalCheeses[i].addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
 		m_collisionSystem.addEntity(m_goalCheeses[i]);
 		std::cout << "collision system added for " << i << std::endl;
 		m_renderSystem.addEntity(m_goalCheeses[i]);
 		std::cout << "render system added for " << i << std::endl;
 		m_buttonSystem.addEntity(m_goalCheeses[i]);
+		std::cout << "button system added for " << i << std::endl;
+	}
+	for (int i = 0; i < tiled_map_level->m_bomb.size(); ++i)
+	{
+		m_bombs.emplace_back();
+		float spawnPointX;
+		float spawnPointY;
+		spawnPointX = tiled_map_level->m_bomb[i].x;
+		spawnPointY = tiled_map_level->m_bomb[i].y;
+		m_bombs[i].addComponent(new BombComponent(), Types::Bomb);
+		m_bombs[i].addComponent(new PositionComponent(spawnPointX, spawnPointY), Types::Position);
+		m_bombs[i].addComponent(new CollisionComponent(m_bombs[i], 30.0f, 30, 30), Types::Collider);
+		m_bombs[i].addComponent(new RenderComponent("Assets\\bomb.png", 30, 30, p_renderer), Types::Render);
+		m_collisionSystem.addEntity(m_bombs[i]);
+		std::cout << "collision system added for " << i << std::endl;
+		m_renderSystem.addEntity(m_bombs[i]);
+		std::cout << "render system added for " << i << std::endl;
+		m_bombSystem.addEntity(m_bombs[i]);
 		std::cout << "button system added for " << i << std::endl;
 	}
 }
@@ -300,40 +300,6 @@ void Game::run()
 		render();
 	}
 	quit();
-}
-
-void Game::cheeseSpawn(CollisionSystem t_cs, RenderSystem t_rs, ButtonSystem t_bs, Level& t_cheeses, SDL_Renderer* t_renderer)
-{
-	m_goalCheeses.reserve(4);
-	for (int i = 0; i < t_cheeses.m_cheese.size(); ++i)
-	{
-		m_goalCheeses.emplace_back();
-		bool canSpawn = false;
-		float spawnPointX;
-		float spawnPointY;
-		//m_goalCheeses.emplace_back();
-		//spawnPointX = rand() % 1840+60;
-		//spawnPointY = rand() % 1000+60;
-		spawnPointX = t_cheeses.m_cheese[i].x;
-		spawnPointY = t_cheeses.m_cheese[i].y;
-		//float centerX = 15;
-		//float centerY = 15;
-		//float leftE = centerX - 30;
-		//float rightE = centerX + 30;
-		//float lowE = centerY - 30;
-		//float upperE = centerY + 30;
-		//canSpawn = canspawnHere(spawnPointX, spawnPointY, leftE, lowE, rightE, upperE);
-		m_goalCheeses[i].addComponent(new GoalComponent(), Types::Goal);
-		m_goalCheeses[i].addComponent(new PositionComponent(spawnPointX, spawnPointY), Types::Position);
-		m_goalCheeses[i].addComponent(new CollisionComponent(m_goalCheeses[i], 30, 30), Types::Collider);
-		m_goalCheeses[i].addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, t_renderer), Types::Render);
-		t_cs.addEntity(m_goalCheeses[i]);
-		std::cout << "collision system added for " << i << std::endl;
-		t_rs.addEntity(m_goalCheeses[i]);
-		std::cout << "render system added for " << i << std::endl;
-		t_bs.addEntity(m_goalCheeses[i]);
-		std::cout << "button system added for " << i << std::endl;
-	}
 }
 
 
@@ -375,7 +341,9 @@ void Game::update(float dt)
 	m_controlSystem.handleInput(dt, m_stateMachine,p_renderer);
 	m_collisionSystem.updateComponent(*tiled_map_level,m_observer,m_particles,p_renderer);
 	m_stateMachine.update();
-	m_bombSystem.updateComponent(dt,m_observer);
+
+	m_bombSystem.updateComponent(dt, m_observer);
+
 	m_gameSystem.update(dt);
 	for (int i = 0; i < m_particles.size(); i++) {
 		// Loops through particle systems
@@ -416,16 +384,4 @@ void Game::quit()
 	SDL_DestroyWindow(p_window);
 	IMG_Quit();
 	SDL_Quit();
-}
-
-bool Game::canspawnHere(float spx, float spy, float leftE, float lowE, float rightE, float upperE)
-{
-	if (spx > leftE && spx<= rightE)
-	{
-		if (spy>= lowE && spy<= upperE)
-		{
-			return false;
-		}
-	}
-	return true;
 }
