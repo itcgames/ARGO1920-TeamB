@@ -29,8 +29,6 @@ public:
 	Game();
 	~Game();
 	void run();
-	std::vector<Entity> m_goalCheeses;
-	std::vector<Entity> m_bombs;
 private:
 	void processEvents();
 	void update(float dt);
@@ -60,9 +58,6 @@ private:
 	Entity m_door1;
 	Entity m_door2;
 
-	Entity m_goalCheese;
-	Entity m_bomb;
-
 	Entity m_gameManager;
 
 	// Systems
@@ -80,6 +75,7 @@ private:
 	BombSystem m_bombSystem;
 	GameSystem m_gameSystem;
 	std::vector<ParticleSystem*> m_particles;
-
+	std::vector<Entity> m_goalCheeses;
+	std::vector<Entity> m_bombs;
 };
 #endif // !GAME

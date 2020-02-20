@@ -47,7 +47,9 @@ Game::Game()
 	// Initialise Game Variables
 
 	// Extra info for systems
-
+	const auto MAP_PATH = "Assets/map/test.tmx";
+	tiled_map_level = new Level("Test");
+	tiled_map_level->load(MAP_PATH, p_renderer);
 	/// <summary>
 	/// FOR ALL ENTITY
 	/// the position component must create before the collision component
@@ -55,7 +57,7 @@ Game::Game()
 	// Player
 	m_player.addComponent(new PlayerComponent(1), Types::Player); // This must allways be first added
 	m_player.addComponent(new HealthComponent(100), Types::Health);
-	m_player.addComponent(new PositionComponent(150, 100), Types::Position);
+	m_player.addComponent(new PositionComponent(tiled_map_level->m_player[0].x, tiled_map_level->m_player[0].y), Types::Position);
 	m_player.addComponent(new CollisionComponent(m_player, 50.0f, RAT_H, RAT_W), Types::Collider);
 	m_player.addComponent(new ControlComponent(m_player), Types::Controller);
 	m_player.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
@@ -64,7 +66,7 @@ Game::Game()
 	// Alien
 	m_alien.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added
 	m_alien.addComponent(new HealthComponent(150), Types::Health);
-	m_alien.addComponent(new PositionComponent(50, 300), Types::Position);
+	m_alien.addComponent(new PositionComponent(tiled_map_level->m_player[1].x, tiled_map_level->m_player[1].y), Types::Position);
 	m_alien.addComponent(new CollisionComponent(m_alien, RAT_W, RAT_H), Types::Collider);
 	m_alien.addComponent(new ControlComponent(m_alien), Types::Controller);
 	m_alien.addComponent(new RenderComponent("./Assets/rat2.png", RAT_W, RAT_H, p_renderer), Types::Render);
@@ -72,7 +74,7 @@ Game::Game()
 	// Dog
 	m_dog.addComponent(new PlayerComponent(3), Types::Player); // This must allways be first added
 	m_dog.addComponent(new HealthComponent(75), Types::Health);
-	m_dog.addComponent(new PositionComponent(50, 700), Types::Position);
+	m_dog.addComponent(new PositionComponent(tiled_map_level->m_player[2].x, tiled_map_level->m_player[2].y), Types::Position);
 	m_dog.addComponent(new CollisionComponent(m_dog, RAT_W, RAT_H), Types::Collider);
 	m_dog.addComponent(new ControlComponent(m_dog), Types::Controller);
 	m_dog.addComponent(new RenderComponent("./Assets/rat3.png", RAT_W, RAT_H, p_renderer), Types::Render);
@@ -80,7 +82,7 @@ Game::Game()
 	// Cat
 	m_cat.addComponent(new PlayerComponent(4), Types::Player); // This must allways be first added
 	m_cat.addComponent(new HealthComponent(50), Types::Health);
-	m_cat.addComponent(new PositionComponent(50, 900), Types::Position);
+	m_cat.addComponent(new PositionComponent(tiled_map_level->m_player[3].x, tiled_map_level->m_player[3].y), Types::Position);
 	m_cat.addComponent(new CollisionComponent(m_cat, RAT_W, RAT_H), Types::Collider);
 	m_cat.addComponent(new ControlComponent(m_cat), Types::Controller);
 	m_cat.addComponent(new RenderComponent("./Assets/rat4.png", RAT_W, RAT_H, p_renderer), Types::Render);
@@ -176,9 +178,7 @@ Game::Game()
 	m_stateMachine.addEntity(m_player);
 
 
-	const auto MAP_PATH = "Assets/map/test.tmx";
-	tiled_map_level = new Level("Test");
-	tiled_map_level->load(MAP_PATH, p_renderer);
+
 
 	//m_renderSystem.addEntity(m_alien);
 	//m_renderSystem.addEntity(m_dog);
@@ -227,9 +227,7 @@ Game::Game()
 
 	m_gameSystem.setupComponent();
 	//cheeses
-
-	//cheeseSpawn(m_collisionSystem, m_renderSystem, m_buttonSystem, *tiled_map_level,p_renderer);
-	m_goalCheeses.reserve(16);
+	m_goalCheeses.reserve(tiled_map_level->m_cheese.size());
 	for (int i = 0; i < tiled_map_level->m_cheese.size(); ++i)
 	{
 		m_goalCheeses.emplace_back();
@@ -249,6 +247,9 @@ Game::Game()
 		m_buttonSystem.addEntity(m_goalCheeses[i]);
 		std::cout << "button system added for " << i << std::endl;
 	}
+
+	//bombs
+	m_bombs.reserve(tiled_map_level->m_bomb.size());
 	for (int i = 0; i < tiled_map_level->m_bomb.size(); ++i)
 	{
 		m_bombs.emplace_back();
@@ -295,7 +296,7 @@ void Game::run()
 		{
 			timeSinceLastUpdate -= timePerFrame;
 			processEvents();
-			update(timePerFrame / 1000.0f);
+			update(timePerFrame/1000.0f);
 		}
 		render();
 	}

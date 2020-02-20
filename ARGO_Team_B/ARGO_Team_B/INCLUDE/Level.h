@@ -64,6 +64,7 @@ public:
 	std::vector<TeleportObject> m_teleport;
 	std::vector<Point> m_cheese;
 	std::vector<Point> m_bomb;
+	std::vector<Point> m_player;
 private:
     std::string name;
     // Think of the dimensions as a 2D array (after all, that's what our
