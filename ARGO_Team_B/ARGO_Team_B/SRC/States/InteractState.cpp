@@ -6,6 +6,7 @@
 
 InteractState::InteractState()
 {
+	m_type = States::Interact;
 }
 
 InteractState::~InteractState()

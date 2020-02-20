@@ -83,5 +83,6 @@
     <ClCompile Include="Src\Components\TestBotBehaviourComponent.cpp" />
     <ClCompile Include="SRC\Utils\Command.cpp" />
     <ClCompile Include="Src\States\IdleState.cpp" />
+    <ClCompile Include="SRC\Components\PositionComponent.cpp" />
   </ItemGroup>
 </Project>

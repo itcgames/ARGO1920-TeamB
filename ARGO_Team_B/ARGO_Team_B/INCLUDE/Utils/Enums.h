@@ -26,4 +26,12 @@ enum class States {
 	Walking
 };
 
+enum class EntityType
+{
+	Default,
+	Rat,
+	Bomb,
+	Spike
+};
+
 #endif // !ENUMS_H

@@ -13,7 +13,9 @@ class Entity
 public:
 	static int m_instanceCount;
 
-	Entity() {
+	Entity(EntityType t_type = EntityType::Default) :
+		m_entityType(t_type)
+	{
 		m_id = m_instanceCount++;
 	};
 	~Entity() {};
@@ -51,8 +53,10 @@ public:
 
 	Types getType() { return m_components.second.at(0); } // all Player Types have to be first component passed 
 
+	EntityType getEntityType() { return m_entityType; }
 private:
 	int m_id;
+	EntityType m_entityType;
 	std::pair<std::vector<Component*>, std::vector<Types>> m_components;
 };
 

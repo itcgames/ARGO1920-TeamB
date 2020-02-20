@@ -5,6 +5,7 @@
 
 AttackState::AttackState()
 {
+	m_type = States::Attack;
 }
 
 AttackState::~AttackState()

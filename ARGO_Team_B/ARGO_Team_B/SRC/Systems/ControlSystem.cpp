@@ -1,8 +1,6 @@
 #include "ControlSystem.h"
 
 ControlSystem::ControlSystem() {
-		Xbox360Controller * controller= new Xbox360Controller(0);
-		m_controllers.push_back(controller);
 }
 
 ControlSystem::~ControlSystem() 
@@ -30,9 +28,7 @@ void ControlSystem::handleInput(float dt) {
 		{
 			cont->handleInput();
 		}
-		
 		PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(e.getComponent(Types::Player));
-
 		if (playerComp->getSwipeCooldown() > 0.0f) {
 			float timer = playerComp->getSwipeCooldown();
 			timer -= dt;

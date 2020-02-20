@@ -7,6 +7,7 @@
 #include "PlayerComponent.h"
 #include "RenderComponent.h"
 #include "Globals.h"
+#include "AnimatedSpriteComponent.h"
 #include <vector>
 
 class Command
@@ -33,7 +34,6 @@ private:
 	std::vector<Command* >*  m_commands;
 
 };
-
 
 class WalkUpCommand : public Command {
 public:
