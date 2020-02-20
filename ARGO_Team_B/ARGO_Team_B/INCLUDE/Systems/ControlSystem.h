@@ -23,8 +23,9 @@ public:
 	ControlSystem();
 	~ControlSystem();
 	void updateComponent(Component* c) override;
-	void handleInput(float dt, StateMachineSystem& t_stateSystem);
+	void handleInput(float dt);
 	void handleInput(SDL_Keycode key);
+	void initStateSystem(StateMachineSystem* t_stateSystem);
 
 	int contNum= 0;
 	int i = 0;

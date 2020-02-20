@@ -5,7 +5,7 @@
 /// Main Game constructor used to initialise SDL, create a window and initialise SDL_IMG
 /// </summary>
 Game::Game() :
-	m_Rat1(EntityType::Rat), m_Rat2(EntityType::Rat), m_Rat3(EntityType::Rat), m_Rat4(EntityType::Rat)
+	m_rat1(EntityType::Rat), m_rat2(EntityType::Rat), m_rat3(EntityType::Rat), m_rat4(EntityType::Rat)
 {
 	srand(time(NULL));
 	// Initialise SDL
@@ -13,11 +13,12 @@ Game::Game() :
 	{
 		std::cout << "Failed to initialise SDL" << std::endl;
 	}
+	
 
 	// Create a Window
 	p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCR_W, SCR_H, SDL_WINDOW_SHOWN );
 	// Dion Debug window
-	// p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 550, 300, SDL_WINDOW_SHOWN);
+	//p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_SHOWN);
 
 	if (NULL == p_window)
 	{
@@ -46,6 +47,7 @@ Game::Game() :
 	Mix_AllocateChannels(128);
 
 	// Initialise Game Variables
+	m_stateMachine = new StateMachineSystem;
 
 	// Extra info for systems
 
@@ -54,39 +56,41 @@ Game::Game() :
 	/// the position component must create before the collision component
 	/// </summary>
 	// Player
-	m_Rat1.addComponent(new PlayerComponent(1), Types::Player); // This must allways be first added
-	m_Rat1.addComponent(new HealthComponent(100), Types::Health);
-	m_Rat1.addComponent(new PositionComponent(150, 100), Types::Position);
-	m_Rat1.addComponent(new CollisionComponent(m_Rat1, 30.0f, RAT_H, RAT_W), Types::Collider);
-	m_Rat1.addComponent(new ControlComponent(m_Rat1), Types::Controller);
-	//m_Rat1.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
-	m_Rat1.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
+	m_rat1.addComponent(new PlayerComponent(1), Types::Player); // This must allways be first added
+	m_rat1.addComponent(new HealthComponent(100), Types::Health);
+	m_rat1.addComponent(new PositionComponent(150, 100), Types::Position);
+	m_rat1.addComponent(new CollisionComponent(m_rat1, 30.0f, RAT_H, RAT_W), Types::Collider);
+	m_rat1.addComponent(new ControlComponent(m_rat1), Types::Control);
+	//m_rat1.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
+	m_rat1.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
 
 	// Alien
-	m_Rat4.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added
-	m_Rat4.addComponent(new HealthComponent(150), Types::Health);
-	m_Rat4.addComponent(new PositionComponent(50, 300), Types::Position);
-	m_Rat4.addComponent(new CollisionComponent(m_Rat4, RAT_W, RAT_H), Types::Collider);
-	m_Rat4.addComponent(new ControlComponent(m_Rat4), Types::Controller);
-	m_Rat4.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
+	m_rat4.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added
+	m_rat4.addComponent(new HealthComponent(150), Types::Health);
+	m_rat4.addComponent(new PositionComponent(50, 300), Types::Position);
+	m_rat4.addComponent(new CollisionComponent(m_rat4, RAT_W, RAT_H), Types::Collider);
+	m_rat4.addComponent(new ControlComponent(m_rat4), Types::Control);
+	m_rat4.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
 
 	// Dog
-	m_Rat2.addComponent(new PlayerComponent(3), Types::Player); // This must allways be first added
-	m_Rat2.addComponent(new HealthComponent(75), Types::Health);
-	m_Rat2.addComponent(new PositionComponent(50, 700), Types::Position);
-	m_Rat2.addComponent(new CollisionComponent(m_Rat2, RAT_W, RAT_H), Types::Collider);
-	m_Rat2.addComponent(new ControlComponent(m_Rat2), Types::Controller);
-	//m_Rat2.addComponent(new RenderComponent("./Assets/rat3.png", RAT_W, RAT_H, p_renderer), Types::Render);
-	m_Rat2.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
+	m_rat2.addComponent(new PlayerComponent(3), Types::Player); // This must allways be first added
+	m_rat2.addComponent(new HealthComponent(75), Types::Health);
+	m_rat2.addComponent(new PositionComponent(50, 700), Types::Position);
+	m_rat2.addComponent(new CollisionComponent(m_rat2, RAT_W, RAT_H), Types::Collider);
+	m_rat2.addComponent(new ControlComponent(m_rat2), Types::Control);
+	//m_rat2.addComponent(new RenderComponent("./Assets/rat3.png", RAT_W, RAT_H, p_renderer), Types::Render);
+	m_rat2.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
 
 	// Cat
-	m_Rat3.addComponent(new PlayerComponent(4), Types::Player); // This must allways be first added
-	m_Rat3.addComponent(new HealthComponent(50), Types::Health);
-	m_Rat3.addComponent(new PositionComponent(50, 900), Types::Position);
-	m_Rat3.addComponent(new CollisionComponent(m_Rat3, RAT_W, RAT_H), Types::Collider);
-	m_Rat3.addComponent(new ControlComponent(m_Rat3), Types::Controller);
-	m_Rat3.addComponent(new RenderComponent("./Assets/rat4.png", RAT_W, RAT_H, p_renderer), Types::Render);
-	m_Rat3.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
+	m_rat3.addComponent(new PlayerComponent(4), Types::Player); // This must allways be first added
+	m_rat3.addComponent(new HealthComponent(50), Types::Health);
+	m_rat3.addComponent(new PositionComponent(50, 900), Types::Position);
+	m_rat3.addComponent(new CollisionComponent(m_rat3, RAT_W, RAT_H), Types::Collider);
+	m_rat3.addComponent(new ControlComponent(m_rat3), Types::Control);
+	m_rat3.addComponent(new RenderComponent("./Assets/rat4.png", RAT_W, RAT_H, p_renderer), Types::Render);
+	m_rat3.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
+	m_rat3.addComponent(new TestBotBehaviourComponent(m_rat3), Types::TestBot);
+
 
 	/*button test*/
 	//Button 1
@@ -101,12 +105,13 @@ Game::Game() :
 	m_button2.addComponent(new CollisionComponent(m_button2, 30, 30), Types::Collider);
 	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 30, 30, p_renderer), Types::Render);
 	
-	//door button
-	/*m_doorButton.addComponent(new ButtonComponent(false, 1, 2), Types::Button);
+	/* //door button
+	m_doorButton.addComponent(new ButtonComponent(false, 1, 2), Types::Button);
 	m_doorButton.addComponent(new PositionComponent(100, 650), Types::Position);
 	m_doorButton.addComponent(new CollisionComponent(m_doorButton, 30, 30), Types::Collider);
 	m_doorButton.addComponent(new RenderComponent("Assets\\DoorButton.png", 30, 30, p_renderer), Types::Render);
 */
+
 	//Trap 1
 	m_spike.addComponent(new TrapComponent(false, 1), Types::Traps);
 	m_spike.addComponent(new PositionComponent(600,600), Types::Position);
@@ -130,8 +135,8 @@ Game::Game() :
 	/*m_door1.addComponent(new DoorComponent(1),Types::Door);
 	m_door1.addComponent(new PositionComponent(800, 300), Types::Position);
 	m_door1.addComponent(new CollisionComponent(m_door1, 200, 20), Types::Collider);
-	m_door1.addComponent(new RenderComponent("Assets\\Door.png", 200, 20, p_renderer), Types::Render);
-*/
+	m_door1.addComponent(new RenderComponent("Assets\\Door.png", 200, 20, p_renderer), Types::Render); */
+
 	// cheeses
 	m_goalCheeses.reserve(15);
 	for (int i = 0; i < 15; ++i)
@@ -165,22 +170,22 @@ Game::Game() :
 	m_gameManager.addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
 	// Systems
 	//HEALTH All entities
-	m_healthSystem.addEntity(m_Rat1);
-	m_healthSystem.addEntity(m_Rat4);
-	m_healthSystem.addEntity(m_Rat2);
-	m_healthSystem.addEntity(m_Rat3);
+	m_healthSystem.addEntity(m_rat1);
+	m_healthSystem.addEntity(m_rat4);
+	m_healthSystem.addEntity(m_rat2);
+	m_healthSystem.addEntity(m_rat3);
 
 	//CONTROL Player only
-	m_controlSystem.addEntity(m_Rat1);
-	m_controlSystem.addEntity(m_Rat4);
-	m_controlSystem.addEntity(m_Rat2);
-	m_controlSystem.addEntity(m_Rat3);
+	m_controlSystem.addEntity(m_rat1);
+	m_controlSystem.addEntity(m_rat4);
+	m_controlSystem.addEntity(m_rat2);
+	m_controlSystem.addEntity(m_rat3);
 
 	//collision System
-	m_collisionSystem.addEntity(m_Rat1);
-	m_collisionSystem.addEntity(m_Rat4);
-	m_collisionSystem.addEntity(m_Rat2);
-	m_collisionSystem.addEntity(m_Rat3);
+	m_collisionSystem.addEntity(m_rat1);
+	m_collisionSystem.addEntity(m_rat4);
+	m_collisionSystem.addEntity(m_rat2);
+	m_collisionSystem.addEntity(m_rat3);
 
 	m_collisionSystem.addEntity(m_button);
 	m_collisionSystem.addEntity(m_button2);
@@ -194,21 +199,20 @@ Game::Game() :
 
 	m_collisionSystem.addEntity(m_bomb);
 	//DRAW Draw all of entities
-	m_renderSystem.addEntity(m_Rat1);
-	m_renderSystem.addEntity(m_Rat4);
-	m_renderSystem.addEntity(m_Rat2);
-	m_renderSystem.addEntity(m_Rat3);
+	m_renderSystem.addEntity(m_rat1);
+	m_renderSystem.addEntity(m_rat4);
+	m_renderSystem.addEntity(m_rat2);
+	m_renderSystem.addEntity(m_rat3);
 	
-		
 	/// <summary>
 	/// STATE MACHINE
 	/// </summary>
-	m_stateMachine.setRenderer(p_renderer);
-	m_stateMachine.addEntity(m_Rat1);
-	m_stateMachine.addEntity(m_Rat4);
-	m_stateMachine.addEntity(m_Rat2);
-	m_stateMachine.addEntity(m_Rat3);
-	m_stateMachine.setupSprites();
+	m_stateMachine->setRenderer(p_renderer);
+	m_stateMachine->addEntity(m_rat1);
+	m_stateMachine->addEntity(m_rat4);
+	m_stateMachine->addEntity(m_rat2);
+	m_stateMachine->addEntity(m_rat3);
+	m_stateMachine->setupSprites();
 
 	const auto MAP_PATH = "Assets/map/test.tmx";
 	tiled_map_level = new Level("Test");
@@ -248,18 +252,28 @@ Game::Game() :
 
 	// bomb system
 	m_bombSystem.addEntity(m_bomb);
-	m_bombSystem.addEntity(m_Rat1);
-	m_bombSystem.addEntity(m_Rat4);
-	m_bombSystem.addEntity(m_Rat2);
-	m_bombSystem.addEntity(m_Rat3);
+	m_bombSystem.addEntity(m_rat1);
+	m_bombSystem.addEntity(m_rat4);
+	m_bombSystem.addEntity(m_rat2);
+	m_bombSystem.addEntity(m_rat3);
 	
-	m_gameSystem.addEntity(m_Rat1);
-	m_gameSystem.addEntity(m_Rat4);
-	m_gameSystem.addEntity(m_Rat2);
-	m_gameSystem.addEntity(m_Rat3);
+	m_gameSystem.addEntity(m_rat1);
+	m_gameSystem.addEntity(m_rat4);
+	m_gameSystem.addEntity(m_rat2);
+	m_gameSystem.addEntity(m_rat3);
 	m_gameSystem.addEntity(m_gameManager);
-
 	m_gameSystem.setupComponent();
+
+	// TODO: all controllers not connected put AI instead
+	m_aiSystem.addEntity(m_rat3);
+
+	m_stateMachine = new StateMachineSystem();
+	m_stateMachine->setRenderer(p_renderer);
+	m_stateMachine->addEntity(m_rat1);
+	m_stateMachine->addEntity(m_rat2);
+	m_stateMachine->addEntity(m_rat4);
+	m_stateMachine->setupSprites();
+	m_controlSystem.initStateSystem(m_stateMachine);
 }
 
 
@@ -329,12 +343,11 @@ void Game::processEvents()
 void Game::update(float dt)
 {
 	m_healthSystem.update();
-	m_aiSystem.update();
+	// m_aiSystem.update();
 	m_buttonSystem.update();
-	m_controlSystem.handleInput(dt, m_stateMachine);
-	
+	m_controlSystem.handleInput(dt);
+	m_stateMachine->update();
 	m_collisionSystem.updateComponent(*tiled_map_level,m_observer);
-	
 	m_bombSystem.updateComponent(dt,m_observer);
 	m_gameSystem.update(dt);
 }
@@ -348,7 +361,7 @@ void Game::render()
 	SDL_RenderClear(p_renderer);
 	tiled_map_level->draw(p_renderer);
 	m_renderSystem.draw();
-	m_stateMachine.update();
+	m_stateMachine->update();
 	m_gameSystem.draw(m_font);
 	// m_stateMachine.update();
 	SDL_RenderPresent(p_renderer);

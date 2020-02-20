@@ -12,6 +12,7 @@
 #include "ButtonSystem.h"
 #include "CollisionSystem.h"
 #include "Enums.h"
+#include "TestBotBehaviourComponent.h"
 #include "TrapComponent.h"
 #include "ButtonComponent.h"
 #include "PlayerComponent.h"
@@ -42,10 +43,10 @@ private:
 	bool m_quit = false;
 
 	// Entities
-	Entity m_Rat1;
-	Entity m_Rat4;
-	Entity m_Rat2;
-	Entity m_Rat3;
+	Entity m_rat1;
+	Entity m_rat4;
+	Entity m_rat2;
+	Entity m_rat3;
 	
 	Entity m_button;
 	Entity m_button2;
@@ -73,7 +74,7 @@ private:
 	Level* tiled_map_level;
 	ButtonSystem m_buttonSystem;
 	CollisionSystem m_collisionSystem;
-	StateMachineSystem m_stateMachine;
+	StateMachineSystem* m_stateMachine;
 	std::vector<Entity> m_goalCheeses;
 	AudioObserver * m_observer;
 	FontObserver* m_font;

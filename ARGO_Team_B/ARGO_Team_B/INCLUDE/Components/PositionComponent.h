@@ -53,8 +53,8 @@ private:
 	float m_startX;
 	float m_startY;
 
-	float m_previouseX;
-	float m_previouseY;
+	float m_previousX;
+	float m_previousY;
 
 	float m_lastX;
 	float m_lastY;

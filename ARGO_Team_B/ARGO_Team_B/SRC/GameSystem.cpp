@@ -10,7 +10,12 @@ GameSystem::~GameSystem() {
 }
 
 void GameSystem::update(float dt) {
-	float startCountdown = m_game->getstartCountdown();
+	// Release timer
+	//float startCountdown = m_game->getstartCountdown();
+
+	// Debug timer
+	float startCountdown = 0;
+
 	if (startCountdown <= 0) {
 
 		m_game->setRedTeamCheese(m_players[0]->getCheeseCounter() + m_players[2]->getCheeseCounter());
