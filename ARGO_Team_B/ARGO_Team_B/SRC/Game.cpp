@@ -129,55 +129,7 @@ Game::Game()
 	m_door1.addComponent(new CollisionComponent(m_door1, 200, 20), Types::Collider);
 	m_door1.addComponent(new RenderComponent("Assets\\Door.png", 200, 20, p_renderer), Types::Render);
 */
-	// cheeses
-	m_goalCheeses.reserve(15);
 	
-	for (int i = 0; i < 100; ++i)
-	{
-		bool canSpawn=false;
-		float spawnPointX;
-		float spawnPointY;
-		int safety = 0;
-		m_goalCheeses.emplace_back();
-		while (!canSpawn)
-		{
-			spawnPointX = rand() % 1870+40;
-			spawnPointY = rand() % 1030+40;
-			float centerX = 15;
-			float centerY = 15;
-			float leftE = centerX - 30;
-			float rightE = centerX + 30;
-			float lowE = centerY - 30;
-			float upperE = centerY + 30;
-			canSpawn = canspawnHere(spawnPointX, spawnPointY, leftE, lowE, rightE, upperE);
-			m_goalCheeses.at(i).addComponent(new GoalComponent(), Types::Goal);
-			m_goalCheeses.at(i).addComponent(new PositionComponent(spawnPointX, spawnPointY), Types::Position);
-			m_goalCheeses.at(i).addComponent(new CollisionComponent(m_goalCheeses.at(i), 30, 30), Types::Collider);
-			m_goalCheeses.at(i).addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
-			m_collisionSystem.addEntity(m_goalCheeses.at(i));
-			m_renderSystem.addEntity(m_goalCheeses.at(i));
-			m_buttonSystem.addEntity(m_goalCheeses.at(i));
-			if(canSpawn)
-			{
-				break;
-			}
-			safety++;
-			if (safety > 100)
-			{
-				break;
-			}
-
-
-			//m_goalCheese.addComponent(new GoalComponent(), Types::Goal);
-			//m_goalCheese.addComponent(new CollisionComponent(), Types::Collider);
-			//m_goalCheese.addComponent(new PositionComponent(30+rand()%1830, 30+rand()%1050), Types::Position);
-			//m_goalCheese.addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
-			//m_collisionSystem.addEntity(m_goalCheese);
-			//m_renderSystem.addEntity(m_goalCheese);
-			//m_trapSystem.addEntity(m_goalCheese);
-		}
-	}
-
 	//bomb
 	m_bomb.addComponent(new BombComponent(), Types::Bomb);
 	m_bomb.addComponent(new PositionComponent(700, 200), Types::Position);
@@ -282,6 +234,39 @@ Game::Game()
 	m_gameSystem.addEntity(m_gameManager);
 
 	m_gameSystem.setupComponent();
+	//cheeses
+
+	//cheeseSpawn(m_collisionSystem, m_renderSystem, m_buttonSystem, *tiled_map_level,p_renderer);
+	//m_goalCheeses.reserve(4);
+	for (int i = 0; i < tiled_map_level->m_cheese.size(); ++i)
+	{
+		m_goalCheeses.emplace_back();
+		bool canSpawn = false;
+		float spawnPointX;
+		float spawnPointY;
+		//m_goalCheeses.emplace_back();
+		//spawnPointX = rand() % 1840+60;
+		//spawnPointY = rand() % 1000+60;
+		spawnPointX = tiled_map_level->m_cheese[i].x;
+		spawnPointY = tiled_map_level->m_cheese[i].y;
+		//float centerX = 15;
+		//float centerY = 15;
+		//float leftE = centerX - 30;
+		//float rightE = centerX + 30;
+		//float lowE = centerY - 30;
+		//float upperE = centerY + 30;
+		//canSpawn = canspawnHere(spawnPointX, spawnPointY, leftE, lowE, rightE, upperE);
+		m_goalCheeses[i].addComponent(new GoalComponent(), Types::Goal);
+		m_goalCheeses[i].addComponent(new PositionComponent(spawnPointX, spawnPointY), Types::Position);
+		m_goalCheeses[i].addComponent(new CollisionComponent(m_goalCheeses[i], 30, 30), Types::Collider);
+		m_goalCheeses[i].addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
+		m_collisionSystem.addEntity(m_goalCheeses[i]);
+		std::cout << "collision system added for " << i << std::endl;
+		m_renderSystem.addEntity(m_goalCheeses[i]);
+		std::cout << "render system added for " << i << std::endl;
+		m_buttonSystem.addEntity(m_goalCheeses[i]);
+		std::cout << "button system added for " << i << std::endl;
+	}
 }
 
 
@@ -315,6 +300,40 @@ void Game::run()
 		render();
 	}
 	quit();
+}
+
+void Game::cheeseSpawn(CollisionSystem t_cs, RenderSystem t_rs, ButtonSystem t_bs, Level& t_cheeses, SDL_Renderer* t_renderer)
+{
+	m_goalCheeses.reserve(4);
+	for (int i = 0; i < t_cheeses.m_cheese.size(); ++i)
+	{
+		m_goalCheeses.emplace_back();
+		bool canSpawn = false;
+		float spawnPointX;
+		float spawnPointY;
+		//m_goalCheeses.emplace_back();
+		//spawnPointX = rand() % 1840+60;
+		//spawnPointY = rand() % 1000+60;
+		spawnPointX = t_cheeses.m_cheese[i].x;
+		spawnPointY = t_cheeses.m_cheese[i].y;
+		//float centerX = 15;
+		//float centerY = 15;
+		//float leftE = centerX - 30;
+		//float rightE = centerX + 30;
+		//float lowE = centerY - 30;
+		//float upperE = centerY + 30;
+		//canSpawn = canspawnHere(spawnPointX, spawnPointY, leftE, lowE, rightE, upperE);
+		m_goalCheeses[i].addComponent(new GoalComponent(), Types::Goal);
+		m_goalCheeses[i].addComponent(new PositionComponent(spawnPointX, spawnPointY), Types::Position);
+		m_goalCheeses[i].addComponent(new CollisionComponent(m_goalCheeses[i], 30, 30), Types::Collider);
+		m_goalCheeses[i].addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, t_renderer), Types::Render);
+		t_cs.addEntity(m_goalCheeses[i]);
+		std::cout << "collision system added for " << i << std::endl;
+		t_rs.addEntity(m_goalCheeses[i]);
+		std::cout << "render system added for " << i << std::endl;
+		t_bs.addEntity(m_goalCheeses[i]);
+		std::cout << "button system added for " << i << std::endl;
+	}
 }
 
 

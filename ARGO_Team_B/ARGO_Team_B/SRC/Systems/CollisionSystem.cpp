@@ -188,12 +188,13 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer,
 				CollisionComponent* playerCollider = static_cast<CollisionComponent*>(playerEntitys.getComponent(Types::Collider));
 				
 				PlayerComponent* player = static_cast<PlayerComponent*>(playerEntitys.getComponent(Types::Player));
+				PositionComponent* playerPos = static_cast<PositionComponent*>(playerEntitys.getComponent(Types::Position));
 					if (checkCollision(goalCollider->getAABBCollider(), playerCollider->getAABBCollider()))
 					{
 						//std::cout << "Player with ID : " << player->getId() << "Collected the cheese" << std::endl;
 						player->gainCheese(1);
 						t_observer->onNotify(AudioObserver::PICKUPCHEESE);
-						t_ps.push_back((new ParticleSystem(250,goalPos->getPositionX(), goalPos->getPositionY() , t_renderer,ParticleType::Test)));
+						t_ps.push_back((new ParticleSystem(250, playerPos->getPositionX(), playerPos->getPositionY() , t_renderer,ParticleType::Test)));
 						goal->setAlive(false);
 					}
 			}

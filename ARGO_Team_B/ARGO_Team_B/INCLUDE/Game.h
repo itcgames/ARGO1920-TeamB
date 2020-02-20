@@ -29,6 +29,8 @@ public:
 	Game();
 	~Game();
 	void run();
+	std::vector<Entity> m_goalCheeses;
+	void cheeseSpawn(CollisionSystem t_cs, RenderSystem t_rs, ButtonSystem t_bs, Level& t_cheeses, SDL_Renderer* t_renderer);
 private:
 	void processEvents();
 	void update(float dt);
@@ -72,12 +74,13 @@ private:
 	ButtonSystem m_buttonSystem;
 	CollisionSystem m_collisionSystem;
 	StateMachineSystem m_stateMachine;
-	std::vector<Entity> m_goalCheeses;
+
 	AudioObserver * m_observer;
 	FontObserver* m_font;
 	BombSystem m_bombSystem;
 	GameSystem m_gameSystem;
 	std::vector<ParticleSystem*> m_particles;
+
 	bool canspawnHere(float spx, float spy, float leftE, float lowE, float rightE, float upperE);
 };
 #endif // !GAME
