@@ -2,8 +2,10 @@
 #define HOSTINGGAME 
 
 #pragma once
-#include "Server/Server.h"
-#include "Server/PacketType.h"
+#include "Online/Server.h"
+#include "Online/PacketType.h"
+#include "Globals.h"
+#include "Observer.h"
 
 #include <algorithm>
 #include <string>
@@ -15,22 +17,17 @@
 
 using namespace std;
 
-struct not_digit {
-	bool operator()(const char c)
-	{
-		return c != ' ' && !isdigit(c);
-	}
-};
-
-
 class HostingGame {
 public :
 	HostingGame();
 	~HostingGame();
 
 	void update(float dt);
-private:
 	void waitingConnection();
+	void draw(FontObserver* text);
+
+	thread m_waitingPlayer;
+private:
 
 	not_digit notADigit;
 	vector<int> intConverter(string message);
@@ -40,9 +37,8 @@ private:
 
 	string m_timerMessage;
 
-	int m_startCountdown;
-
-	thread m_waitingPlayer;
+	float m_startCountdown;
+	int m_playerRequire;
 };
 
 #endif // !HOSTINGGAME 

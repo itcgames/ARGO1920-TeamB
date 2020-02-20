@@ -1,5 +1,5 @@
-#include "Server/Server.h"
-#include "Server/PacketStructs.h"
+#include "Online/Server.h"
+#include "Online/PacketStructs.h"
 #pragma comment(lib,"ws2_32.lib") //Required for WinSock
 
 bool Server::recvall(std::shared_ptr<Connection> connection, char * data, int totalbytes)

@@ -1,6 +1,6 @@
-#include "Server/Server.h"
+#include "Online/Server.h"
 #include <iostream>
-#include "Server/PacketStructs.h"
+#include "Online/PacketStructs.h"
 #pragma comment(lib,"ws2_32.lib") //Required for WinSock
 
 void Server::ClientHandlerThread(Server & server, std::shared_ptr<Connection> connection) //ID = the index in the SOCKET connections array
@@ -51,6 +51,7 @@ void Server::DisconnectClient(std::shared_ptr<Connection> connection) //Disconne
 	m_connections.erase(std::remove(m_connections.begin(), m_connections.end(), connection)); //Remove connection from vector of connections
 	std::cout << "Cleaned up client: " << connection->m_ID << "." << std::endl;
 	std::cout << "Total connections: " << m_connections.size() << std::endl;
+	m_IDCounter -= 1;
 }
 
 void Server::SendStringToAll(const std::string& data, PacketType type) {

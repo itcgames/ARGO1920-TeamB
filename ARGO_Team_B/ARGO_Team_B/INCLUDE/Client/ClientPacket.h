@@ -1,5 +1,5 @@
 #pragma once
-#include "PacketType.h"
+#include "ClientPacketType.h"
 #include <iostream>
 #include <cstdint>
 #include <vector>

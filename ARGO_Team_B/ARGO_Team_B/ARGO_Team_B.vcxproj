@@ -19,8 +19,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="INCLUDE\Online\Client.h" />
     <ClInclude Include="INCLUDE\CreditsScene.h" />
     <ClInclude Include="INCLUDE\GameScene.h" />
+    <ClInclude Include="INCLUDE\HostingGame.h" />
+    <ClInclude Include="INCLUDE\JoiningGame.h" />
+    <ClInclude Include="INCLUDE\Online\Packet.h" />
+    <ClInclude Include="INCLUDE\Online\Server.h" />
+    <ClInclude Include="INCLUDE\Online\PacketManager.h" />
+    <ClInclude Include="INCLUDE\Online\PacketStructs.h" />
+    <ClInclude Include="INCLUDE\Online\PacketType.h" />
     <ClInclude Include="INCLUDE\Utils\LTexture.h" />
     <ClInclude Include="INCLUDE\MenuScene.h" />
     <ClInclude Include="INCLUDE\Utils\Observer.h" />
@@ -72,6 +80,18 @@
     <ClCompile Include="SRC\Components\GameComponent.cpp" />
     <ClCompile Include="SRC\Components\PositionComponent.cpp" />
     <ClCompile Include="SRC\GameSystem.cpp" />
+    <ClCompile Include="SRC\HostingGame.cpp" />
+    <ClCompile Include="SRC\JoiningGame.cpp" />
+    <ClCompile Include="SRC\Online\Client.cpp" />
+    <ClCompile Include="SRC\Online\ClientIni.cpp" />
+    <ClCompile Include="SRC\Online\ClientSendGetMethods.cpp" />
+    <ClCompile Include="SRC\Online\Server.cpp" />
+    <ClCompile Include="SRC\Online\ServerIni.cpp" />
+    <ClCompile Include="SRC\Online\Packet.cpp" />
+    <ClCompile Include="SRC\Online\PacketManager.cpp" />
+    <ClCompile Include="SRC\Online\PacketStructs.cpp" />
+    <ClCompile Include="SRC\Online\ProcessPacket.cpp" />
+    <ClCompile Include="SRC\Online\ServerSendGetMethods.cpp" />
     <ClCompile Include="SRC\Systems\CollisionSystem.cpp" />
     <ClCompile Include="SRC\Menu\CreditsScene.cpp" />
     <ClCompile Include="SRC\Menu\GameScene.cpp" />

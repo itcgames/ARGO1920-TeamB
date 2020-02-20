@@ -2,8 +2,9 @@
 #define JOININGGAME
 
 #pragma once
-#include "Client/Client.h"
+#include "Online/Client.h"
 #include "Observer.h"
+#include "Globals.h"
 
 #include <algorithm>
 #include <string>
@@ -13,19 +14,13 @@
 
 using namespace std;
 
-struct not_digit {
-	bool operator()(const char c)
-	{
-		return c != ' ' && !isdigit(c);
-	}
-};
-
 class JoiningGame {
 public:
 	JoiningGame();
 	~JoiningGame();
 
-	void update(float dt);
+	void update();
+	void draw(FontObserver* text);
 private:
 
 	not_digit notADigit;

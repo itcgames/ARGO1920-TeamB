@@ -2,7 +2,6 @@
 #include <WinSock2.h> //For win sockets
 #include <ws2tcpip.h>
 #include <string> //For std::string
-#include "FileTransferData.h" //for FileTransferData class
 #include "PacketManager.h" //for PacketManager class
 #include <vector> //for std::vector
 #include <shared_mutex> //for shared_mutex
@@ -17,7 +16,6 @@ public:
 	}
 	SOCKET m_socket;
 	//file transfer data
-	FileTransferData m_file; //Object that contains information about our file that is being sent to the client from this server
 	PacketManager m_pm; //Packet Manager for outgoing data for this connection
 	int m_ID = 0;
 };

@@ -6,7 +6,7 @@
 /// </summary>
 Game::Game()
 {
-	ControlComponent* controlComp = new ControlComponent(m_player);
+	ControlComponent* controlComp = new ControlComponent(m_player, 0);
 
 	srand(time(NULL));
 	// Initialise SDL
@@ -256,7 +256,7 @@ Game::Game()
 	m_bombSystem.addEntity(m_dog);
 	m_bombSystem.addEntity(m_cat);
 
-	m_currentState = GameStates::Game;
+	m_currentState = GameStates::MainMenu;
 	m_menuScene = new MenuScene(p_renderer,&m_currentState, controlComp);
 	//m_gameScene = new GameScene(p_renderer, &m_currentState);
 	//m_creditsScene = new CreditsScene(p_renderer, &m_currentState);
@@ -269,6 +269,10 @@ Game::Game()
 	m_gameSystem.addEntity(m_gameManager);
 
 	m_gameSystem.setupComponent();
+
+	//m_hostGame = new HostingGame();
+	m_joinGame = new JoiningGame();
+
 }
 
 
@@ -343,6 +347,7 @@ void Game::update(float dt)
 	{
 	case GameStates::MainMenu:
 		m_menuScene->handleEvents();
+		m_currentState = m_menuScene->setNewState();
 		m_menuScene->update(dt);
 		break;
 	case GameStates::Game:
@@ -355,6 +360,12 @@ void Game::update(float dt)
 		m_bombSystem.updateComponent(dt, m_observer);
 		m_gameSystem.update(dt);
 		//m_gameScene->update(dt);
+		break;
+	case GameStates::Hosting:
+		m_hostGame->update(dt);
+		break;
+	case GameStates::Joining:
+		m_joinGame->update();
 		break;
 	case GameStates::Credits:
 		//m_creditsScene->update(dt);
@@ -383,6 +394,17 @@ void Game::render()
 		m_gameSystem.draw(m_font);
 		m_stateMachine.update();
 		//m_gameScene->render(p_renderer);
+		break;
+	case GameStates::Hosting:
+		if (m_hostGame == NULL) {
+			m_hostGame = new HostingGame();
+		}
+		else {
+			m_hostGame->draw(m_font);
+		}
+		break;
+	case GameStates::Joining:
+		m_joinGame->draw(m_font);
 		break;
 	case GameStates::Credits:
 		//m_creditsScene->render(p_renderer);

@@ -1,6 +1,6 @@
-#include "Server/Server.h"
+#include "Online/Server.h"
 #include <iostream>
-#include "Server/PacketStructs.h"
+#include "Online/PacketStructs.h"
 #pragma comment(lib,"ws2_32.lib") //Required for WinSock
 
 bool Server::ProcessPacket(std::shared_ptr<Connection> connection, PacketType packetType)
@@ -26,30 +26,6 @@ bool Server::ProcessPacket(std::shared_ptr<Connection> connection, PacketType pa
 			}
 		}
 		std::cout << "Processed chat message packet from user ID: " << connection->m_ID << std::endl;
-		break;
-	}
-	case PacketType::FileTransferRequestFile:
-	{
-		std::string fileName; //string to store file name
-		if (!GetString(connection, fileName)) //If issue getting file name
-			return false; //Failure to process packet
-		std::string errMsg;
-		if (connection->m_file.Initialize(fileName, errMsg)) //if filetransferdata successfully initialized
-		{
-			connection->m_pm.Append(connection->m_file.getOutgoingBufferPacket()); //Send first buffer from file
-		}
-		else //If initialization failed, send error message
-		{
-			SendString(connection, errMsg);
-		}
-		break;
-	}
-	case PacketType::FileTransferRequestNextBuffer:
-	{
-		if (connection->m_file.m_transferInProgress)
-		{
-			connection->m_pm.Append(connection->m_file.getOutgoingBufferPacket()); //get and send next buffer for file
-		}
 		break;
 	}
 	default: //If packet type is not accounted for

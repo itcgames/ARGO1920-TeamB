@@ -12,7 +12,7 @@ JoiningGame::~JoiningGame() {
 
 }
 
-void JoiningGame::update(float dt) {
+void JoiningGame::update() {
 
 	if (MyClient == nullptr) {
 		/*
@@ -49,6 +49,16 @@ void JoiningGame::update(float dt) {
 		else {
 			// game play
 		}
+	}
+}
+
+void JoiningGame::draw(FontObserver* text)
+{
+	if (m_startCountdown > 0.0f) {
+		string cheeseCounter = "Game start in "+ to_string(m_startCountdown);
+		const char* c = cheeseCounter.data();
+		SDL_Color color = { 1, 1, 1 , 255 };
+		text->drawText(860, 510, 100, 100, c, color, FontObserver::TIMER1);
 	}
 }
 

@@ -1,4 +1,4 @@
-#include "Client/PacketManager.h"
+#include "Online/PacketManager.h"
 
 void PacketManager::Clear()
 {
@@ -16,6 +16,7 @@ void PacketManager::Append(std::shared_ptr<Packet> p)
 {
 	std::lock_guard<std::mutex> lock(m_mutex_packets); //lock mutex so two threads dont access data at same time
 	m_queue_packets.push(std::move(p)); //Add packet to queue
+	std::cout << m_queue_packets.size() << std::endl;
 }
 
 std::shared_ptr<Packet> PacketManager::Retrieve()

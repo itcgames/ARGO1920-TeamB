@@ -1,7 +1,6 @@
 #pragma once
 #include <WinSock2.h> //For SOCKET
 #include <string> //For std::string
-#include "FileTransferData.h" //For FileTransferData class
 #include "PacketManager.h" //For PacketManager class
 
 class Client
@@ -11,7 +10,6 @@ public: //Public functions
 	bool Connect();
 	void Disconnect();
 	void SendString(const std::string & str, PacketType type);
-	bool RequestFile(const std::string & fileName);
 
 	std::string getProcessMessage() { return m_processMessage; }
 	std::string getStartCountdown() { return m_startCountdown; }
@@ -32,7 +30,6 @@ private: //Private functions
 private: //Private variables
 	bool m_terminateThreads = false;
 	bool m_isConnected = false;
-	FileTransferData m_file; //Object that contains information about our file that is being received from the server.
 	SOCKET m_connection;//This client's connection to the server
 	SOCKADDR_IN m_addr; //Address to be binded to our Connection socket
 	PacketManager m_pm; //Packet manager which sends all of client's outgoing packets

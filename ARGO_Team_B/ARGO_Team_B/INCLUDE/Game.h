@@ -22,12 +22,15 @@
 #include <time.h>
 #include "Observer.h"
 #include "MenuScene.h"
+#include "HostingGame.h"
+#include "JoiningGame.h"
 class Game
 {
 public:
 	Game();
 	~Game();
 	void run();
+
 private:
 	void processEvents();
 	void update(float dt);
@@ -81,6 +84,10 @@ private:
 
 	//GameScene* m_gameScene;
 	MenuScene* m_menuScene;
+
+	HostingGame* m_hostGame;
+	JoiningGame* m_joinGame;
 	//CreditsScene* m_creditsScene;
+
 };
 #endif // !GAME

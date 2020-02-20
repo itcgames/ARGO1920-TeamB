@@ -1,6 +1,6 @@
-#include "Client/Client.h"
+#include "Online/Client.h"
 #pragma comment(lib,"ws2_32.lib") //Required for WinSock
-#include "Client/PacketStructs.h"
+#include "Online/PacketStructs.h"
 bool Client::recvall(char * data, int totalBytes)
 {
 	int bytesReceived = 0; //Holds the total bytes received

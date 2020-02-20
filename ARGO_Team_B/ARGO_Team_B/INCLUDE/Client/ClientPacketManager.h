@@ -1,5 +1,5 @@
 #pragma once
-#include "Packet.h" //for Packet
+#include "ClientPacket.h" //for Packet
 #include <queue> //for std::queue
 #include <mutex> //for std::mutex
 #include <memory> //for std::shared_ptr

@@ -93,6 +93,7 @@ void MenuScene::handleEvents()
 			m_buttomTimer = m_timerOffset;
 		}
 	}
+
 	if (m_selectorY > 550)
 	{
 
@@ -102,12 +103,7 @@ void MenuScene::handleEvents()
 	{
 		m_selectorY = 550;
 	}
-	
-					
-				
-					
-					
-	
+
 }
 
 void MenuScene::update(float dt)
@@ -157,4 +153,27 @@ void MenuScene::render(SDL_Renderer* t_renderer)
 	m_Credits.render(m_CreditsX, m_CreditsY, t_renderer, 1, 1);
 	m_quitGame.render(m_quitX, m_quitY, t_renderer, 1, 1);
 	m_selector.render(m_selectorX, m_selectorY, t_renderer, 1, 1);
+}
+
+GameStates MenuScene::setNewState()
+{
+	if (m_controller->m_currentState.A) {
+		if (m_selectorY == 150) {
+			return GameStates::Game;
+		}
+		else if (m_selectorY == 250) {
+			return GameStates::Hosting;
+			
+		}
+		else if (m_selectorY == 350) {
+			return GameStates::Joining;
+		}
+		else if (m_selectorY == 450) {
+			return GameStates::MainMenu;
+		}
+		else if (m_selectorY == 550) {
+			return GameStates::MainMenu;
+		}
+	}
+	return GameStates::MainMenu;
 }

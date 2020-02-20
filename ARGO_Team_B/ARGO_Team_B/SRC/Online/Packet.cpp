@@ -1,5 +1,5 @@
-#include "Client/Packet.h"
-#include <cstdint> //Required to use std::int32_t
+#include "Online/Packet.h"
+#include <cstdint> //Required to use std::std::int32_t
 #include <WinSock2.h> //for htonl
 Packet::Packet()
 {
@@ -8,6 +8,16 @@ Packet::Packet()
 Packet::Packet(const char * dataBuffer, const int size)
 {
 	Append(dataBuffer, size);
+}
+
+Packet::Packet(const std::shared_ptr<Packet> p)
+{
+	Append(p);
+}
+
+void Packet::Append(const std::shared_ptr<Packet> p)
+{
+	Append((const char*)&(p->m_buffer[0]), p->m_buffer.size());
 }
 
 Packet::Packet(PacketType pt)

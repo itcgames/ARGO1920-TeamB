@@ -1,4 +1,4 @@
-#include "Client/Client.h"
+#include "Online/Client.h"
 #include <Ws2tcpip.h> //for inet_pton
 #pragma comment(lib,"ws2_32.lib") //Required for WinSock
 #include <iostream> //for std::cout

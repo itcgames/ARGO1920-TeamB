@@ -5,6 +5,8 @@
 #include <SDL_image.h>
 #include <SDL.h>
 #include <string>
+#include <mutex>
+#include <thread>
 
 #include <iostream>
 #include "LTexture.h"
@@ -20,7 +22,7 @@ public:
 	void handleEvents();
 	void update(float dt);
 	void render(SDL_Renderer* t_renderer);
-
+	GameStates setNewState();
 private:
 	GameStates* m_currentState;
 	int m_playX, m_playY, m_playW, m_playH;

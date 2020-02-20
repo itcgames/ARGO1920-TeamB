@@ -28,6 +28,8 @@ enum class GameStates
 {
 	Game,
 	MainMenu,
-	Credits
+	Credits,
+	Hosting,
+	Joining
 };
 #endif // !ENUMS_H

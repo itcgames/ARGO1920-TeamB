@@ -1,5 +1,12 @@
 #include "ControlComponent.h"
 
+ControlComponent::ControlComponent(Entity& t_gameObject, int controller):
+	m_entity(t_gameObject)
+{
+	m_compNum = controller;
+	m_controller = new Xbox360Controller(m_compNum);
+}
+
 ControlComponent::ControlComponent(Entity & t_gameObject) :
 	m_entity(t_gameObject) 
 {

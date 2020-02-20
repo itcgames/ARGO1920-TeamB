@@ -22,6 +22,7 @@ class ControlComponent : public Component
 {
 public:
 	static int s_controlID;
+	ControlComponent(Entity& t_gameObject, int controller);
 	ControlComponent(Entity & t_gameObject);
 	~ControlComponent();
 	void update(float dt);

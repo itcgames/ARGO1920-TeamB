@@ -1,8 +1,11 @@
 #include "HostingGame.h"
 
-HostingGame::HostingGame() {
+HostingGame::HostingGame()
+{
 	MyServer = new Server(1111, "149.153.106.159");
-	m_startCountdown = 5.0f;
+	m_startCountdown = 30.0f;
+	m_playerRequire = 1;
+	
 	//m_waitingPlayer = thread(this->waitingConnection);
 	//m_waitingPlayer.join();
 }
@@ -12,22 +15,20 @@ HostingGame::~HostingGame() {
 }
 
 void HostingGame::waitingConnection() {
-	if (MyServer->getTotalConnections() < 3) {
+	if (MyServer->getTotalConnections() < m_playerRequire) {
+		cout << "waiting for players" << endl;
 		MyServer->ListenForNewConnection();
-		m_startCountdown = 5.0f;
-	}
-	else {
-		// detach the thread
-		m_waitingPlayer.detach();
+		m_startCountdown = 30.0f;
 	}
 }
 
 void HostingGame::update(float dt) {
+	waitingConnection();
 
 	if (m_startCountdown > 0.0f) {
-		if (MyServer->getTotalConnections() >= 3) {
+		if (MyServer->getTotalConnections() >= m_playerRequire) {
 			m_startCountdown -= dt;
-			int timer = m_startCountdown;
+			int timer = m_startCountdown + 1;
 			m_timerMessage = "timer: " + to_string(timer);
 			//MyServer
 			MyServer->SendStringToAll(m_timerMessage, PacketType::StartCountdown);
@@ -39,6 +40,28 @@ void HostingGame::update(float dt) {
 		//MyServer.getData();
 	}
 
+}
+
+void HostingGame::draw(FontObserver* text)
+{
+	SDL_Color color = { 1, 1, 1 , 255 };
+
+	if (MyServer->getTotalConnections() < m_playerRequire) {
+		string startTiemr = "Waitint for new player";
+		const char* c = startTiemr.data();
+
+		text->drawText(660, 510, 400, 100, c, color, FontObserver::TIMER1);
+
+	}
+	else {
+		if (m_startCountdown > 0.0f) {
+			int timer = m_startCountdown + 1;
+			string startTiemr = "Game start in " + to_string(timer);
+			const char* c = startTiemr.data();
+			color = { 1, 1, 1 , 255 };
+			text->drawText(760, 510, 200, 100, c, color, FontObserver::TIMER1);
+		}
+	}
 }
 
 vector<int> HostingGame::intConverter(string message) {
