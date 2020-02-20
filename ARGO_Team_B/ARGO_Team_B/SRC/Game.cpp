@@ -13,6 +13,7 @@ Game::Game() :
 	{
 		std::cout << "Failed to initialise SDL" << std::endl;
 	}
+	
 
 	// Create a Window
 	p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCR_W, SCR_H, SDL_WINDOW_SHOWN );
@@ -46,6 +47,7 @@ Game::Game() :
 	Mix_AllocateChannels(128);
 
 	// Initialise Game Variables
+	m_stateMachine = new StateMachineSystem;
 
 	// Extra info for systems
 
@@ -59,8 +61,8 @@ Game::Game() :
 	m_rat1.addComponent(new PositionComponent(150, 100), Types::Position);
 	m_rat1.addComponent(new CollisionComponent(m_rat1, 30.0f, RAT_H, RAT_W), Types::Collider);
 	m_rat1.addComponent(new ControlComponent(m_rat1), Types::Control);
-	m_rat1.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
-	m_rat1.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdle.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
+	//m_rat1.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
+	m_rat1.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
 
 	// Alien
 	m_rat4.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added
@@ -68,7 +70,7 @@ Game::Game() :
 	m_rat4.addComponent(new PositionComponent(50, 300), Types::Position);
 	m_rat4.addComponent(new CollisionComponent(m_rat4, RAT_W, RAT_H), Types::Collider);
 	m_rat4.addComponent(new ControlComponent(m_rat4), Types::Control);
-	m_rat4.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdle.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
+	m_rat4.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
 
 	// Dog
 	m_rat2.addComponent(new PlayerComponent(3), Types::Player); // This must allways be first added
@@ -76,8 +78,8 @@ Game::Game() :
 	m_rat2.addComponent(new PositionComponent(50, 700), Types::Position);
 	m_rat2.addComponent(new CollisionComponent(m_rat2, RAT_W, RAT_H), Types::Collider);
 	m_rat2.addComponent(new ControlComponent(m_rat2), Types::Control);
-	m_rat2.addComponent(new RenderComponent("./Assets/rat3.png", RAT_W, RAT_H, p_renderer), Types::Render);
-	m_rat2.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdle.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
+	//m_rat2.addComponent(new RenderComponent("./Assets/rat3.png", RAT_W, RAT_H, p_renderer), Types::Render);
+	m_rat2.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
 
 	// Cat
 	m_rat3.addComponent(new PlayerComponent(4), Types::Player); // This must allways be first added
@@ -86,7 +88,7 @@ Game::Game() :
 	m_rat3.addComponent(new CollisionComponent(m_rat3, RAT_W, RAT_H), Types::Collider);
 	m_rat3.addComponent(new ControlComponent(m_rat3), Types::Control);
 	m_rat3.addComponent(new RenderComponent("./Assets/rat4.png", RAT_W, RAT_H, p_renderer), Types::Render);
-	m_rat3.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdle.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
+	m_rat3.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
 	m_rat3.addComponent(new TestBotBehaviourComponent(m_rat3), Types::TestBot);
 
 
@@ -201,6 +203,16 @@ Game::Game() :
 	m_renderSystem.addEntity(m_rat4);
 	m_renderSystem.addEntity(m_rat2);
 	m_renderSystem.addEntity(m_rat3);
+	
+	/// <summary>
+	/// STATE MACHINE
+	/// </summary>
+	m_stateMachine->setRenderer(p_renderer);
+	m_stateMachine->addEntity(m_rat1);
+	m_stateMachine->addEntity(m_rat4);
+	m_stateMachine->addEntity(m_rat2);
+	m_stateMachine->addEntity(m_rat3);
+	m_stateMachine->setupSprites();
 
 	const auto MAP_PATH = "Assets/map/test.tmx";
 	tiled_map_level = new Level("Test");

@@ -19,8 +19,6 @@ class StateMachineSystem : public System
 private:
 	State* m_current;
 
-	
-
 public:
 	StateMachineSystem();
 	~StateMachineSystem();
@@ -30,7 +28,6 @@ public:
 	void updateComponent(Component* c) override;
 
 
-	void setCurrent(States t_state);
 
 	void setRenderer(SDL_Renderer* t_rend);
 
