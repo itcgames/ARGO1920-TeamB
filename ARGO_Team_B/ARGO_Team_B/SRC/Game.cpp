@@ -199,7 +199,7 @@ Game::Game() :
 	m_renderSystem.addEntity(m_Rat2);
 	m_renderSystem.addEntity(m_Rat3);
 	
-
+		
 	/// <summary>
 	/// STATE MACHINE
 	/// </summary>
