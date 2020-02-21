@@ -26,6 +26,15 @@ enum class States {
 	Walking
 };
 
+enum class GameStates
+{
+	Game,
+	MainMenu,
+	Credits,
+	Hosting,
+	Joining
+};
+
 enum class EntityType
 {
 	Default,

@@ -22,10 +22,11 @@ class ControlComponent : public Component
 {
 public:
 	static int s_controlID;
-	Xbox360Controller* m_controller;
 
+	ControlComponent(Entity& t_gameObject, int controller);
 	ControlComponent(Entity & t_gameObject);
 	~ControlComponent();
+
 	void initStateSystem(StateMachineSystem* t_stateSystem);
 	void handleInput(StateMachineSystem& t_stateSystem,SDL_Renderer * t_renderer,std::vector<ParticleSystem*>&t_ps);
 	void controlInteract(PlayerComponent* t_player);
@@ -34,6 +35,9 @@ public:
 	void controlLeft(PositionComponent* t_pos);
 	void controlRight(PositionComponent* t_pos);
 
+	Xbox360Controller* m_controller;
+	void handleInput(StateMachineSystem& t_stateSystem);
+	Xbox360Controller* getController() { return m_controller; }
 
 private:
 	void moveUp();

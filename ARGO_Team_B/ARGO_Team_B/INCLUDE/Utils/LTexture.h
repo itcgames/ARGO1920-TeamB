@@ -39,7 +39,6 @@ public:
 	int getHeight();
 	int getSRect();
 
-
 	void setScale(float scale);
 
 private:

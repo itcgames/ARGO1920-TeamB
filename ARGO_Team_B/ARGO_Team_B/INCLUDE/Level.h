@@ -26,11 +26,12 @@ struct tile {
     int ty;
     int width;
     int height;
+    bool m_alive;
 
 	bool alive = true;	
 	tile();
     tile(SDL_Texture* tset, int x = 0, int y = 0,
-        int tx = 0, int ty = 0, int w = 0, int h = 0);
+        int tx = 0, int ty = 0, int w = 0, int h = 0,bool alive=true);
     void draw(SDL_Renderer* ren);
 };
 
@@ -40,7 +41,8 @@ struct MazeWallObject : public tile
 	int y;
 	int width;
 	int height;
-	MazeWallObject(float x = 0, float y = 0, float width = 0, float height = 0,bool alive = true);
+	bool alive;
+	MazeWallObject(float x = 0, float y = 0, float width = 0, float height = 0,bool alive=true);
 };
 struct TeleportObject : public tile
 {
@@ -64,7 +66,9 @@ struct Breakable : public tile {
 struct Point {
 	int x;
 	int y;
+
 	Point(float x = 0, float y = 0);
+
 };
 class Level
 {

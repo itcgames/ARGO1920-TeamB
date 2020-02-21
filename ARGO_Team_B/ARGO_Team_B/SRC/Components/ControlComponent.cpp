@@ -1,5 +1,12 @@
 #include "ControlComponent.h"
 
+ControlComponent::ControlComponent(Entity& t_gameObject, int controller):
+	m_entity(t_gameObject)
+{
+	m_compNum = controller;
+	m_controller = new Xbox360Controller(m_compNum);
+}
+
 ControlComponent::ControlComponent(Entity& t_gameObject) :
 	m_entity(t_gameObject) 
 {
@@ -36,19 +43,20 @@ void ControlComponent::handleInput(StateMachineSystem& t_stateSystem, SDL_Render
 			controlUp(posComp);
 			t_ps.push_back((new ParticleSystem(10, posComp->getPositionX()+3, posComp->getPositionY() + 30, t_renderer, ParticleType::Dust)));
 		}
-		else if (m_controller->m_currentState.DpadLeft || m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
+		else if (m_controller->m_currentState.DpadDown || m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
+			controlDown(posComp);
+			t_ps.push_back((new ParticleSystem(10, posComp->getPositionX() + 2, posComp->getPositionY() + 1, t_renderer, ParticleType::Dust)));
+		}
+
+		if (m_controller->m_currentState.DpadLeft || m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
 			controlLeft(posComp);
 			t_ps.push_back((new ParticleSystem(10, posComp->getPositionX()+10, posComp->getPositionY()+17, t_renderer, ParticleType::Dust)));
-
 		}
 		else if (m_controller->m_currentState.DpadRight || m_controller->m_currentState.LeftThumbStick.x > m_controller->dpadThreshold) {
 			controlRight(posComp);
 			t_ps.push_back((new ParticleSystem(10, posComp->getPositionX() -10, posComp->getPositionY()+18, t_renderer, ParticleType::Dust)));
 		}
-		else if (m_controller->m_currentState.DpadDown || m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
-			controlDown(posComp);
-			t_ps.push_back((new ParticleSystem(10, posComp->getPositionX()+2, posComp->getPositionY()+1, t_renderer, ParticleType::Dust)));
-		}
+
 	}
 	else if (!playerComp->getMoveable()) {
 		posComp->backToPreviousePos();
