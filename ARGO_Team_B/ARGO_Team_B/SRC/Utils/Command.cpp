@@ -54,11 +54,11 @@ void WalkUpCommand::execute(Entity& t_gameObject)
 		AnimatedSpriteComponent* anim = dynamic_cast<AnimatedSpriteComponent*>(t_gameObject.getComponent(Types::AnimatedSprite));
 		
 		if (t_gameObject.getId() == 0 || t_gameObject.getId() == 1) {
-			//if (posComp->getPositionY() > 30) {
+			if (posComp->getPositionY() > 30) {
 				posComp->moveUp();
 				CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
 				colComp->updateCollider(t_gameObject);
-			//}
+			}
 				if (anim->getPrevious()->m_type != States::Walking)
 				{
 					anim->setCurrent(new WalkingState);
@@ -84,22 +84,20 @@ void WalkDownCommand::execute(Entity& t_gameObject)
 
 	if (t_gameObject.getId() == 2 || t_gameObject.getId() == 3) {
 		//anim->setPrevious(anim->getCurrent());
-		//if (posComp->getPositionY() < SCR_H - 75) {
+		if (posComp->getPositionY() < SCR_H - 75) {
 		posComp->moveDown();
 		CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
 		colComp->updateCollider(t_gameObject);
-		//}
+		}
 		if (anim->getPrevious()->m_type != States::Walking)
 		{
 			anim->setCurrent(new WalkingState);
 		}
 	}
-	else if (t_gameObject.getId() == 0 || t_gameObject.getId() == 1) {
-		//if (posComp->getPositionY() < SCR_H - 45) {
+	else {
 		posComp->moveDown();
 		CollisionComponent* colComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
 		colComp->updateCollider(t_gameObject);
-		//}
 	}
 }
 

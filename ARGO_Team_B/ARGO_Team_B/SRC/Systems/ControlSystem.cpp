@@ -68,15 +68,5 @@ void ControlSystem::handleInput(SDL_Keycode key)
 	}
 }
 
-void ControlSystem::initStateSystem(StateMachineSystem* t_stateSystem)
-{
-	for (Entity& e : entities)
-	{
-		ControlComponent* control = dynamic_cast<ControlComponent*>(e.getComponent(Types::Control));
-		if (control != nullptr)
-		{
-			control->initStateSystem(t_stateSystem);
-		}
-	}
-}
+
 

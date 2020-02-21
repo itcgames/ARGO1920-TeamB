@@ -11,11 +11,6 @@ ControlComponent::~ControlComponent()
 {
 }
 
-void ControlComponent::initStateSystem(StateMachineSystem* t_stateSystem)
-{
-	m_stateSystem  = t_stateSystem;
-}
-
 void ControlComponent::handleInput()
 {
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
@@ -101,32 +96,3 @@ void ControlComponent::controlRight(PositionComponent* t_pos)
 	double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
 	t_pos->setangle((angle * (180 / 3.14)));
 }
-
-void ControlComponent::moveUp()
-{
-	RenderComponent* renderComp = dynamic_cast<RenderComponent*>(m_entity.getComponent(Types::Render));
-	p_walkUp = new WalkUpCommand();
-	p_walkUp->execute(m_entity);
-}
-
-void ControlComponent::moveLeft()
-{
-	RenderComponent* renderComp = dynamic_cast<RenderComponent*>(m_entity.getComponent(Types::Render));
-	p_walkLeft = new WalkLeftCommand();
-	p_walkLeft->execute(m_entity);
-}
-
-void ControlComponent::moveRight()
-{
-	RenderComponent* renderComp = dynamic_cast<RenderComponent*>(m_entity.getComponent(Types::Render));
-	p_walkRight = new WalkRightCommand();
-	p_walkRight->execute(m_entity);
-}
-
-void ControlComponent::moveDown()
-{
-	RenderComponent* renderComp = dynamic_cast<RenderComponent*>(m_entity.getComponent(Types::Render));
-	p_walkDown = new WalkDownCommand();
-	p_walkDown->execute(m_entity);
-}
-

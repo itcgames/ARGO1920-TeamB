@@ -68,6 +68,7 @@ Game::Game() :
 	m_rat4.addComponent(new PositionComponent(50, 300), Types::Position);
 	m_rat4.addComponent(new CollisionComponent(m_rat4, RAT_W, RAT_H), Types::Collider);
 	m_rat4.addComponent(new ControlComponent(m_rat4), Types::Control);
+	m_rat4.addComponent(new RenderComponent("./Assets/rat4.png", RAT_W, RAT_H, p_renderer), Types::Render);
 	m_rat4.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdle.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
 
 	// Dog
@@ -85,7 +86,6 @@ Game::Game() :
 	m_rat3.addComponent(new PositionComponent(50, 900), Types::Position);
 	m_rat3.addComponent(new CollisionComponent(m_rat3, RAT_W, RAT_H), Types::Collider);
 	m_rat3.addComponent(new ControlComponent(m_rat3), Types::Control);
-	m_rat3.addComponent(new RenderComponent("./Assets/rat4.png", RAT_W, RAT_H, p_renderer), Types::Render);
 	m_rat3.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdle.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
 	m_rat3.addComponent(new TestBotBehaviourComponent(m_rat3), Types::TestBot);
 
@@ -194,8 +194,8 @@ Game::Game() :
 	m_collisionSystem.addEntity(m_spike3);
 	
 	//m_collisionSystem.addEntity(m_door1);
-
 	m_collisionSystem.addEntity(m_bomb);
+
 	//DRAW Draw all of entities
 	m_renderSystem.addEntity(m_rat1);
 	m_renderSystem.addEntity(m_rat4);
@@ -259,9 +259,9 @@ Game::Game() :
 	m_stateMachine->setRenderer(p_renderer);
 	m_stateMachine->addEntity(m_rat1);
 	m_stateMachine->addEntity(m_rat2);
+	m_stateMachine->addEntity(m_rat3);
 	m_stateMachine->addEntity(m_rat4);
 	m_stateMachine->setupSprites();
-	m_controlSystem.initStateSystem(m_stateMachine);
 }
 
 
@@ -277,7 +277,6 @@ Game::~Game() {}
 /// </summary>
 void Game::run()
 {
-	bool exit = false;
 	float timePerFrame = 1000.f / 60.f;
 	Uint32 timeSinceLastUpdate = 0;
 	Uint32 timeSinceStart = SDL_GetTicks();
@@ -331,7 +330,7 @@ void Game::processEvents()
 void Game::update(float dt)
 {
 	m_healthSystem.update();
-	// m_aiSystem.update();
+	m_aiSystem.update();
 	m_buttonSystem.update();
 	m_controlSystem.handleInput(dt);
 	m_stateMachine->update();
