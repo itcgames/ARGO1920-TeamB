@@ -1,21 +1,26 @@
 #include "AISystem.h"
 
-AISystem::AISystem() {}
+AISystem::AISystem()
+{
+}
+
+AISystem::AISystem(StateMachineSystem* t_fsm) 
+{ 
+	m_FSM = *t_fsm; 
+}
+
+
 
 AISystem::~AISystem() {}
 
 void AISystem::updateComponent(Component* component)
 {
-	PositionComponent* pc = dynamic_cast<PositionComponent*>(component);
-	if (nullptr != pc)
+	for (Entity& e : entities)
 	{
-		int x = pc->getPositionX();
-		int y = pc->getPositionY();
-		x += 3;
-		if (x > 1080)
+		TestBotBehaviourComponent* bot = dynamic_cast<TestBotBehaviourComponent*>(e.getComponent(Types::TestBot));
+		if (bot != nullptr)
 		{
-			x = 0;
+			bot->update(m_FSM);
 		}
-		pc->setPosition(x,y);
 	}
 }

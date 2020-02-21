@@ -57,6 +57,7 @@
     <ClInclude Include="INCLUDE\Online\PacketManager.h" />
     <ClInclude Include="INCLUDE\Online\PacketStructs.h" />
     <ClInclude Include="INCLUDE\Online\PacketType.h" />
+    <ClInclude Include="Include\Components\TestBotBehaviourComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />
@@ -114,5 +115,6 @@
     <ClCompile Include="SRC\Online\Packet.cpp" />
     <ClCompile Include="SRC\Online\PacketManager.cpp" />
     <ClCompile Include="SRC\Online\ServerSendGetMethods.cpp" />
+    <ClCompile Include="Src\Components\TestBotBehaviourComponent.cpp" />
   </ItemGroup>
 </Project>

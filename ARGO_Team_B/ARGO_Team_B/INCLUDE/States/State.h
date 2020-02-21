@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-
+#include "Enums.h"
 #include "AnimatedSpriteComponent.h"
 
 class State
@@ -30,4 +30,8 @@ public:
 	{
 		std::cout << "interact State" << std::endl;
 	}
+
+	virtual States getType() { return m_type; };
+
+	States m_type = States::Idle;
 };

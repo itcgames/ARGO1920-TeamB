@@ -37,8 +37,8 @@ void PositionComponent::setVelo(float t_x, float t_y)
 	m_velocityY = t_y;
 }
 void PositionComponent::setPreviousePos() {
-	m_previouseX = m_currentX;
-	m_previouseY = m_currentY;
+	m_previousX = m_currentX;
+	m_previousY = m_currentY;
 }
 
 void PositionComponent::setangle(double t_angle)
@@ -58,8 +58,8 @@ void PositionComponent::backToStart()
 }
 
 void PositionComponent::backToPreviousePos() {
-	m_currentX = m_previouseX;
-	m_currentY = m_previouseY;
+	m_currentX = m_previousX;
+	m_currentY = m_previousY;
 }
 
 void PositionComponent::moveUp()

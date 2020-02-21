@@ -7,14 +7,15 @@ enum class Types {
 	Render,
 	Button,
 	Traps,
-	Controller,
+	Control,
 	AnimatedSprite,
 	Collider,
 	Door,
 	Player,
 	Goal,
 	Bomb,
-	Game
+	Game,
+	TestBot
 };
 
 enum class States {
@@ -24,6 +25,7 @@ enum class States {
 	Stunned,
 	Walking
 };
+
 enum class GameStates
 {
 	Game,
@@ -32,4 +34,13 @@ enum class GameStates
 	Hosting,
 	Joining
 };
+
+enum class EntityType
+{
+	Default,
+	Rat,
+	Bomb,
+	Spike
+};
+
 #endif // !ENUMS_H

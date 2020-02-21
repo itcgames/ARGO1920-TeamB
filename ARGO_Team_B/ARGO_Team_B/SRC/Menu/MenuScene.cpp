@@ -111,6 +111,7 @@ void MenuScene::update(float dt)
 	if (m_buttomTimer > 0.0f) {
 		m_buttomTimer -= dt;
 	}
+
 	//case SDL_JOYBUTTONDOWN:
 	//	//Play rumble at 75% strenght for 500 milliseconds
 	//	//SDL_HapticRumblePlay(gControllerHaptic, 0.75, 500);
