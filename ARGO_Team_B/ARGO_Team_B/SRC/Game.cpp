@@ -294,7 +294,7 @@ Game::Game() :
 	//m_stateMachine->setupSprites();
 	//m_controlSystem.initStateSystem(m_stateMachine);
 
-	m_hostGame = new HostingGame();
+	//m_hostGame = new HostingGame();
 	m_joinGame = new JoiningGame();
 	m_currentState = GameStates::MainMenu;
 	m_menuScene = new MenuScene(p_renderer, &m_currentState, controlComp);

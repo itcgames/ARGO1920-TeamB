@@ -4,7 +4,7 @@ HostingGame::HostingGame()
 {
 	MyServer = new Server(1111, "149.153.106.159");
 	m_startCountdown = 5.0f;
-	m_playerRequire = 0;
+	m_playerRequire = 1;
 	
 	//m_waitingPlayer = thread(this->waitingConnection);
 	//m_waitingPlayer.join();
@@ -40,6 +40,7 @@ void HostingGame::update(float dt) {
 		//MyServer.getData();
 
 		m_gameScene->update(dt);
+
 
 	}
 

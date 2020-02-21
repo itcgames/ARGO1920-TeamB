@@ -25,6 +25,19 @@ public:
 	~GameScene();
 	void update(float dt);
 	void render();
+
+	/// <summary>
+	/// online game only
+	/// </summary>
+	
+	//player transfer data
+	int playerId();
+	SDL_Point playerPosition();
+
+	//game transfer data
+	float gameStartCountdown();
+	//float 
+
 private:
 	// Entities
 	Entity m_rat1;
