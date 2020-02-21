@@ -23,7 +23,7 @@ public:
 	CollisionSystem();
 	~CollisionSystem();
 	void updateComponent(Component* component) override;
-	void updateComponent(Level &t_level,AudioObserver * t_observer, std::vector<ParticleSystem*>& t_ps, SDL_Renderer* t_renderer);
+	void updateComponent(Level &t_level,AudioObserver * t_observer, std::vector<ParticleSystem*>& t_ps, SDL_Renderer* t_renderer, SDL_Rect& t_shake);
 	void tileCollision(float x, float y, float width, float height, Level& t_mazeWalls,AudioObserver* t_observer);
 private:
 
@@ -37,6 +37,8 @@ private:
 
 	void bombCollision(AudioObserver* t_observer);
 	void TileBombCollision(Level* t_level, CollisionComponent* t_bomb);
+
+	void screenShake(SDL_Renderer & t_render, SDL_Rect& t_shake);
 
 	vector<Entity> m_playerEntitys;
 	vector<Entity> m_buttonEntitys;

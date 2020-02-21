@@ -279,4 +279,13 @@ void GameScene::render()
 	for (ParticleSystem* ps : m_particles) {
 		ps->draw(m_renderer); // Draw particle system
 	}
+
+	SDL_Rect shake;
+	shake.x = 100;
+	shake.y = 100;
+	shake.w = SCR_W;
+	shake.h = SCR_H;
+
+	SDL_RenderSetViewport(m_renderer, &shake);
+
 }

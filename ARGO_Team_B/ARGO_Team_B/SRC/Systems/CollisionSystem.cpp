@@ -13,7 +13,7 @@ void CollisionSystem::updateComponent(Component* component)
 {
 }
 
-void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer, std::vector<ParticleSystem*>& t_ps, SDL_Renderer* t_renderer)
+void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer, std::vector<ParticleSystem*>& t_ps, SDL_Renderer* t_renderer, SDL_Rect & t_shake)
 {
 	searchEntities();
 
@@ -546,4 +546,8 @@ void CollisionSystem::TileBombCollision(Level* t_level, CollisionComponent* t_bo
 				playerComp->setInteract(false);
 			}
 		}*/
+}
+
+void CollisionSystem::screenShake(SDL_Renderer& t_render, SDL_Rect& t_shake)
+{
 }
