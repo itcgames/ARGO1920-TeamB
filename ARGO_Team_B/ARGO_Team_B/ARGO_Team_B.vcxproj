@@ -36,6 +36,8 @@
     <ClInclude Include="INCLUDE\Utils\Subject.h" />
     <ClInclude Include="INCLUDE\Components\GameComponent.h" />
     <ClInclude Include="INCLUDE\GameSystem.h" />
+    <ClInclude Include="INCLUDE\Particle.h" />
+    <ClInclude Include="INCLUDE\ParticleSystem.h" />
     <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Command.h" />
     <ClInclude Include="INCLUDE\Components\AnimatedSpriteComponent.h" />
@@ -78,6 +80,8 @@
     <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SRC\Particle.cpp" />
+    <ClCompile Include="SRC\Systems\ParticleSystem.cpp" />
     <ClCompile Include="Src\Components\TestBotBehaviourComponent.cpp" />
     <ClCompile Include="SRC\Components\GameComponent.cpp" />
     <ClCompile Include="SRC\Components\PositionComponent.cpp" />

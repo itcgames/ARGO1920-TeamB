@@ -24,7 +24,7 @@ public:
 	GameScene(SDL_Renderer* t_renderer);
 	~GameScene();
 	void update(float dt);
-	void render(SDL_Renderer* t_renderer);
+	void render();
 private:
 	// Entities
 	Entity m_rat1;
@@ -47,8 +47,6 @@ private:
 
 	Entity m_goalCheese;
 
-	std::vector<Entity> m_bomb;
-
 	Entity m_gameManager;
 
 	// Systems
@@ -60,12 +58,16 @@ private:
 	ButtonSystem m_buttonSystem;
 	CollisionSystem m_collisionSystem;
 	StateMachineSystem* m_stateMachine;
-	std::vector<Entity> m_goalCheeses;
 	AudioObserver* m_observer;
 	FontObserver* m_font;
 	BombSystem m_bombSystem;
 	GameSystem m_gameSystem;
+
+	std::vector<ParticleSystem*> m_particles;
+	std::vector<Entity> m_goalCheeses;
+	std::vector<Entity> m_bombs;
 	
+	SDL_Renderer* m_renderer;
 };
 #endif // !MENU_SCENE_H
 

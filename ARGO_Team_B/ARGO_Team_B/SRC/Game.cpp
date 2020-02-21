@@ -331,7 +331,7 @@ void Game::run()
 		{
 			timeSinceLastUpdate -= timePerFrame;
 			processEvents();
-			update(timePerFrame / 1000.0f);
+			update(timePerFrame/1000.0f);
 		}
 		render();
 	}
@@ -413,6 +413,7 @@ void Game::update(float dt)
 void Game::render()
 {
 	SDL_RenderClear(p_renderer);
+
 	switch (m_currentState)
 	{
 	case GameStates::MainMenu:
@@ -427,7 +428,7 @@ void Game::render()
 			m_renderSystem.draw();
 			m_gameSystem.draw(m_font);
 			m_stateMachine->update();*/
-			m_gameScene->render(p_renderer);
+			m_gameScene->render();
 		}
 		
 		break;
@@ -448,7 +449,6 @@ void Game::render()
 	default:
 		break;
 	}
-
 	SDL_RenderPresent(p_renderer);
 }
 

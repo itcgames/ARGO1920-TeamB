@@ -69,7 +69,7 @@ void HostingGame::draw(FontObserver* text, SDL_Renderer* t_renderer)
 				m_gameScene = new GameScene(t_renderer);
 			}
 			else {
-				m_gameScene->render(t_renderer);
+				m_gameScene->render();
 			}
 		}
 	}

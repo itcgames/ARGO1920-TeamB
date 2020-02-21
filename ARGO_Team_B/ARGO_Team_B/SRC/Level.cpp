@@ -9,13 +9,14 @@ MazeWallObject::MazeWallObject(float x, float y, float width, float height, bool
 {
 
 }
-Breakable::Breakable(float x, float y, float width, float height)
-	: x(x), y(y), width(width), height(height)
+
+TeleportObject::TeleportObject(float x, float y, float width, float height)
+	: x(x), y(y), width(width), height(height) 
 {
 
 }
-TeleportObject::TeleportObject(float x, float y, float width, float height)
-	: x(x), y(y), width(width), height(height) 
+Point::Point(float x, float y)
+	: x(x), y(y)
 {
 
 }
@@ -93,19 +94,6 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
 
 					m_mazeWalls.push_back(o);
 				}
-				else if (object.getName() == "BreakableWall")
-				{
-
-					float x, y, width, height;
-					bool alive;
-					x = object.getPosition().x;
-					y = object.getPosition().y;
-					width = object.getAABB().width;
-					height = object.getAABB().height;
-					Breakable o(x, y, width, height);
-					
-					m_breakable.push_back(o);
-				}
 				else if (object.getName() == "Teleport")
 				{
 					float x, y, width, height;
@@ -117,6 +105,30 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
 					TeleportObject o(x, y, width, height);
 
 					m_teleport.push_back(o);
+				}
+				else if (object.getName() == "cheesepoint")
+				{
+					float x,y;
+					x = object.getPosition().x;
+					y = object.getPosition().y;
+					Point o(x, y);
+					m_cheese.push_back(o);
+				}
+				else if (object.getName() == "bombpoint")
+				{
+					float x, y;
+					x = object.getPosition().x;
+					y = object.getPosition().y;
+					Point o(x, y);
+					m_bomb.push_back(o);
+				}
+				else if (object.getName() == "playerpoint")
+				{
+					float x, y;
+					x = object.getPosition().x;
+					y = object.getPosition().y;
+					Point o(x, y);
+					m_player.push_back(o);
 				}
 			}
 		}

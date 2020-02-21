@@ -37,8 +37,7 @@ public:
 	//Gets image dimensions
 	int getWidth();
 	int getHeight();
-	//int getSRect();
-
+	int getSRect();
 
 	void setScale(float scale);
 

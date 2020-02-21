@@ -49,12 +49,12 @@ struct TeleportObject {
 
 	TeleportObject(float x = 0, float y = 0, float width = 0, float height = 0);
 };
-struct Breakable {
+struct Point {
 	int x;
 	int y;
-	int width;
-	int height;
-	Breakable(float x = 0, float y = 0, float width = 0, float height = 0);
+
+	Point(float x = 0, float y = 0);
+
 };
 class Level
 {
@@ -65,7 +65,9 @@ public:
 	std::vector<tile> tiles;
 	std::vector<MazeWallObject> m_mazeWalls;
 	std::vector<TeleportObject> m_teleport;
-	std::vector<Breakable> m_breakable;
+	std::vector<Point> m_cheese;
+	std::vector<Point> m_bomb;
+	std::vector<Point> m_player;
 private:
     std::string name;
     // Think of the dimensions as a 2D array (after all, that's what our

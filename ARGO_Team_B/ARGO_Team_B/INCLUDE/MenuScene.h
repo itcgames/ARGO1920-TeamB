@@ -9,7 +9,6 @@
 #include <thread>
 
 #include <iostream>
-#include "LTexture.h"
 #include "ControlComponent.h"
 #include "Xbox360Controller.h"
 

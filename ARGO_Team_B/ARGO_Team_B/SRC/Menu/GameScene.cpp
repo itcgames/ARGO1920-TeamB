@@ -1,8 +1,18 @@
 #include "GameScene.h"
 
 GameScene::GameScene(SDL_Renderer* t_renderer):
-	m_rat1(EntityType::Rat), m_rat2(EntityType::Rat), m_rat3(EntityType::Rat), m_rat4(EntityType::Rat)
+	m_rat1(EntityType::Rat),
+	m_rat2(EntityType::Rat),
+	m_rat3(EntityType::Rat),
+	m_rat4(EntityType::Rat),
+	m_renderer(t_renderer)
 {
+
+	// Extra info for systems
+	const auto MAP_PATH = "Assets/map/test.tmx";
+	tiled_map_level = new Level("Test");
+	tiled_map_level->load(MAP_PATH, t_renderer);
+
 	/// <summary>
 	/// FOR ALL ENTITY
 	/// the position component must create before the collision component
@@ -10,7 +20,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	// Player
 	m_rat1.addComponent(new PlayerComponent(1), Types::Player); // This must allways be first added
 	m_rat1.addComponent(new HealthComponent(100), Types::Health);
-	m_rat1.addComponent(new PositionComponent(150, 100), Types::Position);
+	m_rat1.addComponent(new PositionComponent(tiled_map_level->m_player[0].x, tiled_map_level->m_player[0].y), Types::Position);
 	m_rat1.addComponent(new CollisionComponent(m_rat1, 30.0f, RAT_H, RAT_W), Types::Collider);
 	m_rat1.addComponent(new ControlComponent(m_rat1), Types::Control);
 	m_rat1.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, t_renderer), Types::AnimatedSprite);
@@ -19,7 +29,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	// Alien
 	m_rat4.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added
 	m_rat4.addComponent(new HealthComponent(150), Types::Health);
-	m_rat4.addComponent(new PositionComponent(50, 300), Types::Position);
+	m_rat4.addComponent(new PositionComponent(tiled_map_level->m_player[1].x, tiled_map_level->m_player[1].y), Types::Position);
 	m_rat4.addComponent(new CollisionComponent(m_rat4, RAT_W, RAT_H), Types::Collider);
 	m_rat4.addComponent(new ControlComponent(m_rat4), Types::Control);
 	m_rat4.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, t_renderer), Types::AnimatedSprite);
@@ -27,7 +37,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	// Dog
 	m_rat2.addComponent(new PlayerComponent(3), Types::Player); // This must allways be first added
 	m_rat2.addComponent(new HealthComponent(75), Types::Health);
-	m_rat2.addComponent(new PositionComponent(50, 700), Types::Position);
+	m_rat2.addComponent(new PositionComponent(tiled_map_level->m_player[2].x, tiled_map_level->m_player[2].y), Types::Position);
 	m_rat2.addComponent(new CollisionComponent(m_rat2, RAT_W, RAT_H), Types::Collider);
 	m_rat2.addComponent(new ControlComponent(m_rat2), Types::Control);
 	//m_rat2.addComponent(new RenderComponent("./Assets/rat3.png", RAT_W, RAT_H, p_renderer), Types::Render);
@@ -36,7 +46,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	// Cat
 	m_rat3.addComponent(new PlayerComponent(4), Types::Player); // This must allways be first added
 	m_rat3.addComponent(new HealthComponent(50), Types::Health);
-	m_rat3.addComponent(new PositionComponent(50, 900), Types::Position);
+	m_rat3.addComponent(new PositionComponent(tiled_map_level->m_player[3].x, tiled_map_level->m_player[3].y), Types::Position);
 	m_rat3.addComponent(new CollisionComponent(m_rat3, RAT_W, RAT_H), Types::Collider);
 	m_rat3.addComponent(new ControlComponent(m_rat3), Types::Control);
 	//m_rat3.addComponent(new RenderComponent("./Assets/rat4.png", RAT_W, RAT_H, p_renderer), Types::Render);
@@ -88,54 +98,49 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_door1.addComponent(new CollisionComponent(m_door1, 200, 20), Types::Collider);
 	m_door1.addComponent(new RenderComponent("Assets\\Door.png", 200, 20, p_renderer), Types::Render); */
 
-	// cheeses
-	m_goalCheeses.reserve(15);
-	for (int i = 0; i < 15; ++i)
+	//cheeses
+	m_goalCheeses.reserve(tiled_map_level->m_cheese.size());
+	for (int i = 0; i < tiled_map_level->m_cheese.size(); ++i)
 	{
 		m_goalCheeses.emplace_back();
-		m_goalCheeses.at(i).addComponent(new GoalComponent(), Types::Goal);
-		m_goalCheeses.at(i).addComponent(new PositionComponent(30 + rand() % 1830, 30 + rand() % 1050), Types::Position);
-		m_goalCheeses.at(i).addComponent(new CollisionComponent(m_goalCheeses.at(i), 30, 30), Types::Collider);
-		m_goalCheeses.at(i).addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, 30, 30, t_renderer), Types::Render);
-		m_collisionSystem.addEntity(m_goalCheeses.at(i));
-		m_renderSystem.addEntity(m_goalCheeses.at(i));
-		m_buttonSystem.addEntity(m_goalCheeses.at(i));
-		//m_goalCheese.addComponent(new GoalComponent(), Types::Goal);
-		//m_goalCheese.addComponent(new CollisionComponent(), Types::Collider);
-		//m_goalCheese.addComponent(new PositionComponent(30+rand()%1830, 30+rand()%1050), Types::Position);
-		//m_goalCheese.addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
-		//m_collisionSystem.addEntity(m_goalCheese);
-		//m_renderSystem.addEntity(m_goalCheese);
-		//m_trapSystem.addEntity(m_goalCheese);
+		bool canSpawn = false;
+		float spawnPointX;
+		float spawnPointY;
+		spawnPointX = tiled_map_level->m_cheese[i].x;
+		spawnPointY = tiled_map_level->m_cheese[i].y;
+		m_goalCheeses[i].addComponent(new GoalComponent(), Types::Goal);
+		m_goalCheeses[i].addComponent(new PositionComponent(spawnPointX, spawnPointY), Types::Position);
+		m_goalCheeses[i].addComponent(new CollisionComponent(m_goalCheeses[i], 30.0f, 30, 30), Types::Collider);
+		m_goalCheeses[i].addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, 30, 30, t_renderer), Types::Render);
+		m_collisionSystem.addEntity(m_goalCheeses[i]);
+		std::cout << "collision system added for " << i << std::endl;
+		m_renderSystem.addEntity(m_goalCheeses[i]);
+		std::cout << "render system added for " << i << std::endl;
+		m_buttonSystem.addEntity(m_goalCheeses[i]);
+		std::cout << "button system added for " << i << std::endl;
 	}
 
-	//bomb
-	m_bomb.reserve(5);
-	for (int i = 0; i < 5; i++) {
-		m_bomb.emplace_back();
-		m_bomb.at(i).addComponent(new BombComponent(), Types::Bomb);
-		m_bomb.at(i).addComponent(new RenderComponent("Assets\\bomb.png", 30, 30, 300, 300, t_renderer), Types::Render);
+	//bombs
+	m_bombs.reserve(tiled_map_level->m_bomb.size());
+	for (int i = 0; i < tiled_map_level->m_bomb.size(); ++i)
+	{
+		m_bombs.emplace_back();
+		float spawnPointX;
+		float spawnPointY;
+		spawnPointX = tiled_map_level->m_bomb[i].x;
+		spawnPointY = tiled_map_level->m_bomb[i].y;
+		m_bombs[i].addComponent(new BombComponent(), Types::Bomb);
+		m_bombs[i].addComponent(new PositionComponent(spawnPointX, spawnPointY), Types::Position);
+		m_bombs[i].addComponent(new CollisionComponent(m_bombs[i], 30.0f, 30, 30), Types::Collider);
+		m_bombs[i].addComponent(new RenderComponent("Assets\\bomb.png", 30, 30, 300, 300, t_renderer), Types::Render);
+		m_collisionSystem.addEntity(m_bombs[i]);
+		std::cout << "collision system added for " << i << std::endl;
+		m_renderSystem.addEntity(m_bombs[i]);
+		std::cout << "render system added for " << i << std::endl;
+		m_bombSystem.addEntity(m_bombs[i]);
+		std::cout << "button system added for " << i << std::endl;
 	}
-	m_bomb.at(0).addComponent(new PositionComponent(700, 200), Types::Position);
-	m_bomb.at(0).addComponent(new CollisionComponent(m_bomb.at(0), 30.0f, 30, 30), Types::Collider);
 
-	m_bomb.at(1).addComponent(new PositionComponent(1100, 400), Types::Position);
-	m_bomb.at(1).addComponent(new CollisionComponent(m_bomb.at(1), 30.0f, 30, 30), Types::Collider);
-
-	m_bomb.at(2).addComponent(new PositionComponent(600, 800), Types::Position);
-	m_bomb.at(2).addComponent(new CollisionComponent(m_bomb.at(2), 30.0f, 30, 30), Types::Collider);
-
-	m_bomb.at(3).addComponent(new PositionComponent(500, 700), Types::Position);
-	m_bomb.at(3).addComponent(new CollisionComponent(m_bomb.at(3), 30.0f, 30, 30), Types::Collider);
-
-	m_bomb.at(4).addComponent(new PositionComponent(1050, 600), Types::Position);
-	m_bomb.at(4).addComponent(new CollisionComponent(m_bomb.at(4), 30.0f, 30, 30), Types::Collider);
-
-	for (int i = 0; i < 5; i++) {
-		m_collisionSystem.addEntity(m_bomb.at(i));
-		m_renderSystem.addEntity(m_bomb.at(i));
-		m_bombSystem.addEntity(m_bomb.at(i));
-	}
 
 	//game manager and ui detail
 	m_gameManager.addComponent(new GameComponent(), Types::Game);
@@ -176,11 +181,6 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_renderSystem.addEntity(m_rat4);
 	m_renderSystem.addEntity(m_rat2);
 	m_renderSystem.addEntity(m_rat3);
-
-
-	const auto MAP_PATH = "Assets/map/test.tmx";
-	tiled_map_level = new Level("Test");
-	tiled_map_level->load(MAP_PATH, t_renderer);
 
 	//m_renderSystem.addEntity(m_alien);
 	//m_renderSystem.addEntity(m_dog);
@@ -251,17 +251,32 @@ void GameScene::update(float dt)
 	m_healthSystem.update();
 	m_aiSystem.update();
 	m_buttonSystem.update();
-	m_controlSystem.handleInput(dt);
-	m_collisionSystem.updateComponent(*tiled_map_level, m_observer);
+	m_controlSystem.handleInput(dt, m_stateMachine, m_renderer, m_particles);
+	m_collisionSystem.updateComponent(*tiled_map_level, m_observer, m_particles, m_renderer);
 	m_stateMachine->update();
 	m_bombSystem.updateComponent(dt, m_observer);
 	m_gameSystem.update(dt);
+
+	for (int i = 0; i < m_particles.size(); i++) {
+		// Loops through particle systems
+		m_particles.at(i)->update();
+
+		//Checks if the particle system is empty
+		if (m_particles.at(i)->m_particles.size() <= 0) {
+			// Deletes the particle system
+			m_particles.erase(m_particles.begin() + i);
+		}
+	}
 }
 
-void GameScene::render(SDL_Renderer * t_renderer)
+void GameScene::render()
 {
-	tiled_map_level->draw(t_renderer);
+	tiled_map_level->draw(m_renderer);
 	m_renderSystem.draw();
 	m_gameSystem.draw(m_font);
 	m_stateMachine->update();
+
+	for (ParticleSystem* ps : m_particles) {
+		ps->draw(m_renderer); // Draw particle system
+	}
 }

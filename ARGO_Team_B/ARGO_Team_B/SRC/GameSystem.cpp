@@ -11,10 +11,10 @@ GameSystem::~GameSystem() {
 
 void GameSystem::update(float dt) {
 	// Release timer
-	float startCountdown = m_game->getstartCountdown();
+	//float startCountdown = m_game->getstartCountdown();
 
 	// Debug timer
-	//float startCountdown = 0;
+	float startCountdown = 0;
 
 	if (startCountdown <= 0) {
 

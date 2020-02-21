@@ -11,7 +11,6 @@
 #include "Level.h"
 #include "ButtonSystem.h"
 #include "CollisionSystem.h"
-#include "Enums.h"
 #include "TestBotBehaviourComponent.h"
 #include "TrapComponent.h"
 #include "ButtonComponent.h"
@@ -58,7 +57,6 @@ private:
 	//Entity m_spike;
 	//Entity m_spike2;
 	//Entity m_spike3;
-
 
 	//Entity m_door1;
 	//Entity m_door2;
