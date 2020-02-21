@@ -27,20 +27,23 @@ struct tile {
     int width;
     int height;
 
+	bool alive = true;	
+	tile();
     tile(SDL_Texture* tset, int x = 0, int y = 0,
         int tx = 0, int ty = 0, int w = 0, int h = 0);
     void draw(SDL_Renderer* ren);
 };
 
-struct MazeWallObject {
+struct MazeWallObject : public tile
+{
 	int x;
 	int y;
 	int width;
 	int height;
-
-	MazeWallObject(float x = 0, float y = 0, float width = 0, float height = 0);
+	MazeWallObject(float x = 0, float y = 0, float width = 0, float height = 0,bool alive = true);
 };
-struct TeleportObject {
+struct TeleportObject : public tile
+{
 	int x;
 	int y;
 	int width;
@@ -48,13 +51,13 @@ struct TeleportObject {
 
 	TeleportObject(float x = 0, float y = 0, float width = 0, float height = 0);
 };
-struct Breakable {
+struct Breakable : public tile{
 	int x;
 	int y;
 	int width;
 	int height;
 	bool alive;
-	Breakable(float x = 0, float y = 0, float width = 0, float height = 0,bool alive=true);
+	Breakable(float x = 0, float y = 0, float width = 0, float height = 0,bool alive = true);
 };
 class Level
 {
@@ -63,6 +66,7 @@ public:
     void load(const std::string& path, SDL_Renderer* ren);
     void draw(SDL_Renderer* ren);
 	std::vector<tile> tiles;
+	std::vector<tile> wallRubbleTiles;
 	std::vector<MazeWallObject> m_mazeWalls;
 	std::vector<TeleportObject> m_teleport;
 	std::vector<Breakable> m_breakable;

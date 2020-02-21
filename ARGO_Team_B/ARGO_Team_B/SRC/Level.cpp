@@ -1,14 +1,19 @@
 #include "../INCLUDE/Level.h"
 
+tile::tile()
+{
+}
+
 tile::tile(SDL_Texture* tset, int x, int y, int tx, int ty, int w, int h)
     : sheet(tset), x(x), y(y), tx(tx), ty(ty), width(w), height(h) {
 
 }
-MazeWallObject::MazeWallObject(float x, float y, float width, float height)
-	: x(x), y(y), width(width), height(height)
-{
 
+MazeWallObject::MazeWallObject(float x, float y, float width, float height, bool alive) :
+	 x(x), y(y), width(width), height(height)
+{
 }
+
 Breakable::Breakable(float x, float y, float width, float height,bool alive)
 	: x(x), y(y), width(width), height(height),alive(alive)
 {
@@ -34,8 +39,10 @@ void tile::draw(SDL_Renderer* ren) {
     dest.y = y;
     dest.w = src.w;
     dest.h = src.h;
-
-    SDL_RenderCopy(ren, sheet, &src, &dest);
+	if (alive)
+	{
+		SDL_RenderCopy(ren, sheet, &src, &dest);
+	}
 }
 
 Level::Level(const std::string& name)
@@ -205,3 +212,4 @@ void Level::draw(SDL_Renderer* ren) {
         tile.draw(ren);
     }
 }
+

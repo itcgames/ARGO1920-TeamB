@@ -35,8 +35,8 @@ private:
 
 	void searchCheese();
 
-	void bombCollision(AudioObserver* t_observer, Level* t_level);
-	void TileBombCollision(Level* t_level, BombComponent* t_bomb);
+	void bombCollision(AudioObserver* t_observer);
+	void TileBombCollision(Level* t_level, CollisionComponent* t_bomb);
 
 	vector<Entity> m_playerEntitys;
 	vector<Entity> m_buttonEntitys;

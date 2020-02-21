@@ -160,7 +160,7 @@ Game::Game() :
 
 	//bomb
 	m_bomb.addComponent(new BombComponent(), Types::Bomb);
-	m_bomb.addComponent(new PositionComponent(700, 200), Types::Position);
+	m_bomb.addComponent(new PositionComponent(500, 600), Types::Position);
 	m_bomb.addComponent(new CollisionComponent(m_bomb, 30.0f, 30, 30), Types::Collider);
 	m_bomb.addComponent(new RenderComponent("Assets\\bomb.png", 30, 30, p_renderer), Types::Render);
 
@@ -214,7 +214,7 @@ Game::Game() :
 	m_stateMachine->addEntity(m_rat3);
 	m_stateMachine->setupSprites();
 
-	const auto MAP_PATH = "Assets/map/testLevel.tmx";
+	const auto MAP_PATH = "Assets/map/test.tmx";
 	tiled_map_level = new Level("Test");
 	tiled_map_level->load(MAP_PATH, p_renderer);
 
