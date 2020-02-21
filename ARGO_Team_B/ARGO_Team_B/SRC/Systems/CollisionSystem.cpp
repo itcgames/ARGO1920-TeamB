@@ -13,7 +13,7 @@ void CollisionSystem::updateComponent(Component* component)
 {
 }
 
-void CollisionSystem::updateComponent(Level& t_level,AudioObserver* t_observer)
+void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer, std::vector<ParticleSystem*>& t_ps, SDL_Renderer* t_renderer)
 {
 	searchEntities();
 
@@ -186,7 +186,7 @@ void CollisionSystem::updateComponent(Level& t_level,AudioObserver* t_observer)
 	{
 
 		GoalComponent* goal = static_cast<GoalComponent*>(goalEntity.getComponent(Types::Goal));
-
+		PositionComponent * goalPos = static_cast<PositionComponent*>(goalEntity.getComponent(Types::Position));
 		// check is button on the map
 		if (goal->getAlive()) 
 		{
@@ -200,11 +200,13 @@ void CollisionSystem::updateComponent(Level& t_level,AudioObserver* t_observer)
 				CollisionComponent* playerCollider = static_cast<CollisionComponent*>(playerEntitys.getComponent(Types::Collider));
 				
 				PlayerComponent* player = static_cast<PlayerComponent*>(playerEntitys.getComponent(Types::Player));
+				PositionComponent* playerPos = static_cast<PositionComponent*>(playerEntitys.getComponent(Types::Position));
 					if (checkCollision(goalCollider->getAABBCollider(), playerCollider->getAABBCollider()))
 					{
 						//std::cout << "Player with ID : " << player->getId() << "Collected the cheese" << std::endl;
 						player->gainCheese(1);
 						t_observer->onNotify(AudioObserver::PICKUPCHEESE);
+						t_ps.push_back((new ParticleSystem(250, playerPos->getPositionX(), playerPos->getPositionY() , t_renderer,ParticleType::CheesePickup)));
 						goal->setAlive(false);
 					}
 			}
@@ -293,6 +295,60 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			y <= t_mazeWalls.m_mazeWalls[i].y &&
 			x > t_mazeWalls.m_mazeWalls[i].x - width &&
 			x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width)
+		{
+			{
+				std::cout << "bottom tile WALL collision!" << std::endl;
+				//m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y + RAT_W);
+				m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
+
+			}
+		}
+	}
+
+	/// <summary>
+	///		Checking Outer Borders and Middle
+	/// </summary>
+	for (int i = 0; i < t_mazeWalls.m_outerBorders.size(); i++)
+	{
+		//right of tile
+		if (x <= t_mazeWalls.m_outerBorders[i].x + t_mazeWalls.m_outerBorders[i].width &&
+			x >= t_mazeWalls.m_outerBorders[i].x &&
+			y + height >= t_mazeWalls.m_outerBorders[i].y &&
+			y <= t_mazeWalls.m_outerBorders[i].y + t_mazeWalls.m_outerBorders[i].height)
+		{
+			std::cout << "right tile WALL collision!" << std::endl;
+			m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
+			//m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x + RAT_H, y);
+		}
+
+		//left of tile
+		if (x + width >= t_mazeWalls.m_outerBorders[i].x &&
+			x + width < t_mazeWalls.m_outerBorders[i].x + t_mazeWalls.m_outerBorders[i].width &&
+			y + height >= t_mazeWalls.m_outerBorders[i].y &&
+			y <= t_mazeWalls.m_outerBorders[i].y + t_mazeWalls.m_outerBorders[i].height)
+		{
+			std::cout << "left tile WALL collision!" << std::endl;
+			//m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x - RAT_W, y);
+			m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
+		}
+		//top of tile
+		if (y + height >= t_mazeWalls.m_outerBorders[i].y &&
+			y + height <= t_mazeWalls.m_outerBorders[i].y + t_mazeWalls.m_outerBorders[i].height &&
+			x > t_mazeWalls.m_outerBorders[i].x - width &&
+			x <= t_mazeWalls.m_outerBorders[i].x + t_mazeWalls.m_outerBorders[i].width)
+		{
+			{
+				std::cout << "top tile WALL collision!" << std::endl;
+				//m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y - RAT_H);
+				m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
+
+			}
+		}
+		////bottom of tile
+		if (y >= t_mazeWalls.m_outerBorders[i].y + t_mazeWalls.m_outerBorders[i].height &&
+			y <= t_mazeWalls.m_outerBorders[i].y &&
+			x > t_mazeWalls.m_outerBorders[i].x - width &&
+			x <= t_mazeWalls.m_outerBorders[i].x + t_mazeWalls.m_outerBorders[i].width)
 		{
 			{
 				std::cout << "bottom tile WALL collision!" << std::endl;

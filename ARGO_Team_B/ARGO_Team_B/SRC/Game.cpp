@@ -50,7 +50,9 @@ Game::Game() :
 	m_stateMachine = new StateMachineSystem;
 
 	// Extra info for systems
-
+	const auto MAP_PATH = "Assets/map/test.tmx";
+	tiled_map_level = new Level("Test");
+	tiled_map_level->load(MAP_PATH, p_renderer);
 	/// <summary>
 	/// FOR ALL ENTITY
 	/// the position component must create before the collision component
@@ -58,7 +60,7 @@ Game::Game() :
 	// Player
 	m_rat1.addComponent(new PlayerComponent(1), Types::Player); // This must allways be first added
 	m_rat1.addComponent(new HealthComponent(100), Types::Health);
-	m_rat1.addComponent(new PositionComponent(150, 100), Types::Position);
+	m_rat1.addComponent(new PositionComponent(tiled_map_level->m_player[0].x, tiled_map_level->m_player[0].y), Types::Position);
 	m_rat1.addComponent(new CollisionComponent(m_rat1, 30.0f, RAT_H, RAT_W), Types::Collider);
 	m_rat1.addComponent(new ControlComponent(m_rat1), Types::Control);
 	//m_rat1.addComponent(new RenderComponent("./Assets/rat.png", RAT_W, RAT_H, p_renderer), Types::Render);
@@ -67,7 +69,7 @@ Game::Game() :
 	// Alien
 	m_rat4.addComponent(new PlayerComponent(2), Types::Player); // This must allways be first added
 	m_rat4.addComponent(new HealthComponent(150), Types::Health);
-	m_rat4.addComponent(new PositionComponent(50, 300), Types::Position);
+	m_rat4.addComponent(new PositionComponent(tiled_map_level->m_player[1].x, tiled_map_level->m_player[1].y), Types::Position);
 	m_rat4.addComponent(new CollisionComponent(m_rat4, RAT_W, RAT_H), Types::Collider);
 	m_rat4.addComponent(new ControlComponent(m_rat4), Types::Control);
 	m_rat4.addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, p_renderer), Types::AnimatedSprite);
@@ -75,7 +77,7 @@ Game::Game() :
 	// Dog
 	m_rat2.addComponent(new PlayerComponent(3), Types::Player); // This must allways be first added
 	m_rat2.addComponent(new HealthComponent(75), Types::Health);
-	m_rat2.addComponent(new PositionComponent(50, 700), Types::Position);
+	m_rat2.addComponent(new PositionComponent(tiled_map_level->m_player[2].x, tiled_map_level->m_player[2].y), Types::Position);
 	m_rat2.addComponent(new CollisionComponent(m_rat2, RAT_W, RAT_H), Types::Collider);
 	m_rat2.addComponent(new ControlComponent(m_rat2), Types::Control);
 	//m_rat2.addComponent(new RenderComponent("./Assets/rat3.png", RAT_W, RAT_H, p_renderer), Types::Render);
@@ -84,7 +86,7 @@ Game::Game() :
 	// Cat
 	m_rat3.addComponent(new PlayerComponent(4), Types::Player); // This must allways be first added
 	m_rat3.addComponent(new HealthComponent(50), Types::Health);
-	m_rat3.addComponent(new PositionComponent(50, 900), Types::Position);
+	m_rat3.addComponent(new PositionComponent(tiled_map_level->m_player[3].x, tiled_map_level->m_player[3].y), Types::Position);
 	m_rat3.addComponent(new CollisionComponent(m_rat3, RAT_W, RAT_H), Types::Collider);
 	m_rat3.addComponent(new ControlComponent(m_rat3), Types::Control);
 	m_rat3.addComponent(new RenderComponent("./Assets/rat4.png", RAT_W, RAT_H, p_renderer), Types::Render);
@@ -159,10 +161,10 @@ Game::Game() :
 	}
 
 	//bomb
-	m_bomb.addComponent(new BombComponent(), Types::Bomb);
+	/*m_bomb.addComponent(new BombComponent(), Types::Bomb);
 	m_bomb.addComponent(new PositionComponent(500, 600), Types::Position);
 	m_bomb.addComponent(new CollisionComponent(m_bomb, 30.0f, 30, 30), Types::Collider);
-	m_bomb.addComponent(new RenderComponent("Assets\\bomb.png", 30, 30, p_renderer), Types::Render);
+	m_bomb.addComponent(new RenderComponent("Assets\\bomb.png", 30, 30, p_renderer), Types::Render);*/
 
 	//game manager and ui detail
 	m_gameManager.addComponent(new GameComponent(), Types::Game);
@@ -197,7 +199,6 @@ Game::Game() :
 	
 	//m_collisionSystem.addEntity(m_door1);
 
-	m_collisionSystem.addEntity(m_bomb);
 	//DRAW Draw all of entities
 	m_renderSystem.addEntity(m_rat1);
 	m_renderSystem.addEntity(m_rat4);
@@ -214,9 +215,7 @@ Game::Game() :
 	m_stateMachine->addEntity(m_rat3);
 	m_stateMachine->setupSprites();
 
-	const auto MAP_PATH = "Assets/map/test.tmx";
-	tiled_map_level = new Level("Test");
-	tiled_map_level->load(MAP_PATH, p_renderer);
+
 
 	//m_renderSystem.addEntity(m_alien);
 	//m_renderSystem.addEntity(m_dog);
@@ -238,7 +237,6 @@ Game::Game() :
 	m_font = new FontObserver(p_renderer);
 	m_font->loadFont();
 
-	m_renderSystem.addEntity(m_bomb);
 
 	//Connect button entity and other entity that require switch	 
 	m_buttonSystem.addEntity(m_button);
@@ -251,7 +249,6 @@ Game::Game() :
 	//m_buttonSystem.addEntity(m_door1);
 
 	// bomb system
-	m_bombSystem.addEntity(m_bomb);
 	m_bombSystem.addEntity(m_rat1);
 	m_bombSystem.addEntity(m_rat4);
 	m_bombSystem.addEntity(m_rat2);
@@ -263,6 +260,48 @@ Game::Game() :
 	m_gameSystem.addEntity(m_rat3);
 	m_gameSystem.addEntity(m_gameManager);
 	m_gameSystem.setupComponent();
+	//cheeses
+	m_goalCheeses.reserve(tiled_map_level->m_cheese.size());
+	for (int i = 0; i < tiled_map_level->m_cheese.size(); ++i)
+	{
+		m_goalCheeses.emplace_back();
+		bool canSpawn = false;
+		float spawnPointX;
+		float spawnPointY;
+		spawnPointX = tiled_map_level->m_cheese[i].x;
+		spawnPointY = tiled_map_level->m_cheese[i].y;
+		m_goalCheeses[i].addComponent(new GoalComponent(), Types::Goal);
+		m_goalCheeses[i].addComponent(new PositionComponent(spawnPointX, spawnPointY), Types::Position);
+		m_goalCheeses[i].addComponent(new CollisionComponent(m_goalCheeses[i],30.0f, 30, 30), Types::Collider);
+		m_goalCheeses[i].addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, p_renderer), Types::Render);
+		m_collisionSystem.addEntity(m_goalCheeses[i]);
+		std::cout << "collision system added for " << i << std::endl;
+		m_renderSystem.addEntity(m_goalCheeses[i]);
+		std::cout << "render system added for " << i << std::endl;
+		m_buttonSystem.addEntity(m_goalCheeses[i]);
+		std::cout << "button system added for " << i << std::endl;
+	}
+
+	//bombs
+	m_bombs.reserve(tiled_map_level->m_bomb.size());
+	for (int i = 0; i < tiled_map_level->m_bomb.size(); ++i)
+	{
+		m_bombs.emplace_back();
+		float spawnPointX;
+		float spawnPointY;
+		spawnPointX = tiled_map_level->m_bomb[i].x;
+		spawnPointY = tiled_map_level->m_bomb[i].y;
+		m_bombs[i].addComponent(new BombComponent(), Types::Bomb);
+		m_bombs[i].addComponent(new PositionComponent(spawnPointX, spawnPointY), Types::Position);
+		m_bombs[i].addComponent(new CollisionComponent(m_bombs[i], 30.0f, 30, 30), Types::Collider);
+		m_bombs[i].addComponent(new RenderComponent("Assets\\bomb.png", 30, 30, p_renderer), Types::Render);
+		m_collisionSystem.addEntity(m_bombs[i]);
+		std::cout << "collision system added for " << i << std::endl;
+		m_renderSystem.addEntity(m_bombs[i]);
+		std::cout << "render system added for " << i << std::endl;
+		m_bombSystem.addEntity(m_bombs[i]);
+		std::cout << "button system added for " << i << std::endl;
+	}
 
 	// TODO: all controllers not connected put AI instead
 	m_aiSystem.addEntity(m_rat3);
@@ -302,7 +341,7 @@ void Game::run()
 		{
 			timeSinceLastUpdate -= timePerFrame;
 			processEvents();
-			update(timePerFrame / 1000.0f);
+			update(timePerFrame/1000.0f);
 		}
 		render();
 	}
@@ -345,11 +384,23 @@ void Game::update(float dt)
 	m_healthSystem.update();
 	// m_aiSystem.update();
 	m_buttonSystem.update();
-	m_controlSystem.handleInput(dt);
+	m_controlSystem.handleInput(dt, m_stateMachine,p_renderer,m_particles);
+	m_collisionSystem.updateComponent(*tiled_map_level,m_observer,m_particles,p_renderer);
 	m_stateMachine->update();
-	m_collisionSystem.updateComponent(*tiled_map_level,m_observer);
-	m_bombSystem.updateComponent(dt,m_observer);
+
+	m_bombSystem.updateComponent(dt, m_observer);
+
 	m_gameSystem.update(dt);
+	for (int i = 0; i < m_particles.size(); i++) {
+		// Loops through particle systems
+		m_particles.at(i)->update();
+
+		//Checks if the particle system is empty
+		if (m_particles.at(i)->m_particles.size() <= 0) {
+			// Deletes the particle system
+			m_particles.erase(m_particles.begin() + i);
+		}
+	}
 }
 
 /// <summary>
@@ -364,6 +415,9 @@ void Game::render()
 	m_stateMachine->update();
 	m_gameSystem.draw(m_font);
 	// m_stateMachine.update();
+	for (ParticleSystem* ps : m_particles) {
+		ps->draw(p_renderer); // Draw particle system
+	}
 	SDL_RenderPresent(p_renderer);
 }
 

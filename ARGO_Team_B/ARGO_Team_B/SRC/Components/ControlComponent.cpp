@@ -16,7 +16,7 @@ void ControlComponent::initStateSystem(StateMachineSystem* t_stateSystem)
 	m_stateSystem  = t_stateSystem;
 }
 
-void ControlComponent::handleInput()
+void ControlComponent::handleInput(StateMachineSystem& t_stateSystem, SDL_Renderer* t_renderer,std::vector<ParticleSystem*>&t_ps)
 {
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
 	PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
@@ -34,16 +34,20 @@ void ControlComponent::handleInput()
 
 		if (m_controller->m_currentState.DpadUp || m_controller->m_currentState.LeftThumbStick.y < -m_controller->dpadThreshold) {
 			controlUp(posComp);
+			t_ps.push_back((new ParticleSystem(10, posComp->getPositionX()+3, posComp->getPositionY() + 30, t_renderer, ParticleType::Dust)));
 		}
 		else if (m_controller->m_currentState.DpadLeft || m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
 			controlLeft(posComp);
+			t_ps.push_back((new ParticleSystem(10, posComp->getPositionX()+10, posComp->getPositionY()+17, t_renderer, ParticleType::Dust)));
 
 		}
 		else if (m_controller->m_currentState.DpadRight || m_controller->m_currentState.LeftThumbStick.x > m_controller->dpadThreshold) {
 			controlRight(posComp);
+			t_ps.push_back((new ParticleSystem(10, posComp->getPositionX() -10, posComp->getPositionY()+18, t_renderer, ParticleType::Dust)));
 		}
 		else if (m_controller->m_currentState.DpadDown || m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
 			controlDown(posComp);
+			t_ps.push_back((new ParticleSystem(10, posComp->getPositionX()+2, posComp->getPositionY()+1, t_renderer, ParticleType::Dust)));
 		}
 	}
 	else if (!playerComp->getMoveable()) {

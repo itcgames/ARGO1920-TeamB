@@ -61,9 +61,6 @@ private:
 	Entity m_door1;
 	Entity m_door2;
 
-	Entity m_goalCheese;
-	Entity m_bomb;
-
 	Entity m_gameManager;
 
 	// Systems
@@ -74,11 +71,13 @@ private:
 	Level* tiled_map_level;
 	ButtonSystem m_buttonSystem;
 	CollisionSystem m_collisionSystem;
-	StateMachineSystem* m_stateMachine;
-	std::vector<Entity> m_goalCheeses;
+	StateMachineSystem *m_stateMachine;
 	AudioObserver * m_observer;
 	FontObserver* m_font;
 	BombSystem m_bombSystem;
 	GameSystem m_gameSystem;
+	std::vector<ParticleSystem*> m_particles;
+	std::vector<Entity> m_goalCheeses;
+	std::vector<Entity> m_bombs;
 };
 #endif // !GAME

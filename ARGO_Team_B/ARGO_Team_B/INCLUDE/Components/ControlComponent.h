@@ -9,6 +9,14 @@
 #include "PlayerComponent.h"
 #include "Xbox360Controller.h"
 #include "Entity.h"
+#include "CollisionSystem.h"
+enum class MovingState {
+	Up,
+	Down,
+	Left,
+	Right,
+	Idle
+};
 
 class ControlComponent : public Component
 {
@@ -19,7 +27,7 @@ public:
 	ControlComponent(Entity & t_gameObject);
 	~ControlComponent();
 	void initStateSystem(StateMachineSystem* t_stateSystem);
-	void handleInput();
+	void handleInput(StateMachineSystem& t_stateSystem,SDL_Renderer * t_renderer,std::vector<ParticleSystem*>&t_ps);
 	void controlInteract(PlayerComponent* t_player);
 	void controlUp(PositionComponent* t_pos);
 	void controlDown(PositionComponent* t_pos);

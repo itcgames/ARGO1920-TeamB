@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="64" height="36" tilewidth="30" tileheight="30" infinite="0" nextlayerid="13" nextobjectid="627">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="64" height="36" tilewidth="30" tileheight="30" infinite="0" nextlayerid="16" nextobjectid="211">
  <tileset firstgid="1" source="../tileset/city.tsx"/>
  <layer id="12" name="Rubble" width="64" height="36">
   <data encoding="csv">
@@ -170,10 +170,10 @@
 0,0,0,0,20,0,0,0,20,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,20,0,0,20,0,0,0,20,0,0,0,20,0,0,0,20,0,0,0,0,0,0,0,
 0,0,0,0,20,0,0,0,20,0,0,20,0,0,20,20,20,20,20,20,20,20,20,20,20,20,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,20,0,0,0,20,0,0,0,20,20,20,20,20,20,20,0,
 0,0,0,0,20,0,0,0,20,0,0,20,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,20,0,0,0,0,0,0,0,20,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,20,0,0,0,20,0,0,20,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,20,20,20,20,20,20,20,20,20,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,20,0,0,0,20,0,0,20,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,20,20,20,20,20,20,20,20,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,20,20,20,20,20,0,0,20,0,0,20,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,20,0,0,0,20,0,0,20,0,0,0,0,0,0,0,20,0,0,20,0,0,20,0,0,20,20,0,
 0,0,0,0,0,0,0,0,0,0,0,20,0,0,20,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,20,0,0,20,0,0,0,20,0,0,0,20,0,0,20,0,0,0,0,0,0,0,20,0,0,20,0,0,20,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,20,0,0,20,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,20,0,0,20,0,0,0,20,0,0,0,20,0,0,20,0,20,0,0,20,20,20,20,0,0,20,0,0,20,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,20,0,0,20,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,20,0,0,20,0,0,0,20,0,0,0,20,0,0,20,0,0,0,0,20,20,20,20,0,0,20,0,0,20,0,0,0,0,0,
 0,0,0,0,20,20,20,20,20,0,0,20,0,0,20,0,0,0,0,0,0,0,0,0,0,20,20,20,20,20,20,0,0,20,0,0,0,20,0,0,0,20,0,0,20,0,0,0,0,20,0,0,20,0,0,0,0,0,20,0,0,0,0,0,
 0,0,0,0,20,0,0,0,0,0,0,20,0,0,20,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,20,0,0,0,20,0,0,0,20,0,0,20,0,0,0,0,0,0,0,20,0,0,0,0,0,20,0,0,0,0,0,
 0,0,0,0,20,0,0,0,0,0,0,20,0,0,20,20,20,20,20,20,20,20,0,0,0,20,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,20,0,0,0,0,0,
@@ -183,15 +183,15 @@
 0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,20,0,0,0,0,0,0,0,0,20,0,0,20,0,0,20,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,20,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,20,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,20,0,0,0,0,0,0,20,0,0,20,0,0,0,0,0,0,0,
-0,0,0,0,20,0,0,20,20,20,20,0,0,20,0,0,20,0,0,0,0,0,0,0,0,0,0,20,20,20,20,20,20,0,0,0,20,20,20,20,0,20,20,0,20,0,0,0,20,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,
-0,0,0,0,20,0,0,20,0,0,20,0,0,20,0,0,20,20,20,20,0,0,20,20,20,0,0,20,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,20,0,20,0,20,0,0,0,0,0,0,0,20,20,20,20,0,0,0,0,
-0,0,0,0,20,0,0,20,0,0,20,0,0,20,0,0,0,0,0,20,0,0,20,0,0,0,0,20,20,20,0,0,0,0,0,0,0,0,0,20,0,0,20,20,20,0,0,0,20,20,20,0,0,20,0,0,20,0,0,0,0,0,0,0,
+0,0,0,0,20,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,20,0,0,0,0,0,0,0,
+0,0,0,0,20,0,0,20,20,20,20,0,0,20,0,0,20,0,0,0,0,0,0,0,0,0,0,20,20,20,20,20,20,0,0,0,20,20,20,20,0,0,0,0,20,0,0,0,20,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,
+0,0,0,0,20,0,0,20,0,0,20,0,0,20,0,0,20,20,20,20,0,0,20,20,20,0,0,20,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,20,0,0,0,20,0,0,0,0,0,0,0,20,20,20,20,0,0,0,0,
+0,0,0,0,20,0,0,20,0,0,20,0,0,20,0,0,0,0,0,20,0,0,20,0,0,0,0,20,20,20,0,0,0,0,0,0,0,0,0,20,0,0,0,0,20,0,0,0,20,20,20,0,0,20,0,0,20,0,0,0,0,0,0,0,
 0,0,0,0,20,0,0,20,0,0,20,0,0,20,0,0,0,0,0,20,0,0,20,0,0,0,0,0,0,20,0,0,0,20,20,20,20,20,20,20,0,0,0,0,20,0,0,0,20,0,0,0,0,20,0,0,20,0,0,0,0,0,0,0,
 0,0,0,0,20,20,20,20,0,0,20,0,0,20,20,20,20,20,20,20,0,0,20,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,20,0,0,0,0,20,0,0,20,20,20,20,20,20,20,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,20,20,20,20,20,20,20,20,20,0,0,20,0,0,20,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,20,20,20,0,0,0,20,0,0,0,0,0,20,20,20,20,20,20,20,0,0,0,0,0,0,0,0,0,0,0,20,0,0,20,0,0,20,0,0,0,0,
-0,0,0,0,20,20,20,20,0,0,20,0,0,20,20,20,20,20,20,20,0,0,0,0,0,20,0,0,0,20,20,20,20,20,20,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,20,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,20,20,20,20,0,0,20,0,0,20,20,20,20,20,20,20,0,0,0,0,0,20,0,0,0,20,20,20,20,20,20,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,20,0,0,0,0,0,20,0,0,20,0,0,0,0,0,20,0,0,0,0,0,20,0,0,0,20,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,20,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,20,0,0,0,0,0,20,0,0,20,0,0,0,0,0,20,0,0,0,0,0,20,20,20,20,20,0,0,0,0,20,20,0,0,0,20,20,20,20,20,20,20,20,20,20,20,20,0,0,20,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,20,0,0,20,20,20,20,0,0,20,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,20,0,0,0,20,0,0,20,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,20,20,20,20,0,
@@ -248,13 +248,15 @@
   <object id="160" name="Teleport" x="1680" y="1019.75" width="30" height="15"/>
  </objectgroup>
  <objectgroup id="11" name="Divider">
-  <object id="151" name="MazeWall" x="30" y="539.818" width="1861.9" height="30.1818"/>
-  <object id="163" name="MazeWall" x="-0.95" y="0.4091" width="1891.9" height="27.1818"/>
-  <object id="165" name="MazeWall" x="30" y="1050" width="1861.9" height="30.1818"/>
+  <object id="151" name="OuterBorder" x="30" y="539.818" width="1861.9" height="30.1818"/>
+  <object id="207" name="OuterBorder" x="29.6364" y="1050" width="1862.26" height="30.1818"/>
+  <object id="208" name="OuterBorder" x="30" y="0" width="1861.9" height="30.1818"/>
+  <object id="209" name="OuterBorder" x="0" y="2" width="29.8091" height="1078.18"/>
+  <object id="210" name="OuterBorder" x="1890" y="0" width="29.8091" height="1078.18"/>
  </objectgroup>
  <objectgroup id="5" name="MazeWallsCollision">
-  <object id="131" name="MazeWall" x="1379.92" y="600.346" width="30.1932" height="29.7845"/>
-  <object id="132" name="MazeWall" x="1380.04" y="660.108" width="30.0114" height="30.1482"/>
+  <object id="36" name="MazeWall" x="1230" y="120" width="29.9205" height="28.3182"/>
+  <object id="46" name="MazeWall" x="1680" y="30" width="29.8182" height="30.4432"/>
   <object id="142" name="MazeWall" x="1650.18" y="1020.19" width="29.7386" height="29.6084"/>
   <object id="143" name="MazeWall" x="1710.15" y="1019.9" width="29.9205" height="30.063"/>
   <object id="174" name="MazeWall" x="120" y="60" width="29.3977" height="29.8074"/>
@@ -295,7 +297,7 @@
   <object id="209" name="MazeWall" x="330.21" y="210" width="29.3977" height="29.8074"/>
   <object id="210" name="MazeWall" x="330.21" y="180" width="29.3977" height="29.8074"/>
   <object id="211" name="MazeWall" x="330.21" y="240" width="29.3977" height="29.8074"/>
-  <object id="212" name="MazeWall" x="330.21" y="330" width="29.3977" height="29.8074"/>
+  <object id="212" name="MazeWall" x="330" y="330" width="29.3977" height="29.8074"/>
   <object id="213" name="MazeWall" x="330" y="299.904" width="29.3977" height="29.8074"/>
   <object id="214" name="MazeWall" x="330.21" y="270" width="29.3977" height="29.8074"/>
   <object id="215" name="MazeWall" x="330" y="389.904" width="29.3977" height="29.8074"/>
@@ -325,8 +327,8 @@
   <object id="239" name="MazeWall" x="540" y="240" width="29.3977" height="29.8074"/>
   <object id="240" name="MazeWall" x="540" y="270" width="29.3977" height="29.8074"/>
   <object id="241" name="MazeWall" x="420" y="390" width="29.3977" height="29.8074"/>
-  <object id="242" name="MazeWall" x="450" y="450.096" width="29.3977" height="29.8074"/>
-  <object id="243" name="MazeWall" x="450" y="420.096" width="29.3977" height="29.8074"/>
+  <object id="242" name="MazeWall" x="450" y="450" width="29.3977" height="29.8074"/>
+  <object id="243" name="MazeWall" x="450" y="420" width="29.3977" height="29.8074"/>
   <object id="244" name="MazeWall" x="450" y="390.096" width="29.3977" height="29.8074"/>
   <object id="245" name="MazeWall" x="480" y="390.096" width="29.3977" height="29.8074"/>
   <object id="246" name="MazeWall" x="510" y="390.192" width="29.3977" height="29.8074"/>
@@ -334,8 +336,8 @@
   <object id="248" name="MazeWall" x="570" y="390.096" width="29.3977" height="29.8074"/>
   <object id="249" name="MazeWall" x="600" y="390.288" width="29.3977" height="29.8074"/>
   <object id="250" name="MazeWall" x="630" y="450.096" width="29.3977" height="29.8074"/>
-  <object id="251" name="MazeWall" x="630" y="420.096" width="29.3977" height="29.8074"/>
-  <object id="252" name="MazeWall" x="630" y="390.096" width="29.3977" height="29.8074"/>
+  <object id="251" name="MazeWall" x="630" y="420" width="29.3977" height="29.8074"/>
+  <object id="252" name="MazeWall" x="630" y="390" width="29.3977" height="29.8074"/>
   <object id="253" name="MazeWall" x="630" y="510.096" width="29.3977" height="29.8074"/>
   <object id="254" name="MazeWall" x="630" y="480.096" width="29.3977" height="29.8074"/>
   <object id="255" name="MazeWall" x="750" y="390" width="29.3977" height="29.8074"/>
@@ -374,7 +376,6 @@
   <object id="288" name="MazeWall" x="990" y="330" width="29.3977" height="29.8074"/>
   <object id="289" name="MazeWall" x="990" y="300" width="29.3977" height="29.8074"/>
   <object id="290" name="MazeWall" x="990" y="270" width="29.3977" height="29.8074"/>
-  <object id="291" name="MazeWall" x="1230" y="120" width="29.3977" height="29.8074"/>
   <object id="292" name="MazeWall" x="1080" y="210" width="29.3977" height="29.8074"/>
   <object id="293" name="MazeWall" x="1080" y="180" width="29.3977" height="29.8074"/>
   <object id="294" name="MazeWall" x="1110" y="210.096" width="29.3977" height="29.8074"/>
@@ -398,15 +399,14 @@
   <object id="312" name="MazeWall" x="1320" y="90" width="29.3977" height="29.8074"/>
   <object id="313" name="MazeWall" x="1320" y="60" width="29.3977" height="29.8074"/>
   <object id="314" name="MazeWall" x="1320" y="120" width="29.3977" height="29.8074"/>
-  <object id="315" name="MazeWall" x="1320" y="179.904" width="29.3977" height="29.8074"/>
+  <object id="315" name="MazeWall" x="1320" y="180" width="29.3977" height="29.8074"/>
   <object id="316" name="MazeWall" x="1320" y="149.904" width="29.3977" height="29.8074"/>
   <object id="317" name="MazeWall" x="1320" y="210" width="29.3977" height="29.8074"/>
   <object id="318" name="MazeWall" x="1320" y="270" width="29.3977" height="29.8074"/>
   <object id="319" name="MazeWall" x="1320" y="240" width="29.3977" height="29.8074"/>
   <object id="320" name="MazeWall" x="1320" y="300" width="29.3977" height="29.8074"/>
-  <object id="321" name="MazeWall" x="1320" y="359.904" width="29.3977" height="29.8074"/>
+  <object id="321" name="MazeWall" x="1320" y="360" width="29.3977" height="29.8074"/>
   <object id="322" name="MazeWall" x="1320" y="329.904" width="29.3977" height="29.8074"/>
-  <object id="323" name="MazeWall" x="1380" y="300" width="29.3977" height="29.8074"/>
   <object id="324" name="MazeWall" x="1200" y="480" width="29.3977" height="29.8074"/>
   <object id="325" name="MazeWall" x="1230" y="480" width="29.3977" height="29.8074"/>
   <object id="326" name="MazeWall" x="1260" y="480" width="29.3977" height="29.8074"/>
@@ -421,7 +421,6 @@
   <object id="335" name="MazeWall" x="1440" y="60" width="29.3977" height="29.8074"/>
   <object id="336" name="MazeWall" x="1440" y="179.904" width="29.3977" height="29.8074"/>
   <object id="337" name="MazeWall" x="1440" y="149.904" width="29.3977" height="29.8074"/>
-  <object id="338" name="MazeWall" x="1440" y="210" width="29.3977" height="29.8074"/>
   <object id="339" name="MazeWall" x="1440" y="120" width="29.3977" height="29.8074"/>
   <object id="340" name="MazeWall" x="1500" y="30" width="29.3977" height="29.8074"/>
   <object id="341" name="MazeWall" x="1560" y="30" width="29.3977" height="29.8074"/>
@@ -448,7 +447,6 @@
   <object id="362" name="MazeWall" x="1530" y="420" width="29.3977" height="29.8074"/>
   <object id="363" name="MazeWall" x="1410" y="420" width="29.3977" height="29.8074"/>
   <object id="364" name="MazeWall" x="1440" y="420" width="29.3977" height="29.8074"/>
-  <object id="365" name="MazeWall" x="1680" y="30" width="29.3977" height="29.8074"/>
   <object id="366" name="MazeWall" x="1680" y="120" width="29.3977" height="29.8074"/>
   <object id="367" name="MazeWall" x="1680" y="150.096" width="29.3977" height="29.8074"/>
   <object id="368" name="MazeWall" x="1710" y="150" width="29.3977" height="29.8074"/>
@@ -635,10 +633,6 @@
   <object id="549" name="MazeWall" x="1170" y="930" width="29.3977" height="29.8074"/>
   <object id="550" name="MazeWall" x="1050" y="1020" width="29.3977" height="29.8074"/>
   <object id="551" name="MazeWall" x="1320" y="780" width="29.3977" height="29.8074"/>
-  <object id="552" name="MazeWall" x="1290" y="690" width="29.3977" height="29.8074"/>
-  <object id="553" name="MazeWall" x="1260" y="690" width="29.3977" height="29.8074"/>
-  <object id="554" name="MazeWall" x="1260" y="630" width="29.3977" height="29.8074"/>
-  <object id="555" name="MazeWall" x="1230" y="630" width="29.3977" height="29.8074"/>
   <object id="556" name="MazeWall" x="1320" y="720" width="29.3977" height="29.8074"/>
   <object id="557" name="MazeWall" x="1320" y="750" width="29.3977" height="29.8074"/>
   <object id="558" name="MazeWall" x="1320" y="660" width="29.3977" height="29.8074"/>
@@ -653,9 +647,7 @@
   <object id="567" name="MazeWall" x="1440" y="900" width="29.3977" height="29.8074"/>
   <object id="568" name="MazeWall" x="1470" y="900" width="29.3977" height="29.8074"/>
   <object id="569" name="MazeWall" x="1380" y="900" width="29.3977" height="29.8074"/>
-  <object id="570" name="MazeWall" x="1500" y="900" width="29.3977" height="29.8074"/>
   <object id="571" name="MazeWall" x="1350" y="900" width="29.3977" height="29.8074"/>
-  <object id="572" name="MazeWall" x="1500" y="840" width="29.3977" height="29.8074"/>
   <object id="573" name="MazeWall" x="1500" y="870" width="29.3977" height="29.8074"/>
   <object id="574" name="MazeWall" x="1350" y="930" width="29.3977" height="29.8074"/>
   <object id="575" name="MazeWall" x="1350" y="960" width="29.3977" height="29.8074"/>
@@ -710,5 +702,83 @@
   <object id="624" name="MazeWall" x="1680" y="630" width="29.3977" height="29.8074"/>
   <object id="625" name="MazeWall" x="1590" y="570" width="29.3977" height="29.8074"/>
   <object id="626" name="MazeWall" x="1590" y="600" width="29.3977" height="29.8074"/>
+  <object id="205" name="MazeWall" x="1500" y="900" width="29.3977" height="29.8074"/>
+ </objectgroup>
+ <objectgroup id="15" name="spawningPoints">
+  <object id="172" name="cheesepoint" x="71.375" y="81.125">
+   <point/>
+  </object>
+  <object id="177" name="cheesepoint" x="223.5" y="83.75">
+   <point/>
+  </object>
+  <object id="178" name="cheesepoint" x="195.875" y="143.75">
+   <point/>
+  </object>
+  <object id="179" name="cheesepoint" x="150.542" y="314.708">
+   <point/>
+  </object>
+  <object id="180" name="cheesepoint" x="70.606" y="280.636">
+   <point/>
+  </object>
+  <object id="181" name="cheesepoint" x="308.182" y="73.4545">
+   <point/>
+  </object>
+  <object id="182" name="cheesepoint" x="294.727" y="219.273">
+   <point/>
+  </object>
+  <object id="184" name="cheesepoint" x="291.455" y="500.182">
+   <point/>
+  </object>
+  <object id="185" name="cheesepoint" x="70.606" y="403.727">
+   <point/>
+  </object>
+  <object id="186" name="cheesepoint" x="286.545" y="303.455">
+   <point/>
+  </object>
+  <object id="187" name="cheesepoint" x="391.818" y="351.273">
+   <point/>
+  </object>
+  <object id="188" name="cheesepoint" x="604.909" y="331.455">
+   <point/>
+  </object>
+  <object id="189" name="cheesepoint" x="747.273" y="473.455">
+   <point/>
+  </object>
+  <object id="190" name="cheesepoint" x="898" y="381.091">
+   <point/>
+  </object>
+  <object id="191" name="cheesepoint" x="1085.45" y="381.636">
+   <point/>
+  </object>
+  <object id="192" name="cheesepoint" x="1177.82" y="330.909">
+   <point/>
+  </object>
+  <object id="193" name="bombpoint" x="834.333" y="222.333">
+   <point/>
+  </object>
+  <object id="197" name="bombpoint" x="513" y="83">
+   <point/>
+  </object>
+  <object id="198" name="bombpoint" x="1250.67" y="425.333">
+   <point/>
+  </object>
+  <object id="199" name="bombpoint" x="1808" y="98.3333">
+   <point/>
+  </object>
+  <object id="200" name="bombpoint" x="1510.33" y="120.333">
+   <point/>
+  </object>
+  <object id="201" name="playerpoint" x="69.8485" y="199.606">
+   <point/>
+  </object>
+  <object id="202" name="playerpoint" x="71.0909" y="482">
+   <point/>
+  </object>
+  <object id="203" name="playerpoint" x="69.9091" y="680.152">
+   <point/>
+  </object>
+  <object id="204" name="playerpoint" x="70.7273" y="917.424">
+   <point/>
+  </object>
  </objectgroup>
 </map>

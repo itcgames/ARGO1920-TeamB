@@ -43,6 +43,9 @@
     <ClInclude Include="INCLUDE\Components\GameComponent.h" />
     <ClInclude Include="INCLUDE\GameSystem.h" />
     <ClInclude Include="INCLUDE\Utils\Enums.h" />
+    <ClInclude Include="INCLUDE\Utils\LTexture.h" />
+    <ClInclude Include="INCLUDE\Particle.h" />
+    <ClInclude Include="INCLUDE\ParticleSystem.h" />
     <ClInclude Include="Include\Components\TestBotBehaviourComponent.h" />
   </ItemGroup>
   <ItemGroup>
@@ -79,10 +82,10 @@
     <ClCompile Include="SRC\Systems\CollisionSystem.cpp" />
     <ClCompile Include="SRC\Components\GameComponent.cpp" />
     <ClCompile Include="SRC\GameSystem.cpp" />
-    <ClCompile Include="SRC\CollisionSystem.cpp" />
-    <ClCompile Include="Src\Components\TestBotBehaviourComponent.cpp" />
     <ClCompile Include="SRC\Utils\Command.cpp" />
     <ClCompile Include="Src\States\IdleState.cpp" />
-    <ClCompile Include="SRC\Components\PositionComponent.cpp" />
+    <ClCompile Include="SRC\Utils\LTexture.cpp" />
+    <ClCompile Include="INCLUDE\Particle.cpp" />
+    <ClCompile Include="INCLUDE\ParticleSystem.cpp" />
   </ItemGroup>
 </Project>
