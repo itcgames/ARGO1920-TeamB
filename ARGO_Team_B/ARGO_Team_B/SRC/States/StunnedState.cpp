@@ -5,6 +5,7 @@
 
 StunnedState::StunnedState()
 {
+	m_type = States::Stunned;
 }
 
 StunnedState::~StunnedState()

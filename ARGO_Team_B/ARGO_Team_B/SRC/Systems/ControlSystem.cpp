@@ -1,8 +1,6 @@
 #include "ControlSystem.h"
 
 ControlSystem::ControlSystem() {
-		Xbox360Controller * controller= new Xbox360Controller(0);
-		m_controllers.push_back(controller);
 }
 
 ControlSystem::~ControlSystem() 
@@ -13,7 +11,7 @@ void ControlSystem::updateComponent(Component* c)
 {
 	for (Entity& e : entities)
 	{
-		ControlComponent* cont = dynamic_cast<ControlComponent*>(e.getComponent(Types::Controller));
+		ControlComponent* cont = dynamic_cast<ControlComponent*>(e.getComponent(Types::Control));
 		if (cont != NULL)
 		{
 			// cont->handleInput();
@@ -21,18 +19,16 @@ void ControlSystem::updateComponent(Component* c)
 	}
 }
 
-void ControlSystem::handleInput(float dt, StateMachineSystem& t_stateSystem,SDL_Renderer * t_renderer,std::vector<ParticleSystem*>&t_ps) {
+void ControlSystem::handleInput(float dt, StateMachineSystem* t_stateSystem,SDL_Renderer * t_renderer,std::vector<ParticleSystem*>&t_ps) {
 	for (Entity& e : entities)
 	{
-		ControlComponent* cont = dynamic_cast<ControlComponent*>(e.getComponent(Types::Controller));
+		ControlComponent* cont = dynamic_cast<ControlComponent*>(e.getComponent(Types::Control));
 
 		if (cont != NULL)
 		{
-			cont->handleInput(t_stateSystem,t_renderer,t_ps);
+			cont->handleInput(*t_stateSystem,t_renderer,t_ps);
 		}
-		
 		PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(e.getComponent(Types::Player));
-
 		if (playerComp->getSwipeCooldown() > 0.0f) {
 			float timer = playerComp->getSwipeCooldown();
 			timer -= dt;
@@ -70,4 +66,17 @@ void ControlSystem::handleInput(SDL_Keycode key)
 			}
 		}
 	}
-} // !void
+}
+
+void ControlSystem::initStateSystem(StateMachineSystem* t_stateSystem)
+{
+	for (Entity& e : entities)
+	{
+		ControlComponent* control = dynamic_cast<ControlComponent*>(e.getComponent(Types::Control));
+		if (control != nullptr)
+		{
+			control->initStateSystem(t_stateSystem);
+		}
+	}
+}
+

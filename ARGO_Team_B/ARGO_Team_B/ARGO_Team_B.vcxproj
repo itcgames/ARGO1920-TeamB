@@ -37,6 +37,7 @@
     <ClInclude Include="INCLUDE\Components\HealthComponent.h" />
     <ClInclude Include="INCLUDE\Components\PlayerComponent.h" />
     <ClInclude Include="INCLUDE\Components\RenderComponent.h" />
+    <ClInclude Include="Include\Components\TestBotBehaviourComponent.h" />
     <ClInclude Include="INCLUDE\Components\TrapComponent.h" />
     <ClInclude Include="INCLUDE\Entity.h" />
     <ClInclude Include="INCLUDE\Game.h" />
@@ -69,6 +70,7 @@
     <ClCompile Include="INCLUDE\Particle.cpp" />
     <ClCompile Include="INCLUDE\ParticleSystem.cpp" />
     <ClCompile Include="SRC\Utils\LTexture.cpp" />
+    <ClCompile Include="Src\Components\TestBotBehaviourComponent.cpp" />
     <ClCompile Include="SRC\Components\GameComponent.cpp" />
     <ClCompile Include="SRC\Components\PositionComponent.cpp" />
     <ClCompile Include="SRC\GameSystem.cpp" />

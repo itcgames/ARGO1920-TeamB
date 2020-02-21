@@ -3,10 +3,6 @@
 CollisionSystem::CollisionSystem()
 
 {
-
-
-
-	
 }
 
 CollisionSystem::~CollisionSystem()

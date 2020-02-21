@@ -46,6 +46,7 @@
     <ClInclude Include="INCLUDE\Utils\LTexture.h" />
     <ClInclude Include="INCLUDE\Particle.h" />
     <ClInclude Include="INCLUDE\ParticleSystem.h" />
+    <ClInclude Include="Include\Components\TestBotBehaviourComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />

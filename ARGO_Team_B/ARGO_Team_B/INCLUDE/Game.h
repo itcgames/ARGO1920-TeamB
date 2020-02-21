@@ -12,13 +12,17 @@
 #include "ButtonSystem.h"
 #include "CollisionSystem.h"
 #include "Enums.h"
+#include "TestBotBehaviourComponent.h"
 #include "TrapComponent.h"
 #include "ButtonComponent.h"
 #include "PlayerComponent.h"
 #include "StateMachineSystem.h"
 #include "GameSystem.h"
 #include "BombSystem.h"
+
 #include "Globals.h"
+
+
 
 #include <time.h>
 #include "Observer.h"
@@ -39,10 +43,10 @@ private:
 	bool m_quit = false;
 
 	// Entities
-	Entity m_player;
-	Entity m_alien;
-	Entity m_dog;
-	Entity m_cat;
+	Entity m_rat1;
+	Entity m_rat4;
+	Entity m_rat2;
+	Entity m_rat3;
 	
 	Entity m_button;
 	Entity m_button2;
@@ -67,8 +71,7 @@ private:
 	Level* tiled_map_level;
 	ButtonSystem m_buttonSystem;
 	CollisionSystem m_collisionSystem;
-	StateMachineSystem m_stateMachine;
-
+	StateMachineSystem *m_stateMachine;
 	AudioObserver * m_observer;
 	FontObserver* m_font;
 	BombSystem m_bombSystem;
