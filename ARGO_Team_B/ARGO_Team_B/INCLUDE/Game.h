@@ -22,7 +22,6 @@
 
 #include <time.h>
 #include "Observer.h"
-
 class Game
 {
 public:

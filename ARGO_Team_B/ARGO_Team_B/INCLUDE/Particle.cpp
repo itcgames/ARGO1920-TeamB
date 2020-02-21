@@ -34,6 +34,19 @@ Particle::Particle(float t_x, float t_y, int t_index,SDL_Renderer * t_renderer, 
 		m_lifetime = rand() % 45;	// Make each particle have a random lifetime
 		m_velX = 6.0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6.0 - 18.1)));
 		m_velY = 6.0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (6.0 - 18.1)));
+	case ParticleType::Dust:
+		m_r = 47;
+		m_g = 79;
+		m_b = 79;
+		m_particle->setColor(m_r, m_g, m_b);
+		m_particle->setAlpha(m_alpha);
+		m_particle->setScale(0.8);
+		m_lifetime = rand() % 30;	// Make each particle have a random lifetime
+		m_velX = rand() % 1 + (-0.1);
+		m_velY = rand() % 1 + (-0.1);
+		break;
+	default:
+		break;
 
 	}
 

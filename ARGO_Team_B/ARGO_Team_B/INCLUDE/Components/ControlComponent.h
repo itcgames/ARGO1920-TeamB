@@ -9,7 +9,7 @@
 #include "PlayerComponent.h"
 #include "Xbox360Controller.h"
 #include "Entity.h"
-
+#include "CollisionSystem.h"
 enum class MovingState {
 	Up,
 	Down,
@@ -24,11 +24,11 @@ public:
 	static int s_controlID;
 	ControlComponent(Entity & t_gameObject);
 	~ControlComponent();
-	void update(float dt);
-	void handleInput();
+	//void update(float dt);
+	//void handleInput();
 
 	Xbox360Controller* m_controller;
-	void handleInput(StateMachineSystem& t_stateSystem,SDL_Renderer * t_renderer);
+	void handleInput(StateMachineSystem& t_stateSystem,SDL_Renderer * t_renderer,std::vector<ParticleSystem*>&t_ps);
 
 private:
 	void moveUp();

@@ -6,7 +6,8 @@
 enum ParticleType
 {
 	CheesePickup,
-	Test
+	Test,
+	Dust
 };
 class Particle
 {

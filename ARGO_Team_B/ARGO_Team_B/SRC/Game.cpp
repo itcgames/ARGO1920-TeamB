@@ -339,7 +339,7 @@ void Game::update(float dt)
 	m_healthSystem.update();
 	m_aiSystem.update();
 	m_buttonSystem.update();
-	m_controlSystem.handleInput(dt, m_stateMachine,p_renderer);
+	m_controlSystem.handleInput(dt, m_stateMachine,p_renderer,m_particles);
 	m_collisionSystem.updateComponent(*tiled_map_level,m_observer,m_particles,p_renderer);
 	m_stateMachine.update();
 
