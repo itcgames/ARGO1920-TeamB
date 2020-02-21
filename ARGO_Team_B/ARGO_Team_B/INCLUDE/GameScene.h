@@ -64,7 +64,6 @@ private:
 	AudioObserver* m_observer;
 	FontObserver* m_font;
 	BombSystem m_bombSystem;
-	GameStates m_currentState;
 	GameSystem m_gameSystem;
 	
 };

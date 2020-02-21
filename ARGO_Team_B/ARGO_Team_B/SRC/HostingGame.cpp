@@ -3,8 +3,8 @@
 HostingGame::HostingGame()
 {
 	MyServer = new Server(1111, "149.153.106.159");
-	m_startCountdown = 30.0f;
-	m_playerRequire = 1;
+	m_startCountdown = 5.0f;
+	m_playerRequire = 0;
 	
 	//m_waitingPlayer = thread(this->waitingConnection);
 	//m_waitingPlayer.join();
@@ -38,11 +38,14 @@ void HostingGame::update(float dt) {
 	else {
 		// game loop here
 		//MyServer.getData();
+
+		m_gameScene->update(dt);
+
 	}
 
 }
 
-void HostingGame::draw(FontObserver* text)
+void HostingGame::draw(FontObserver* text, SDL_Renderer* t_renderer)
 {
 	SDL_Color color = { 1, 1, 1 , 255 };
 
@@ -60,6 +63,14 @@ void HostingGame::draw(FontObserver* text)
 			const char* c = startTiemr.data();
 			color = { 1, 1, 1 , 255 };
 			text->drawText(760, 510, 200, 100, c, color, FontObserver::TIMER1);
+		}
+		else {
+			if (m_gameScene == NULL) {
+				m_gameScene = new GameScene(t_renderer);
+			}
+			else {
+				m_gameScene->render(t_renderer);
+			}
 		}
 	}
 }

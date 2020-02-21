@@ -7,6 +7,8 @@
 #include "Globals.h"
 #include "Observer.h"
 
+#include "GameScene.h"
+
 #include <algorithm>
 #include <string>
 #include <iostream>
@@ -24,7 +26,7 @@ public :
 
 	void update(float dt);
 	void waitingConnection();
-	void draw(FontObserver* text);
+	void draw(FontObserver* text, SDL_Renderer* t_renderer);
 
 	thread m_waitingPlayer;
 private:
@@ -39,6 +41,8 @@ private:
 
 	float m_startCountdown;
 	int m_playerRequire;
+
+	GameScene* m_gameScene;
 };
 
 #endif // !HOSTINGGAME 

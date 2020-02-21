@@ -12,7 +12,7 @@ JoiningGame::~JoiningGame() {
 
 }
 
-void JoiningGame::update() {
+void JoiningGame::update(float dt) {
 
 	if (MyClient == nullptr) {
 		/*
@@ -47,18 +47,27 @@ void JoiningGame::update() {
 			cout << "Timer: " << m_startCountdown << endl;
 		}
 		else {
-			// game play
+			// game play here
+			m_gameScene->update(dt);
 		}
 	}
 }
 
-void JoiningGame::draw(FontObserver* text)
+void JoiningGame::draw(FontObserver* text, SDL_Renderer* t_renderer)
 {
 	if (m_startCountdown > 0.0f) {
 		string cheeseCounter = "Game start in "+ to_string(m_startCountdown);
 		const char* c = cheeseCounter.data();
 		SDL_Color color = { 1, 1, 1 , 255 };
 		text->drawText(860, 510, 100, 100, c, color, FontObserver::TIMER1);
+	}
+	else {
+		if (m_gameScene == NULL) {
+			m_gameScene = new GameScene(t_renderer);
+		}
+		else {
+			m_gameScene->render(t_renderer);
+		}
 	}
 }
 

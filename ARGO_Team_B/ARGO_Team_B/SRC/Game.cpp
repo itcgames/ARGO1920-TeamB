@@ -253,13 +253,8 @@ Game::Game() :
 //	m_renderSystem.addEntity(m_spike2);
 //	m_renderSystem.addEntity(m_spike3);
 //
-//	m_observer = new AudioObserver();
-//	m_observer->load();
-//	m_observer->StartBGM(0);
 //
 //
-//	m_font = new FontObserver(p_renderer);
-//	m_font->loadFont();
 //
 //
 //	//Connect button entity and other entity that require switch	 
@@ -304,6 +299,10 @@ Game::Game() :
 	m_currentState = GameStates::MainMenu;
 	m_menuScene = new MenuScene(p_renderer, &m_currentState, controlComp);
 	//m_creditsScene = new CreditsScene(p_renderer, &m_currentState);
+
+	m_font = new FontObserver(p_renderer);
+	m_font->loadFont();
+
 }
 
 
@@ -396,7 +395,7 @@ void Game::update(float dt)
 		m_hostGame->update(dt);
 		break;
 	case GameStates::Joining:
-		m_joinGame->update();
+		m_joinGame->update(dt);
 		break;
 	case GameStates::Credits:
 		//m_creditsScene->update(dt);
@@ -437,11 +436,11 @@ void Game::render()
 			m_hostGame = new HostingGame();
 		}
 		else {
-			m_hostGame->draw(m_font);
+			m_hostGame->draw(m_font,p_renderer);
 		}
 		break;
 	case GameStates::Joining:
-		m_joinGame->draw(m_font);
+		m_joinGame->draw(m_font, p_renderer);
 		break;
 	case GameStates::Credits:
 		//m_creditsScene->render(p_renderer);

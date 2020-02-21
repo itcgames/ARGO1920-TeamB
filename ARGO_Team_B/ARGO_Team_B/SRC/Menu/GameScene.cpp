@@ -1,6 +1,7 @@
 #include "GameScene.h"
 
-GameScene::GameScene(SDL_Renderer* t_renderer)
+GameScene::GameScene(SDL_Renderer* t_renderer):
+	m_rat1(EntityType::Rat), m_rat2(EntityType::Rat), m_rat3(EntityType::Rat), m_rat4(EntityType::Rat)
 {
 	/// <summary>
 	/// FOR ALL ENTITY
@@ -176,15 +177,6 @@ GameScene::GameScene(SDL_Renderer* t_renderer)
 	m_renderSystem.addEntity(m_rat2);
 	m_renderSystem.addEntity(m_rat3);
 
-	/// <summary>
-	/// STATE MACHINE
-	/// </summary>
-	m_stateMachine->setRenderer(t_renderer);
-	m_stateMachine->addEntity(m_rat1);
-	m_stateMachine->addEntity(m_rat4);
-	m_stateMachine->addEntity(m_rat2);
-	m_stateMachine->addEntity(m_rat3);
-	m_stateMachine->setupSprites();
 
 	const auto MAP_PATH = "Assets/map/test.tmx";
 	tiled_map_level = new Level("Test");
@@ -238,6 +230,9 @@ GameScene::GameScene(SDL_Renderer* t_renderer)
 	// TODO: all controllers not connected put AI instead
 	m_aiSystem.addEntity(m_rat3);
 
+	/// <summary>
+	/// STATE MACHINE
+	/// </summary>
 	m_stateMachine = new StateMachineSystem();
 	m_stateMachine->setRenderer(t_renderer);
 	m_stateMachine->addEntity(m_rat1);

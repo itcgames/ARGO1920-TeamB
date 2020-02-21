@@ -6,6 +6,8 @@
 #include "Observer.h"
 #include "Globals.h"
 
+#include "GameScene.h"
+
 #include <algorithm>
 #include <string>
 #include <iostream>
@@ -19,8 +21,8 @@ public:
 	JoiningGame();
 	~JoiningGame();
 
-	void update();
-	void draw(FontObserver* text);
+	void update(float dt);
+	void draw(FontObserver* text, SDL_Renderer* t_renderer);
 private:
 
 	not_digit notADigit;
@@ -32,6 +34,8 @@ private:
 	int m_startCountdown;
 	int m_playerId;
 	bool m_gameConnented;
+
+	GameScene* m_gameScene;
 };
 
 #endif // !JOININGGAEM
