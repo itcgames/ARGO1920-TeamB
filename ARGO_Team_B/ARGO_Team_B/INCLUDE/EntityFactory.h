@@ -38,11 +38,11 @@ public:
 		e->init(EntityType::Spike);
 		return e;
 	}
-	Entity* CreateButton(const int t_num) {
+	Entity* CreateButton(const int t_num, const float t_x, float t_y) {
 		Entity* button = new Entity;
 		button->init(EntityType::Default);
 		button->addComponent(new ButtonComponent(false, t_num, 1), Types::Button);
-		button->addComponent(new PositionComponent(600, 50), Types::Position);
+		button->addComponent(new PositionComponent(t_x, t_y), Types::Position);
 		button->addComponent(new CollisionComponent(*button, 30, 30), Types::Collider);
 		button->addComponent(new RenderComponent("./Assets/Button.png", 30, 30, 30, 30), Types::Render);
 

@@ -30,31 +30,22 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 		m_healthSystem.addEntity(*m_entities.at(i));
 		m_controlSystem.addEntity(*m_entities.at(i));
 		m_collisionSystem.addEntity(*m_entities.at(i));
-		m_renderSystem.addEntity(*m_entities.at(i));
 		m_gameSystem.addEntity(*m_entities.at(i));
 		m_bombSystem.addEntity(*m_entities.at(i));
 		m_stateMachine->addEntity(*m_entities.at(i));
 	}
 	m_stateMachine->setupSprites();
 
-	for (int i = 0; i < 2; i++) {
-		m_entities.push_back(factory->CreateButton(i + 1));
+	float a = 620, b = 175;
+	for (int i = 1; i <= 2; i++) {
+		float temp = a, a = b, b = temp; // Swap a and b for positions to seperate buttons
+		m_entities.push_back(factory->CreateButton(i, a - 10, b + 20)); // manual adjust to get buttons off walls
 		// Systems
-		m_collisionSystem.addEntity(*m_entities.at(i));
-		m_renderSystem.addEntity(*m_entities.at(i));
-		m_buttonSystem.addEntity(*m_entities.at(i)); // Connect button entity and other entity that require switch	 
+		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - 1)); // Connect button entity and other entity that require switch	 
 	}
 
-	//Button 1
-	m_button.addComponent(new ButtonComponent(false, 1, 1), Types::Button);
-	m_button.addComponent(new PositionComponent(600, 50), Types::Position);
-	m_button.addComponent(new CollisionComponent(m_button, 30, 30), Types::Collider);
-
-	//Button 2
-	m_button2.addComponent(new ButtonComponent(false, 2, 1), Types::Button);
-	m_button2.addComponent(new PositionComponent(150, 650), Types::Position);
-	m_button2.addComponent(new CollisionComponent(m_button2, 30, 30), Types::Collider);
-	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 30, 30, 30, 30), Types::Render);
 
 	//Trap 1
 	m_spike.addComponent(new TrapComponent(false, 1), Types::Traps);

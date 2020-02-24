@@ -65,6 +65,11 @@ void AnimatedSpriteComponent::init(SDL_Renderer* t_renderer)
 {
 	m_renderer = t_renderer;
 	m_texture = SDL_CreateTextureFromSurface(m_renderer, m_surface);
+	if (!m_texture)
+	{
+		std::cout << " texture failed to load!" << std::endl;
+	}
+
 }
 
 void AnimatedSpriteComponent::update()

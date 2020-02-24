@@ -63,7 +63,6 @@ Game::Game() :
 
 }
 
-
 /// <summary>
 /// ~Game()
 /// Destructor function for the Game class
