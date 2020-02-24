@@ -8,6 +8,13 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_renderer(t_renderer)
 {
 
+	m_view.h = SCR_H;
+	m_view.w = SCR_W;
+	m_view.x = 0;
+	m_view.y = 0;
+
+	SDL_RenderSetViewport(m_renderer, &m_view);
+
 	// Extra info for systems
 	const auto MAP_PATH = "Assets/map/test.tmx";
 	tiled_map_level = new Level("Test");
@@ -252,9 +259,9 @@ void GameScene::update(float dt)
 	m_aiSystem.update();
 	m_buttonSystem.update();
 	m_controlSystem.handleInput(dt, m_stateMachine, m_renderer, m_particles);
-	m_collisionSystem.updateComponent(*tiled_map_level, m_observer, m_particles, m_renderer);
+	m_collisionSystem.updateComponent(*tiled_map_level, m_observer, m_particles, m_renderer, m_view);
 	m_stateMachine->update();
-	m_bombSystem.updateComponent(dt, m_observer);
+	m_bombSystem.updateComponent(dt, m_observer, m_view);
 	m_gameSystem.update(dt);
 
 	for (int i = 0; i < m_particles.size(); i++) {
@@ -280,12 +287,6 @@ void GameScene::render()
 		ps->draw(m_renderer); // Draw particle system
 	}
 
-	SDL_Rect shake;
-	shake.x = 100;
-	shake.y = 100;
-	shake.w = SCR_W;
-	shake.h = SCR_H;
-
-	SDL_RenderSetViewport(m_renderer, &shake);
+	SDL_RenderSetViewport(m_renderer, &m_view);
 
 }

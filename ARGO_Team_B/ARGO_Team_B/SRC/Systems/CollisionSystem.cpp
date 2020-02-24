@@ -24,6 +24,8 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer,
 		playerComp->updateCollider(player);
 		playerColliders.push_back(playerComp);
 		
+		
+
 		m_positionComp = static_cast<PositionComponent*>(player.getComponent(Types::Position));
 		x1 = m_positionComp->getPositionX();
 		y1 = m_positionComp->getPositionY();
@@ -214,6 +216,7 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer,
 	}
 
 	bombCollision(t_observer);
+
 }
 
 void CollisionSystem::bombCollision(AudioObserver* t_observer)
@@ -548,6 +551,3 @@ void CollisionSystem::TileBombCollision(Level* t_level, CollisionComponent* t_bo
 		}*/
 }
 
-void CollisionSystem::screenShake(SDL_Renderer& t_render, SDL_Rect& t_shake)
-{
-}

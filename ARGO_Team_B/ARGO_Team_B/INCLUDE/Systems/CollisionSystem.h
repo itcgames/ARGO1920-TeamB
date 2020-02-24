@@ -38,7 +38,8 @@ private:
 	void bombCollision(AudioObserver* t_observer);
 	void TileBombCollision(Level* t_level, CollisionComponent* t_bomb);
 
-	void screenShake(SDL_Renderer & t_render, SDL_Rect& t_shake);
+
+	
 
 	vector<Entity> m_playerEntitys;
 	vector<Entity> m_buttonEntitys;
