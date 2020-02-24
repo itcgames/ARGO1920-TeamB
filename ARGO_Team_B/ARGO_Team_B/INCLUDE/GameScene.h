@@ -18,6 +18,9 @@
 #include "StateMachineSystem.h"
 #include "GameSystem.h"
 #include "BombSystem.h"
+
+#include "FactoryInterface.h"
+#include "EntityFactory.h"
 class GameScene
 {
 public:
@@ -26,27 +29,17 @@ public:
 	void update(float dt);
 	void render();
 private:
-	// Entities
-	Entity m_rat1;
-	Entity m_rat4;
-	Entity m_rat2;
-	Entity m_rat3;
+	std::vector<Entity*> m_entities;
 
 	Entity m_button;
 	Entity m_button2;
-
-	Entity m_doorButton;
-
+	//Entity m_doorButton;
 	Entity m_spike;
 	Entity m_spike2;
 	Entity m_spike3;
-
-
 	Entity m_door1;
 	Entity m_door2;
-
 	Entity m_goalCheese;
-
 	Entity m_gameManager;
 
 	// Systems

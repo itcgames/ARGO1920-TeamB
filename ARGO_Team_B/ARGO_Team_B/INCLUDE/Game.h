@@ -44,10 +44,8 @@ private:
 	bool m_quit = false;
 
 	// Entities
-	Entity m_rat1;
-	Entity m_rat4;
-	Entity m_rat2;
-	Entity m_rat3;
+	Entity m_player1;
+
 
 	//Entity m_button;
 	//Entity m_button2;

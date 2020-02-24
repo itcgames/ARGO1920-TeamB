@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\ComponentFactory.h" />
+    <ClInclude Include="Include\EntityFactory.h" />
     <ClInclude Include="INCLUDE\Online\Client.h" />
     <ClInclude Include="INCLUDE\CreditsScene.h" />
     <ClInclude Include="INCLUDE\GameScene.h" />
