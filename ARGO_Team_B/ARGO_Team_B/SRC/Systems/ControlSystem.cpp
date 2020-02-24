@@ -26,7 +26,7 @@ void ControlSystem::handleInput(float dt, StateMachineSystem* t_stateSystem,SDL_
 
 		if (cont != NULL)
 		{
-			cont->handleInput(t_renderer,t_ps);
+			cont->handleInput(t_renderer,t_ps,dt);
 		}
 		PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(e.getComponent(Types::Player));
 		if (playerComp->getSwipeCooldown() > 0.0f) {

@@ -18,7 +18,7 @@ ControlComponent::~ControlComponent()
 {
 }
 
-void ControlComponent::handleInput(SDL_Renderer* t_renderer,std::vector<ParticleSystem*>&t_ps)
+void ControlComponent::handleInput(SDL_Renderer* t_renderer,std::vector<ParticleSystem*>&t_ps,float dt)
 {
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
 	PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
@@ -42,6 +42,9 @@ void ControlComponent::handleInput(SDL_Renderer* t_renderer,std::vector<Particle
 			controlDown(posComp);
 			t_ps.push_back((new ParticleSystem(10, posComp->getPositionX() + 2, posComp->getPositionY() + 1, t_renderer, ParticleType::Dust)));
 		}
+		else {
+			posComp->slowDownY();
+		}
 
 		if (m_controller->m_currentState.DpadLeft || m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
 			controlLeft(posComp);
@@ -51,12 +54,17 @@ void ControlComponent::handleInput(SDL_Renderer* t_renderer,std::vector<Particle
 			controlRight(posComp);
 			t_ps.push_back((new ParticleSystem(10, posComp->getPositionX() -10, posComp->getPositionY()+18, t_renderer, ParticleType::Dust)));
 		}
+		else {
+			posComp->slowDownX();
+		}
 
 	}
 	else if (!playerComp->getMoveable()) {
 		posComp->backToPreviousePos();
 		playerComp->setMoveable(true);
 	}
+
+	posComp->movementUpdate(dt);
 }
 
 void ControlComponent::controlInteract(PlayerComponent* t_player)
