@@ -76,7 +76,7 @@ void RenderSystem::draw()
 							}
 							else if (bombComp != nullptr) {
 								if (bombComp->getState() != BombState::Removed && !bombComp->isPlayerOwnedBomb()) {
-									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY(), posComp->getangle());
+									rendComp->draw((int)posComp->getPositionX(), (int)posComp->getPositionY());
 								}
 							}
 						}

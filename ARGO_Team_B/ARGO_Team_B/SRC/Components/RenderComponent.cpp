@@ -20,9 +20,23 @@ RenderComponent::RenderComponent(const char* name, int width, int height, int im
 	}
 }
 
+void RenderComponent::draw(int x, int y)
+{
+	dstrect = { x - this->width / 2, y - this->height / 2, this->width, this->height };
+	//center = { x + this->width / 2, y + this->height / 2 };
+	SDL_RenderCopyEx(m_renderer, texture, &srcrect, &dstrect, 0, NULL, SDL_FLIP_NONE);
+}
+
 void RenderComponent::draw(int x, int y, double angle)
 {
 	dstrect = { x, y, this->width, this->height };
+	//center = { x + this->width / 2, y + this->height / 2 };
+	SDL_RenderCopyEx(m_renderer, texture, &srcrect, &dstrect, angle, NULL, SDL_FLIP_NONE);
+}
+
+void RenderComponent::draw(int x, int y, double angle, int width, int height)
+{
+	dstrect = { x, y, width, height };
 	//center = { x + this->width / 2, y + this->height / 2 };
 	SDL_RenderCopyEx(m_renderer, texture, &srcrect, &dstrect, angle, NULL, SDL_FLIP_NONE);
 }

@@ -44,11 +44,23 @@ void JoiningGame::update(float dt) {
 
 			}
 
-			cout << "Timer: " << m_startCountdown << endl;
+			//cout << "Timer: " << m_startCountdown << endl;
 		}
 		else {
 			// game play here
 			m_gameScene->update(dt);
+
+
+
+
+
+
+
+
+
+
+
+
 		}
 	}
 }

@@ -7,8 +7,10 @@
 class RenderComponent : public Component {
 public:
 	RenderComponent(const char* name, int width, int height,int imgWidth,int imgHeight, SDL_Renderer* renderer);
+	void draw(int x, int y);
 	void draw(int x, int y, double angle);
 	void draw(int x, int y, double angle, Uint8 alpha);
+	void draw(int x, int y, double angle, int width, int height);
 	void setImage(const char* name);
 	void setImage(const char* name, int width, int height);
 	void setAngle(double t_angle) { m_angle = t_angle; }

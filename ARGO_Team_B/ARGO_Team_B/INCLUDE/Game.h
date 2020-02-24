@@ -50,7 +50,6 @@ private:
 	Entity m_rat3;
 
 	AudioObserver* m_observer;
-
 	FontObserver* m_font;
 	GameStates m_currentState;
 

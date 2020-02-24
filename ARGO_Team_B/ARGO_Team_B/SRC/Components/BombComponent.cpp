@@ -1,7 +1,7 @@
 #include "BombComponent.h"
 
 BombComponent::BombComponent() {
-	setState(BombState::Activate);
+	setState(BombState::Idle);
 
 	m_timer = 3.0f;
 	m_owned = false;

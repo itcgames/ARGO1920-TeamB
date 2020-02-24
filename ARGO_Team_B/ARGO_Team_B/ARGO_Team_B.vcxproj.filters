@@ -7,7 +7,6 @@
     <ClInclude Include="INCLUDE\Level.h" />
     <ClInclude Include="INCLUDE\Utils\Assets.h" />
     <ClInclude Include="INCLUDE\Utils\cute_c2.h" />
-    <ClInclude Include="INCLUDE\Utils\Globals.h" />
     <ClInclude Include="INCLUDE\Utils\Xbox360Controller.h" />
     <ClInclude Include="INCLUDE\Systems\AISystem.h" />
     <ClInclude Include="INCLUDE\Systems\BombSystem.h" />
@@ -104,10 +103,6 @@
     <ClCompile Include="SRC\Utils\ResourceManager.cpp" />
     <ClCompile Include="SRC\Components\GameComponent.cpp" />
     <ClCompile Include="SRC\GameSystem.cpp" />
-<<<<<<< HEAD
-    <ClCompile Include="Src\Components\TestBotBehaviourComponent.cpp" />
-=======
->>>>>>> master
     <ClCompile Include="SRC\Utils\Command.cpp" />
     <ClCompile Include="Src\States\IdleState.cpp" />
     <ClCompile Include="SRC\HostingGame.cpp" />
