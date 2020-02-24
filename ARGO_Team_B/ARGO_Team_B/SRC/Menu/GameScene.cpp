@@ -15,17 +15,18 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	/// <summary>
 	/// FOR ALL ENTITY
 	/// the position component must create before the collision component
-	/// Abstract Factory Pattern
+	/// Abstract Factory Pattern:
 	/// </summary>
-	m_entities.reserve(4);
+
+	m_entities.reserve(6);
 	Factory* factory = new EntityFactory;
 	for (int i = 0; i < 4; i++) {
 		m_entities.push_back(factory->CreatePlayer(i + 1, tiled_map_level));
-		// factory inputs need to be const so do here for now
-		m_entities.at(i)->addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000, m_renderer), Types::AnimatedSprite);
-		// TODO: if controller not connect
-		// 	m_entities.at(i).addComponent(new TestBotBehaviourComponent(m_entities.at(i)), Types::TestBot);
+				
+		// TODO: if controller not connect:
+		//m_entities.at(i).addComponent(new TestBotBehaviourComponent(m_entities.at(i)), Types::TestBot);
 	
+		// Player Systems
 		m_healthSystem.addEntity(*m_entities.at(i));
 		m_controlSystem.addEntity(*m_entities.at(i));
 		m_collisionSystem.addEntity(*m_entities.at(i));
@@ -36,51 +37,43 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	}
 	m_stateMachine->setupSprites();
 
+	for (int i = 0; i < 2; i++) {
+		m_entities.push_back(factory->CreateButton(i + 1));
+		// Systems
+		m_collisionSystem.addEntity(*m_entities.at(i));
+		m_renderSystem.addEntity(*m_entities.at(i));
+		m_buttonSystem.addEntity(*m_entities.at(i)); // Connect button entity and other entity that require switch	 
+	}
 
-	/*button test*/
 	//Button 1
 	m_button.addComponent(new ButtonComponent(false, 1, 1), Types::Button);
 	m_button.addComponent(new PositionComponent(600, 50), Types::Position);
 	m_button.addComponent(new CollisionComponent(m_button, 30, 30), Types::Collider);
-	m_button.addComponent(new RenderComponent("Assets\\Button.png", 30, 30, 30, 30, t_renderer), Types::Render);
 
 	//Button 2
 	m_button2.addComponent(new ButtonComponent(false, 2, 1), Types::Button);
 	m_button2.addComponent(new PositionComponent(150, 650), Types::Position);
 	m_button2.addComponent(new CollisionComponent(m_button2, 30, 30), Types::Collider);
-	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 30, 30, 30, 30, t_renderer), Types::Render);
+	m_button2.addComponent(new RenderComponent("Assets\\Button.png", 30, 30, 30, 30), Types::Render);
 
-	/* //door button
-	m_doorButton.addComponent(new ButtonComponent(false, 1, 2), Types::Button);
-	m_doorButton.addComponent(new PositionComponent(100, 650), Types::Position);
-	m_doorButton.addComponent(new CollisionComponent(m_doorButton, 30, 30), Types::Collider);
-	m_doorButton.addComponent(new RenderComponent("Assets\\DoorButton.png", 30, 30, p_renderer), Types::Render);
-*/
-
-//Trap 1
+	//Trap 1
 	m_spike.addComponent(new TrapComponent(false, 1), Types::Traps);
 	m_spike.addComponent(new PositionComponent(600, 600), Types::Position);
 	m_spike.addComponent(new CollisionComponent(m_spike, RAT_H, RAT_H, 3), Types::Collider);
-	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, 30, 30, t_renderer), Types::Render);
+	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, 30, 30), Types::Render);
 
 	//Trap 2
 	m_spike2.addComponent(new TrapComponent(true, 0), Types::Traps);
 	m_spike2.addComponent(new PositionComponent(700, 100), Types::Position);
 	m_spike2.addComponent(new CollisionComponent(m_spike2, RAT_H, RAT_H, 3), Types::Collider);
-	m_spike2.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, 30, 30, t_renderer), Types::Render);
+	m_spike2.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, 30, 30), Types::Render);
 
 	//Trap 3
 	m_spike3.addComponent(new TrapComponent(false, 2), Types::Traps);
 	m_spike3.addComponent(new PositionComponent(800, 100), Types::Position);
 	m_spike3.addComponent(new CollisionComponent(m_spike3, RAT_H, RAT_H, 3), Types::Collider);
-	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, 30, 30, t_renderer), Types::Render);
+	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, 30, 30), Types::Render);
 
-
-	//door 1
-	/*m_door1.addComponent(new DoorComponent(1),Types::Door);
-	m_door1.addComponent(new PositionComponent(800, 300), Types::Position);
-	m_door1.addComponent(new CollisionComponent(m_door1, 200, 20), Types::Collider);
-	m_door1.addComponent(new RenderComponent("Assets\\Door.png", 200, 20, p_renderer), Types::Render); */
 
 	//cheeses
 	m_goalCheeses.reserve(tiled_map_level->m_cheese.size());
@@ -95,7 +88,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 		m_goalCheeses[i].addComponent(new GoalComponent(), Types::Goal);
 		m_goalCheeses[i].addComponent(new PositionComponent(spawnPointX, spawnPointY), Types::Position);
 		m_goalCheeses[i].addComponent(new CollisionComponent(m_goalCheeses[i], 30.0f, 30, 30), Types::Collider);
-		m_goalCheeses[i].addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, 30, 30, t_renderer), Types::Render);
+		m_goalCheeses[i].addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, 30, 30), Types::Render);
 		m_collisionSystem.addEntity(m_goalCheeses[i]);
 		std::cout << "collision system added for " << i << std::endl;
 		m_renderSystem.addEntity(m_goalCheeses[i]);
@@ -116,7 +109,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 		m_bombs[i].addComponent(new BombComponent(), Types::Bomb);
 		m_bombs[i].addComponent(new PositionComponent(spawnPointX, spawnPointY), Types::Position);
 		m_bombs[i].addComponent(new CollisionComponent(m_bombs[i], 30.0f, 30, 30), Types::Collider);
-		m_bombs[i].addComponent(new RenderComponent("Assets\\bomb.png", 30, 30, 300, 300, t_renderer), Types::Render);
+		m_bombs[i].addComponent(new RenderComponent("Assets\\bomb.png", 30, 30, 300, 300), Types::Render);
 		m_collisionSystem.addEntity(m_bombs[i]);
 		std::cout << "collision system added for " << i << std::endl;
 		m_renderSystem.addEntity(m_bombs[i]);
@@ -125,32 +118,16 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 		std::cout << "button system added for " << i << std::endl;
 	}
 
-
 	//game manager and ui detail
 	m_gameManager.addComponent(new GameComponent(), Types::Game);
 	m_gameManager.addComponent(new PositionComponent((float)SCR_W / 2, (float)SCR_H / 2), Types::Position);
-	m_gameManager.addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, 30, 30, t_renderer), Types::Render);
-	// Systems
+	m_gameManager.addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, 30, 30), Types::Render);
 	
-	m_collisionSystem.addEntity(m_button);
-	m_collisionSystem.addEntity(m_button2);
-	//m_collisionSystem.addEntity(m_doorButton);
-
+	// Systems
 	m_collisionSystem.addEntity(m_spike);
 	m_collisionSystem.addEntity(m_spike2);
 	m_collisionSystem.addEntity(m_spike3);
 
-	//m_collisionSystem.addEntity(m_door1);
-
-	
-	//m_renderSystem.addEntity(m_alien);
-	//m_renderSystem.addEntity(m_dog);
-	//m_renderSystem.addEntity(m_cat);
-
-	m_renderSystem.addEntity(m_button);
-	m_renderSystem.addEntity(m_button2);
-	//m_renderSystem.addEntity(m_doorButton);
-	//m_renderSystem.addEntity(m_door1);
 	m_renderSystem.addEntity(m_spike);
 	m_renderSystem.addEntity(m_spike2);
 	m_renderSystem.addEntity(m_spike3);
@@ -159,27 +136,34 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_observer->load();
 	m_observer->StartBGM(0);
 
-
 	m_font = new FontObserver(t_renderer);
 	m_font->loadFont();
-
-
-	//Connect button entity and other entity that require switch	 
-	m_buttonSystem.addEntity(m_button);
-	m_buttonSystem.addEntity(m_button2);
-	//m_buttonSystem.addEntity(m_doorButton);
 
 	m_buttonSystem.addEntity(m_spike);
 	m_buttonSystem.addEntity(m_spike2);
 	m_buttonSystem.addEntity(m_spike3);
-	//m_buttonSystem.addEntity(m_door1);
-
-
-
 
 	m_gameSystem.addEntity(m_gameManager);
 	m_gameSystem.setupComponent();
 
+	/// <summary>
+	///  CANNOT pass renderer to Factory as it needs const inputs but renderer cannot be, so do like so for now
+	/// </summary>
+	/// <param name="t_renderer"></param>
+	for (Entity* e : m_entities) {
+		if (e->getComponent(Types::AnimatedSprite) != NULL) {
+			AnimatedSpriteComponent* a = dynamic_cast<AnimatedSpriteComponent*>(e->getComponent(Types::AnimatedSprite));
+			if (nullptr != a) {
+				a->init(m_renderer);
+			}
+		}
+		else if (e->getComponent(Types::Render) != NULL) {
+			RenderComponent* a = dynamic_cast<RenderComponent*>(e->getComponent(Types::Render));
+			if (nullptr != a) {
+				a->init(m_renderer);
+			}
+		}	
+	}
 }
 
 GameScene::~GameScene()

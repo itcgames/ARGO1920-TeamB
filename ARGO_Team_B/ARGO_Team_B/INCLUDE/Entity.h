@@ -52,6 +52,7 @@ public:
 				return m_components.first.at(i);
 			}
 		}
+		return NULL;
 	};
 
 	Types getType() { return m_components.second.at(0); } // all Player Types have to be first component passed 

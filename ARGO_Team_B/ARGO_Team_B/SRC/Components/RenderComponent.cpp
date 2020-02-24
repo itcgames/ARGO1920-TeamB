@@ -1,7 +1,7 @@
 #include "RenderComponent.h"
 #include<iostream>
 
-RenderComponent::RenderComponent(const char* name, int width, int height, int imgWidth, int imgHeight, SDL_Renderer* renderer) :
+RenderComponent::RenderComponent(const char* name, int width, int height, int imgWidth, int imgHeight) :
 	m_angle{ 0 },
 	currentImage(name)
 {
@@ -10,14 +10,18 @@ RenderComponent::RenderComponent(const char* name, int width, int height, int im
 	srcrect = { 0, 0, imgWidth, imgHeight };
 	dstrect = { 0, 0, this->width, this->height };
 	//center = { 0, 0 };
-	m_renderer = renderer;
-	image = IMG_Load(name);
-	texture = SDL_CreateTextureFromSurface(m_renderer, image);
-
+	m_name = name;
 	if (!texture)
 	{
 		std::cout << name << " texture failed to load!" << std::endl;
 	}
+}
+
+void RenderComponent::init(SDL_Renderer* renderer)
+{
+	m_renderer = renderer;
+	m_image = IMG_Load(m_name);
+	texture = SDL_CreateTextureFromSurface(m_renderer, m_image);
 }
 
 void RenderComponent::draw(int x, int y, double angle)
@@ -39,8 +43,8 @@ void RenderComponent::setImage(const char* name)
 {
 	if (currentImage != name) {
 		currentImage = name;
-		image = IMG_Load(name);
-		texture = SDL_CreateTextureFromSurface(m_renderer, image);
+		m_image = IMG_Load(name);
+		texture = SDL_CreateTextureFromSurface(m_renderer, m_image);
 
 		if (!texture)
 		{
@@ -57,8 +61,8 @@ void RenderComponent::setImage(const char* name, int width, int height)
 		srcrect = { 0, 0, width , height };
 
 		currentImage = name;
-		image = IMG_Load(name);
-		texture = SDL_CreateTextureFromSurface(m_renderer, image);
+		m_image = IMG_Load(name);
+		texture = SDL_CreateTextureFromSurface(m_renderer, m_image);
 
 		if (!texture)
 		{
