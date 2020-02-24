@@ -17,7 +17,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	SDL_RenderSetViewport(m_renderer, &m_view);
 
 	// Extra info for systems
-	const auto MAP_PATH = "Assets/map/test3.tmx";
+	const auto MAP_PATH = "Assets/map/test5.tmx";
 	tiled_map_level = new Level("Test");
 	tiled_map_level->load(MAP_PATH, t_renderer);
 
@@ -204,7 +204,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 
 	m_observer = new AudioObserver();
 	m_observer->load();
-	m_observer->StartBGM(1);
+	//m_observer->StartBGM(1);
 
 
 	m_font = new FontObserver(t_renderer);
