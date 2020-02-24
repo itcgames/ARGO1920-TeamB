@@ -246,7 +246,6 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_stateMachine->addEntity(m_rat2);
 	m_stateMachine->addEntity(m_rat4);
 	m_stateMachine->setupSprites();
-	m_controlSystem.initStateSystem(m_stateMachine);
 }
 
 GameScene::~GameScene()
