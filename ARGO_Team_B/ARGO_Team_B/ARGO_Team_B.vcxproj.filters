@@ -60,6 +60,8 @@
     <ClInclude Include="INCLUDE\Particle.h" />
     <ClInclude Include="INCLUDE\ParticleSystem.h" />
     <ClInclude Include="Include\Components\TestBotBehaviourComponent.h" />
+    <ClInclude Include="Include\FactoryInterface.h" />
+    <ClInclude Include="Include\ComponentFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />
@@ -102,6 +104,10 @@
     <ClCompile Include="SRC\Utils\ResourceManager.cpp" />
     <ClCompile Include="SRC\Components\GameComponent.cpp" />
     <ClCompile Include="SRC\GameSystem.cpp" />
+<<<<<<< HEAD
+    <ClCompile Include="Src\Components\TestBotBehaviourComponent.cpp" />
+=======
+>>>>>>> master
     <ClCompile Include="SRC\Utils\Command.cpp" />
     <ClCompile Include="Src\States\IdleState.cpp" />
     <ClCompile Include="SRC\HostingGame.cpp" />

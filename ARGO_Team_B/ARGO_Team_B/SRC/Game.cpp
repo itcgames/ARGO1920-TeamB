@@ -66,7 +66,6 @@ Game::~Game() {}
 /// </summary>
 void Game::run()
 {
-	bool exit = false;
 	float timePerFrame = 1000.f / 60.f;
 	Uint32 timeSinceLastUpdate = 0;
 	Uint32 timeSinceStart = SDL_GetTicks();
@@ -147,7 +146,6 @@ void Game::update(float dt)
 	default:
 		break;
 	}
-
 }
 
 /// <summary>
@@ -191,6 +189,7 @@ void Game::render()
 	default:
 		break;
 	}
+
 	SDL_RenderPresent(p_renderer);
 }
 

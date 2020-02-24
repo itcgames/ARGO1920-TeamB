@@ -10,11 +10,9 @@ class AISystem : public System
 {
 public:
 	AISystem();
-	AISystem(StateMachineSystem* t_fsm);
 	~AISystem();
 	void updateComponent(Component* component) override;
 private:
-	StateMachineSystem m_FSM;
 };
 
 #endif // !AI_SYSTEM

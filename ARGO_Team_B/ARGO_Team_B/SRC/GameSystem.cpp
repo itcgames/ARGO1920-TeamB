@@ -2,7 +2,6 @@
 
 GameSystem::GameSystem() 
 {
-
 }
 
 GameSystem::~GameSystem() {
@@ -43,7 +42,7 @@ void GameSystem::update(float dt) {
 		for (int i = 0; i < m_cheeseTextData.size(); i++) {
 			float textTimer = m_cheeseTextData[i]->getTime();
 			textTimer -= dt;
-			m_cheeseTextData[i]->setTime(textTimer);
+			m_cheeseTextData[i]->setTime(textTimer);	
 			if (textTimer <= 0.0f) {
 				//m_cheeseTextData.erase(m_cheeseTextData.begin());
 				m_cheeseTextData.erase(m_cheeseTextData.begin() + i);

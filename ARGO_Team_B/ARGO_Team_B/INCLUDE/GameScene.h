@@ -63,6 +63,8 @@ private:
 	BombSystem m_bombSystem;
 	GameSystem m_gameSystem;
 
+	SDL_Rect m_view;
+
 	std::vector<ParticleSystem*> m_particles;
 	std::vector<Entity> m_goalCheeses;
 	std::vector<Entity> m_bombs;

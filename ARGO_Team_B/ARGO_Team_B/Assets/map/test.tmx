@@ -259,14 +259,14 @@
   <object id="46" name="MazeWall" x="1680" y="30" width="29.8182" height="30.4432"/>
   <object id="142" name="MazeWall" x="1650.18" y="1020.19" width="29.7386" height="29.6084"/>
   <object id="143" name="MazeWall" x="1710.15" y="1019.9" width="29.9205" height="30.063"/>
-  <object id="174" name="MazeWall" x="120" y="60" width="29.3977" height="29.8074"/>
-  <object id="175" name="MazeWall" x="120" y="30" width="29.3977" height="29.8074"/>
-  <object id="176" name="MazeWall" x="120" y="120" width="29.3977" height="29.8074"/>
-  <object id="177" name="MazeWall" x="120" y="90" width="29.3977" height="29.8074"/>
-  <object id="178" name="MazeWall" x="120" y="150" width="29.3977" height="29.8074"/>
-  <object id="179" name="MazeWall" x="120" y="240" width="29.3977" height="29.8074"/>
-  <object id="180" name="MazeWall" x="120" y="210" width="29.3977" height="29.8074"/>
-  <object id="181" name="MazeWall" x="120" y="180" width="29.3977" height="29.8074"/>
+  <object id="174" name="MazeWall" x="120.343" y="60.1464" width="29.439" height="29.8493"/>
+  <object id="175" name="MazeWall" x="120.343" y="30.1043" width="29.439" height="29.8493"/>
+  <object id="176" name="MazeWall" x="120.343" y="120.231" width="29.439" height="29.8493"/>
+  <object id="177" name="MazeWall" x="120.343" y="90.1886" width="29.439" height="29.8493"/>
+  <object id="178" name="MazeWall" x="120.343" y="150.273" width="29.439" height="29.8493"/>
+  <object id="179" name="MazeWall" x="120.343" y="240.399" width="29.439" height="29.8493"/>
+  <object id="180" name="MazeWall" x="120.343" y="210.357" width="29.439" height="29.8493"/>
+  <object id="181" name="MazeWall" x="120.343" y="180.315" width="29.439" height="29.8493"/>
   <object id="182" name="MazeWall" x="150" y="240" width="29.3977" height="29.8074"/>
   <object id="183" name="MazeWall" x="180" y="240" width="29.3977" height="29.8074"/>
   <object id="184" name="MazeWall" x="210" y="240" width="29.3977" height="29.8074"/>

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\ComponentFactory.h" />
     <ClInclude Include="INCLUDE\Online\Client.h" />
     <ClInclude Include="INCLUDE\CreditsScene.h" />
     <ClInclude Include="INCLUDE\GameScene.h" />
@@ -35,6 +36,7 @@
     <ClInclude Include="INCLUDE\Utils\ResourceManager.h" />
     <ClInclude Include="INCLUDE\Utils\Subject.h" />
     <ClInclude Include="INCLUDE\Components\GameComponent.h" />
+    <ClInclude Include="Include\FactoryInterface.h" />
     <ClInclude Include="INCLUDE\GameSystem.h" />
     <ClInclude Include="INCLUDE\Particle.h" />
     <ClInclude Include="INCLUDE\ParticleSystem.h" />

@@ -18,8 +18,9 @@ class TestBotBehaviourComponent : public Component
 public:
 	TestBotBehaviourComponent(Entity& t_gameObject);
 	~TestBotBehaviourComponent();
-	void update(StateMachineSystem& t_fsm);
+	void update();
 private:
+	int i = 0;
 	Entity& m_entity;
 	Command* p_walkUp;
 	Command* p_walkDown;
