@@ -19,7 +19,7 @@ public:
 
 	void updateCollider(Entity& t_entity);
 
-	void setCircleRadius(float radius);
+	void setCircleRadius(float radiuss);
 
 	~CollisionComponent();
 

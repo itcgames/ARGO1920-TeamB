@@ -49,7 +49,7 @@ public:
 	void update(float dt);
 	void setupComponent();
 
-	void draw(FontObserver* text);
+	void draw(FontObserver* text, float restartTimer);
 private:
 	void gameTimerString(float gameTimer);
 	vector<Entity> m_playerEntities;
@@ -62,6 +62,8 @@ private:
 	RenderComponent* m_cheese;
 
 	string timer;
+	string winInfo;
+	SDL_Color winTextColor;
 };
 
 #endif // ! GAMEMANAGER

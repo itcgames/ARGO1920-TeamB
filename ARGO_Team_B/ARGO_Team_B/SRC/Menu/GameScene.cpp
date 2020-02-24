@@ -5,7 +5,8 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_rat2(EntityType::Rat),
 	m_rat3(EntityType::Rat),
 	m_rat4(EntityType::Rat),
-	m_renderer(t_renderer)
+	m_renderer(t_renderer),
+	m_restartTimer(9.0f)
 {
 
 	// Extra info for systems
@@ -248,23 +249,34 @@ GameScene::~GameScene()
 
 void GameScene::update(float dt)
 {
-	m_healthSystem.update();
-	m_aiSystem.update();
-	m_buttonSystem.update();
-	m_controlSystem.handleInput(dt, m_stateMachine, m_renderer, m_particles);
-	m_collisionSystem.updateComponent(*tiled_map_level, m_observer, m_particles, m_renderer);
-	m_stateMachine->update();
-	m_bombSystem.updateComponent(dt, m_observer);
-	m_gameSystem.update(dt);
+	GameComponent* m_game = dynamic_cast<GameComponent*>(m_gameManager.getComponent(Types::Game));
+	if (!m_game->getGameover()) {
 
-	for (int i = 0; i < m_particles.size(); i++) {
-		// Loops through particle systems
-		m_particles.at(i)->update();
+		m_healthSystem.update();
+		m_aiSystem.update();
+		m_buttonSystem.update();
+		m_controlSystem.handleInput(dt, m_stateMachine, m_renderer, m_particles);
+		m_collisionSystem.updateComponent(*tiled_map_level, m_observer, m_particles, m_renderer);
+		m_stateMachine->update();
+		m_bombSystem.updateComponent(dt, m_observer);
+		m_gameSystem.update(dt);
 
-		//Checks if the particle system is empty
-		if (m_particles.at(i)->m_particles.size() <= 0) {
-			// Deletes the particle system
-			m_particles.erase(m_particles.begin() + i);
+		for (int i = 0; i < m_particles.size(); i++) {
+			// Loops through particle systems
+			m_particles.at(i)->update();
+
+			//Checks if the particle system is empty
+			if (m_particles.at(i)->m_particles.size() <= 0) {
+				// Deletes the particle system
+				m_particles.erase(m_particles.begin() + i);
+			}
+		}
+	}
+	else {
+		m_restartTimer -= dt;
+		if (m_restartTimer <= 0) {
+			// restart code here
+
 		}
 	}
 }
@@ -273,10 +285,78 @@ void GameScene::render()
 {
 	tiled_map_level->draw(m_renderer);
 	m_renderSystem.draw();
-	m_gameSystem.draw(m_font);
+	m_gameSystem.draw(m_font, m_restartTimer);
 	m_stateMachine->update();
 
 	for (ParticleSystem* ps : m_particles) {
 		ps->draw(m_renderer); // Draw particle system
 	}
+}
+
+void GameScene::resetGame() {
+
+}
+
+SDL_Point GameScene::playerPosition(int id) {
+
+	PositionComponent* m_player = NULL;
+
+	switch (id)
+	{
+	case 1:
+		m_player = dynamic_cast<PositionComponent*>(m_rat1.getComponent(Types::Player));
+		break;
+	case 2:
+		m_player = dynamic_cast<PositionComponent*>(m_rat2.getComponent(Types::Player));
+		break;
+	case 3:
+		m_player = dynamic_cast<PositionComponent*>(m_rat3.getComponent(Types::Player));
+		break;
+	case 4:
+		m_player = dynamic_cast<PositionComponent*>(m_rat4.getComponent(Types::Player));
+		break;
+	default:
+		break;
+	}
+
+	SDL_Point positionData = { m_player->getPositionX(), m_player->getPositionY() };
+
+	return positionData;
+}
+
+bool GameScene::playerGetCheese(int id) {
+
+	PlayerComponent* m_player = NULL;
+
+	switch (id)
+	{
+	case 1:
+		m_player = dynamic_cast<PlayerComponent*>(m_rat1.getComponent(Types::Player));
+		break;
+	case 2:
+		m_player = dynamic_cast<PlayerComponent*>(m_rat2.getComponent(Types::Player));
+		break;
+	case 3:
+		m_player = dynamic_cast<PlayerComponent*>(m_rat3.getComponent(Types::Player));
+		break;
+	case 4:
+		m_player = dynamic_cast<PlayerComponent*>(m_rat4.getComponent(Types::Player));
+		break;
+	default:
+		break;
+	}
+
+	bool playerGetCheese = m_player->getACheese();
+
+	return playerGetCheese;
+}
+
+float GameScene::gameStartCountdown() {
+	GameComponent* m_gameState = dynamic_cast<GameComponent*>(m_gameManager.getComponent(Types::Game));
+	return m_gameState->getstartCountdown();
+}
+
+float GameScene::ingameTimer() {
+	GameComponent* m_gameState = dynamic_cast<GameComponent*>(m_gameManager.getComponent(Types::Game));
+	return m_gameState->getGameTimer();
 }

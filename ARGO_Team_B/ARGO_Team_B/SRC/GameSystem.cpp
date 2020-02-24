@@ -2,7 +2,7 @@
 
 GameSystem::GameSystem() 
 {
-
+	winTextColor = { 0,0,0,255 };
 }
 
 GameSystem::~GameSystem() {
@@ -52,8 +52,12 @@ void GameSystem::update(float dt) {
 
 		float gameTimer = m_game->getGameTimer();
 		gameTimer -= dt;
+		m_game->setGameTimer(gameTimer);
+
+		// round end
 		if (gameTimer <= 0.0f) {
 			m_game->setGameover(true);
+		
 
 			int redWinCounter = m_game->getRedWinCounter();
 			int greenWinCounter = m_game->getGreenWinCounter();
@@ -61,11 +65,17 @@ void GameSystem::update(float dt) {
 			// when the timer is 0, the team with more cheese win
 			if (m_game->getRedTeamCheese() > m_game->getGreenTeamCheese()) {
 				redWinCounter++;
+				winTextColor = { 255,0,0,255 };
+				winInfo = "RED TEAM WIN!";
 			}
 			else if (m_game->getRedTeamCheese() < m_game->getGreenTeamCheese()) {
 				greenWinCounter++;
+				winTextColor = { 0,255,0,255 };
+				winInfo = "GREEN TEAM WIN!";
 			}
 			else {
+				winTextColor = { 255,255,0,255 };
+				winInfo = "DRAW!";
 				redWinCounter++;
 				greenWinCounter++;
 			}
@@ -77,18 +87,23 @@ void GameSystem::update(float dt) {
 			}
 			else if (redWinCounter >= 3) {
 				// red team win the game
+				winTextColor = { 255,0,0,255 };
+				winInfo = "RED TEAM WIN THE GAME!";
 			}
 			else if (greenWinCounter >= 3) {
 				// green team win the game
+				winTextColor = { 0,255,0,255 };
+				winInfo = "GREEN TEAM WIN THE GAME!";
 			}
 			else {
 				m_game->setRedWinCounter(redWinCounter);
 				m_game->setGreenWinCounter(greenWinCounter);
 			}
+
+
 		}
 		else {
 			gameTimerString(gameTimer);
-			m_game->setGameTimer(gameTimer);
 		}
 	}
 	else {
@@ -131,31 +146,76 @@ void GameSystem::gameTimerString(float gameTimer)
 	timer = to_string(min) + " : " + to_string(sec);
 }
 
-void GameSystem::draw(FontObserver* text) {
+void GameSystem::draw(FontObserver* text, float restartTimer) {
 	SDL_Color color = { 0, 0, 0 , 255 };
 
 	// show the timer 
 	if (m_game->getstartCountdown() <= 0.0f) {
-		const char* c = timer.data();
+		if (m_game->getGameTimer() > 0.0f) {
+			const char* c = timer.data();
 
-		if (m_game->getGameTimer() <= 30.0f) {
-			color = { 225, 0, 0 , 255 };
+			if (m_game->getGameTimer() <= 30.0f) {
+				color = { 225, 0, 0 , 255 };
+			}
+			text->drawText(860, 510, 100, 100, c, color, FontObserver::TIMER2);
+
+			for (tempCheeseData* textData : m_cheeseTextData) {
+				string cheeseCounter = to_string(textData->m_count);
+				const char* c = cheeseCounter.data();
+
+				if (textData->playerId == 1 || textData->playerId == 3) {
+					color = { 225, 0, 0 , (Uint8)(255 * (textData->getTime() / 3.0f)) };
+				}
+				else if (textData->playerId == 2 || textData->playerId == 4) {
+					color = { 0, 225, 0 , (Uint8)(255 * (textData->getTime() / 3.0f)) };
+				}
+
+				m_cheese->draw(textData->posX - 30, textData->posY, 0, (Uint8)(255 * (textData->getTime() / 3.0f)));
+				text->drawText(textData->posX, textData->posY, 30, 30, c, color, FontObserver::COUNTER);
+			}
 		}
-		text->drawText(860, 510, 100, 100, c, color, FontObserver::TIMER2);
+		else {
+			// win condition part
 
-		for (tempCheeseData* textData : m_cheeseTextData) {
-			string cheeseCounter =  to_string(textData->m_count);
-			const char* c = cheeseCounter.data();
+			if (restartTimer <= 7.0f) {
 
-			if (textData->playerId == 1 || textData->playerId == 3) {
-				color = { 225, 0, 0 , (Uint8)(255 * (textData->getTime() / 3.0f)) };
+				for (PlayerComponent* m_player : m_players) {
+					string cheeseForPlayer = "Player " + to_string(m_player->getId()) + " : " + to_string(m_player->getCheeseCounter());
+					const char* c = cheeseForPlayer.data();
+					if (m_player->getId() == 1 || m_player->getId() == 3) {
+						color = { 225, 0, 0 , 255 };
+					}
+					else if (m_player->getId() == 2 || m_player->getId() == 4) {
+						color = { 0, 255, 0 , 255 };
+					}
+
+					text->drawText((500 * m_player->getId() - 400), 800, 200, 50, c, color, FontObserver::COUNTER);
+				}
+
+				if (restartTimer <= 6.0f) {
+					string teamCheese = "Red Team: " + to_string(m_game->getRedTeamCheese());
+					color = { 225, 0, 0 , 255 };
+					m_cheese->draw(360, 215, 0, 200, 200);
+					text->drawText(360, 400, 200, 50, teamCheese.data(), color, FontObserver::COUNTER);
+
+					teamCheese = "Green Team: " + to_string(m_game->getRedTeamCheese());
+					color = { 0, 225, 0 , 255 };
+					m_cheese->draw(1320, 215, 0, 200, 200);
+					text->drawText(1320, 400, 200, 50, teamCheese.data(), color, FontObserver::COUNTER);
+				}
+
+				if (restartTimer <= 5.0f) {
+					text->drawText(785, 315, 300, 100, winInfo.data(), winTextColor, FontObserver::COUNTER);
+
+					int restart = restartTimer;
+					string restartText = to_string(restart);
+				}
 			}
-			else if (textData->playerId == 2 || textData->playerId == 4) {
-				color = { 0, 225, 0 , (Uint8)(255 * (textData->getTime() / 3.0f)) };
+			else {
+				color = { 1,1,1,255 };
+				text->drawText(760, 420, 400, 200, "TIME UP!", color, FontObserver::COUNTER);
 			}
 
-			m_cheese->draw(textData->posX - 30, textData->posY, 0, (Uint8)(255 * (textData->getTime() / 3.0f)));
-			text->drawText(textData->posX, textData->posY, 30, 30, c, color, FontObserver::COUNTER);
 		}
 	}
 	else {

@@ -31,12 +31,13 @@ public:
 	/// </summary>
 	
 	//player transfer data
-	int playerId();
-	SDL_Point playerPosition();
+	SDL_Point playerPosition(int id);
+	bool playerGetCheese(int id);
 
 	//game transfer data
 	float gameStartCountdown();
-	//float 
+	float ingameTimer();
+	
 
 private:
 	// Entities
@@ -81,6 +82,9 @@ private:
 	std::vector<Entity> m_bombs;
 	
 	SDL_Renderer* m_renderer;
+
+	float m_restartTimer;
+	void resetGame();
 };
 #endif // !MENU_SCENE_H
 

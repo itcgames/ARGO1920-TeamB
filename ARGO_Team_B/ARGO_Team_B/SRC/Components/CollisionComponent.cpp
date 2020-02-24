@@ -7,7 +7,7 @@ CollisionComponent::CollisionComponent(Entity& t_gameObject, float diameter, int
 	m_height(height)
 {
 	PositionComponent* entityPos = static_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
-	m_circlecollider.p = { entityPos->getPositionX() + width / 2, entityPos->getPositionY() + height / 2};
+	m_circlecollider.p = { entityPos->getPositionX() - width / 2, entityPos->getPositionY() - height / 2};
 	m_circlecollider.r = diameter / 2;
 
 }
@@ -40,7 +40,7 @@ CollisionComponent::~CollisionComponent()
 void CollisionComponent::updateCollider(Entity& t_entity)
 {
 	PositionComponent* entityPos = static_cast<PositionComponent*>(t_entity.getComponent(Types::Position));
-	m_circlecollider.p = c2v{ entityPos->getPositionX() + m_width / 2, entityPos->getPositionY() + m_height / 2 };
+	m_circlecollider.p = c2v{ entityPos->getPositionX(), entityPos->getPositionY()};
 
 	m_recCollider.min = { entityPos->getPositionX(), entityPos->getPositionY() };
 	m_recCollider.max = { entityPos->getPositionX() + m_width, entityPos->getPositionY() + m_height };

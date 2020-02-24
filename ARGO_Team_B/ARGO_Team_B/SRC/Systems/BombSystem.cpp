@@ -61,7 +61,7 @@ void BombSystem::updateComponent(float dt,AudioObserver * t_observer) {
 				bombCollider->setCircleRadius(bombComp->getBlastRadius());
 
 				RenderComponent* bombRender = static_cast<RenderComponent*>(bombEntity.getComponent(Types::Render));
-				bombRender->setImage("./Assets/explode.png",100,100);
+				bombRender->setImage("./Assets/explode.png", bombComp->getBlastRadius() * 2, bombComp->getBlastRadius() * 2);
 			}
 			else {
 

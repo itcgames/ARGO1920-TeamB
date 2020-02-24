@@ -49,6 +49,18 @@ void JoiningGame::update(float dt) {
 		else {
 			// game play here
 			m_gameScene->update(dt);
+
+
+
+
+
+
+
+
+
+
+
+
 		}
 	}
 }
