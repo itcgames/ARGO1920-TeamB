@@ -32,7 +32,8 @@ enum class GameStates
 	MainMenu,
 	Credits,
 	Hosting,
-	Joining
+	Joining,
+	QuitGame
 };
 
 enum class EntityType

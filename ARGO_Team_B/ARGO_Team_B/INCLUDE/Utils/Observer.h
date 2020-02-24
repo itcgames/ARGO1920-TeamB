@@ -1,5 +1,4 @@
 #pragma once
-//#include "Observer.h"
 #include <map>
 #include <SDL.h>
 #include <SDL_mixer.h>
@@ -40,9 +39,13 @@ class AudioObserver : public Observer
 			pickupBomb = Mix_LoadWAV("Assets/Sfx/pickupCheese.ogg");
 			placeBomb = Mix_LoadWAV("Assets/Sfx/pickupCheese.ogg");
 			explosion = Mix_LoadWAV("Assets/Sfx/explosion.wav"); 
+			Mix_VolumeChunk(explosion, 15);
 			m_bgm1 = Mix_LoadMUS("Assets/Sfx/music.mp3");
 			m_bgm2 = Mix_LoadMUS("Assets/Sfx/musicMenu.mp3");
 			m_bgm3 = Mix_LoadMUS("Assets/Sfx/musicMenu.mp3");
+			Mix_VolumeMusic(60);
+
+
 		}
 		//Function to be called when a message is received from the subject
 		//\param sfx: Enum of sound effects
@@ -63,6 +66,7 @@ class AudioObserver : public Observer
 				Mix_PlayChannel(-1, pickupBomb, 0);
 				break;
 			case AudioObserver::EXPLOSION:
+
 				Mix_PlayChannel(-1, explosion, 0);
 				break;
 			case AudioObserver::PLACEBOMB:
@@ -77,6 +81,7 @@ class AudioObserver : public Observer
 			switch (bgmSong)
 			{
 			case 1:
+
 				Mix_PlayMusic(m_bgm1, -1);
 				break;
 			case 2:
