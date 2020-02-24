@@ -1,7 +1,6 @@
 #ifndef GAME_SCENE_H
 #define GAME_SCENE_H
 #include <SDL.h>
-#include "Enums.h"
 
 #include "HealthSystem.h"
 #include "ControlSystem.h"

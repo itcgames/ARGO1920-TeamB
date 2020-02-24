@@ -106,7 +106,7 @@ void StateMachineSystem::setupSprites()
 	temp1->frameSize.y = 30;
 	temp1->name = "RatWalk";
 	temp1->t_noOfFrames = 5;
-	temp1->frameRate = 3500;
+	temp1->frameRate = 500;
 
 	m_surface = IMG_Load("./Assets/SpriteSheetWalkMouse.png");
 	temp1->m_texture = SDL_CreateTextureFromSurface(m_renderer, m_surface);
@@ -116,11 +116,11 @@ void StateMachineSystem::setupSprites()
 	temp1 = NULL;
 
 	SpriteSheet* temp2 = new SpriteSheet;
-	temp2->frameSize.x = 90;
+	temp2->frameSize.x = 60;
 	temp2->frameSize.y = 30;
 	temp2->name = "RatIdle";
-	temp2->t_noOfFrames = 5;
-	temp2->frameRate = 8000;
+	temp2->t_noOfFrames = 3;
+	temp2->frameRate = 1500;
 
 	m_surface = IMG_Load("./Assets/SpriteSheetIdleMouse.png");
 	temp2->m_texture = SDL_CreateTextureFromSurface(m_renderer, m_surface);

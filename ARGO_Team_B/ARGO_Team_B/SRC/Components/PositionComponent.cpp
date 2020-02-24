@@ -9,7 +9,7 @@ PositionComponent::PositionComponent(float t_x, float t_y) :
 	m_lastY(m_currentY),
 	m_startX(t_x),
 	m_startY(t_y),
-	m_acceleration(100)
+	m_acceleration(120)
 {
 }
 
@@ -70,8 +70,6 @@ void PositionComponent::movementUpdate(float dt) {
 	m_currentY = m_currentY + m_velocityY * dt;
 	m_currentX = m_currentX + m_velocityX * dt;
 
-	std::cout << "Vy: " << m_velocityY << std::endl;
-	std::cout << "Vx: " << m_velocityX << std::endl;
 	if (m_velocityY <= 0.01f && m_velocityY >= -0.01f) {
 		m_velocityY = 0;
 	}

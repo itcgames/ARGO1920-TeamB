@@ -18,7 +18,6 @@
 #include "StateMachineSystem.h"
 #include "GameSystem.h"
 #include "BombSystem.h"
-#include "Globals.h"
 
 #include <time.h>
 #include "Observer.h"

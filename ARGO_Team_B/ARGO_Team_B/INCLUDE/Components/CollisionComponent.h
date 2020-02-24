@@ -8,7 +8,7 @@
 #include <cute_c2.h>
 #include <vector>
 
-#include "Globals.h"
+#include "Enums.h"
 
 class CollisionComponent : public Component
 {

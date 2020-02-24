@@ -198,7 +198,7 @@ void GameSystem::draw(FontObserver* text, float restartTimer) {
 					m_cheese->draw(360, 215, 0, 200, 200);
 					text->drawText(360, 400, 200, 50, teamCheese.data(), color, FontObserver::COUNTER);
 
-					teamCheese = "Green Team: " + to_string(m_game->getRedTeamCheese());
+					teamCheese = "Green Team: " + to_string(m_game->getGreenTeamCheese());
 					color = { 0, 225, 0 , 255 };
 					m_cheese->draw(1320, 215, 0, 200, 200);
 					text->drawText(1320, 400, 200, 50, teamCheese.data(), color, FontObserver::COUNTER);

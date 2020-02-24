@@ -4,8 +4,8 @@
 #pragma once
 #include "Online/Server.h"
 #include "Online/PacketType.h"
-#include "Globals.h"
 #include "Observer.h"
+#include "Enums.h"
 
 #include "GameScene.h"
 
