@@ -1,7 +1,5 @@
 #ifndef GAMECOMPONENT
 #define GAMECOMPONENT
-
-#pragma once
 #include "Component.h"
 
 class GameComponent : public Component {

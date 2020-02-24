@@ -1,8 +1,6 @@
 #ifndef PLAYERCOMPONENT
 #define PLAYERCOMPONENT
 
-
-#pragma once
 #include "Component.h"
 
 class PlayerComponent : public Component {
