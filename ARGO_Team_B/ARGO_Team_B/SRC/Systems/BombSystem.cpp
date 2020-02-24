@@ -66,6 +66,9 @@ void BombSystem::updateComponent(float dt,AudioObserver * t_observer) {
 			else {
 
 				timer -= dt;
+
+
+
 				bombComp->setBombTimer(timer);
 			}
 		}

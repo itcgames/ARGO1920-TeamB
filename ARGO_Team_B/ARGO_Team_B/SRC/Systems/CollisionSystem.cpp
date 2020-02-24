@@ -13,7 +13,7 @@ void CollisionSystem::updateComponent(Component* component)
 {
 }
 
-void CollisionSystem::updateComponent(Level& t_level,AudioObserver* t_observer)
+void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer, std::vector<ParticleSystem*>& t_ps, SDL_Renderer* t_renderer)
 {
 	searchEntities();
 
@@ -28,7 +28,23 @@ void CollisionSystem::updateComponent(Level& t_level,AudioObserver* t_observer)
 		x1 = m_positionComp->getPositionX();
 		y1 = m_positionComp->getPositionY();
 		tileCollision(x1, y1, RAT_W, RAT_H, t_level,t_observer);
+
 	}
+
+	for (Entity& bomb : m_bombEntitys) {
+		BombComponent* bombComp = static_cast<BombComponent*>(bomb.getComponent(Types::Bomb));
+		if (bombComp->getState() != BombState::Removed) {
+
+			CollisionComponent* bombCollider = static_cast<CollisionComponent*>(bomb.getComponent(Types::Collider));
+
+			bombCollider->updateCollider(bomb);
+
+			if (bombComp->getState() == BombState::Explode) {
+				TileBombCollision(&t_level, bombCollider);
+			}
+		}
+	}
+
 
 	// player 1 and player 2 collision check
 	if (checkCollision(playerColliders[0]->getAABBCollider(), playerColliders[1]->getAABBCollider())) {
@@ -163,14 +179,14 @@ void CollisionSystem::updateComponent(Level& t_level,AudioObserver* t_observer)
 			}
 		}
 	}
-
+	
 	// check collision between player and traps
 	searchCheese();
 	for (Entity& goalEntity : m_goalEntitys) 
 	{
 
 		GoalComponent* goal = static_cast<GoalComponent*>(goalEntity.getComponent(Types::Goal));
-
+		PositionComponent * goalPos = static_cast<PositionComponent*>(goalEntity.getComponent(Types::Position));
 		// check is button on the map
 		if (goal->getAlive()) 
 		{
@@ -184,11 +200,13 @@ void CollisionSystem::updateComponent(Level& t_level,AudioObserver* t_observer)
 				CollisionComponent* playerCollider = static_cast<CollisionComponent*>(playerEntitys.getComponent(Types::Collider));
 				
 				PlayerComponent* player = static_cast<PlayerComponent*>(playerEntitys.getComponent(Types::Player));
+				PositionComponent* playerPos = static_cast<PositionComponent*>(playerEntitys.getComponent(Types::Position));
 					if (checkCollision(goalCollider->getAABBCollider(), playerCollider->getAABBCollider()))
 					{
 						//std::cout << "Player with ID : " << player->getId() << "Collected the cheese" << std::endl;
 						player->gainCheese(1);
 						t_observer->onNotify(AudioObserver::PICKUPCHEESE);
+						t_ps.push_back((new ParticleSystem(250, playerPos->getPositionX(), playerPos->getPositionY() , t_renderer,ParticleType::CheesePickup)));
 						goal->setAlive(false);
 					}
 			}
@@ -220,16 +238,14 @@ void CollisionSystem::bombCollision(AudioObserver* t_observer)
 					if (bombComp->getState() == BombState::Explode) {
 						playerComp->setDizzyState(true);
 					}
-					else {
-						if (playerComp->getInteract()) {
-							bombComp->playerGetBomb(playerComp->getId());
-							t_observer->onNotify(AudioObserver::PICKUPBOMB);
-							playerComp->setInteract(false);
-						}
+					else if(bombComp->getState() != BombState::Activate){
+						bombComp->playerGetBomb(playerComp->getId());
+						t_observer->onNotify(AudioObserver::PICKUPBOMB);
+						playerComp->setInteract(false);
+						
 					}
 				}
 			}
-
 		}
 	}
 }
@@ -278,6 +294,60 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			y <= t_mazeWalls.m_mazeWalls[i].y &&
 			x > t_mazeWalls.m_mazeWalls[i].x - width &&
 			x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width)
+		{
+			{
+				std::cout << "bottom tile WALL collision!" << std::endl;
+				//m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y + RAT_W);
+				m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
+
+			}
+		}
+	}
+
+	/// <summary>
+	///		Checking Outer Borders and Middle
+	/// </summary>
+	for (int i = 0; i < t_mazeWalls.m_outerBorders.size(); i++)
+	{
+		//right of tile
+		if (x <= t_mazeWalls.m_outerBorders[i].x + t_mazeWalls.m_outerBorders[i].width &&
+			x >= t_mazeWalls.m_outerBorders[i].x &&
+			y + height >= t_mazeWalls.m_outerBorders[i].y &&
+			y <= t_mazeWalls.m_outerBorders[i].y + t_mazeWalls.m_outerBorders[i].height)
+		{
+			std::cout << "right tile WALL collision!" << std::endl;
+			m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
+			//m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x + RAT_H, y);
+		}
+
+		//left of tile
+		if (x + width >= t_mazeWalls.m_outerBorders[i].x &&
+			x + width < t_mazeWalls.m_outerBorders[i].x + t_mazeWalls.m_outerBorders[i].width &&
+			y + height >= t_mazeWalls.m_outerBorders[i].y &&
+			y <= t_mazeWalls.m_outerBorders[i].y + t_mazeWalls.m_outerBorders[i].height)
+		{
+			std::cout << "left tile WALL collision!" << std::endl;
+			//m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x - RAT_W, y);
+			m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
+		}
+		//top of tile
+		if (y + height >= t_mazeWalls.m_outerBorders[i].y &&
+			y + height <= t_mazeWalls.m_outerBorders[i].y + t_mazeWalls.m_outerBorders[i].height &&
+			x > t_mazeWalls.m_outerBorders[i].x - width &&
+			x <= t_mazeWalls.m_outerBorders[i].x + t_mazeWalls.m_outerBorders[i].width)
+		{
+			{
+				std::cout << "top tile WALL collision!" << std::endl;
+				//m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y - RAT_H);
+				m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
+
+			}
+		}
+		////bottom of tile
+		if (y >= t_mazeWalls.m_outerBorders[i].y + t_mazeWalls.m_outerBorders[i].height &&
+			y <= t_mazeWalls.m_outerBorders[i].y &&
+			x > t_mazeWalls.m_outerBorders[i].x - width &&
+			x <= t_mazeWalls.m_outerBorders[i].x + t_mazeWalls.m_outerBorders[i].width)
 		{
 			{
 				std::cout << "bottom tile WALL collision!" << std::endl;
@@ -434,4 +504,46 @@ void CollisionSystem::searchCheese()
 			m_goalEntitys.push_back(e1);
 		}
 	}
+}
+
+void CollisionSystem::TileBombCollision(Level* t_level, CollisionComponent* t_bomb)
+{
+	for (int i = 0; i < t_level->m_mazeWalls.size(); i++)
+	{
+		c2AABB tempCollider;
+
+		tempCollider.min.x = t_level->m_mazeWalls[i].x;
+		tempCollider.min.y = t_level->m_mazeWalls[i].y;
+		
+		tempCollider.max.x = t_level->m_mazeWalls[i].x + t_level->m_mazeWalls[i].width;
+		tempCollider.max.y = t_level->m_mazeWalls[i].y + t_level->m_mazeWalls[i].height;
+
+		if(checkCollision(t_bomb->getCircleCollider(), tempCollider))
+		{
+			for (int t = 0; t < t_level->tiles.size(); t++)
+			{
+				if (t_level->tiles[t].x == t_level->m_mazeWalls[i].x && t_level->tiles[t].y == t_level->m_mazeWalls[i].y)
+				{
+					t_level->tiles[t].alive = false;
+				}
+			}
+
+			t_level->m_mazeWalls.erase(t_level->m_mazeWalls.begin() + i);
+			
+		}
+	}
+	/*if (checkCollision(bombCollider->getCircleCollider(), playerCollider->getAABBCollider())) {
+
+		PlayerComponent* playerComp = static_cast<PlayerComponent*>(playerEntity.getComponent(Types::Player));
+
+		if (bombComp->getState() == BombState::Explode) {
+			playerComp->setDizzyState(true);
+		}
+		else {
+			if (playerComp->getInteract()) {
+				bombComp->playerGetBomb(playerComp->getId());
+				t_observer->onNotify(AudioObserver::PICKUPBOMB);
+				playerComp->setInteract(false);
+			}
+		}*/
 }

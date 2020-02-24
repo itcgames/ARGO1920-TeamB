@@ -1,21 +1,29 @@
 #include "../INCLUDE/Level.h"
 
-tile::tile(SDL_Texture* tset, int x, int y, int tx, int ty, int w, int h)
-    : sheet(tset), x(x), y(y), tx(tx), ty(ty), width(w), height(h) {
-
-}
-MazeWallObject::MazeWallObject(float x, float y, float width, float height)
-	: x(x), y(y), width(width), height(height)
+tile::tile()
 {
-
 }
+
+MazeWallObject::MazeWallObject(float x, float y, float width, float height, bool alive) :
+	 x(x), y(y), width(width), height(height)
+{
+}
+
 Breakable::Breakable(float x, float y, float width, float height,bool alive)
-	: x(x), y(y), width(width), height(height),alive(alive)
-{
+{}
+
+tile::tile(SDL_Texture* tset, int x, int y, int tx, int ty, int w, int h,bool alive)
+    : sheet(tset), x(x), y(y), tx(tx), ty(ty), width(w), height(h),m_alive(alive){
 
 }
+
 TeleportObject::TeleportObject(float x, float y, float width, float height)
 	: x(x), y(y), width(width), height(height) 
+{
+
+}
+Point::Point(float x, float y)
+	: x(x), y(y)
 {
 
 }
@@ -34,8 +42,10 @@ void tile::draw(SDL_Renderer* ren) {
     dest.y = y;
     dest.w = src.w;
     dest.h = src.h;
-
-    SDL_RenderCopy(ren, sheet, &src, &dest);
+	if (alive)
+	{
+		SDL_RenderCopy(ren, sheet, &src, &dest);
+	}
 }
 
 Level::Level(const std::string& name)
@@ -88,24 +98,22 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
 					y = object.getPosition().y;
 					width = object.getAABB().width;
 					height = object.getAABB().height;
-
-					MazeWallObject o(x, y, width, height);
+					bool alive = true;
+					MazeWallObject o(x, y, width, height,alive);
 
 					m_mazeWalls.push_back(o);
 				}
-				else if (object.getName() == "BreakableWall")
+				else if (object.getName() == "OuterBorder")
 				{
-
 					float x, y, width, height;
-					bool alive;
 					x = object.getPosition().x;
 					y = object.getPosition().y;
 					width = object.getAABB().width;
 					height = object.getAABB().height;
-					alive = object.visible();
-					Breakable o(x, y, width, height,alive);
-					
-					m_breakable.push_back(o);
+
+					MazeWallObject o(x, y, width, height);
+
+					m_outerBorders.push_back(o);
 				}
 				else if (object.getName() == "Teleport")
 				{
@@ -118,6 +126,30 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
 					TeleportObject o(x, y, width, height);
 
 					m_teleport.push_back(o);
+				}
+				else if (object.getName() == "cheesepoint")
+				{
+					float x,y;
+					x = object.getPosition().x;
+					y = object.getPosition().y;
+					Point o(x, y);
+					m_cheese.push_back(o);
+				}
+				else if (object.getName() == "bombpoint")
+				{
+					float x, y;
+					x = object.getPosition().x;
+					y = object.getPosition().y;
+					Point o(x, y);
+					m_bomb.push_back(o);
+				}
+				else if (object.getName() == "playerpoint")
+				{
+					float x, y;
+					x = object.getPosition().x;
+					y = object.getPosition().y;
+					Point o(x, y);
+					m_player.push_back(o);
 				}
 			}
 		}
@@ -180,7 +212,7 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
                 auto ts_height = 1450;
                 SDL_QueryTexture(tilesets[tset_gid],
                     NULL, NULL, &ts_width, &ts_height);
-
+                //std::shared_ptr<tile> temp = std::make_shared<tile>();
                 // Calculate the area on the tilesheet to draw from.
                 auto region_x = (cur_gid % (ts_width / tile_width)) * tile_width;
                 auto region_y = (cur_gid / (ts_width / tile_height)) * tile_height;
@@ -190,18 +222,26 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
                 // coordinate.
                 auto x_pos = x * tile_width;
                 auto y_pos = y * tile_height;
-
+                bool m_tileAlive = true;
                 // Phew, all done. 
                 tile t(tilesets[tset_gid], x_pos, y_pos,
-                    region_x, region_y, tile_width, tile_height);
+                    region_x, region_y, tile_width, tile_height, m_tileAlive);
                 tiles.push_back(t);
             }
         }
     }
 }
 
-void Level::draw(SDL_Renderer* ren) {
-    for (auto& tile : tiles) {
-        tile.draw(ren);
+void Level::draw(SDL_Renderer* ren) 
+{
+    for (int i = 0; i < tiles.size(); ++i)
+    {
+        if (tiles.at(i).m_alive)
+        {
+			
+            tiles.at(i).draw(ren);
+        }
+    
     }
 }
+

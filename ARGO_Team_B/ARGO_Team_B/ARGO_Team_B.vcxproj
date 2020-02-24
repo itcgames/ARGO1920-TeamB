@@ -20,9 +20,26 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\ComponentFactory.h" />
+    <ClInclude Include="INCLUDE\Online\Client.h" />
+    <ClInclude Include="INCLUDE\CreditsScene.h" />
+    <ClInclude Include="INCLUDE\GameScene.h" />
+    <ClInclude Include="INCLUDE\HostingGame.h" />
+    <ClInclude Include="INCLUDE\JoiningGame.h" />
+    <ClInclude Include="INCLUDE\Online\Packet.h" />
+    <ClInclude Include="INCLUDE\Online\Server.h" />
+    <ClInclude Include="INCLUDE\Online\PacketManager.h" />
+    <ClInclude Include="INCLUDE\Online\PacketStructs.h" />
+    <ClInclude Include="INCLUDE\Online\PacketType.h" />
+    <ClInclude Include="INCLUDE\Utils\LTexture.h" />
+    <ClInclude Include="INCLUDE\MenuScene.h" />
+    <ClInclude Include="INCLUDE\Utils\Observer.h" />
+    <ClInclude Include="INCLUDE\Utils\ResourceManager.h" />
+    <ClInclude Include="INCLUDE\Utils\Subject.h" />
     <ClInclude Include="INCLUDE\Components\GameComponent.h" />
     <ClInclude Include="Include\FactoryInterface.h" />
     <ClInclude Include="INCLUDE\GameSystem.h" />
+    <ClInclude Include="INCLUDE\Particle.h" />
+    <ClInclude Include="INCLUDE\ParticleSystem.h" />
     <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Command.h" />
     <ClInclude Include="INCLUDE\Components\AnimatedSpriteComponent.h" />
@@ -49,7 +66,6 @@
     <ClInclude Include="INCLUDE\States\State.h" />
     <ClInclude Include="INCLUDE\States\StunnedState.h" />
     <ClInclude Include="INCLUDE\States\WalkingState.h" />
-    <ClInclude Include="INCLUDE\Subject.h" />
     <ClInclude Include="INCLUDE\Systems\AISystem.h" />
     <ClInclude Include="INCLUDE\Systems\BombSystem.h" />
     <ClInclude Include="INCLUDE\Systems\ButtonSystem.h" />
@@ -66,11 +82,30 @@
     <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SRC\Particle.cpp" />
+    <ClCompile Include="SRC\Systems\ParticleSystem.cpp" />
     <ClCompile Include="Src\Components\TestBotBehaviourComponent.cpp" />
     <ClCompile Include="SRC\Components\GameComponent.cpp" />
     <ClCompile Include="SRC\Components\PositionComponent.cpp" />
     <ClCompile Include="SRC\GameSystem.cpp" />
+    <ClCompile Include="SRC\HostingGame.cpp" />
+    <ClCompile Include="SRC\JoiningGame.cpp" />
+    <ClCompile Include="SRC\Online\Client.cpp" />
+    <ClCompile Include="SRC\Online\ClientIni.cpp" />
+    <ClCompile Include="SRC\Online\ClientSendGetMethods.cpp" />
+    <ClCompile Include="SRC\Online\Server.cpp" />
+    <ClCompile Include="SRC\Online\ServerIni.cpp" />
+    <ClCompile Include="SRC\Online\Packet.cpp" />
+    <ClCompile Include="SRC\Online\PacketManager.cpp" />
+    <ClCompile Include="SRC\Online\PacketStructs.cpp" />
+    <ClCompile Include="SRC\Online\ProcessPacket.cpp" />
+    <ClCompile Include="SRC\Online\ServerSendGetMethods.cpp" />
     <ClCompile Include="SRC\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="SRC\Menu\CreditsScene.cpp" />
+    <ClCompile Include="SRC\Menu\GameScene.cpp" />
+    <ClCompile Include="SRC\Utils\LTexture.cpp" />
+    <ClCompile Include="SRC\Menu\MenuScene.cpp" />
+    <ClCompile Include="SRC\Utils\ResourceManager.cpp" />
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />
     <ClCompile Include="SRC\Components\AnimationComponent.cpp" />
     <ClCompile Include="SRC\Components\BombComponent.cpp" />

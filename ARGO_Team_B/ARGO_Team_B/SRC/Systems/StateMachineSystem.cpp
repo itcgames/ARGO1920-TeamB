@@ -106,9 +106,9 @@ void StateMachineSystem::setupSprites()
 	temp1->frameSize.y = 30;
 	temp1->name = "RatWalk";
 	temp1->t_noOfFrames = 5;
-	temp1->frameRate = 8000;
+	temp1->frameRate = 3500;
 
-	m_surface = IMG_Load("./Assets/SpriteSheetWalk.png");
+	m_surface = IMG_Load("./Assets/SpriteSheetWalkMouse.png");
 	temp1->m_texture = SDL_CreateTextureFromSurface(m_renderer, m_surface);
 	SDL_FreeSurface(m_surface);
 	m_spriteSheets.push_back(temp1);
@@ -122,7 +122,7 @@ void StateMachineSystem::setupSprites()
 	temp2->t_noOfFrames = 5;
 	temp2->frameRate = 8000;
 
-	m_surface = IMG_Load("./Assets/SpriteSheetIdle.png");
+	m_surface = IMG_Load("./Assets/SpriteSheetIdleMouse.png");
 	temp2->m_texture = SDL_CreateTextureFromSurface(m_renderer, m_surface);
 	SDL_FreeSurface(m_surface);
 	m_spriteSheets.push_back(temp2);
@@ -143,56 +143,4 @@ void StateMachineSystem::setupSprites()
 
 	temp3 = NULL;
 }
-
-//
-//void StateMachineSystem::setCurrent(States t_state)
-//{
-//	for (Entity& e : entities)
-//	{
-//		AnimatedSpriteComponent* animated = dynamic_cast<AnimatedSpriteComponent*>(e.getComponent(Types::AnimatedSprite));
-//		if (animated != nullptr)
-//		{
-//			if (m_current == NULL) {
-//				m_current = new State();
-//			}
-//
-//			switch (t_state)
-//				{
-//				case States::Interact:
-//					m_current->interact(animated);
-//					m_current = new InteractState();
-//					if (animated->getPrevious() != animated->getCurrent()) {
-//						animated->updateSpriteState(*m_spriteSheets[2]);
-//					}
-//					break;
-//				case States::Attack:
-//					m_current->attack(animated);
-//					m_current = new AttackState();
-//					break;
-//				case States::Idle:
-//					m_current->idle(animated);
-//					m_current = new IdleState();
-//					if (animated->getPrevious() != animated->getCurrent()) {
-//						animated->updateSpriteState(*m_spriteSheets[1]);
-//					}
-//					break;
-//				case States::Stunned:
-//					m_current->stunned(animated);
-//					m_current = new StunnedState();
-//					break;
-//				case States::Walking:
-//					m_current->walking(animated);
-//					m_current = new WalkingState();
-//					
-//					if (animated->getPrevious() != animated->getCurrent()) {
-//						animated->updateSpriteState(*m_spriteSheets[0]);
-//					}
-//					break;
-//				default:
-//				break;
-//			}
-//		}
-//	}
-//	
-//}
 

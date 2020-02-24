@@ -9,22 +9,33 @@
 #include "PlayerComponent.h"
 #include "Xbox360Controller.h"
 #include "Entity.h"
+#include "CollisionSystem.h"
+enum class MovingState {
+	Up,
+	Down,
+	Left,
+	Right,
+	Idle
+};
 
 class ControlComponent : public Component
 {
 public:
 	static int s_controlID;
-	Xbox360Controller* m_controller;
 
+	ControlComponent(Entity& t_gameObject, int controller);
 	ControlComponent(Entity & t_gameObject);
 	~ControlComponent();
-	void handleInput();
+
+	void handleInput(SDL_Renderer * t_renderer,std::vector<ParticleSystem*>&t_ps);
 	void controlInteract(PlayerComponent* t_player);
 	void controlUp(PositionComponent* t_pos);
 	void controlDown(PositionComponent* t_pos);
 	void controlLeft(PositionComponent* t_pos);
 	void controlRight(PositionComponent* t_pos);
 
+	Xbox360Controller* m_controller;
+	Xbox360Controller* getController() { return m_controller; }
 
 private:
 

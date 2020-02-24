@@ -1,13 +1,13 @@
 #include "RenderComponent.h"
 #include<iostream>
 
-RenderComponent::RenderComponent(const char* name, int width, int height, SDL_Renderer* renderer) :
+RenderComponent::RenderComponent(const char* name, int width, int height, int imgWidth, int imgHeight, SDL_Renderer* renderer) :
 	m_angle{ 0 },
 	currentImage(name)
 {
 	this->width = width;
 	this->height = height;
-	srcrect = { 0, 0, this->width, this->height };
+	srcrect = { 0, 0, imgWidth, imgHeight };
 	dstrect = { 0, 0, this->width, this->height };
 	//center = { 0, 0 };
 	m_renderer = renderer;

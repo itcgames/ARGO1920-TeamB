@@ -35,5 +35,3 @@ public:
 
 	States m_type = States::Idle;
 };
-
-#include "AnimatedSpriteComponent.h"

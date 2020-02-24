@@ -9,8 +9,12 @@ GameSystem::~GameSystem() {
 }
 
 void GameSystem::update(float dt) {
+	// Release timer
 	//float startCountdown = m_game->getstartCountdown();
+
+	// Debug timer
 	float startCountdown = 0;
+
 	if (startCountdown <= 0) {
 
 		m_game->setRedTeamCheese(m_players[0]->getCheeseCounter() + m_players[2]->getCheeseCounter());
@@ -21,21 +25,19 @@ void GameSystem::update(float dt) {
 			PlayerComponent* playerComp = static_cast<PlayerComponent*>(player.getComponent(Types::Player));
 
 			if (playerComp->getACheese()) {
-				tempCheeseData* info = new tempCheeseData(m_game->getRedTeamCheese(), playerPos->getPositionX(), playerPos->getPositionY(), playerComp->getId());
+				tempCheeseData* info;
+				
+				if (playerComp->getId() == 1 || playerComp->getId() == 3) {
+					info = new tempCheeseData(m_game->getRedTeamCheese(), playerPos->getPositionX(), playerPos->getPositionY(), playerComp->getId());
+				}
+				else if (playerComp->getId() == 2 || playerComp->getId() == 4) {
+					info = new tempCheeseData(m_game->getRedTeamCheese(), playerPos->getPositionX(), playerPos->getPositionY(), playerComp->getId());
+				}
+				
 				m_cheeseTextData.push_back(info);
 				playerComp->setGetCheeseOff();
 			}
 		}
-
-		//for (tempCheeseData* tempData : m_cheeseTextData) {
-		//	float textTimer = tempData->getTime();
-		//	textTimer -= dt;
-		//	tempData->setTime(textTimer);
-		//	if (textTimer <= 0.0f) {
-		//		//m_cheeseTextData.erase(m_cheeseTextData.begin());
-		//		
-		//	}
-		//}
 
 		for (int i = 0; i < m_cheeseTextData.size(); i++) {
 			float textTimer = m_cheeseTextData[i]->getTime();
@@ -189,5 +191,4 @@ void GameSystem::draw(FontObserver* text) {
 	}
 	
 
-	
 }

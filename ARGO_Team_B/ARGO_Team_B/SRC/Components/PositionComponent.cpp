@@ -65,6 +65,7 @@ void PositionComponent::backToPreviousePos() {
 void PositionComponent::moveUp()
 {
 	m_lastY = m_currentY;
+
 	m_acceleration = rand() % MAX_VELO;
 	m_currentY -= m_acceleration;
 }

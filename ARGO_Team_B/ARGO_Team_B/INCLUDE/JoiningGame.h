@@ -2,7 +2,11 @@
 #define JOININGGAME
 
 #pragma once
-#include "Client/Client.h"
+#include "Online/Client.h"
+#include "Observer.h"
+#include "Globals.h"
+
+#include "GameScene.h"
 
 #include <algorithm>
 #include <string>
@@ -12,28 +16,26 @@
 
 using namespace std;
 
-struct not_digit {
-	bool operator()(const char c)
-	{
-		return c != ' ' && !isdigit(c);
-	}
-};
-
 class JoiningGame {
 public:
 	JoiningGame();
 	~JoiningGame();
 
 	void update(float dt);
+	void draw(FontObserver* text, SDL_Renderer* t_renderer);
 private:
 
 	not_digit notADigit;
 	vector<int> intConverter(string message);
-	string preMessage;
+	string preStartCounter;
 	
 	Client* MyClient;
 
 	int m_startCountdown;
+	int m_playerId;
+	bool m_gameConnented;
+
+	GameScene* m_gameScene;
 };
 
 #endif // !JOININGGAEM
