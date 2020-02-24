@@ -201,6 +201,7 @@ void Game::render()
 	default:
 		break;
 	}
+
 	SDL_RenderPresent(p_renderer);
 }
 
