@@ -46,25 +46,28 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - 1)); // Connect button entity and other entity that require switch	 
 	}
 
-
-	//Trap 1
-	m_spike.addComponent(new TrapComponent(false, 1), Types::Traps);
-	m_spike.addComponent(new PositionComponent(600, 600), Types::Position);
-	m_spike.addComponent(new CollisionComponent(m_spike, RAT_H, RAT_H, 3), Types::Collider);
-	m_spike.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, 30, 30), Types::Render);
-
+	bool alive = false;
+	float x = 600, y = 600;
+	for (int i = 0; i < 3; i++) {
+		m_entities.push_back(factory->CreateTrap(i, alive, x, y)); // manual adjust to get buttons off walls
+		// flip alive based on old code
+		if (alive) {
+			alive = false;
+		} else {
+			alive = true;
+		}
+		x += 100, y += 100;
+		// Systems
+		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+	}
 	//Trap 2
-	m_spike2.addComponent(new TrapComponent(true, 0), Types::Traps);
-	m_spike2.addComponent(new PositionComponent(700, 100), Types::Position);
-	m_spike2.addComponent(new CollisionComponent(m_spike2, RAT_H, RAT_H, 3), Types::Collider);
-	m_spike2.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, 30, 30), Types::Render);
-
+	//m_spike2.addComponent(new TrapComponent(true, 0), Types::Traps);
+	//m_spike2.addComponent(new PositionComponent(700, 100), Types::Position);
 	//Trap 3
-	m_spike3.addComponent(new TrapComponent(false, 2), Types::Traps);
-	m_spike3.addComponent(new PositionComponent(800, 100), Types::Position);
-	m_spike3.addComponent(new CollisionComponent(m_spike3, RAT_H, RAT_H, 3), Types::Collider);
-	m_spike3.addComponent(new RenderComponent("Assets\\Spike.png", 30, 30, 30, 30), Types::Render);
-
+	//m_spike3.addComponent(new TrapComponent(false, 2), Types::Traps);
+	//m_spike3.addComponent(new PositionComponent(800, 100), Types::Position);
 
 	//cheeses
 	m_goalCheeses.reserve(tiled_map_level->m_cheese.size());
@@ -114,14 +117,6 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_gameManager.addComponent(new PositionComponent((float)SCR_W / 2, (float)SCR_H / 2), Types::Position);
 	m_gameManager.addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, 30, 30), Types::Render);
 	
-	// Systems
-	m_collisionSystem.addEntity(m_spike);
-	m_collisionSystem.addEntity(m_spike2);
-	m_collisionSystem.addEntity(m_spike3);
-
-	m_renderSystem.addEntity(m_spike);
-	m_renderSystem.addEntity(m_spike2);
-	m_renderSystem.addEntity(m_spike3);
 
 	m_observer = new AudioObserver();
 	m_observer->load();
@@ -130,9 +125,6 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_font = new FontObserver(t_renderer);
 	m_font->loadFont();
 
-	m_buttonSystem.addEntity(m_spike);
-	m_buttonSystem.addEntity(m_spike2);
-	m_buttonSystem.addEntity(m_spike3);
 
 	m_gameSystem.addEntity(m_gameManager);
 	m_gameSystem.setupComponent();

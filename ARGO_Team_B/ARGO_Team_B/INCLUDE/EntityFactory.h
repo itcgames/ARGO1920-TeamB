@@ -33,10 +33,14 @@ public:
 		e->init(EntityType::Default);
 		return e;
 	}
-	Entity* CreateTrap() {
-		Entity* e = new Entity;
-		e->init(EntityType::Spike);
-		return e;
+	Entity* CreateTrap(const int t_num, const bool t_alive, const float t_x, float t_y) {
+		Entity* spike = new Entity;
+		spike->init(EntityType::Spike);
+		spike->addComponent(new TrapComponent(t_alive, t_num), Types::Traps);
+		spike->addComponent(new PositionComponent(t_x , t_y), Types::Position);
+		spike->addComponent(new CollisionComponent(*spike, RAT_H, RAT_H, 3), Types::Collider);
+		spike->addComponent(new RenderComponent("./Assets/Spike.png", 30, 30, 30, 30), Types::Render);
+		return spike;
 	}
 	Entity* CreateButton(const int t_num, const float t_x, float t_y) {
 		Entity* button = new Entity;
