@@ -26,7 +26,7 @@ void ControlSystem::handleInput(float dt, StateMachineSystem* t_stateSystem,SDL_
 
 		if (cont != NULL)
 		{
-			cont->handleInput(*t_stateSystem,t_renderer,t_ps);
+			cont->handleInput(t_renderer,t_ps);
 		}
 		PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(e.getComponent(Types::Player));
 		if (playerComp->getSwipeCooldown() > 0.0f) {
@@ -68,15 +68,5 @@ void ControlSystem::handleInput(SDL_Keycode key)
 	}
 }
 
-void ControlSystem::initStateSystem(StateMachineSystem* t_stateSystem)
-{
-	for (Entity& e : entities)
-	{
-		ControlComponent* control = dynamic_cast<ControlComponent*>(e.getComponent(Types::Control));
-		if (control != nullptr)
-		{
-			control->initStateSystem(t_stateSystem);
-		}
-	}
-}
+
 

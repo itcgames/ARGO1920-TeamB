@@ -60,6 +60,8 @@
     <ClInclude Include="INCLUDE\Particle.h" />
     <ClInclude Include="INCLUDE\ParticleSystem.h" />
     <ClInclude Include="Include\Components\TestBotBehaviourComponent.h" />
+    <ClInclude Include="Include\FactoryInterface.h" />
+    <ClInclude Include="Include\ComponentFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />

@@ -48,6 +48,7 @@ Game::Game() :
 	//Allocate 128 channels for a max for 128 audio chunks playing at one time
 	Mix_AllocateChannels(128);
 
+	//m_hostGame = new HostingGame();
 	m_joinGame = new JoiningGame();
 	m_currentState = GameStates::Game;
 	m_menuScene = new MenuScene(p_renderer, &m_currentState, controlComp);
@@ -71,7 +72,6 @@ Game::~Game() {}
 /// </summary>
 void Game::run()
 {
-	bool exit = false;
 	float timePerFrame = 1000.f / 60.f;
 	Uint32 timeSinceLastUpdate = 0;
 	Uint32 timeSinceStart = SDL_GetTicks();
@@ -147,7 +147,6 @@ void Game::update(float dt)
 	default:
 		break;
 	}
-
 }
 
 /// <summary>
@@ -189,6 +188,7 @@ void Game::render()
 	default:
 		break;
 	}
+
 	SDL_RenderPresent(p_renderer);
 }
 
