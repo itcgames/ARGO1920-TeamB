@@ -330,7 +330,7 @@ void Game::processEvents()
 void Game::update(float dt)
 {
 	m_healthSystem.update();
-	m_aiSystem.update();
+	//m_aiSystem.update();
 	m_buttonSystem.update();
 	m_controlSystem.handleInput(dt);
 	m_stateMachine->update();

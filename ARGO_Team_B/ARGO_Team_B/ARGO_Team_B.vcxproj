@@ -19,7 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\ComponentFactory.h" />
     <ClInclude Include="INCLUDE\Components\GameComponent.h" />
+    <ClInclude Include="Include\FactoryInterface.h" />
     <ClInclude Include="INCLUDE\GameSystem.h" />
     <ClInclude Include="INCLUDE\Systems\CollisionSystem.h" />
     <ClInclude Include="INCLUDE\Command.h" />
