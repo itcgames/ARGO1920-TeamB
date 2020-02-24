@@ -10,7 +10,10 @@
 #include <tmxlite/Layer.hpp>
 #include <tmxlite/TileLayer.hpp>
 #include "Assets.h"
+#include "Enums.h"
 typedef int gid;
+
+
 
 // Stores information about an individual tile to be
 // displayed.
@@ -28,11 +31,19 @@ struct tile {
     int height;
     bool m_alive;
 
+	int id;
+
 	bool alive = true;	
 	tile();
     tile(SDL_Texture* tset, int x = 0, int y = 0,
         int tx = 0, int ty = 0, int w = 0, int h = 0,bool alive=true);
     void draw(SDL_Renderer* ren);
+
+	tile* m_nextTile;
+	tile* m_previousTile;
+
+	TileType m_tileType = TileType::NormalTile;
+
 };
 
 struct MazeWallObject : public tile
@@ -85,6 +96,12 @@ public:
 	std::vector<Point> m_bomb;
 	std::vector<Point> m_player;
 private:
+
+	void assignObstacles();
+	void flowFieldAlgorithm();
+
+	int DistanceToGoal(tile* t_goal, tile* t_currentTile);
+
     std::string name;
     // Think of the dimensions as a 2D array (after all, that's what our
     // Tiled map is)
@@ -95,6 +112,8 @@ private:
     int tile_width;
     int tile_height;
     // All of the tiles we will draw to the screen.
+
+	bool m_goalSelected = true;
 
     // All of the tilesets used by our Tiled map.
     std::map<gid, SDL_Texture*> tilesets;

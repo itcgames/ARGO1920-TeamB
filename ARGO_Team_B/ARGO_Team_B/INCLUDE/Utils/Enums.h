@@ -18,6 +18,14 @@ enum class Types {
 	TestBot
 };
 
+enum class TileType {
+	ObstacleTile,
+	NormalTile,
+	StartPathTile,
+	GoalPathTile,
+	PathTile
+};
+
 enum class States {
 	Attack,
 	Idle,

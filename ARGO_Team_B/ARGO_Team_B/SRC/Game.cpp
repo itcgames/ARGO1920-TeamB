@@ -50,7 +50,7 @@ Game::Game() :
 
 	//m_hostGame = new HostingGame();
 	m_joinGame = new JoiningGame();
-	m_currentState = GameStates::MainMenu;
+	m_currentState = GameStates::Game;
 	m_menuScene = new MenuScene(p_renderer, &m_currentState, controlComp);
 	//m_creditsScene = new CreditsScene(p_renderer, &m_currentState);
 
