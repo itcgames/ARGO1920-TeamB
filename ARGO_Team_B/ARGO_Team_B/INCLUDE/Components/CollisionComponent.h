@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cute_c2.h>
 #include <vector>
+#include <math.h>
 
 #include "Enums.h"
 
@@ -18,6 +19,7 @@ public:
 	CollisionComponent(Entity& t_gameObject, int width, int height, int count);
 
 	void updateCollider(Entity& t_entity);
+	void updateCollider(Entity& t_entity, double angle);
 
 	void setCircleRadius(float radiuss);
 

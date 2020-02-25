@@ -24,7 +24,7 @@ public:
 		rat->addComponent(new PlayerComponent(t_num), Types::Player); // This must always be first added
 		rat->addComponent(new HealthComponent(100), Types::Health);
 		rat->addComponent(new PositionComponent(t_level->m_player[t_num - 1].x, t_level->m_player[t_num - 1].y), Types::Position);
-		rat->addComponent(new CollisionComponent(*rat, 30.0f, RAT_H, RAT_W), Types::Collider);
+		rat->addComponent(new CollisionComponent(*rat, RAT_W, RAT_H, 4), Types::Collider);
 		rat->addComponent(new ControlComponent(*rat), Types::Control);
 		rat->addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000), Types::AnimatedSprite);
 
@@ -40,7 +40,7 @@ public:
 		spike->init(EntityType::Spike);
 		spike->addComponent(new TrapComponent(t_alive, t_num), Types::Traps);
 		spike->addComponent(new PositionComponent(t_x , t_y), Types::Position);
-		spike->addComponent(new CollisionComponent(*spike, RAT_H, RAT_H, 3), Types::Collider);
+		spike->addComponent(new CollisionComponent(*spike, RAT_W, RAT_W), Types::Collider);
 		spike->addComponent(new RenderComponent("./Assets/Spike.png", 30, 30, 30, 30), Types::Render);
 		return spike;
 	}
@@ -49,7 +49,7 @@ public:
 		button->init(EntityType::Default);
 		button->addComponent(new ButtonComponent(false, t_num, 1), Types::Button);
 		button->addComponent(new PositionComponent(t_x, t_y), Types::Position);
-		button->addComponent(new CollisionComponent(*button, 30, 30), Types::Collider);
+		button->addComponent(new CollisionComponent(*button, RAT_W, RAT_W), Types::Collider);
 		button->addComponent(new RenderComponent("./Assets/Button.png", 30, 30, 30, 30), Types::Render);
 
 		return button;

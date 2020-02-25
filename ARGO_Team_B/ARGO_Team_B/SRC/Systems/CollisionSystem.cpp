@@ -21,15 +21,15 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer,
 
 	for (Entity& player : m_playerEntitys) {
 		CollisionComponent* playerComp = dynamic_cast<CollisionComponent*>(player.getComponent(Types::Collider));
-		playerComp->updateCollider(player);
+		PositionComponent* posComp = dynamic_cast<PositionComponent*>(player.getComponent(Types::Position));
+		playerComp->updateCollider(player, posComp->getangle());
 		playerColliders.push_back(playerComp);
-		
-		
 
 		m_positionComp = static_cast<PositionComponent*>(player.getComponent(Types::Position));
 		x1 = m_positionComp->getPositionX();
 		y1 = m_positionComp->getPositionY();
-		tileCollision(x1, y1, RAT_W, RAT_H, t_level,t_observer);
+		tileCollision(playerComp, posComp, t_level, t_observer);
+		//tileCollision(x1, y1, RAT_W, RAT_H, t_level,t_observer);
 
 	}
 
@@ -83,7 +83,7 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer,
 				switch (button->getType())
 				{
 				case 1:
-					if (checkCollision(playerCollision->getAABBCollider(), buttonCollider->getAABBCollider())) {
+					if (checkCollision( buttonCollider->getAABBCollider(), playerCollision->getPolyCollider())) {
 
 						button->setState(true);
 						t_observer->onNotify(AudioObserver::CLICK);
@@ -91,7 +91,7 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer,
 					}
 					break;
 				case 2:
-					if (checkCollision(playerCollision->getAABBCollider(), buttonCollider->getAABBCollider())) {
+					if (checkCollision(buttonCollider->getAABBCollider(), playerCollision->getPolyCollider())) {
 						// 1,3 for red team
 						if (player->getId() == 1 || player->getId() == 3) {
 							button->setRedDoor(true);
@@ -131,7 +131,7 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer,
 				HealthComponent* playerHealth = static_cast<HealthComponent*>(playerEntitys.getComponent(Types::Health));
 				PositionComponent* playerPos = static_cast<PositionComponent*>(playerEntitys.getComponent(Types::Position));
 				if (playerHealth->getAlive()) {
-					if (checkCollision( player->getAABBCollider(), trapCollider->getPolyCollider()) ) {
+					if (checkCollision( trapCollider->getAABBCollider(), player->getPolyCollider()) ) {
 						t_observer->onNotify(AudioObserver::CLICK);
 						cout << "player die" << endl;
 						playerPos->backToStart();
@@ -156,12 +156,12 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer,
 
 			// red door open, check with player 1 and 3
 			if (!door->getRedDoor()) {
-				if (checkCollision(playerColliders[0]->getAABBCollider(), doorCollider->getAABBCollider())) {
+				if (checkCollision( doorCollider->getAABBCollider(), playerColliders[0]->getPolyCollider())) {
 					PlayerComponent* player = static_cast<PlayerComponent*>(m_playerEntitys[0].getComponent(Types::Player));
 					player->setMoveable(false);
 				}
 
-				if (checkCollision(playerColliders[2]->getAABBCollider(), doorCollider->getAABBCollider())) {
+				if (checkCollision(doorCollider->getAABBCollider(), playerColliders[2]->getPolyCollider())) {
 					PlayerComponent* player = static_cast<PlayerComponent*>(m_playerEntitys[2].getComponent(Types::Player));
 					player->setMoveable(false);
 				}
@@ -169,12 +169,12 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer,
 
 			// green door open, check with player 2 and 4
 			if (!door->getGreenDoor()) {
-				if (checkCollision(playerColliders[1]->getAABBCollider(), doorCollider->getAABBCollider())) {
+				if (checkCollision( doorCollider->getAABBCollider(), playerColliders[1]->getPolyCollider())) {
 					PlayerComponent* player = static_cast<PlayerComponent*>(m_playerEntitys[1].getComponent(Types::Player));
 					player->setMoveable(false);
 				}
 
-				if (checkCollision(playerColliders[3]->getAABBCollider(), doorCollider->getAABBCollider())) {
+				if (checkCollision(doorCollider->getAABBCollider(), playerColliders[3]->getPolyCollider())) {
 					PlayerComponent* player = static_cast<PlayerComponent*>(m_playerEntitys[3].getComponent(Types::Player));
 					player->setMoveable(false);
 				}
@@ -182,7 +182,7 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer,
 		}
 	}
 	
-	// check collision between player and traps
+	// check collision between player and Cheese
 	searchCheese();
 	for (Entity& goalEntity : m_goalEntitys) 
 	{
@@ -203,7 +203,7 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer,
 				
 				PlayerComponent* player = static_cast<PlayerComponent*>(playerEntitys.getComponent(Types::Player));
 				PositionComponent* playerPos = static_cast<PositionComponent*>(playerEntitys.getComponent(Types::Position));
-					if (checkCollision(goalCollider->getAABBCollider(), playerCollider->getAABBCollider()))
+					if (checkCollision(goalCollider->getCircleCollider(), playerCollider->getPolyCollider()))
 					{
 						//std::cout << "Player with ID : " << player->getId() << "Collected the cheese" << std::endl;
 						player->gainCheese(1);
@@ -234,21 +234,55 @@ void CollisionSystem::bombCollision(AudioObserver* t_observer)
 
 				bombCollider->updateCollider(bombEntity);
 
-				if (checkCollision(bombCollider->getCircleCollider(), playerCollider->getAABBCollider())) {
+				if (checkCollision(bombCollider->getCircleCollider(), playerCollider->getPolyCollider())) {
 
 					PlayerComponent* playerComp = static_cast<PlayerComponent*>(playerEntity.getComponent(Types::Player));
 					
-					if (bombComp->getState() == BombState::Explode) {
-						playerComp->setDizzyState(true);
-					}
-					else if(bombComp->getState() != BombState::Activate){
-						bombComp->playerGetBomb(playerComp->getId());
-						t_observer->onNotify(AudioObserver::PICKUPBOMB);
-						playerComp->setInteract(false);
-						
+					if (!playerComp->checkCarryBomb()) {
+
+						if (bombComp->getState() == BombState::Explode) {
+							playerComp->setDizzyState(true);
+						}
+						else if (bombComp->getState() != BombState::Activate) {
+							bombComp->playerGetBomb(playerComp->getId());
+							t_observer->onNotify(AudioObserver::PICKUPBOMB);
+							playerComp->setInteract(false);
+							playerComp->getABomb(true);
+
+						}
 					}
 				}
 			}
+		}
+	}
+}
+
+
+void CollisionSystem::tileCollision(CollisionComponent* playerCollider, PositionComponent* positionComp, Level& t_mazeWalls, AudioObserver* t_observer) {
+	float x, y, width, height;
+	for (int i = 0; i < t_mazeWalls.m_mazeWalls.size(); i++) {
+		x = t_mazeWalls.m_mazeWalls[i].x;
+		y = t_mazeWalls.m_mazeWalls[i].y;
+		width = t_mazeWalls.m_mazeWalls[i].width;
+		height = t_mazeWalls.m_mazeWalls[i].height;
+		m_wallCollider.min = { x , y };
+		m_wallCollider.max = { x + width , y + height };
+
+		if (checkCollision(m_wallCollider, playerCollider->getPolyCollider())) {
+			positionComp->setPosition(positionComp->getLastX(), positionComp->getLastY());
+		}
+	}
+
+	for (int i = 0; i < t_mazeWalls.m_outerBorders.size(); i++) {
+		x = t_mazeWalls.m_outerBorders[i].x;
+		y = t_mazeWalls.m_outerBorders[i].y;
+		width = t_mazeWalls.m_outerBorders[i].width;
+		height = t_mazeWalls.m_outerBorders[i].height;
+		m_wallCollider.min = { x , y };
+		m_wallCollider.max = { x + width , y + height };
+
+		if (checkCollision(m_wallCollider, playerCollider->getPolyCollider())) {
+			positionComp->setPosition(positionComp->getLastX(), positionComp->getLastY());
 		}
 	}
 }
@@ -264,7 +298,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			y + height >= t_mazeWalls.m_mazeWalls[i].y &&
 			y <= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height)
 		{
-			std::cout << "right tile WALL collision!" << std::endl;
+			//std::cout << "right tile WALL collision!" << std::endl;
 			m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
 			//m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x + RAT_H, y);
 		}
@@ -275,7 +309,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			y + height >= t_mazeWalls.m_mazeWalls[i].y &&
 			y <= t_mazeWalls.m_mazeWalls[i].y + t_mazeWalls.m_mazeWalls[i].height)
 		{
-			std::cout << "left tile WALL collision!" << std::endl;
+			//std::cout << "left tile WALL collision!" << std::endl;
 			//m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x - RAT_W, y);
 			m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
 		}
@@ -286,7 +320,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width)
 		{
 			{
-				std::cout << "top tile WALL collision!" << std::endl;
+				//std::cout << "top tile WALL collision!" << std::endl;
 				//m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y - RAT_H);
 				m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
 
@@ -299,7 +333,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			x <= t_mazeWalls.m_mazeWalls[i].x + t_mazeWalls.m_mazeWalls[i].width)
 		{
 			{
-				std::cout << "bottom tile WALL collision!" << std::endl;
+				//std::cout << "bottom tile WALL collision!" << std::endl;
 				//m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y + RAT_W);
 				m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
 
@@ -318,7 +352,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			y + height >= t_mazeWalls.m_outerBorders[i].y &&
 			y <= t_mazeWalls.m_outerBorders[i].y + t_mazeWalls.m_outerBorders[i].height)
 		{
-			std::cout << "right tile WALL collision!" << std::endl;
+			//std::cout << "right tile WALL collision!" << std::endl;
 			m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
 			//m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x + RAT_H, y);
 		}
@@ -329,7 +363,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			y + height >= t_mazeWalls.m_outerBorders[i].y &&
 			y <= t_mazeWalls.m_outerBorders[i].y + t_mazeWalls.m_outerBorders[i].height)
 		{
-			std::cout << "left tile WALL collision!" << std::endl;
+			//std::cout << "left tile WALL collision!" << std::endl;
 			//m_positionComp->setPosition(t_mazeWalls.m_mazeWalls[i].x - RAT_W, y);
 			m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
 		}
@@ -340,7 +374,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			x <= t_mazeWalls.m_outerBorders[i].x + t_mazeWalls.m_outerBorders[i].width)
 		{
 			{
-				std::cout << "top tile WALL collision!" << std::endl;
+				//std::cout << "top tile WALL collision!" << std::endl;
 				//m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y - RAT_H);
 				m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
 
@@ -353,7 +387,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			x <= t_mazeWalls.m_outerBorders[i].x + t_mazeWalls.m_outerBorders[i].width)
 		{
 			{
-				std::cout << "bottom tile WALL collision!" << std::endl;
+				//std::cout << "bottom tile WALL collision!" << std::endl;
 				//m_positionComp->setPosition(x, t_mazeWalls.m_mazeWalls[i].y + RAT_W);
 				m_positionComp->setPosition(m_positionComp->getLastX(), m_positionComp->getLastY());
 
@@ -403,8 +437,8 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 			x <= t_mazeWalls.m_teleport[i].x + t_mazeWalls.m_teleport[i].width)
 		{
 			t_observer->onNotify(AudioObserver::PORTAL);
-				std::cout << "bottom TELEPORT collision!" << std::endl;
-				m_positionComp->setPosition(t_mazeWalls.m_teleport[3].x, t_mazeWalls.m_teleport[3].y - 75);
+			std::cout << "bottom TELEPORT collision!" << std::endl;
+			m_positionComp->setPosition(t_mazeWalls.m_teleport[3].x, t_mazeWalls.m_teleport[3].y - 75);
 		}
 	}
 }
@@ -458,6 +492,23 @@ void CollisionSystem::searchEntities() {
 bool CollisionSystem::checkCollision(c2Circle t_collider, c2AABB t_otherCollider)
 {
 	if (c2CircletoAABB(t_collider, t_otherCollider)) {
+		//std::cout << "Collision" << std::endl;
+		//handleCollision();
+		return true;
+	}
+	return false;
+}
+
+
+/// <summary>
+/// check the collision between circle and polygon
+/// </summary>
+/// <param name="t_collider"> circle collider</param>
+/// <param name="t_otherCollider">rectangle collider</param>
+/// <returns></returns>
+bool CollisionSystem::checkCollision(c2Circle t_collider, c2Poly t_otherCollider)
+{
+	if (c2CircletoPoly(t_collider, &t_otherCollider, nullptr)) {
 		//std::cout << "Collision" << std::endl;
 		//handleCollision();
 		return true;

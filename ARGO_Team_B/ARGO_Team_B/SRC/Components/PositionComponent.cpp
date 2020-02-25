@@ -30,6 +30,8 @@ void PositionComponent::setPosition(float t_x, float t_y)
 {
 	m_currentX = t_x;
 	m_currentY = t_y;
+	m_velocityX = -m_velocityX * 0.5;
+	m_velocityY = -m_velocityY * 0.5;
 }
 
 void PositionComponent::setVelo(float t_x, float t_y)
