@@ -13,7 +13,7 @@ void CollisionSystem::updateComponent(Component* component)
 {
 }
 
-void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer, std::vector<ParticleSystem*>& t_ps, SDL_Renderer* t_renderer)
+void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer, std::vector<ParticleSystem*>& t_ps, SDL_Renderer* t_renderer, SDL_Rect & t_shake)
 {
 	searchEntities();
 
@@ -24,6 +24,8 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer,
 		playerComp->updateCollider(player);
 		playerColliders.push_back(playerComp);
 		
+		
+
 		m_positionComp = static_cast<PositionComponent*>(player.getComponent(Types::Position));
 		x1 = m_positionComp->getPositionX();
 		y1 = m_positionComp->getPositionY();
@@ -214,6 +216,7 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer,
 	}
 
 	bombCollision(t_observer);
+
 }
 
 void CollisionSystem::bombCollision(AudioObserver* t_observer)
@@ -547,3 +550,4 @@ void CollisionSystem::TileBombCollision(Level* t_level, CollisionComponent* t_bo
 			}
 		}*/
 }
+

@@ -8,7 +8,7 @@
 #include <cute_c2.h>
 #include <vector>
 
-#include "Globals.h"
+#include "Enums.h"
 
 class CollisionComponent : public Component
 {
@@ -19,7 +19,7 @@ public:
 
 	void updateCollider(Entity& t_entity);
 
-	void setCircleRadius(float radius);
+	void setCircleRadius(float radiuss);
 
 	~CollisionComponent();
 

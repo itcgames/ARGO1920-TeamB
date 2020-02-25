@@ -53,6 +53,7 @@ Game::Game() :
 
 	// debug
 	m_currentState = GameStates::Game;
+	
 	// release m_currentState = GameStates::MainMenu;
 
 	m_menuScene = new MenuScene(p_renderer, &m_currentState, controlComp);
@@ -111,7 +112,6 @@ void Game::processEvents()
 		switch (event.type)
 		{
 		case SDL_KEYDOWN:
-			//m_controlSystem.handleInput(event.key.keysym.sym);
 			break;
 		case SDL_QUIT:
 			m_quit = true;
@@ -137,14 +137,6 @@ void Game::update(float dt)
 		m_menuScene->update(dt);
 		break;
 	case GameStates::Game:
-		/*m_healthSystem.update();
-		m_aiSystem.update();
-		m_buttonSystem.update();
-		m_controlSystem.handleInput(dt);
-		m_collisionSystem.updateComponent(*tiled_map_level, m_observer);
-		m_stateMachine->update();
-		m_bombSystem.updateComponent(dt, m_observer);
-		m_gameSystem.update(dt);*/
 		m_gameScene->update(dt);
 		break;
 	case GameStates::Hosting:
@@ -179,10 +171,6 @@ void Game::render()
 			m_gameScene = new GameScene(p_renderer);
 		}
 		else {
-			/*tiled_map_level->draw(p_renderer);
-			m_renderSystem.draw();
-			m_gameSystem.draw(m_font);
-			m_stateMachine->update();*/
 			m_gameScene->render();
 		}
 		
@@ -204,6 +192,7 @@ void Game::render()
 	default:
 		break;
 	}
+
 	SDL_RenderPresent(p_renderer);
 }
 

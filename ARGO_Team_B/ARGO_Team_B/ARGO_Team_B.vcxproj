@@ -78,7 +78,6 @@
     <ClInclude Include="INCLUDE\Utils\Assets.h" />
     <ClInclude Include="INCLUDE\Utils\Enums.h" />
     <ClInclude Include="INCLUDE\Utils\cute_c2.h" />
-    <ClInclude Include="INCLUDE\Utils\Globals.h" />
     <ClInclude Include="INCLUDE\Utils\Xbox360Controller.h" />
     <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
   </ItemGroup>

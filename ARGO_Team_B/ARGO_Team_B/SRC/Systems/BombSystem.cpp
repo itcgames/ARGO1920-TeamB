@@ -12,7 +12,7 @@ void BombSystem::updateComponent(Component* component) {
 
 }
 
-void BombSystem::updateComponent(float dt,AudioObserver * t_observer) {
+void BombSystem::updateComponent(float dt,AudioObserver * t_observer, SDL_Rect& t_view) {
 	searchEntities();
 
 	for (Entity& bombEntity : m_bombEntitys) {
@@ -61,7 +61,7 @@ void BombSystem::updateComponent(float dt,AudioObserver * t_observer) {
 				bombCollider->setCircleRadius(bombComp->getBlastRadius());
 
 				RenderComponent* bombRender = static_cast<RenderComponent*>(bombEntity.getComponent(Types::Render));
-				bombRender->setImage("./Assets/explode.png",100,100);
+				bombRender->setImage("./Assets/explode.png", bombComp->getBlastRadius() * 2, bombComp->getBlastRadius() * 2);
 			}
 			else {
 
@@ -78,15 +78,51 @@ void BombSystem::updateComponent(float dt,AudioObserver * t_observer) {
 			float timer = bombComp->getExplosionTimer();
 			if (timer <= 0.0f) {
 				bombComp->setState(BombState::Removed);
+				m_isScreenShaking = false;
 			}
 			else {
-
+				m_isScreenShaking = true;
 				timer -= dt;
 				bombComp->setExplosionTimer(timer);
 			}
 		}
 		
+		ScreenShake(t_view);
 	}
+}
+
+void BombSystem::ScreenShake(SDL_Rect& t_view)
+{
+	if (m_isScreenShaking)
+	{
+			switch (rand() % 2)
+			{
+			case 0:
+				screenShakeAmountX *= -1;
+				break;
+			case 1:
+				screenShakeAmountY *= -1;
+				break;
+			default:
+				break;
+			}
+
+			t_view.x += screenShakeAmountX;
+			t_view.y += screenShakeAmountY;
+
+			t_view.w = SCR_W;
+			t_view.h = SCR_H;
+
+		}
+		else
+		{
+			m_isScreenShaking = false;
+			t_view.x = 0;
+			t_view.y = 0;
+			t_view.h = SCR_H;
+			t_view.w = SCR_W;
+			
+		}
 }
 
 /// <summary>

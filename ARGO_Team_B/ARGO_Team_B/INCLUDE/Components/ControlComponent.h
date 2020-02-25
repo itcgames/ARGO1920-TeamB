@@ -27,7 +27,7 @@ public:
 	ControlComponent(Entity & t_gameObject);
 	~ControlComponent();
 
-	void handleInput(SDL_Renderer * t_renderer,std::vector<ParticleSystem*>&t_ps);
+	void handleInput(SDL_Renderer * t_renderer,std::vector<ParticleSystem*>&t_ps, float dt);
 	void controlInteract(PlayerComponent* t_player);
 	void controlUp(PositionComponent* t_pos);
 	void controlDown(PositionComponent* t_pos);

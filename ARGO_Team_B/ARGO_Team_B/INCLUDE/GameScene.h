@@ -1,7 +1,6 @@
 #ifndef GAME_SCENE_H
 #define GAME_SCENE_H
 #include <SDL.h>
-#include "Enums.h"
 
 #include "HealthSystem.h"
 #include "ControlSystem.h"
@@ -29,6 +28,18 @@ public:
 	void update(float dt);
 	void render();
 
+	/// <summary>
+	/// online game only
+	/// </summary>
+	
+	//player transfer data
+	SDL_Point playerPosition(int id);
+	bool playerGetCheese(int id);
+
+	//game transfer data
+	float gameStartCountdown();
+	float ingameTimer();
+
 private:
 	std::vector<Entity*> m_entities;
 
@@ -46,9 +57,14 @@ private:
 	BombSystem m_bombSystem;
 	GameSystem m_gameSystem;
 
+	SDL_Rect m_view;
+
 	std::vector<ParticleSystem*> m_particles;
 	
 	SDL_Renderer* m_renderer;
+
+	float m_restartTimer;
+	void resetGame();
 };
 
 #endif // !MENU_SCENE_H

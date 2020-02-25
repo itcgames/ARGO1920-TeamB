@@ -3,6 +3,14 @@
 GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_renderer(t_renderer)
 {
+
+	m_view.h = SCR_H;
+	m_view.w = SCR_W;
+	m_view.x = 0;
+	m_view.y = 0;
+
+	SDL_RenderSetViewport(m_renderer, &m_view);
+
 	// Extra info for systems
 	const auto MAP_PATH = "Assets/map/test.tmx";
 	tiled_map_level = new Level("Test");
@@ -17,7 +25,8 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_entities.reserve(toReserve); // increase with each addition to Factory (see above)
 	Factory* factory = new EntityFactory;
 
-	/// Players
+	/// *** Ensure Players are FIRST four entities in list at all times
+	/// Players 
 	for (int i = 0; i < 4; i++) {
 		m_entities.push_back(factory->CreatePlayer(i + 1, tiled_map_level));
 				
@@ -82,7 +91,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	}
 
 	// Game Manager && UI Detail
-	m_entities.push_back(factory->CreateGame());
+	m_entities.push_back(factory->CreateGame()); /// ** Ensure this is the LAST entity at all times
 	m_gameSystem.addEntity(*m_entities.at(m_entities.size() - 1));
 	m_gameSystem.setupComponent();
 
@@ -119,23 +128,34 @@ GameScene::~GameScene()
 
 void GameScene::update(float dt)
 {
-	m_healthSystem.update();
-	m_aiSystem.update();
-	m_buttonSystem.update();
-	m_controlSystem.handleInput(dt, m_stateMachine, m_renderer, m_particles);
-	m_collisionSystem.updateComponent(*tiled_map_level, m_observer, m_particles, m_renderer);
-	m_stateMachine->update();
-	m_bombSystem.updateComponent(dt, m_observer);
-	m_gameSystem.update(dt);
+	GameComponent* m_game = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
+	if (!m_game->getGameover()) {
 
-	for (int i = 0; i < m_particles.size(); i++) {
-		// Loops through particle systems
-		m_particles.at(i)->update();
+		m_healthSystem.update();
+		m_aiSystem.update();
+		m_buttonSystem.update();
+		m_controlSystem.handleInput(dt, m_stateMachine, m_renderer, m_particles);
+		m_collisionSystem.updateComponent(*tiled_map_level, m_observer, m_particles, m_renderer, m_view);
+		m_stateMachine->update();
+		m_bombSystem.updateComponent(dt, m_observer, m_view);
+		m_gameSystem.update(dt);
 
-		//Checks if the particle system is empty
-		if (m_particles.at(i)->m_particles.size() <= 0) {
-			// Deletes the particle system
-			m_particles.erase(m_particles.begin() + i);
+		for (int i = 0; i < m_particles.size(); i++) {
+			// Loops through particle systems
+			m_particles.at(i)->update();
+
+			//Checks if the particle system is empty
+			if (m_particles.at(i)->m_particles.size() <= 0) {
+				// Deletes the particle system
+				m_particles.erase(m_particles.begin() + i);
+			}
+		}
+	}
+	else {
+		m_restartTimer -= dt;
+		if (m_restartTimer <= 0) {
+			// restart code here
+
 		}
 	}
 }
@@ -144,10 +164,81 @@ void GameScene::render()
 {
 	tiled_map_level->draw(m_renderer);
 	m_renderSystem.draw();
-	m_gameSystem.draw(m_font);
+	m_gameSystem.draw(m_font, m_restartTimer);
 	m_stateMachine->update();
 
 	for (ParticleSystem* ps : m_particles) {
 		ps->draw(m_renderer); // Draw particle system
 	}
+
+	SDL_RenderSetViewport(m_renderer, &m_view);
+
+}
+
+void GameScene::resetGame() {
+
+}
+
+SDL_Point GameScene::playerPosition(int id) {
+
+	PositionComponent* m_player = NULL;
+
+	switch (id)
+	{
+	case 1:
+		m_player = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
+		break;
+	case 2:
+		m_player = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
+		break;
+	case 3:
+		m_player = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
+		break;
+	case 4:
+		m_player = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
+		break;
+	default:
+		break;
+	}
+
+	SDL_Point positionData = { m_player->getPositionX(), m_player->getPositionY() };
+
+	return positionData;
+}
+
+bool GameScene::playerGetCheese(int id) {
+
+	PlayerComponent* m_player = NULL;
+
+	switch (id)
+	{
+	case 1:
+		m_player = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
+		break;
+	case 2:
+		m_player = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
+		break;
+	case 3:
+		m_player = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
+		break;
+	case 4:
+		m_player = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
+		break;
+	default:
+		break;
+	}
+
+	bool playerGetCheese = m_player->getACheese();
+
+	return playerGetCheese;
+}
+
+float GameScene::gameStartCountdown() {
+	GameComponent* m_gameState = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
+	return m_gameState->getstartCountdown();
+}
+
+float GameScene::ingameTimer() {
+	GameComponent* m_gameState = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
+	return m_gameState->getGameTimer();
 }

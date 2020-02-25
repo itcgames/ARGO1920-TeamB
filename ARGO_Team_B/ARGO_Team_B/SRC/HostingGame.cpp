@@ -4,7 +4,7 @@ HostingGame::HostingGame()
 {
 	MyServer = new Server(1111, "149.153.106.159");
 	m_startCountdown = 5.0f;
-	m_playerRequire = 0;
+	m_playerRequire = 1;
 	
 	//m_waitingPlayer = thread(this->waitingConnection);
 	//m_waitingPlayer.join();
@@ -29,7 +29,7 @@ void HostingGame::update(float dt) {
 		if (MyServer->getTotalConnections() >= m_playerRequire) {
 			m_startCountdown -= dt;
 			int timer = m_startCountdown + 1;
-			m_timerMessage = "timer: " + to_string(timer);
+			string m_timerMessage = "timer: " + to_string(timer);
 			//MyServer
 			MyServer->SendStringToAll(m_timerMessage, PacketType::StartCountdown);
 			cout << m_timerMessage << endl;
@@ -37,9 +37,25 @@ void HostingGame::update(float dt) {
 	}
 	else {
 		// game loop here
-		//MyServer.getData();
 
 		m_gameScene->update(dt);
+
+		// transfer game data to client 
+		float gameStartCountdown = m_gameScene->gameStartCountdown();
+		float ingameTimer = m_gameScene->ingameTimer();
+		string m_gameState;
+		if (gameStartCountdown > 0) {
+			m_gameState = "start in : " + to_string(gameStartCountdown);
+			MyServer->SendStringToAll(m_gameState, PacketType::StartGameTimer);
+		}
+		else {
+			m_gameState = "Timer : " + to_string(ingameTimer);
+			MyServer->SendStringToAll(m_gameState, PacketType::InGameTimer);
+		}
+
+		//transfer current player data
+		SDL_Point position = m_gameScene->playerPosition(1);
+		bool gotCheese = m_gameScene->playerGetCheese(1);
 
 	}
 

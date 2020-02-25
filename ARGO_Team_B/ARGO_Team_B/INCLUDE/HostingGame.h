@@ -4,8 +4,8 @@
 #pragma once
 #include "Online/Server.h"
 #include "Online/PacketType.h"
-#include "Globals.h"
 #include "Observer.h"
+#include "Enums.h"
 
 #include "GameScene.h"
 
@@ -37,10 +37,9 @@ private:
 
 	Server* MyServer; //Create server on port 1000
 
-	string m_timerMessage;
-
 	float m_startCountdown;
 	int m_playerRequire;
+	int m_idForPlayer;
 
 	GameScene* m_gameScene;
 };
