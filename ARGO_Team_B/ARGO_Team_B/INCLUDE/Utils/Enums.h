@@ -18,6 +18,14 @@ enum class Types {
 	TestBot
 };
 
+enum class NodeStatus
+{
+	BH_INVALID,
+	BH_SUCCESS,
+	BH_FAILURE,
+	BH_RUNNING
+};
+
 enum class TileType {
 	ObstacleTile,
 	NormalTile,

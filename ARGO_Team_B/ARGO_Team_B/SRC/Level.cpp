@@ -260,7 +260,6 @@ void Level::assignObstacles()
 			}
 	}
 
-
 	int distanceToCheese;
 	
 	for (int i = 0; i < m_cheese.size(); i++)
