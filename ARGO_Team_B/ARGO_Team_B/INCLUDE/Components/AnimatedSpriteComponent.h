@@ -36,9 +36,11 @@ private:
 	int m_clock;
 
 public:
-	AnimatedSpriteComponent(SDL_Renderer* t_renderer);
-	AnimatedSpriteComponent(SDL_Texture& t_texture, SDL_Renderer* t_renderer);
-	AnimatedSpriteComponent(const char* t_texture, int t_height, int t_width, int t_noOfFrames, float t_time, SDL_Renderer* t_renderer);
+	AnimatedSpriteComponent();
+	AnimatedSpriteComponent(SDL_Texture& t_texture);
+	AnimatedSpriteComponent(const char* t_texture, int t_height, int t_width, int t_noOfFrames, float t_time);
+	
+	void init(SDL_Renderer* t_renderer);
 	void update();
 
 	void updateSpriteState(SpriteSheet& t_spriteSheet);

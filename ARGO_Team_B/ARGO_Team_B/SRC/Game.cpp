@@ -5,9 +5,9 @@
 /// Main Game constructor used to initialise SDL, create a window and initialise SDL_IMG
 /// </summary>
 Game::Game() :
-	m_rat1(EntityType::Rat), m_rat2(EntityType::Rat), m_rat3(EntityType::Rat), m_rat4(EntityType::Rat)
+	m_player1()
 {
-	ControlComponent* controlComp = new ControlComponent(m_rat1, 0);
+	ControlComponent* controlComp = new ControlComponent(m_player1, 0);
 
 	srand(time(NULL));
 	// Initialise SDL
@@ -45,14 +45,18 @@ Game::Game() :
 	// Initialise Scenes
 	//m_hostGame = new HostingGame();
 	m_joinGame = new JoiningGame();
+
+	// debug
 	m_currentState = GameStates::Game;
+	
+	// release m_currentState = GameStates::MainMenu;
+
 	m_menuScene = new MenuScene(p_renderer, &m_currentState, controlComp);
 	m_creditsScene = new CreditsScene(p_renderer, &m_currentState, controlComp);
 	m_font = new FontObserver(p_renderer);
 	m_font->loadFont();
 
 }
-
 
 /// <summary>
 /// ~Game()

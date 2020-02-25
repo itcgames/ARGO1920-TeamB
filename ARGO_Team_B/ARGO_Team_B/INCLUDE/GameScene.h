@@ -17,6 +17,9 @@
 #include "StateMachineSystem.h"
 #include "GameSystem.h"
 #include "BombSystem.h"
+
+#include "FactoryInterface.h"
+#include "EntityFactory.h"
 class GameScene
 {
 public:
@@ -36,31 +39,9 @@ public:
 	//game transfer data
 	float gameStartCountdown();
 	float ingameTimer();
-	
 
 private:
-	// Entities
-	Entity m_rat1;
-	Entity m_rat4;
-	Entity m_rat2;
-	Entity m_rat3;
-
-	Entity m_button;
-	Entity m_button2;
-
-	Entity m_doorButton;
-
-	Entity m_spike;
-	Entity m_spike2;
-	Entity m_spike3;
-
-
-	Entity m_door1;
-	Entity m_door2;
-
-	Entity m_goalCheese;
-
-	Entity m_gameManager;
+	std::vector<Entity*> m_entities;
 
 	// Systems
 	HealthSystem m_healthSystem;
@@ -79,13 +60,11 @@ private:
 	SDL_Rect m_view;
 
 	std::vector<ParticleSystem*> m_particles;
-	std::vector<Entity> m_goalCheeses;
-	std::vector<Entity> m_bombs;
 	
 	SDL_Renderer* m_renderer;
 
 	float m_restartTimer;
 	void resetGame();
 };
-#endif // !MENU_SCENE_H
 
+#endif // !MENU_SCENE_H
