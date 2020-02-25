@@ -39,11 +39,11 @@ class AudioObserver : public Observer
 			pickupBomb = Mix_LoadWAV("Assets/Sfx/pickupCheese.ogg");
 			placeBomb = Mix_LoadWAV("Assets/Sfx/pickupCheese.ogg");
 			explosion = Mix_LoadWAV("Assets/Sfx/explosion.wav"); 
-			Mix_VolumeChunk(explosion, 15);
+			//Mix_VolumeChunk(explosion, 15);
 			m_bgm1 = Mix_LoadMUS("Assets/Sfx/music.mp3");
 			m_bgm2 = Mix_LoadMUS("Assets/Sfx/musicMenu.mp3");
 			m_bgm3 = Mix_LoadMUS("Assets/Sfx/musicMenu.mp3");
-			Mix_VolumeMusic(60);
+			//Mix_VolumeMusic(60);
 
 
 		}
