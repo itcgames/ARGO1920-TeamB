@@ -11,8 +11,10 @@
 #include "GameComponent.h"
 
 #include "FactoryInterface.h"
-
-
+/// 
+/// FOR ALL ENTITY
+/// the position component must create before the collision component
+/// 
 class EntityFactory : public Factory {
 public:
 
@@ -52,10 +54,14 @@ public:
 
 		return button;
 	}
-	Entity* CreateCheese() {
-		Entity* e = new Entity;
-		e->init(EntityType::Default);
-		return e;
+	Entity* CreateCheese(const float t_x, const float t_y) {
+		Entity* cheese = new Entity;
+		cheese->init(EntityType::Default);
+		cheese->addComponent(new GoalComponent(), Types::Goal);
+		cheese->addComponent(new PositionComponent(t_x, t_y), Types::Position);
+		cheese->addComponent(new CollisionComponent(*cheese, 30.0f, 30, 30), Types::Collider);
+		cheese->addComponent(new RenderComponent("./Assets/cheese.png", 30, 30, 30, 30), Types::Render);
+		return cheese;
 	}
 	Entity* CreateGame() {
 		Entity* e = new Entity;

@@ -7,26 +7,23 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	const auto MAP_PATH = "Assets/map/test.tmx";
 	tiled_map_level = new Level("Test");
 	tiled_map_level->load(MAP_PATH, t_renderer);
-	/// <summary>
+
 	/// STATE MACHINE
-	/// </summary>
 	m_stateMachine = new StateMachineSystem();
 	m_stateMachine->setRenderer(t_renderer);
-	/// <summary>
-	/// FOR ALL ENTITY
-	/// the position component must create before the collision component
-	/// Abstract Factory Pattern:
-	/// </summary>
 
-	m_entities.reserve(9);
+	/// Abstract Factory Pattern:
+	m_entities.reserve(9 + tiled_map_level->m_cheese.size()); // increasing each addition to Factory
 	Factory* factory = new EntityFactory;
+
+	/// Players
 	for (int i = 0; i < 4; i++) {
 		m_entities.push_back(factory->CreatePlayer(i + 1, tiled_map_level));
 				
 		// TODO: if controller not connect:
 		//m_entities.at(i).addComponent(new TestBotBehaviourComponent(m_entities.at(i)), Types::TestBot);
 	
-		// Player Systems
+		// Systems
 		m_healthSystem.addEntity(*m_entities.at(i));
 		m_controlSystem.addEntity(*m_entities.at(i));
 		m_collisionSystem.addEntity(*m_entities.at(i));
@@ -36,6 +33,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	}
 	m_stateMachine->setupSprites();
 
+	/// Buttons
 	float a = 620.0f;
 	float b = 175;
 	for (int i = 1; i <= 2; i++) {
@@ -49,43 +47,27 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - 1)); // Connect button entity and other entity that require switch	 
 	}
 
+	/// Spikes
 	m_entities.push_back(factory->CreateTrap(1, false, 600, 600));
 	m_entities.push_back(factory->CreateTrap(0, true, 700, 100));
 	m_entities.push_back(factory->CreateTrap(2, false, 800, 100));
-	// Systems
+		/// Spike Systems
 	for (int i = 1; i <= 3; i++) {
 		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - i));
 		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - i));
 		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - i));
 	}
 
-	//Trap 2
-	//m_spike2.addComponent(new TrapComponent(true, 0), Types::Traps);
-	//m_spike2.addComponent(new PositionComponent(700, 100), Types::Position);
-	//Trap 3
-	//m_spike3.addComponent(new TrapComponent(false, 2), Types::Traps);
-	//m_spike3.addComponent(new PositionComponent(800, 100), Types::Position);
-
-	//cheeses
-	m_goalCheeses.reserve(tiled_map_level->m_cheese.size());
+	// Cheese Please
 	for (int i = 0; i < tiled_map_level->m_cheese.size(); ++i)
 	{
-		m_goalCheeses.emplace_back();
-		bool canSpawn = false;
-		float spawnPointX;
-		float spawnPointY;
-		spawnPointX = tiled_map_level->m_cheese[i].x;
-		spawnPointY = tiled_map_level->m_cheese[i].y;
-		m_goalCheeses[i].addComponent(new GoalComponent(), Types::Goal);
-		m_goalCheeses[i].addComponent(new PositionComponent(spawnPointX, spawnPointY), Types::Position);
-		m_goalCheeses[i].addComponent(new CollisionComponent(m_goalCheeses[i], 30.0f, 30, 30), Types::Collider);
-		m_goalCheeses[i].addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, 30, 30), Types::Render);
-		m_collisionSystem.addEntity(m_goalCheeses[i]);
-		std::cout << "collision system added for " << i << std::endl;
-		m_renderSystem.addEntity(m_goalCheeses[i]);
-		std::cout << "render system added for " << i << std::endl;
-		m_buttonSystem.addEntity(m_goalCheeses[i]);
-		std::cout << "button system added for " << i << std::endl;
+		float spawnPointX = tiled_map_level->m_cheese[i].x;
+		float spawnPointY = tiled_map_level->m_cheese[i].y;
+		//m_entities.;
+		m_entities.emplace_back(factory->CreateCheese(spawnPointX, spawnPointY));
+		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - 1));
 	}
 
 	//bombs
