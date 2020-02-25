@@ -18,7 +18,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	/// Abstract Factory Pattern:
 	/// </summary>
 
-	m_entities.reserve(6);
+	m_entities.reserve(9);
 	Factory* factory = new EntityFactory;
 	for (int i = 0; i < 4; i++) {
 		m_entities.push_back(factory->CreatePlayer(i + 1, tiled_map_level));
@@ -36,9 +36,12 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	}
 	m_stateMachine->setupSprites();
 
-	float a = 620, b = 175;
+	float a = 620.0f;
+	float b = 175;
 	for (int i = 1; i <= 2; i++) {
-		float temp = a, a = b, b = temp; // Swap a and b for positions to seperate buttons
+		float temp = a;
+		a = b;
+		b = temp; // Swap a and b for positions to seperate buttons
 		m_entities.push_back(factory->CreateButton(i, a - 10, b + 20)); // manual adjust to get buttons off walls
 		// Systems
 		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
@@ -49,7 +52,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	bool alive = false;
 	float x = 600, y = 600;
 	for (int i = 0; i < 3; i++) {
-		m_entities.push_back(factory->CreateTrap(i, alive, x, y)); // manual adjust to get buttons off walls
+		m_entities.push_back(factory->CreateTrap(i, alive, x, y)); 
 		// flip alive based on old code
 		if (alive) {
 			alive = false;
@@ -62,6 +65,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
 		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - 1));
 	}
+
 	//Trap 2
 	//m_spike2.addComponent(new TrapComponent(true, 0), Types::Traps);
 	//m_spike2.addComponent(new PositionComponent(700, 100), Types::Position);
