@@ -49,21 +49,14 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - 1)); // Connect button entity and other entity that require switch	 
 	}
 
-	bool alive = false;
-	float x = 600, y = 600;
-	for (int i = 0; i < 3; i++) {
-		m_entities.push_back(factory->CreateTrap(i, alive, x, y)); 
-		// flip alive based on old code
-		if (alive) {
-			alive = false;
-		} else {
-			alive = true;
-		}
-		x += 100, y += 100;
-		// Systems
-		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
-		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
-		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+	m_entities.push_back(factory->CreateTrap(1, false, 600, 600));
+	m_entities.push_back(factory->CreateTrap(0, true, 700, 100));
+	m_entities.push_back(factory->CreateTrap(2, false, 800, 100));
+	// Systems
+	for (int i = 1; i <= 3; i++) {
+		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - i));
+		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - i));
+		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - i));
 	}
 
 	//Trap 2
