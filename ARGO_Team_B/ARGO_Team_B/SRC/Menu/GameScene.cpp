@@ -13,7 +13,8 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_stateMachine->setRenderer(t_renderer);
 
 	/// Abstract Factory Pattern:
-	m_entities.reserve(9 + tiled_map_level->m_cheese.size()); // increasing each addition to Factory
+	const int toReserve = 9 + tiled_map_level->m_cheese.size() + tiled_map_level->m_bomb.size(); // 4 Players + 2 Buttons + 3 Spikes + All cheese and bombs
+	m_entities.reserve(toReserve); // increase with each addition to Factory (see above)
 	Factory* factory = new EntityFactory;
 
 	/// Players
@@ -63,32 +64,21 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	{
 		float spawnPointX = tiled_map_level->m_cheese[i].x;
 		float spawnPointY = tiled_map_level->m_cheese[i].y;
-		//m_entities.;
 		m_entities.emplace_back(factory->CreateCheese(spawnPointX, spawnPointY));
 		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
 		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
 		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - 1));
 	}
 
-	//bombs
-	m_bombs.reserve(tiled_map_level->m_bomb.size());
+	// Ba-Bomb!
 	for (int i = 0; i < tiled_map_level->m_bomb.size(); ++i)
 	{
-		m_bombs.emplace_back();
-		float spawnPointX;
-		float spawnPointY;
-		spawnPointX = tiled_map_level->m_bomb[i].x;
-		spawnPointY = tiled_map_level->m_bomb[i].y;
-		m_bombs[i].addComponent(new BombComponent(), Types::Bomb);
-		m_bombs[i].addComponent(new PositionComponent(spawnPointX, spawnPointY), Types::Position);
-		m_bombs[i].addComponent(new CollisionComponent(m_bombs[i], 30.0f, 30, 30), Types::Collider);
-		m_bombs[i].addComponent(new RenderComponent("Assets\\bomb.png", 30, 30, 300, 300), Types::Render);
-		m_collisionSystem.addEntity(m_bombs[i]);
-		std::cout << "collision system added for " << i << std::endl;
-		m_renderSystem.addEntity(m_bombs[i]);
-		std::cout << "render system added for " << i << std::endl;
-		m_bombSystem.addEntity(m_bombs[i]);
-		std::cout << "button system added for " << i << std::endl;
+		float spawnPointX = tiled_map_level->m_bomb[i].x;
+		float spawnPointY = tiled_map_level->m_bomb[i].y;
+		m_entities.emplace_back(factory->CreateBomb(spawnPointX, spawnPointY));
+		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_bombSystem.addEntity(*m_entities.at(m_entities.size() - 1));
 	}
 
 	//game manager and ui detail

@@ -63,6 +63,15 @@ public:
 		cheese->addComponent(new RenderComponent("./Assets/cheese.png", 30, 30, 30, 30), Types::Render);
 		return cheese;
 	}
+	Entity* CreateBomb(const float t_x, const float t_y) {
+		Entity* bomb = new Entity;
+		bomb->init(EntityType::Default);
+		bomb->addComponent(new BombComponent(), Types::Bomb);
+		bomb->addComponent(new PositionComponent(t_x, t_y), Types::Position);
+		bomb->addComponent(new CollisionComponent(*bomb, 30.0f, 30, 30), Types::Collider);
+		bomb->addComponent(new RenderComponent("./Assets/bomb.png", 30, 30, 300, 300), Types::Render);
+		return bomb;
+	}
 	Entity* CreateGame() {
 		Entity* e = new Entity;
 		e->init(EntityType::Default);

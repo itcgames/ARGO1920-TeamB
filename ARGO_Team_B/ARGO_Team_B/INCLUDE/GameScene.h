@@ -31,14 +31,6 @@ public:
 private:
 	std::vector<Entity*> m_entities;
 
-	Entity m_button;
-	Entity m_button2;
-	//Entity m_doorButton;
-	Entity m_spike;
-	Entity m_spike2;
-	Entity m_spike3;
-	Entity m_door1;
-	Entity m_door2;
 	Entity m_goalCheese;
 	Entity m_gameManager;
 
@@ -57,8 +49,6 @@ private:
 	GameSystem m_gameSystem;
 
 	std::vector<ParticleSystem*> m_particles;
-	std::vector<Entity> m_goalCheeses;
-	std::vector<Entity> m_bombs;
 	
 	SDL_Renderer* m_renderer;
 };
