@@ -10,6 +10,7 @@
 #include <math.h>
 
 #include "Enums.h"
+#include "SDL.h"
 
 class CollisionComponent : public Component
 {

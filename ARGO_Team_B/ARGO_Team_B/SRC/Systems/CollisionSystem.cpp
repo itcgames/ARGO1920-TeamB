@@ -22,14 +22,13 @@ void CollisionSystem::updateComponent(Level& t_level, AudioObserver* t_observer,
 	for (Entity& player : m_playerEntitys) {
 		CollisionComponent* playerComp = dynamic_cast<CollisionComponent*>(player.getComponent(Types::Collider));
 		PositionComponent* posComp = dynamic_cast<PositionComponent*>(player.getComponent(Types::Position));
-		playerComp->updateCollider(player, posComp->getangle());
 		playerColliders.push_back(playerComp);
 
 		m_positionComp = static_cast<PositionComponent*>(player.getComponent(Types::Position));
 		x1 = m_positionComp->getPositionX();
 		y1 = m_positionComp->getPositionY();
 		tileCollision(playerComp, posComp, t_level, t_observer);
-		//tileCollision(x1, y1, RAT_W, RAT_H, t_level,t_observer);
+		//tileCollision(x1, y1 + (RAT_H / 4), RAT_W, RAT_H / 2, t_level,t_observer);
 
 	}
 

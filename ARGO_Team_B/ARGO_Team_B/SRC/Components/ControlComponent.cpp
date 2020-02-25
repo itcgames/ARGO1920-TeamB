@@ -71,7 +71,9 @@ void ControlComponent::handleInput(SDL_Renderer* t_renderer,std::vector<Particle
 		playerComp->setMoveable(true);
 	}
 
-	posComp->movementUpdate(dt);
+	if (!playerComp->getDizzy()) {
+		posComp->movementUpdate(dt);
+	}
 }
 
 void ControlComponent::controlInteract(PlayerComponent* t_player)

@@ -69,6 +69,7 @@ void CollisionComponent::updateCollider(Entity& t_entity, double angle)
 	m_polyCollider.verts[3] = { originX + (CosWithAngle * (m_width / 2) - SinWithAngle * (-m_height / 2)), originY + (SinWithAngle * (m_width / 2) + CosWithAngle * (-m_height / 2))};
 	std::cout << "Position4 x: " << m_polyCollider.verts[3].x << "Position4 y: " << m_polyCollider.verts[3].y << std::endl;
 	c2MakePoly(&m_polyCollider);
+
 }
 
 void CollisionComponent::setCircleRadius(float radius)

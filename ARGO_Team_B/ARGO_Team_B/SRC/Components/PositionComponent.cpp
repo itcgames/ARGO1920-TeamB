@@ -42,6 +42,7 @@ void PositionComponent::setVelo(float t_x, float t_y)
 void PositionComponent::setPreviousePos() {
 	m_previousX = m_currentX;
 	m_previousY = m_currentY;
+
 }
 
 void PositionComponent::setangle(double t_angle)

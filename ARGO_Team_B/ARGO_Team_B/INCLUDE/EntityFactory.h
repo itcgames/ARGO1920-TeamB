@@ -26,7 +26,7 @@ public:
 		rat->addComponent(new PositionComponent(t_level->m_player[t_num - 1].x, t_level->m_player[t_num - 1].y), Types::Position);
 		rat->addComponent(new CollisionComponent(*rat, RAT_W, RAT_H, 4), Types::Collider);
 		rat->addComponent(new ControlComponent(*rat), Types::Control);
-		rat->addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 5, 5000), Types::AnimatedSprite);
+		rat->addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 3, 500), Types::AnimatedSprite);
 
 		return rat;
 	}
