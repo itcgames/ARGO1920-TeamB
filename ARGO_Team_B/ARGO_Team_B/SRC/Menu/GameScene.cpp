@@ -98,7 +98,9 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	// Creepy Vouyers
 	m_observer = new AudioObserver();
 	m_observer->load();
-	m_observer->StartBGM(0);
+	//m_observer->StartBGM(1);
+
+
 	m_font = new FontObserver(t_renderer);
 	m_font->loadFont();
 

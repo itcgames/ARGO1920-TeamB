@@ -25,6 +25,7 @@
 #include "GameScene.h"
 #include "HostingGame.h"
 #include "JoiningGame.h"
+#include "CreditsScene.h"
 class Game
 {
 public:
@@ -46,16 +47,16 @@ private:
 	Entity m_player1;
 
 
+	AudioObserver* m_observer;
 	FontObserver* m_font;
 	GameStates m_currentState;
 
-	//GameScene* m_gameScene;
 	MenuScene* m_menuScene;
 	GameScene* m_gameScene;
 
 	HostingGame* m_hostGame;
 	JoiningGame* m_joinGame;
-	//CreditsScene* m_creditsScene;
+	CreditsScene* m_creditsScene;
 
 };
 #endif // !GAME
