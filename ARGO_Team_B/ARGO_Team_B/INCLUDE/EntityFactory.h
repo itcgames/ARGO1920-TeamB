@@ -73,8 +73,11 @@ public:
 		return bomb;
 	}
 	Entity* CreateGame() {
-		Entity* e = new Entity;
-		e->init(EntityType::Default);
-		return e;
+		Entity* game = new Entity;
+		game->init(EntityType::Default);
+		game->addComponent(new GameComponent(), Types::Game);
+		game->addComponent(new PositionComponent((float)SCR_W / 2, (float)SCR_H / 2), Types::Position);
+		game->addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, 30, 30), Types::Render);
+		return game;
 	}
 };

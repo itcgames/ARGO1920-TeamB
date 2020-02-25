@@ -81,25 +81,20 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 		m_bombSystem.addEntity(*m_entities.at(m_entities.size() - 1));
 	}
 
-	//game manager and ui detail
-	m_gameManager.addComponent(new GameComponent(), Types::Game);
-	m_gameManager.addComponent(new PositionComponent((float)SCR_W / 2, (float)SCR_H / 2), Types::Position);
-	m_gameManager.addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, 30, 30), Types::Render);
-	
+	// Game Manager && UI Detail
+	m_entities.push_back(factory->CreateGame());
+	m_gameSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+	m_gameSystem.setupComponent();
 
+	// Creepy Vouyers
 	m_observer = new AudioObserver();
 	m_observer->load();
 	m_observer->StartBGM(0);
-
 	m_font = new FontObserver(t_renderer);
 	m_font->loadFont();
 
-
-	m_gameSystem.addEntity(m_gameManager);
-	m_gameSystem.setupComponent();
-
 	/// <summary>
-	///  CANNOT pass renderer to Factory as it needs const inputs but renderer cannot be, so do like so for now
+	/// CANNOT pass renderer to Factory as it needs const inputs and renderer cannot be, so do like so for now
 	/// </summary>
 	/// <param name="t_renderer"></param>
 	for (Entity* e : m_entities) {

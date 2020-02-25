@@ -28,11 +28,9 @@ public:
 	~GameScene();
 	void update(float dt);
 	void render();
+
 private:
 	std::vector<Entity*> m_entities;
-
-	Entity m_goalCheese;
-	Entity m_gameManager;
 
 	// Systems
 	HealthSystem m_healthSystem;
@@ -52,5 +50,5 @@ private:
 	
 	SDL_Renderer* m_renderer;
 };
-#endif // !MENU_SCENE_H
 
+#endif // !MENU_SCENE_H
