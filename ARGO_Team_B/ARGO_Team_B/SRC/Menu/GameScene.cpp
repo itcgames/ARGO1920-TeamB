@@ -123,6 +123,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 			}
 		}	
 	}
+	m_gameState = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
 }
 
 GameScene::~GameScene()
@@ -189,8 +190,13 @@ void GameScene::resetGame() {
 	string map;
 	m_gameCount++;
 	m_isEndScreenDone = false;
-	GameComponent* gameState = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
-	gameState->setGameCount(m_gameCount);
+	if (m_gameState->getGameCount() != -1) // game over early code
+	{
+		m_gameState->setGameCount(m_gameCount);
+	}
+	else {
+		m_gameCount = -1;
+	}
 	switch (m_gameCount) {
 	case 2:
 		map = "Assets/map/test2.tmx";
@@ -205,13 +211,19 @@ void GameScene::resetGame() {
 		map = "Assets/map/test5.tmx";
 		break;
 	case 6:
-		gameState->resetGame();
+		m_gameState->resetGame();
 		break;
 	default:
 		break;
 	}
-	gameState->resetRound();
+	m_gameState->resetRound();
 	tiled_map_level->load(map, m_renderer);
+	for (int i = 0; i < 4; i++) {
+		PlayerComponent* player = dynamic_cast<PlayerComponent*>(m_entities.at(i)->getComponent(Types::Player));
+		player->reset();
+		PositionComponent* pos = dynamic_cast<PositionComponent*>(m_entities.at(i)->getComponent(Types::Position));
+		pos->reset(i + 1, tiled_map_level);
+	}
 }
 
 SDL_Point GameScene::playerPosition(int id) {

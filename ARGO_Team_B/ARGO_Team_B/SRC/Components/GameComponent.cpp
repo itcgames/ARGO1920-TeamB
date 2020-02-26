@@ -52,13 +52,13 @@ void GameComponent::resetRound()
 	m_greenTeamCheese = 0;
 	m_gameover = false;
 
-	//Release
+	// Release
 	m_gameTimer = 120.0f;
 	m_startCountdown = 3.0f;
 
 	//Debug
-	//m_gameTimer = 1;
-	//m_startCountdown = 0;
+	// m_gameTimer = 3;
+	// m_startCountdown = 0;
 
 }
 
