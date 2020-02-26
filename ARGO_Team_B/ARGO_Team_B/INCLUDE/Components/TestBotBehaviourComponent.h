@@ -14,6 +14,12 @@
 #include "Xbox360Controller.h"
 #include "Entity.h"
 
+struct CheeseStruct {
+	int distanceToPlayer;
+	SDL_Point position;
+	bool IsCollected;
+};
+
 class TestBotBehaviourComponent : public Component
 {
 public:
@@ -25,7 +31,6 @@ public:
 	BehaviourTree::Selector m_selector[4];
 	BehaviourTree::Sequence m_sequence[5];
 
-	Action wander, findCheese, moveToCheese, CollectCheese, findButton, moveToButton, findBomb, moveToBomb, collectBomb, wanderWithBomb, findPlayerInRange, searchForPlayer, chasePlayer, placebomb, fleeBomb;
 
 private:
 	int i = 0;
