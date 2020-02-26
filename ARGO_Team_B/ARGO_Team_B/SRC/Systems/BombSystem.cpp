@@ -30,6 +30,7 @@ void BombSystem::updateComponent(float dt,AudioObserver * t_observer, SDL_Rect& 
 				bombPos->setPosition(playerPos->getPositionX(), playerPos->getPositionY());
 				
 				bombComp->playerPlaceBomb();
+				playerComp->getABomb(false);
 				t_observer->onNotify(AudioObserver::PLACEBOMB);
 
 			}

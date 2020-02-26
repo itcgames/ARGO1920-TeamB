@@ -24,12 +24,12 @@ public:
 	~CollisionSystem();
 	void updateComponent(Component* component) override;
 	void updateComponent(Level &t_level,AudioObserver * t_observer, std::vector<ParticleSystem*>& t_ps, SDL_Renderer* t_renderer, SDL_Rect& t_shake);
-	void tileCollision(float x, float y, float width, float height, Level& t_mazeWalls,AudioObserver* t_observer);
 private:
 
 	void searchEntities();
 
 	bool checkCollision(c2Circle t_collider, c2AABB t_otherCollider);
+	bool checkCollision(c2Circle t_collider, c2Poly t_otherCollider);
 	bool checkCollision(c2AABB t_collider, c2AABB t_otherCollider);
 	bool checkCollision(c2AABB t_collider, c2Poly t_otherCollider);
 
@@ -37,9 +37,10 @@ private:
 
 	void bombCollision(AudioObserver* t_observer);
 	void TileBombCollision(Level* t_level, CollisionComponent* t_bomb);
+	void tileCollision(float x, float y, float width, float height, Level& t_mazeWalls, AudioObserver* t_observer);
 
-
-	
+	void tileCollision(CollisionComponent* playerCollider, PositionComponent* positionComp, Level& t_mazeWalls, AudioObserver* t_observer);
+	c2AABB m_wallCollider;
 
 	vector<Entity> m_playerEntitys;
 	vector<Entity> m_buttonEntitys;

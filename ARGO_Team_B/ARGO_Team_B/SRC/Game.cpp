@@ -47,7 +47,7 @@ Game::Game() :
 	m_joinGame = new JoiningGame();
 
 	// debug
-	m_currentState = GameStates::Game;
+	m_currentState = GameStates::MainMenu;
 	
 	// release m_currentState = GameStates::MainMenu;
 
@@ -157,6 +157,9 @@ void Game::update(float dt)
 /// </summary>
 void Game::render()
 {
+
+	//SDL_SetRenderDrawColor(p_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+
 	SDL_RenderClear(p_renderer);
 
 	switch (m_currentState)

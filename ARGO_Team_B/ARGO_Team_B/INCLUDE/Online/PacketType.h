@@ -4,7 +4,7 @@ enum class PacketType
 	StartCountdown, // for waiting player 
 	StartGameTimer, // the waiting before start game
 	InGameTimer, // the timer for game
-	PlayData, // the player data, include position and get cheese checj;
+	PlayerData, // the player data, include position and get cheese checj;
 	BombData, // the bomb data, need transfer 
 	TrapData,
 	ButtonData,
