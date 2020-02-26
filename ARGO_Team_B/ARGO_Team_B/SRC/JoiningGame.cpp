@@ -51,16 +51,6 @@ void JoiningGame::update(float dt) {
 			m_gameScene->update(dt);
 
 
-
-
-
-
-
-
-
-
-
-
 		}
 	}
 }
@@ -68,10 +58,10 @@ void JoiningGame::update(float dt) {
 void JoiningGame::draw(FontObserver* text, SDL_Renderer* t_renderer)
 {
 	if (m_startCountdown > 0.0f) {
-		string cheeseCounter = "Game start in "+ to_string(m_startCountdown);
+		string cheeseCounter = "Waiting for Server ";
 		const char* c = cheeseCounter.data();
 		SDL_Color color = { 1, 1, 1 , 255 };
-		text->drawText(860, 510, 100, 100, c, color, FontObserver::TIMER1);
+		text->drawText(860, 510, 200, 100, c, color, FontObserver::TIMER1);
 	}
 	else {
 		if (m_gameScene == NULL) {

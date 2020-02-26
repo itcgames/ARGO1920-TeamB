@@ -32,6 +32,7 @@ public:
 
 	void backToPreviousePos();
 	void setPreviousePos();
+	void setPreviouseAngle();
 
 	void setangle(double t_angle);
 
@@ -42,8 +43,8 @@ public:
 
 	void backToStart();
 
-
 	bool m_isMoving{ false };
+
 private:
 	const int MAX_VELO = 8;
 	const float INC_VELO = 0.5f;
@@ -61,10 +62,10 @@ private:
 	float m_startX;
 	float m_startY;
 
-	float m_previousX;
-	float m_previousY;
-
 	float m_lastX;
 	float m_lastY;
+	double m_lastAngle;
+
+
 };
 #endif // !POS
