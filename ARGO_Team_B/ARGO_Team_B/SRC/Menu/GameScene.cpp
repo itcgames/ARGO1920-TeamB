@@ -1,7 +1,8 @@
 #include "GameScene.h"
 
 GameScene::GameScene(SDL_Renderer* t_renderer):
-	m_renderer(t_renderer)
+	m_renderer(t_renderer),
+	m_restartTimer(8.0f)
 {
 
 	m_view.h = SCR_H;
@@ -181,60 +182,6 @@ void GameScene::resetGame() {
 
 }
 
-SDL_Point GameScene::playerPosition(int id) {
-
-	PositionComponent* m_player = NULL;
-
-	switch (id)
-	{
-	case 1:
-		m_player = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
-		break;
-	case 2:
-		m_player = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
-		break;
-	case 3:
-		m_player = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
-		break;
-	case 4:
-		m_player = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
-		break;
-	default:
-		break;
-	}
-
-	SDL_Point positionData = { m_player->getPositionX(), m_player->getPositionY() };
-
-	return positionData;
-}
-
-bool GameScene::playerGetCheese(int id) {
-
-	PlayerComponent* m_player = NULL;
-
-	switch (id)
-	{
-	case 1:
-		m_player = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
-		break;
-	case 2:
-		m_player = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
-		break;
-	case 3:
-		m_player = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
-		break;
-	case 4:
-		m_player = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
-		break;
-	default:
-		break;
-	}
-
-	bool playerGetCheese = m_player->getACheese();
-
-	return playerGetCheese;
-}
-
 string GameScene::playerInfo(int id)
 {
 	PlayerComponent* m_playerComp = NULL;
@@ -244,29 +191,29 @@ string GameScene::playerInfo(int id)
 	{
 	case 1:
 		m_playerComp = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
-		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
+		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Position));
 		break;
 	case 2:
 		m_playerComp = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
-		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
+		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Position));
 		break;
 	case 3:
 		m_playerComp = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
-		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
+		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Position));
 		break;
 	case 4:
 		m_playerComp = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
-		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
+		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Position));
 		break;
 	default:
 		break;
 	}
 
-	bool playerGetCheese = m_playerComp->getACheese();
+	//bool playerGetCheese = m_playerComp->getACheese();
 	bool playerInteract = m_playerComp->getInteract();
-
-	string transferData = "positionX: " + to_string(m_playerPos->getPositionX()) + "positionY: " + to_string(m_playerPos->getPositionY());
-	transferData += " getCheese: " + to_string(playerGetCheese);
+	string transferData = "player : " + to_string(id);
+	transferData = "positionX: " + to_string(m_playerPos->getPositionX()) + "positionY: " + to_string(m_playerPos->getPositionY());
+	//transferData += " getCheese: " + to_string(playerGetCheese);
 	transferData += " interact: " + to_string(playerInteract);
 
 	return transferData;
@@ -280,4 +227,42 @@ float GameScene::gameStartCountdown() {
 float GameScene::ingameTimer() {
 	GameComponent* m_gameState = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
 	return m_gameState->getGameTimer();
+}
+
+/// <summary>
+/// 0 is the player id
+/// 1 is player position x
+/// 2 is player position y
+/// 3 is player interact
+/// </summary>
+/// <param name="player"></param>
+void GameScene::setDataToPlayer(vector<int> player)
+{
+	PlayerComponent* m_playerComp = NULL;
+	PositionComponent* m_playerPos = NULL;
+
+	switch (player[0])
+	{
+	case 1:
+		m_playerComp = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
+		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Position));
+		break;
+	case 2:
+		m_playerComp = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
+		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Position));
+		break;
+	case 3:
+		m_playerComp = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
+		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Position));
+		break;
+	case 4:
+		m_playerComp = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
+		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Position));
+		break;
+	default:
+		break;
+	}
+
+	m_playerPos->setPosition(player[1],player[2]);
+	m_playerComp->setInteract(player[3]);
 }

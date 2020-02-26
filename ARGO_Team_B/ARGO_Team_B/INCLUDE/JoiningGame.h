@@ -27,7 +27,6 @@ private:
 
 	not_digit notADigit;
 	vector<int> intConverter(string message);
-	string preStartCounter;
 	
 	Client* MyClient;
 
@@ -36,6 +35,16 @@ private:
 	bool m_gameConnented;
 
 	GameScene* m_gameScene;
+
+	string preStartCounter;
+	/*string preStartGameTimer;
+	string preInGameTimer;*/
+	string prePlayerData;
+
+	vector<int> temp;
+
+	Uint32 startTime;
+	Uint32 currentTime;
 };
 
 #endif // !JOININGGAEM

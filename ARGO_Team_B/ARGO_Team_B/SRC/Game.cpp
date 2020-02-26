@@ -179,6 +179,7 @@ void Game::render()
 	case GameStates::Hosting:
 		if (m_hostGame == NULL) {
 			m_hostGame = new HostingGame();
+
 		}
 		else {
 			m_hostGame->draw(m_font,p_renderer);

@@ -42,6 +42,12 @@ private:
 	int m_idForPlayer;
 
 	GameScene* m_gameScene;
+
+	string prePlayerData;
+	vector<int> temp;
+
+	Uint32 startTime;
+	Uint32 currentTime;
 };
 
 #endif // !HOSTINGGAME 

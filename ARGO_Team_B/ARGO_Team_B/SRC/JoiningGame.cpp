@@ -5,7 +5,7 @@ JoiningGame::JoiningGame() {
 	m_playerId = 0;
 	m_gameConnented = false;
 	//
-	MyClient = new Client("149.153.106.159", 1111); //Create client to connect to server on port 1111
+	//MyClient = new Client("149.153.106.159", 1111); //Create client to connect to server on port 1111
 }
 
 JoiningGame::~JoiningGame() {
@@ -32,14 +32,16 @@ void JoiningGame::update(float dt) {
 		}
 	}
 	else {
-		// game play here
-		if (m_startCountdown > 0) {
+		currentTime = SDL_GetTicks();
 
+		if (currentTime < startTime) {
+
+			// get start time from the server 
 			if (preStartCounter != MyClient->getStartCountdown()) {
 				preStartCounter = MyClient->getStartCountdown();
-				vector<int> temp = intConverter(preStartCounter);
+				 temp = intConverter(preStartCounter);
 				if (temp.size() == 1) {
-					m_startCountdown = temp[0];
+					startTime = temp[0];
 				}
 
 			}
@@ -47,9 +49,22 @@ void JoiningGame::update(float dt) {
 			//cout << "Timer: " << m_startCountdown << endl;
 		}
 		else {
+			//get data from server
+			if (prePlayerData != MyClient->getPlayerData()) {
+				prePlayerData = MyClient->getPlayerData();
+				temp = intConverter(prePlayerData);
+				for (int i = 0; i < temp.size(); i++) {
+					cout << temp[i] << endl;
+				}
+				m_gameScene->setDataToPlayer(temp);
+			}
+
 			// game play here
 			m_gameScene->update(dt);
 
+			//transfer current player data
+			string m_playerState = m_gameScene->playerInfo(1);
+			MyClient->SendString(m_playerState, PacketType::PlayerData);
 
 		}
 	}

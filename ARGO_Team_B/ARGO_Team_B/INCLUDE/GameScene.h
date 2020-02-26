@@ -33,15 +33,13 @@ public:
 	/// </summary>
 	
 	//player transfer data
-	SDL_Point playerPosition(int id);
-	bool playerGetCheese(int id);
-	bool playerInteract(int id);
-
 	string playerInfo(int id);
 
 	//game transfer data
 	float gameStartCountdown();
 	float ingameTimer();
+
+	void setDataToPlayer(vector<int> player);
 
 private:
 	std::vector<Entity*> m_entities;

@@ -3,11 +3,12 @@
 HostingGame::HostingGame()
 {
 	MyServer = new Server(1111, "149.153.106.159");
-	m_startCountdown = 5.0f;
+	m_startCountdown = 15.0f;
 	m_playerRequire = 1;
 	
-	//m_waitingPlayer = thread(this->waitingConnection);
-	//m_waitingPlayer.join();
+	//std::thread th(&HostingGame::waitingConnection, this);
+	//th.join();
+
 }
 
 HostingGame::~HostingGame() {
@@ -18,46 +19,42 @@ void HostingGame::waitingConnection() {
 	if (MyServer->getTotalConnections() < m_playerRequire) {
 		cout << "waiting for players" << endl;
 		MyServer->ListenForNewConnection();
-		m_startCountdown = 10.0f;
+		m_startCountdown = 15.0f;
+		startTime = SDL_GetTicks() + m_startCountdown * 1000; // the tick time is meilsecond
 	}
 }
 
 void HostingGame::update(float dt) {
 	waitingConnection();
+	currentTime = SDL_GetTicks();
 
-	if (m_startCountdown > 0.0f) {
+	if (currentTime < startTime) {
 		if (MyServer->getTotalConnections() >= m_playerRequire) {
-			m_startCountdown -= dt;
-			int timer = m_startCountdown + 1;
-			string m_timerMessage = "timer: " + to_string(timer);
+
+			string m_timerMessage = "timer: " + to_string(startTime);
 			//MyServer
 			MyServer->SendStringToAll(m_timerMessage, PacketType::StartCountdown);
 			cout << m_timerMessage << endl;
 		}
 	}
 	else {
-		// game loop here
+		//get data from server
+		if (prePlayerData != MyServer->getPlayerData()) {
+			prePlayerData = MyServer->getPlayerData();
+			temp = intConverter(prePlayerData);
+			for (int i = 0; i < temp.size(); i++) {
+				cout << temp[i] << endl;
+			}
+			m_gameScene->setDataToPlayer(temp);
+		}
 
+
+		// game loop 
 		m_gameScene->update(dt);
 
-		// transfer game data to client 
-		float gameStartCountdown = m_gameScene->gameStartCountdown();
-		float ingameTimer = m_gameScene->ingameTimer();
-		string m_gameState;
-		if (gameStartCountdown > 0) {
-			m_gameState = "start in : " + to_string(gameStartCountdown);
-			MyServer->SendStringToAll(m_gameState, PacketType::StartGameTimer);
-		}
-		else {
-			m_gameState = "Timer : " + to_string(ingameTimer);
-			MyServer->SendStringToAll(m_gameState, PacketType::InGameTimer);
-
-			//transfer current player data
-			string m_playerState = m_gameScene->playerInfo(1);
-			MyServer->SendStringToAll(m_playerState, PacketType::PlayerData);
-		}
-
-
+		//transfer current player data
+		string m_playerState = m_gameScene->playerInfo(1);
+		MyServer->SendStringToAll(m_playerState, PacketType::PlayerData);
 
 	}
 
