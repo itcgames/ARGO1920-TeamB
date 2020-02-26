@@ -84,6 +84,7 @@ public:
 	std::vector<Point> m_cheese;
 	std::vector<Point> m_bomb;
 	std::vector<Point> m_player;
+	std::vector<Point>m_spike;
 private:
     std::string name;
     // Think of the dimensions as a 2D array (after all, that's what our

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="64" height="36" tilewidth="30" tileheight="30" infinite="0" nextlayerid="16" nextobjectid="301">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="64" height="36" tilewidth="30" tileheight="30" infinite="0" nextlayerid="16" nextobjectid="304">
  <tileset firstgid="1" source="../tileset/city.tsx"/>
  <layer id="1" name="BorderWalls" width="64" height="36">
   <data encoding="csv">
@@ -575,13 +575,13 @@
   <object id="178" name="cheesepoint" x="959.042" y="52.75">
    <point/>
   </object>
-  <object id="179" name="cheesepoint" x="150" y="300">
+  <object id="179" name="cheesepoint" x="270" y="300">
    <point/>
   </object>
-  <object id="181" name="cheesepoint" x="180" y="210">
+  <object id="181" name="cheesepoint" x="180" y="240">
    <point/>
   </object>
-  <object id="182" name="cheesepoint" x="300" y="210">
+  <object id="182" name="cheesepoint" x="360" y="180">
    <point/>
   </object>
   <object id="184" name="cheesepoint" x="180" y="420">
@@ -590,7 +590,7 @@
   <object id="186" name="cheesepoint" x="1016.55" y="174.455">
    <point/>
   </object>
-  <object id="187" name="cheesepoint" x="360" y="330">
+  <object id="187" name="cheesepoint" x="360" y="300">
    <point/>
   </object>
   <object id="188" name="cheesepoint" x="630" y="330">
@@ -740,7 +740,7 @@
   <object id="255" name="bombpoint" x="673.333" y="598.333">
    <point/>
   </object>
-  <object id="256" name="cheesepoint" x="1304.67" y="838">
+  <object id="256" name="cheesepoint" x="1290" y="840">
    <point/>
   </object>
   <object id="257" name="cheesepoint" x="1545.33" y="898">
@@ -773,7 +773,16 @@
   <object id="276" name="cheesepoint" x="270" y="510">
    <point/>
   </object>
-  <object id="277" name="cheesepoint" x="360" y="450">
+  <object id="277" name="cheesepoint" x="390" y="450">
+   <point/>
+  </object>
+  <object id="301" name="spikepoint" x="1440" y="810">
+   <point/>
+  </object>
+  <object id="302" name="spikepoint" x="1440" y="870">
+   <point/>
+  </object>
+  <object id="303" name="cheesepoint" x="180" y="150">
    <point/>
   </object>
  </objectgroup>

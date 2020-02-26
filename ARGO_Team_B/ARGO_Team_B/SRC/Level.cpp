@@ -151,6 +151,14 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
 					Point o(x, y);
 					m_player.push_back(o);
 				}
+				else if (object.getName() == "spikepoint")
+				{
+					float x, y;
+					x = object.getPosition().x;
+					y = object.getPosition().y;
+					Point o(x, y);
+					m_spike.push_back(o);
+				}
 			}
 		}
         // We're only looking to render the tiles on the map, so if

@@ -21,7 +21,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_stateMachine->setRenderer(t_renderer);
 
 	/// Abstract Factory Pattern:
-	const int toReserve = 9 + tiled_map_level->m_cheese.size() + tiled_map_level->m_bomb.size(); // 4 Players + 2 Buttons + 3 Spikes + All cheese and bombs
+	const int toReserve = 11 + tiled_map_level->m_cheese.size() + tiled_map_level->m_bomb.size()/*+ tiled_map_level->m_spike.size()*/; // 4 Players + 2 Buttons + 3 Spikes + All cheese and bombs
 	m_entities.reserve(toReserve); // increase with each addition to Factory (see above)
 	Factory* factory = new EntityFactory;
 
@@ -61,13 +61,23 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_entities.push_back(factory->CreateTrap(1, false, 600, 600));
 	m_entities.push_back(factory->CreateTrap(0, true, 700, 100));
 	m_entities.push_back(factory->CreateTrap(2, false, 800, 100));
+	m_entities.push_back(factory->CreateTrap(3, true, 1440, 870));
+	m_entities.push_back(factory->CreateTrap(4, true, 1440, 810));
 		/// Spike Systems
-	for (int i = 1; i <= 3; i++) {
+	for (int i = 1; i <= 5; i++) {
 		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - i));
 		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - i));
 		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - i));
 	}
-
+	//for (int i = 0; i < tiled_map_level->m_spike.size(); ++i)
+	//{
+	//	float spawnPointX = tiled_map_level->m_spike[i].x;
+	//	float spawnPointY = tiled_map_level->m_spike[i].y;
+	//	m_entities.emplace_back(factory->CreateTrap(i,true,spawnPointX, spawnPointY));
+	//	m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+	//	m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+	//	m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+	//}
 	// Cheese Please
 	for (int i = 0; i < tiled_map_level->m_cheese.size(); ++i)
 	{
