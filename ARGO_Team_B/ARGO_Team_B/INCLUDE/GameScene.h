@@ -39,8 +39,10 @@ public:
 	//game transfer data
 	float gameStartCountdown();
 	float ingameTimer();
-
+	int getGameCount() { return m_gameCount; }
 private:
+	int m_gameCount;
+	bool m_isEndScreenDone;
 	std::vector<Entity*> m_entities;
 
 	// Systems

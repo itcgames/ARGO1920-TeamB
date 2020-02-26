@@ -85,15 +85,21 @@ void GameSystem::update(float dt) {
 				redWinCounter = 2;
 				greenWinCounter = 2;
 			}
-			else if (redWinCounter >= 3) {
+			else if (redWinCounter >= 3 || redWinCounter > greenWinCounter) {
 				// red team win the game
 				winTextColor = { 255,0,0,255 };
 				winInfo = "RED TEAM WIN THE GAME!";
 			}
-			else if (greenWinCounter >= 3) {
+			else if (greenWinCounter >= 3 || redWinCounter < greenWinCounter) {
 				// green team win the game
 				winTextColor = { 0,255,0,255 };
 				winInfo = "GREEN TEAM WIN THE GAME!";
+			}
+			
+			if (greenWinCounter == redWinCounter && m_game->getGameCount() >= 5) {
+				// draw game..
+				winTextColor = { 0,0,255,255 };
+				winInfo = "THE GAME WAS A DRAW..";
 			}
 			else {
 				m_game->setRedWinCounter(redWinCounter);

@@ -132,6 +132,9 @@ void Game::update(float dt)
 		break;
 	case GameStates::Game:
 		m_gameScene->update(dt);
+		if (m_gameScene->getGameCount() > 5) {
+			m_currentState = GameStates::MainMenu;
+		}
 		break;
 	case GameStates::Hosting:
 		m_hostGame->update(dt);

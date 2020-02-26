@@ -30,7 +30,11 @@ public :
 
 	void resetRound();
 	void resetGame();
+
+	void setGameCount(int t_count) { m_count = t_count; }
+	int getGameCount() { return m_count; }
 private:
+	int m_count = 0;
 	int m_redTeamCheese;
 	int m_greenTeamCheese;
 

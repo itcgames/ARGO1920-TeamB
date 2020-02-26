@@ -1,9 +1,10 @@
 #include "GameScene.h"
 
 GameScene::GameScene(SDL_Renderer* t_renderer):
-	m_renderer(t_renderer)
+	m_renderer(t_renderer),
+	m_isEndScreenDone{false},
+	m_gameCount(1)
 {
-
 	m_view.h = SCR_H;
 	m_view.w = SCR_W;
 	m_view.x = 0;
@@ -132,7 +133,6 @@ void GameScene::update(float dt)
 {
 	GameComponent* m_game = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
 	if (!m_game->getGameover()) {
-
 		m_healthSystem.update();
 		m_aiSystem.update();
 		m_buttonSystem.update();
@@ -156,8 +156,16 @@ void GameScene::update(float dt)
 	else {
 		m_restartTimer -= dt;
 		if (m_restartTimer <= 0) {
+			// let end screen show
+			if (!m_isEndScreenDone)
+			{
+				m_restartTimer += 2.5f;
+				m_isEndScreenDone = true;
+			}
+			else {
+				resetGame();
+			}
 			// restart code here
-
 		}
 	}
 }
@@ -178,13 +186,37 @@ void GameScene::render()
 }
 
 void GameScene::resetGame() {
-
+	string map;
+	m_gameCount++;
+	m_isEndScreenDone = false;
+	GameComponent* gameState = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
+	gameState->setGameCount(m_gameCount);
+	switch (m_gameCount) {
+	case 2:
+		map = "Assets/map/test2.tmx";
+		break;
+	case 3:
+		map = "Assets/map/test3.tmx";
+		break;
+	case 4:
+		map = "Assets/map/test4.tmx";
+		break;
+	case 5:
+		map = "Assets/map/test5.tmx";
+		break;
+	case 6:
+		gameState->resetGame();
+		break;
+	default:
+		break;
+	}
+	gameState->resetRound();
+	tiled_map_level->load(map, m_renderer);
 }
 
 SDL_Point GameScene::playerPosition(int id) {
 
 	PositionComponent* m_player = NULL;
-
 	switch (id)
 	{
 	case 1:
@@ -202,9 +234,7 @@ SDL_Point GameScene::playerPosition(int id) {
 	default:
 		break;
 	}
-
 	SDL_Point positionData = { m_player->getPositionX(), m_player->getPositionY() };
-
 	return positionData;
 }
 
