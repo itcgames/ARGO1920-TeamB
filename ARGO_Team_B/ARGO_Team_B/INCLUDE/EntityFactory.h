@@ -41,7 +41,7 @@ public:
 		spike->addComponent(new TrapComponent(t_alive, t_num), Types::Traps);
 		spike->addComponent(new PositionComponent(t_x , t_y), Types::Position);
 		spike->addComponent(new CollisionComponent(*spike, RAT_W, RAT_W), Types::Collider);
-		spike->addComponent(new RenderComponent("./Assets/Spike.png", 30, 30, 30, 30), Types::Render);
+		spike->addComponent(new RenderComponent("./Assets/spikes.png", 30, 30, 30, 30), Types::Render);
 		return spike;
 	}
 	Entity* CreateButton(const int t_num, const float t_x, float t_y) {
@@ -60,7 +60,7 @@ public:
 		cheese->addComponent(new GoalComponent(), Types::Goal);
 		cheese->addComponent(new PositionComponent(t_x, t_y), Types::Position);
 		cheese->addComponent(new CollisionComponent(*cheese, 30.0f, 30, 30), Types::Collider);
-		cheese->addComponent(new RenderComponent("./Assets/cheese.png", 30, 30, 30, 30), Types::Render);
+		cheese->addComponent(new RenderComponent("./Assets/cheese4.png", 30, 30, 30, 30), Types::Render);
 		return cheese;
 	}
 	Entity* CreateBomb(const float t_x, const float t_y) {

@@ -12,7 +12,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	SDL_RenderSetViewport(m_renderer, &m_view);
 
 	// Extra info for systems
-	const auto MAP_PATH = "Assets/map/test.tmx";
+	const auto MAP_PATH = "Assets/map/test5.tmx";
 	tiled_map_level = new Level("Test");
 	tiled_map_level->load(MAP_PATH, t_renderer);
 
@@ -69,15 +69,6 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - i));
 		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - i));
 	}
-	//for (int i = 0; i < tiled_map_level->m_spike.size(); ++i)
-	//{
-	//	float spawnPointX = tiled_map_level->m_spike[i].x;
-	//	float spawnPointY = tiled_map_level->m_spike[i].y;
-	//	m_entities.emplace_back(factory->CreateTrap(i,true,spawnPointX, spawnPointY));
-	//	m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
-	//	m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
-	//	m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - 1));
-	//}
 	// Cheese Please
 	for (int i = 0; i < tiled_map_level->m_cheese.size(); ++i)
 	{
