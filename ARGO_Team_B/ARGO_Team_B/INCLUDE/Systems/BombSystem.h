@@ -1,6 +1,5 @@
 #ifndef BOMBSYSTEM
 #define BOMBSYSTEM
-#pragma once
 
 #include "System.h"
 

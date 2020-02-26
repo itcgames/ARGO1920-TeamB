@@ -4,7 +4,7 @@
 #pragma once
 #include "Online/Client.h"
 #include "Observer.h"
-#include "Globals.h"
+#include "Enums.h"
 
 #include "GameScene.h"
 

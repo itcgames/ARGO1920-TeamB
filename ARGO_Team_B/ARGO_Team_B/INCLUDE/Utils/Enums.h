@@ -1,6 +1,5 @@
-#ifndef ENUMS_H
-#define ENUMS_H
-
+#pragma once
+#include <cctype>
 enum class Types {
 	Health,
 	Position,
@@ -48,7 +47,8 @@ enum class GameStates
 	MainMenu,
 	Credits,
 	Hosting,
-	Joining
+	Joining,
+	QuitGame
 };
 
 enum class EntityType
@@ -59,4 +59,19 @@ enum class EntityType
 	Spike
 };
 
-#endif // !ENUMS_H
+static const int SCR_W = 1920;
+static const int SCR_H = 1080;
+
+static const int RAT_W = 30;
+static const int RAT_H = 60;
+
+
+struct not_digit {
+	bool operator()(const char c)
+	{
+		return c != ' ' && !isdigit(c);
+	}
+};
+
+
+

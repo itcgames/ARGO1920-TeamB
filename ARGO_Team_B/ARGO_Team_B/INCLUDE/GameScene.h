@@ -1,7 +1,6 @@
 #ifndef GAME_SCENE_H
 #define GAME_SCENE_H
 #include <SDL.h>
-#include "Enums.h"
 
 #include "HealthSystem.h"
 #include "ControlSystem.h"
@@ -18,6 +17,9 @@
 #include "StateMachineSystem.h"
 #include "GameSystem.h"
 #include "BombSystem.h"
+
+#include "FactoryInterface.h"
+#include "EntityFactory.h"
 class GameScene
 {
 public:
@@ -25,29 +27,24 @@ public:
 	~GameScene();
 	void update(float dt);
 	void render();
+
+	/// <summary>
+	/// online game only
+	/// </summary>
+	
+	//player transfer data
+	SDL_Point playerPosition(int id);
+	bool playerGetCheese(int id);
+	bool playerInteract(int id);
+
+	string playerInfo(int id);
+
+	//game transfer data
+	float gameStartCountdown();
+	float ingameTimer();
+
 private:
-	// Entities
-	Entity m_rat1;
-	Entity m_rat4;
-	Entity m_rat2;
-	Entity m_rat3;
-
-	Entity m_button;
-	Entity m_button2;
-
-	Entity m_doorButton;
-
-	Entity m_spike;
-	Entity m_spike2;
-	Entity m_spike3;
-
-
-	Entity m_door1;
-	Entity m_door2;
-
-	Entity m_goalCheese;
-
-	Entity m_gameManager;
+	std::vector<Entity*> m_entities;
 
 	// Systems
 	HealthSystem m_healthSystem;
@@ -66,10 +63,11 @@ private:
 	SDL_Rect m_view;
 
 	std::vector<ParticleSystem*> m_particles;
-	std::vector<Entity> m_goalCheeses;
-	std::vector<Entity> m_bombs;
 	
 	SDL_Renderer* m_renderer;
-};
-#endif // !MENU_SCENE_H
 
+	float m_restartTimer;
+	void resetGame();
+};
+
+#endif // !MENU_SCENE_H

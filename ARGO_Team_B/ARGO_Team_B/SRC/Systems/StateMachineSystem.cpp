@@ -102,11 +102,11 @@ void StateMachineSystem::setRenderer(SDL_Renderer* t_rend)
 void StateMachineSystem::setupSprites()
 {
 	SpriteSheet* temp1 = new SpriteSheet;
-	temp1->frameSize.x = 90;
+	temp1->frameSize.x = 60;
 	temp1->frameSize.y = 30;
 	temp1->name = "RatWalk";
-	temp1->t_noOfFrames = 5;
-	temp1->frameRate = 3500;
+	temp1->t_noOfFrames = 3;
+	temp1->frameRate = 1500;
 
 	m_surface = IMG_Load("./Assets/SpriteSheetWalkMouse.png");
 	temp1->m_texture = SDL_CreateTextureFromSurface(m_renderer, m_surface);
@@ -116,11 +116,11 @@ void StateMachineSystem::setupSprites()
 	temp1 = NULL;
 
 	SpriteSheet* temp2 = new SpriteSheet;
-	temp2->frameSize.x = 90;
+	temp2->frameSize.x = 60;
 	temp2->frameSize.y = 30;
 	temp2->name = "RatIdle";
-	temp2->t_noOfFrames = 5;
-	temp2->frameRate = 8000;
+	temp2->t_noOfFrames = 3;
+	temp2->frameRate = 1500;
 
 	m_surface = IMG_Load("./Assets/SpriteSheetIdleMouse.png");
 	temp2->m_texture = SDL_CreateTextureFromSurface(m_renderer, m_surface);
@@ -130,11 +130,11 @@ void StateMachineSystem::setupSprites()
 	temp2 = NULL;
 
 	SpriteSheet* temp3 = new SpriteSheet;
-	temp3->frameSize.x = 90;
+	temp3->frameSize.x = 60;
 	temp3->frameSize.y = 30;
 	temp3->name = "RatInteract";
 	temp3->t_noOfFrames = 5;
-	temp3->frameRate = 8000;
+	temp3->frameRate = 2500;
 
 	m_surface = IMG_Load("./Assets/SpriteSheetInteract.png");
 	temp3->m_texture = SDL_CreateTextureFromSurface(m_renderer, m_surface);

@@ -5,9 +5,9 @@
 /// Main Game constructor used to initialise SDL, create a window and initialise SDL_IMG
 /// </summary>
 Game::Game() :
-	m_rat1(EntityType::Rat), m_rat2(EntityType::Rat), m_rat3(EntityType::Rat), m_rat4(EntityType::Rat)
+	m_player1()
 {
-	ControlComponent* controlComp = new ControlComponent(m_rat1, 0);
+	ControlComponent* controlComp = new ControlComponent(m_player1, 0);
 
 	srand(time(NULL));
 	// Initialise SDL
@@ -41,24 +41,16 @@ Game::Game() :
 	}
 	SDL_SetRenderDrawColor(p_renderer, 150, 150, 150, 255); // Black Opaque Background
 
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, NULL, 2048) < 0)
-	{
-		printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
-	}
-	//Allocate 128 channels for a max for 128 audio chunks playing at one time
-	Mix_AllocateChannels(128);
-
+	
+	// Initialise Scenes
 	//m_hostGame = new HostingGame();
 	m_joinGame = new JoiningGame();
-	m_currentState = GameStates::Game;
-	m_menuScene = new MenuScene(p_renderer, &m_currentState, controlComp);
-	//m_creditsScene = new CreditsScene(p_renderer, &m_currentState);
 
+	m_menuScene = new MenuScene(p_renderer, &m_currentState, controlComp);
+	m_creditsScene = new CreditsScene(p_renderer, &m_currentState, controlComp);
 	m_font = new FontObserver(p_renderer);
 	m_font->loadFont();
-
 }
-
 
 /// <summary>
 /// ~Game()
@@ -108,7 +100,6 @@ void Game::processEvents()
 		switch (event.type)
 		{
 		case SDL_KEYDOWN:
-			//m_controlSystem.handleInput(event.key.keysym.sym);
 			break;
 		case SDL_QUIT:
 			m_quit = true;
@@ -134,14 +125,6 @@ void Game::update(float dt)
 		m_menuScene->update(dt);
 		break;
 	case GameStates::Game:
-		/*m_healthSystem.update();
-		m_aiSystem.update();
-		m_buttonSystem.update();
-		m_controlSystem.handleInput(dt);
-		m_collisionSystem.updateComponent(*tiled_map_level, m_observer);
-		m_stateMachine->update();
-		m_bombSystem.updateComponent(dt, m_observer);
-		m_gameSystem.update(dt);*/
 		m_gameScene->update(dt);
 		break;
 	case GameStates::Hosting:
@@ -151,7 +134,11 @@ void Game::update(float dt)
 		m_joinGame->update(dt);
 		break;
 	case GameStates::Credits:
-		//m_creditsScene->update(dt);
+		m_creditsScene->update(dt);
+		m_currentState = m_creditsScene->backToMenu();
+		break;
+	case GameStates::QuitGame:
+		m_quit = true;
 		break;
 	default:
 		break;
@@ -164,6 +151,9 @@ void Game::update(float dt)
 /// </summary>
 void Game::render()
 {
+
+	//SDL_SetRenderDrawColor(p_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+
 	SDL_RenderClear(p_renderer);
 
 	switch (m_currentState)
@@ -176,10 +166,6 @@ void Game::render()
 			m_gameScene = new GameScene(p_renderer);
 		}
 		else {
-			/*tiled_map_level->draw(p_renderer);
-			m_renderSystem.draw();
-			m_gameSystem.draw(m_font);
-			m_stateMachine->update();*/
 			m_gameScene->render();
 		}
 		
@@ -196,7 +182,9 @@ void Game::render()
 		m_joinGame->draw(m_font, p_renderer);
 		break;
 	case GameStates::Credits:
-		//m_creditsScene->render(p_renderer);
+		m_creditsScene->render(p_renderer);
+		break;
+	case GameStates::QuitGame:
 		break;
 	default:
 		break;

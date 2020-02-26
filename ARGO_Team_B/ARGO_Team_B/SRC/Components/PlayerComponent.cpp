@@ -9,6 +9,7 @@ PlayerComponent::PlayerComponent(int id) {
 	m_getACheese = false;
 	m_cheese = 0;
 	m_alive = false;
+	m_carryABomb = false;
 }
 
 PlayerComponent::~PlayerComponent() {
@@ -47,4 +48,9 @@ void PlayerComponent::setGetCheeseOff()
 bool PlayerComponent::getACheese()
 {
 	return m_getACheese;
+}
+
+void PlayerComponent::getABomb(bool state)
+{
+	m_carryABomb = state;
 }

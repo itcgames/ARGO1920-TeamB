@@ -1,7 +1,5 @@
 #ifndef BUTTONCOMPONENT
 #define BUTTONCOMPONENT
-
-#pragma once
 #include "Component.h"
 
 class ButtonComponent : public Component {

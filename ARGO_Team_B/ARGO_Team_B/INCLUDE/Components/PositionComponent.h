@@ -3,6 +3,7 @@
 
 #include "Component.h"
 #include <stdlib.h>
+#include <iostream>
 #include <time.h>
 #include "Component.h"
 #include <math.h>
@@ -12,6 +13,9 @@ class PositionComponent : public Component
 public:
 	PositionComponent(float t_x, float t_y);
 	~PositionComponent();
+
+	void movementUpdate(float dt);
+
 	float getPositionX();
 	float getPositionY();
 	float getVeloX() { return m_velocityX; }
@@ -23,9 +27,12 @@ public:
 	void moveDown();
 	void moveLeft();
 	void moveRight();
+	void slowDownX();
+	void slowDownY();
 
 	void backToPreviousePos();
 	void setPreviousePos();
+	void setPreviouseAngle();
 
 	void setangle(double t_angle);
 
@@ -37,26 +44,28 @@ public:
 	void backToStart();
 
 	bool m_isMoving{ false };
+
 private:
 	const int MAX_VELO = 8;
 	const float INC_VELO = 0.5f;
 
 	float m_velocityX;
-	float m_velocity;
 	float m_velocityY;
+
+	float m_acceleration;
+
 	float m_currentX;
 	float m_currentY;
 
-	int m_acceleration;
 	double m_angle = 0;
 
 	float m_startX;
 	float m_startY;
 
-	float m_previousX;
-	float m_previousY;
-
 	float m_lastX;
 	float m_lastY;
+	double m_lastAngle;
+
+
 };
 #endif // !POS

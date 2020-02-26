@@ -13,12 +13,15 @@ class Entity
 public:
 	static int m_instanceCount;
 
-	Entity(EntityType t_type = EntityType::Default) :
-		m_entityType(t_type)
-	{
-		m_id = m_instanceCount++;
-	};
+	Entity() {};
 	~Entity() {};
+
+	void init(EntityType t_type = EntityType::Default)
+	{
+		m_entityType = t_type;
+		m_id = m_instanceCount++;
+	}
+
 	void addComponent(Component* t_component, Types t_type) {
 		m_components.first.push_back(t_component);
 		m_components.second.push_back(t_type);
@@ -49,6 +52,7 @@ public:
 				return m_components.first.at(i);
 			}
 		}
+		return NULL;
 	};
 
 	Types getType() { return m_components.second.at(0); } // all Player Types have to be first component passed 
