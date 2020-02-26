@@ -3,6 +3,7 @@
 
 #include "AISystem.h"
 #include "Component.h"
+#include "BehaviourTree.h"
 #include "Command.h"
 
 #include "StateMachineSystem.h"
@@ -19,6 +20,13 @@ public:
 	TestBotBehaviourComponent(Entity& t_gameObject);
 	~TestBotBehaviourComponent();
 	void update();
+
+	BehaviourTree m_behaviorTree;
+	BehaviourTree::Selector m_selector[4];
+	BehaviourTree::Sequence m_sequence[5];
+
+	Action wander, findCheese, moveToCheese, CollectCheese, findButton, moveToButton, findBomb, moveToBomb, collectBomb, wanderWithBomb, findPlayerInRange, searchForPlayer, chasePlayer, placebomb, fleeBomb;
+
 private:
 	int i = 0;
 	Entity& m_entity;

@@ -1,232 +1,263 @@
 #include "BehaviourTree.h"
 
 /// <summary>
-/// *********************************** BEHAVIOUR DEFINITIONS ***********************************************
+/// ******************************* Composite Definitions ********************************
 /// </summary>
-DTBehaviour::DTBehaviour()
+
+void BehaviourTree::Composite::addChild(DTNode* t_child)
 {
+	m_children.emplace_back(t_child);
 }
 
-DTBehaviour::DTBehaviour(DTNode& t_node)
+void BehaviourTree::Composite::addChildren(std::initializer_list<DTNode*>&& t_newchildren)
 {
-}
-
-DTBehaviour::~DTBehaviour()
-{
-}
-
-void DTBehaviour::setup(DTNode& t_node)
-{
-	teardown();
-
-	m_node = &t_node;
-	m_task = t_node.create();
-}
-
-void DTBehaviour::teardown()
-{
-	if (m_task == nullptr)
+	for (DTNode* child : t_newchildren)
 	{
-		return;
+		addChild(child);
 	}
-
-	assert(m_status != NodeStatus::BH_RUNNING);
-	m_node->destroy(m_task);
-	m_task = NULL;
 }
 
-NodeStatus DTBehaviour::tick()
+template<typename CONTAINER>
+inline void BehaviourTree::Composite::addchildren(const CONTAINER& t_newChildren)
 {
-	if (m_status == NodeStatus::BH_INVALID)
+	for (DTNode child :t_newChildren)
 	{
-		m_task->onInitialise();
+		addChild(child);
 	}
-
-	m_status = m_task->update();
-
-
-	if (m_status == NodeStatus::BH_RUNNING)
-	{
-		m_task->onTerminate(m_status);
-	}
-
-	return m_status;
-}
-
-DTTask* DTBehaviour::getTask() const
-{
-	return dynamic_cast<DTTask*>(m_task);
 }
 
 
 /// <summary>
-/// *********************************** MOCK TASK DEFINITIIONS ***********************************************
+/// ******************************* Selector Definitions ********************************
 /// </summary>
-MockTask::MockTask(DTNode& t_node) :
-	DTTask(t_node),
-	m_initialiseCalled(0),
-	m_terminateCalled(0),
-	m_updateCalled(0),
-	m_returnStatus(NodeStatus::BH_RUNNING),
-	m_terminateStatus(NodeStatus::BH_INVALID)
+
+bool BehaviourTree::Selector::run()
 {
-}
-
-void MockTask::onInitialise()
-{
-	m_initialiseCalled++;
-}
-
-void MockTask::onTerminate(NodeStatus t_s)
-{
-	m_terminateCalled++;
-	m_terminateStatus = t_s;
-}
-
-NodeStatus MockTask::update()
-{
-	++m_updateCalled;
-	return m_returnStatus;
-}
-
-
-/// <summary>
-/// *********************************** MOCK NODE DEFINITIONS ***********************************************
-/// </summary>
-void MockNode::destroy(DTTask*)
-{
-}
-
-DTTask* MockNode::create()
-{
-	m_task = new MockTask(*this);
-	return m_task;
-}
-
-MockNode::~MockNode()
-{
-	delete m_task;
-}
-
-MockNode::MockNode() :
-	m_task(nullptr)
-{
-}
-
-
-
-/// <summary>
-/// *********************************** SEQUENCE DEFINITIONS ***********************************************
-/// </summary>
-Sequence::Sequence(Composite& t_node)
-	: DTTask(t_node)
-{
-}
-
-Composite& Sequence::getNode()
-{
-	return *static_cast<Composite*>(m_node);
-	// TODO: insert return statement here
-}
-
-void Sequence::onInitialise()
-{
-	m_currentChild = getNode().m_childrenNodes.begin();
-	m_currentBehaviour.setup(**m_currentChild);
-}
-
-NodeStatus Sequence::update()
-{
-	for (; ;)
+	for (DTNode* child : getChildren())
 	{
-		NodeStatus s = m_currentBehaviour.tick();
-		if (s != NodeStatus::BH_SUCCESS)
+		if (!child->run())
 		{
-			return s;
+			return true;
 		}
-		if (++m_currentChild == getNode().m_childrenNodes.end())
+		return false;
+	}
+
+}
+
+/// <summary>
+/// ******************************* Random Selector Definitions ********************************
+/// </summary>
+
+bool BehaviourTree::RandomSelector::run()
+{
+	for (DTNode* child : childrenShuffled())
+	{
+		if (!child->run())
 		{
-			return NodeStatus::BH_SUCCESS;
+			return true;
 		}
-		m_currentBehaviour.setup(**m_currentChild);
+		return false;
 	}
 }
 
 
 /// <summary>
-/// *********************************** MOCK COMPOSITE DEFINITIONS ***********************************************
+/// ******************************* SEQUENCE Definitions ********************************
 /// </summary>
-MockComposite::MockComposite(size_t t_size)
+bool BehaviourTree::Sequence::run()
 {
-	for (size_t i = 0; i < t_size; ++i)
+	for (DTNode* child : getChildren())
 	{
-		m_childrenNodes.push_back(new MockNode);
+		if (!child->run())
+		{
+			return false;
+		}
+		return true;
 	}
-
+	return false;
 }
-MockComposite::~MockComposite()
-{
-	for (size_t i = 0; i < m_childrenNodes.size(); ++i)
-	{
-		delete(m_childrenNodes[i]);
-	}
-}
-
-MockTask& MockComposite::operator[](size_t t_index)
-{
-	ASSERT(t_index < m_childrenNodes.size());
-	MockTask* task = static_cast<MockNode*>(m_childrenNodes[t_index])->m_task;
-	ASSERT(task != NULL);
-	return *task;
-	
-}
-
-DTTask* MockComposite::create()
-{
-	return new MockTask(*this);
-}
-
-void MockComposite::destroy(DTTask* t_task)
-{
-	delete(t_task);
-}
-
 
 
 /// <summary>
-/// *********************************** SELECTOR DEFINITIONS ***********************************************
+/// ******************************* Root Definitions ********************************
 /// </summary>
 
-Selector::Selector(Composite& t_node):
-	DTTask(t_node)
+bool BehaviourTree::Root::run()
 {
+	return getChild()->run(); 
 }
 
-Composite& Selector::getNode()
+
+/// <summary>
+/// ******************************* Behaviour Tree Definitions ********************************
+/// </summary>
+void BehaviourTree::setRootChild(DTNode* t_rootChild) const
 {
-	return *static_cast<Composite*>(m_node);
+	m_root->setChild(t_rootChild);
 }
 
-void Selector::onInitialise()
+bool BehaviourTree::run() const
 {
-	m_currentChild = getNode().m_childrenNodes.begin();
-	m_behaviour.setup(**m_currentChild);
+	return m_root->run();
 }
 
-NodeStatus Selector::update()
+
+/// <summary>
+/// ******************************* Action Definitions ********************************
+/// </summary>
+Action::Action(const std::string t_name, int prob) :
+	m_name(t_name),
+	ProbablilityOfSuccess(prob)
 {
-	for (;;)
+
+}
+
+bool Action::run()
+{
+	if (std::rand() % 100 < ProbablilityOfSuccess)
 	{
-		NodeStatus s = m_behaviour.tick();
-
-		if (s != NodeStatus::BH_FAILURE)
-		{
-			return s;
-		}
-		if (++m_currentChild == getNode().m_childrenNodes.end())
-		{
-			return NodeStatus::BH_FAILURE;
-		}
-		m_behaviour.setup(**m_currentChild);
+		std::cout << m_name << " Succeeded." << std::endl;
+		return true;
 	}
-}	
+	std::cout << m_name << " Failed." << std::endl;
+	return false;
+}
+
+/// <summary>
+/// ******************************* Decorator Node Definitions ********************************
+/// </summary>
+
+void BehaviourTree::DecoratorNode::setChild(DTNode* t_child)
+{
+	m_child = t_child;
+}
+
+/// <summary>
+/// ******************************* Inverter Definitions ********************************
+/// </summary>
+bool BehaviourTree::Inverter::run()
+{
+
+	return !getChild()->run();
+}
+
+/// <summary>
+/// ******************************* Succeeder Definitions ********************************
+/// </summary>
+bool BehaviourTree::Succeeder::run()
+{
+	getChild()->run();
+	return true;
+}
+
+/// <summary>
+/// ******************************* Failer Definitions ********************************
+/// </summary>
+bool BehaviourTree::Failer::run()
+{
+	getChild()->run();
+	return false;
+}
+
+
+/// <summary>
+/// ******************************* Repeater Definitions ********************************
+/// </summary>
+bool BehaviourTree::Repeater::run()
+{
+	if (numRepeats == NOT_FOUND)
+	{
+		while (true)
+		{
+			getChild()->run();
+		}
+	}
+	else
+	{
+		for (int i = 0; i < numRepeats -1; i++)
+		{
+			getChild()->run();
+		}
+		return getChild()->run();
+	}
+}
+
+/// <summary>
+/// ******************************* Repeat Until Fail Definitions ********************************
+/// </summary>
+bool BehaviourTree::RepeatUntilFail::run()
+{
+	while (getChild()->run()) {}
+
+	return true;
+}
+
+/// <summary>
+/// ******************************* Push To Stack Definitions ********************************
+/// </summary>
+template<typename T>
+inline bool BehaviourTree::PushToStack<T>::run()
+{
+	this->stack.push(item);
+	return true;
+}
+
+
+/// <summary>
+/// ******************************* Get Stack Definitions ********************************
+/// </summary>
+template<typename T>
+inline bool BehaviourTree::GetStack<T>::run()
+{
+	this->stack = m_obtainedStack;
+	if (m_object)
+	{
+		this->stack.push(m_object);
+	}
+	return true;
+}
+
+
+/// <summary>
+/// ******************************* Pop From Stack Definitions ********************************
+/// </summary>
+template<typename T>
+inline bool BehaviourTree::PopFromStack<T>::run()
+{
+	if (this->stack.empty())
+	{
+		return false;
+	}
+	m_item = this->stack.top();
+	this->stack.pop();
+	return true;
+}
+
+/// <summary>
+/// ******************************* Stack Is Empty Definitions ********************************
+/// </summary>
+template<typename T>
+inline bool BehaviourTree::StackIsEmpty<T>::run()
+{
+	return this->stack.empty();
+}
+
+/// <summary>
+/// ******************************* Set Variable Definitions ********************************
+/// </summary>
+template<typename T>
+inline bool BehaviourTree::SetVariable<T>::run()
+{
+	m_variable = m_object;
+	return true;
+}
+
+/// <summary>
+/// ******************************* Is Null Definitions ********************************
+/// </summary>
+template<typename T>
+inline bool BehaviourTree::IsNull<T>::run()
+{
+	return !m_object;
+}
+
