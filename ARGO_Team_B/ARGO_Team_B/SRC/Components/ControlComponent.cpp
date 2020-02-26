@@ -90,6 +90,7 @@ void ControlComponent::controlUp(PositionComponent* t_pos)
 {
 	p_walkUp = new WalkUpCommand();
 	p_walkUp->execute(m_entity);
+
 	m_commandSquence->add(p_walkUp);
 	float length = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
 	double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
@@ -100,6 +101,7 @@ void ControlComponent::controlDown(PositionComponent* t_pos)
 {
 	p_walkDown = new WalkDownCommand();
 	p_walkDown->execute(m_entity);
+
 	m_commandSquence->add(p_walkDown);
 	float length = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
 	double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
@@ -110,6 +112,7 @@ void ControlComponent::controlLeft(PositionComponent* t_pos)
 {
 	p_walkLeft = new WalkLeftCommand();
 	p_walkLeft->execute(m_entity);
+
 	m_commandSquence->add(p_walkLeft);
 	float length = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
 	double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);
@@ -120,6 +123,7 @@ void ControlComponent::controlRight(PositionComponent* t_pos)
 {
 	p_walkRight = new WalkRightCommand();
 	p_walkRight->execute(m_entity);
+
 	m_commandSquence->add(p_walkRight);
 	float length = sqrt((m_controller->m_currentState.LeftThumbStick.x * m_controller->m_currentState.LeftThumbStick.x) + (m_controller->m_currentState.LeftThumbStick.y * m_controller->m_currentState.LeftThumbStick.y));
 	double angle = atan2(m_controller->m_currentState.LeftThumbStick.x / length, (m_controller->m_currentState.LeftThumbStick.y / length) * -1);

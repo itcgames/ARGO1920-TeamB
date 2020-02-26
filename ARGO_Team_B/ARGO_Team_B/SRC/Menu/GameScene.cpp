@@ -138,7 +138,7 @@ void GameScene::update(float dt)
 		m_buttonSystem.update();
 		m_controlSystem.handleInput(dt, m_stateMachine, m_renderer, m_particles);
 		m_collisionSystem.updateComponent(*tiled_map_level, m_observer, m_particles, m_renderer, m_view);
-		m_stateMachine->update();
+		//m_stateMachine->update();
 		m_bombSystem.updateComponent(dt, m_observer, m_view);
 		m_gameSystem.update(dt);
 
@@ -233,6 +233,43 @@ bool GameScene::playerGetCheese(int id) {
 	bool playerGetCheese = m_player->getACheese();
 
 	return playerGetCheese;
+}
+
+string GameScene::playerInfo(int id)
+{
+	PlayerComponent* m_playerComp = NULL;
+	PositionComponent* m_playerPos = NULL;
+
+	switch (id)
+	{
+	case 1:
+		m_playerComp = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
+		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
+		break;
+	case 2:
+		m_playerComp = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
+		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
+		break;
+	case 3:
+		m_playerComp = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
+		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
+		break;
+	case 4:
+		m_playerComp = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
+		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
+		break;
+	default:
+		break;
+	}
+
+	bool playerGetCheese = m_playerComp->getACheese();
+	bool playerInteract = m_playerComp->getInteract();
+
+	string transferData = "positionX: " + to_string(m_playerPos->getPositionX()) + "positionY: " + to_string(m_playerPos->getPositionY());
+	transferData += " getCheese: " + to_string(playerGetCheese);
+	transferData += " interact: " + to_string(playerInteract);
+
+	return transferData;
 }
 
 float GameScene::gameStartCountdown() {

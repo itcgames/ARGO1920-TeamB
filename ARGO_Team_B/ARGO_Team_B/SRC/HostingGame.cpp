@@ -18,7 +18,7 @@ void HostingGame::waitingConnection() {
 	if (MyServer->getTotalConnections() < m_playerRequire) {
 		cout << "waiting for players" << endl;
 		MyServer->ListenForNewConnection();
-		m_startCountdown = 30.0f;
+		m_startCountdown = 10.0f;
 	}
 }
 
@@ -51,11 +51,13 @@ void HostingGame::update(float dt) {
 		else {
 			m_gameState = "Timer : " + to_string(ingameTimer);
 			MyServer->SendStringToAll(m_gameState, PacketType::InGameTimer);
+
+			//transfer current player data
+			string m_playerState = m_gameScene->playerInfo(1);
+			MyServer->SendStringToAll(m_playerState, PacketType::PlayerData);
 		}
 
-		//transfer current player data
-		SDL_Point position = m_gameScene->playerPosition(1);
-		bool gotCheese = m_gameScene->playerGetCheese(1);
+
 
 	}
 

@@ -35,6 +35,9 @@ public:
 	//player transfer data
 	SDL_Point playerPosition(int id);
 	bool playerGetCheese(int id);
+	bool playerInteract(int id);
+
+	string playerInfo(int id);
 
 	//game transfer data
 	float gameStartCountdown();
