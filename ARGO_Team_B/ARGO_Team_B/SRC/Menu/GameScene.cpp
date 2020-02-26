@@ -58,8 +58,8 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	}
 
 	/// Spikes
-	m_entities.push_back(factory->CreateTrap(1, false, 600, 600));
 	m_entities.push_back(factory->CreateTrap(0, true, 700, 100));
+	m_entities.push_back(factory->CreateTrap(1, false, 600, 600));
 	m_entities.push_back(factory->CreateTrap(2, false, 800, 100));
 		/// Spike Systems
 	for (int i = 1; i <= 3; i++) {
