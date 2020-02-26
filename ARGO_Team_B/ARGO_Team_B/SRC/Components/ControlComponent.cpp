@@ -36,11 +36,11 @@ void ControlComponent::handleInput(SDL_Renderer* t_renderer,std::vector<Particle
 
 		if (m_controller->m_currentState.LeftThumbStick.y < -m_controller->dpadThreshold) {
 			controlUp(posComp);
-			t_ps.push_back((new ParticleSystem(10, posComp->getPositionX()+3, posComp->getPositionY() + 30, t_renderer, ParticleType::Dust)));
+			//t_ps.push_back((new ParticleSystem(10, posComp->getPositionX()+3, posComp->getPositionY() + 30, t_renderer, ParticleType::Dust)));
 		}
 		else if (m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
 			controlDown(posComp);
-			t_ps.push_back((new ParticleSystem(10, posComp->getPositionX() + 2, posComp->getPositionY() + 1, t_renderer, ParticleType::Dust)));
+			//t_ps.push_back((new ParticleSystem(10, posComp->getPositionX() + 2, posComp->getPositionY() + 1, t_renderer, ParticleType::Dust)));
 		}
 		else {
 			posComp->slowDownY();
@@ -48,11 +48,11 @@ void ControlComponent::handleInput(SDL_Renderer* t_renderer,std::vector<Particle
 
 		if (m_controller->m_currentState.LeftThumbStick.x < -m_controller->dpadThreshold) {
 			controlLeft(posComp);
-			t_ps.push_back((new ParticleSystem(10, posComp->getPositionX()+10, posComp->getPositionY()+17, t_renderer, ParticleType::Dust)));
+			//t_ps.push_back((new ParticleSystem(10, posComp->getPositionX()+10, posComp->getPositionY()+17, t_renderer, ParticleType::Dust)));
 		}
 		else if (m_controller->m_currentState.LeftThumbStick.x > m_controller->dpadThreshold) {
 			controlRight(posComp);
-			t_ps.push_back((new ParticleSystem(10, posComp->getPositionX() -10, posComp->getPositionY()+18, t_renderer, ParticleType::Dust)));
+			//t_ps.push_back((new ParticleSystem(10, posComp->getPositionX() -10, posComp->getPositionY()+18, t_renderer, ParticleType::Dust)));
 		}
 		else {
 			posComp->slowDownX();

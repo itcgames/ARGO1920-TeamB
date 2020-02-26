@@ -394,6 +394,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 
 	for (int i = 0; i < t_mazeWalls.m_teleport.size(); i++)
 	{
+		int random = rand() % 4;
 		//right of tile
 		if (x <= t_mazeWalls.m_teleport[i].x + t_mazeWalls.m_teleport[i].width &&
 			x >= t_mazeWalls.m_teleport[i].x &&
@@ -402,7 +403,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 		{
 			t_observer->onNotify(AudioObserver::PORTAL);
 			std::cout << "right TELEPORT collision!" << std::endl;
-			m_positionComp->setPosition(t_mazeWalls.m_teleport[1].x - 65, t_mazeWalls.m_teleport[1].y);
+			m_positionComp->setPosition(t_mazeWalls.m_teleport[random].x + 60, t_mazeWalls.m_teleport[random].y);
 		}
 
 		//left of tile
@@ -414,7 +415,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 		{
 			t_observer->onNotify(AudioObserver::PORTAL);
 			std::cout << "left TELEPORT collision!" << std::endl;
-			m_positionComp->setPosition(t_mazeWalls.m_teleport[0].x + 35, t_mazeWalls.m_teleport[0].y);
+			m_positionComp->setPosition(t_mazeWalls.m_teleport[random].x + 60, t_mazeWalls.m_teleport[random].y);
 		}
 		//top of tile
 		if (y + height >= t_mazeWalls.m_teleport[i].y &&
@@ -425,7 +426,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 		{
 			t_observer->onNotify(AudioObserver::PORTAL);
 			std::cout << "top TELEPORT collision!" << std::endl;
-			m_positionComp->setPosition(t_mazeWalls.m_teleport[2].x, t_mazeWalls.m_teleport[2].y + 35);
+			m_positionComp->setPosition(t_mazeWalls.m_teleport[random].x + 60, t_mazeWalls.m_teleport[random].y );
 		}
 		////bottom of tile
 		if (y >= t_mazeWalls.m_teleport[i].y + t_mazeWalls.m_teleport[i].height &&
@@ -435,7 +436,7 @@ void CollisionSystem::tileCollision(float x, float y, float width, float height,
 		{
 			t_observer->onNotify(AudioObserver::PORTAL);
 			std::cout << "bottom TELEPORT collision!" << std::endl;
-			m_positionComp->setPosition(t_mazeWalls.m_teleport[3].x, t_mazeWalls.m_teleport[3].y - 75);
+			m_positionComp->setPosition(t_mazeWalls.m_teleport[random].x+60, t_mazeWalls.m_teleport[random].y);
 		}
 	}
 }
