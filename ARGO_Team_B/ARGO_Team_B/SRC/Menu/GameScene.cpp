@@ -2,9 +2,10 @@
 
 GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_renderer(t_renderer),
-	m_restartTimer(8.0f)
+	m_restartTimer(8.0f),
+	m_isEndScreenDone{false},
+	m_gameCount(1)
 {
-
 	m_view.h = SCR_H;
 	m_view.w = SCR_W;
 	m_view.x = 0;
@@ -123,6 +124,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 			}
 		}	
 	}
+	m_gameState = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
 }
 
 GameScene::~GameScene()
@@ -133,7 +135,6 @@ void GameScene::update(float dt)
 {
 	GameComponent* m_game = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
 	if (!m_game->getGameover()) {
-
 		m_healthSystem.update();
 		m_aiSystem.update();
 		m_buttonSystem.update();
@@ -157,8 +158,16 @@ void GameScene::update(float dt)
 	else {
 		m_restartTimer -= dt;
 		if (m_restartTimer <= 0) {
+			// let end screen show
+			if (!m_isEndScreenDone)
+			{
+				m_restartTimer += 2.5f;
+				m_isEndScreenDone = true;
+			}
+			else {
+				resetGame();
+			}
 			// restart code here
-
 		}
 	}
 }
@@ -179,14 +188,49 @@ void GameScene::render()
 }
 
 void GameScene::resetGame() {
-
+	string map;
+	m_gameCount++;
+	m_isEndScreenDone = false;
+	if (m_gameState->getGameCount() != -1) // game over early code
+	{
+		m_gameState->setGameCount(m_gameCount);
+	}
+	else {
+		m_gameCount = -1;
+	}
+	switch (m_gameCount) {
+	case 2:
+		map = "Assets/map/test2.tmx";
+		break;
+	case 3:
+		map = "Assets/map/test3.tmx";
+		break;
+	case 4:
+		map = "Assets/map/test4.tmx";
+		break;
+	case 5:
+		map = "Assets/map/test5.tmx";
+		break;
+	case 6:
+		m_gameState->resetGame();
+		break;
+	default:
+		break;
+	}
+	m_gameState->resetRound();
+	tiled_map_level->load(map, m_renderer);
+	for (int i = 0; i < 4; i++) {
+		PlayerComponent* player = dynamic_cast<PlayerComponent*>(m_entities.at(i)->getComponent(Types::Player));
+		player->reset();
+		PositionComponent* pos = dynamic_cast<PositionComponent*>(m_entities.at(i)->getComponent(Types::Position));
+		pos->reset(i + 1, tiled_map_level);
+	}
 }
 
 string GameScene::playerInfo(int id)
 {
 	PlayerComponent* m_playerComp = NULL;
 	PositionComponent* m_playerPos = NULL;
-
 	switch (id)
 	{
 	case 1:
