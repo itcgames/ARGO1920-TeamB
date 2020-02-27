@@ -1,7 +1,8 @@
 #include "TestBotBehaviourComponent.h"
 
-TestBotBehaviourComponent::TestBotBehaviourComponent(std::vector<Entity*>& t_entities, Entity& t_gameObject) :
-m_entity(t_gameObject)
+TestBotBehaviourComponent::TestBotBehaviourComponent(std::vector<Entity*>& t_entities, Entity& t_gameObject, Level& t_level) :
+	m_entity(t_gameObject),
+	m_level(t_level)
 {
 	for (Entity* e : t_entities)
 	{
@@ -22,8 +23,9 @@ m_entity(t_gameObject)
 	m_TargetCheese = FindClosest(m_cheeses);
 }
 
-TestBotBehaviourComponent::TestBotBehaviourComponent(Entity& t_gameObject) :
-	m_entity{ t_gameObject }	
+TestBotBehaviourComponent::TestBotBehaviourComponent(Entity& t_gameObject, Level& t_level) :
+	m_entity{ t_gameObject },
+	m_level(t_level)
 {
 		
 }

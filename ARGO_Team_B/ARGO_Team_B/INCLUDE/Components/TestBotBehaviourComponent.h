@@ -47,8 +47,8 @@ struct ButtonStruct : public GoalStruct
 class TestBotBehaviourComponent : public Component
 {
 public:
-	TestBotBehaviourComponent(std::vector<Entity*>& t_entities, Entity& t_gameObject);
-	TestBotBehaviourComponent(Entity& t_gameObject);
+	TestBotBehaviourComponent(std::vector<Entity*>& t_entities, Entity& t_gameObject, Level& t_level);
+	TestBotBehaviourComponent(Entity& t_gameObject, Level& t_level);
 	~TestBotBehaviourComponent();
 	void update();
 
@@ -66,6 +66,8 @@ public:
 
 	GoalStruct* m_TargetCheese;
 	GoalStruct* m_TargetBomb;
+
+	Level& m_level;
 
 private:
 	int i = 0;
