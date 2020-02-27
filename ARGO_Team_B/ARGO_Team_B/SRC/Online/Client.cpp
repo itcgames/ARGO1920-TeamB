@@ -58,7 +58,7 @@ bool Client::ProcessPacketType(PacketType packetType)
 			return false; //If we do not properly get the chat message, return false
 		std::cout << Message << std::endl; //Display the message to the user
 
-		m_processMessage = Message;
+		m_playerId = Message;
 
 		break;
 	}

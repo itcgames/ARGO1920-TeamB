@@ -46,7 +46,7 @@ public:
 
 	bool m_isMoving{ false };
 
-	void reset(int t_num, float t_x,float t_y);
+	void reset(int t_num, Level* t_level);
 
 private:
 	const int MAX_VELO = 8;

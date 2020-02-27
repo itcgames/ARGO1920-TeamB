@@ -43,7 +43,7 @@ private:
 
 	SDL_Joystick* m_joystick = NULL;
 public:
-	const int dpadThreshold = 8000;
+	const int dpadThreshold = 15000;
 	// the current state of all the buttons
 	GamePadstate m_currentState;
 

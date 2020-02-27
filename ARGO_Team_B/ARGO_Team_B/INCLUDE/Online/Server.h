@@ -28,7 +28,7 @@ public: //Public functions
 	bool ListenForNewConnection();
 	int getTotalConnections() { return m_connections.size(); }
 	void SendStringToAll(const std::string& data, PacketType type);
-
+	std::string getPlayerData() { return m_playerData; }
 private: //Private functions
 	bool sendall(std::shared_ptr<Connection> connection, const char * data, const int totalBytes);
 	bool recvall(std::shared_ptr<Connection> connection, char * data, int totalBytes);
@@ -49,4 +49,7 @@ private: //Private Variables
 	SOCKET m_sListen;
 	bool m_terminateThreads = false;
 	std::vector<std::thread*> m_threads; //so destructor can wait on created threads to end...
+	
+	// data message for player 
+	std::string m_playerData;
 };

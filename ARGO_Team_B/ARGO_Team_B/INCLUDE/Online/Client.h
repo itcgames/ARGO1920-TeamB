@@ -11,9 +11,10 @@ public: //Public functions
 	void Disconnect();
 	void SendString(const std::string & str, PacketType type);
 
-	std::string getProcessMessage() { return m_processMessage; }
+	std::string getPlayerId() { return m_playerId; }
 	std::string getStartCountdown() { return m_startCountdown; }
 	std::string getStartGameTimer() { return m_startGameTimer; }
+	std::string getPlayerData() { return m_playerData; }
 
 	~Client();
 private: //Private functions
@@ -38,7 +39,7 @@ private: //Private variables
 	std::thread m_pst; //Create thread to send packets
 	std::thread m_ct; //Create thread to listen to server
 
-	std::string m_processMessage;
+	std::string m_playerId;
 	std::string m_startCountdown;
 	std::string m_startGameTimer;
 	std::string m_inGameTimer;

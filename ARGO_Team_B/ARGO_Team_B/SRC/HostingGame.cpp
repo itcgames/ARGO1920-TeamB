@@ -6,8 +6,9 @@ HostingGame::HostingGame()
 	m_startCountdown = 5.0f;
 	m_playerRequire = 1;
 	
-	//m_waitingPlayer = thread(this->waitingConnection);
-	//m_waitingPlayer.join();
+	//std::thread th(&HostingGame::waitingConnection, this);
+	//th.join();
+
 }
 
 HostingGame::~HostingGame() {
@@ -18,46 +19,52 @@ void HostingGame::waitingConnection() {
 	if (MyServer->getTotalConnections() < m_playerRequire) {
 		cout << "waiting for players" << endl;
 		MyServer->ListenForNewConnection();
-		m_startCountdown = 10.0f;
+		m_startCountdown = 5.0f;
+		startTime = SDL_GetTicks() + (m_startCountdown * 1000); // the tick time is meilsecond
+		cout << "Start Time : " << startTime << endl;
+		currentTime = SDL_GetTicks();
+		cout << "Current Time : " << currentTime << endl;
 	}
 }
 
 void HostingGame::update(float dt) {
 	waitingConnection();
 
-	if (m_startCountdown > 0.0f) {
+
+	if (currentTime < startTime) {
+		currentTime = SDL_GetTicks();
+		cout << "Current Time : " << currentTime << endl;
+		cout << "Start Time : " << startTime << endl;
 		if (MyServer->getTotalConnections() >= m_playerRequire) {
-			m_startCountdown -= dt;
-			int timer = m_startCountdown + 1;
-			string m_timerMessage = "timer: " + to_string(timer);
+
+			string m_timerMessage = "Start Time: " + to_string(startTime) + " Current Time: " + to_string(currentTime);
 			//MyServer
 			MyServer->SendStringToAll(m_timerMessage, PacketType::StartCountdown);
-			cout << m_timerMessage << endl;
+			//cout << m_timerMessage << endl;
+			
 		}
 	}
 	else {
-		// game loop here
+		//get data from server
+		cout << MyServer->getPlayerData() << endl;
+		if (prePlayerData != MyServer->getPlayerData()) {
+			prePlayerData = MyServer->getPlayerData();
+			temp = intConverter(prePlayerData);
+			if (temp.size() == 5) {
+				/*for (int i = 0; i < temp.size(); i++) {
+					cout << temp[i] << endl;
+				}*/
+				m_gameScene->setDataToPlayer(temp);
 
+			}
+		}
+
+		// game loop 
 		m_gameScene->update(dt);
 
-		// transfer game data to client 
-		float gameStartCountdown = m_gameScene->gameStartCountdown();
-		float ingameTimer = m_gameScene->ingameTimer();
-		string m_gameState;
-		if (gameStartCountdown > 0) {
-			m_gameState = "start in : " + to_string(gameStartCountdown);
-			MyServer->SendStringToAll(m_gameState, PacketType::StartGameTimer);
-		}
-		else {
-			m_gameState = "Timer : " + to_string(ingameTimer);
-			MyServer->SendStringToAll(m_gameState, PacketType::InGameTimer);
-
-			//transfer current player data
-			string m_playerState = m_gameScene->playerInfo(1);
-			MyServer->SendStringToAll(m_playerState, PacketType::PlayerData);
-		}
-
-
+		//transfer current player data
+		string m_playerState = m_gameScene->playerInfo(1);
+		MyServer->SendStringToAll(m_playerState, PacketType::PlayerData);
 
 	}
 
@@ -75,8 +82,8 @@ void HostingGame::draw(FontObserver* text, SDL_Renderer* t_renderer)
 
 	}
 	else {
-		if (m_startCountdown > 0.0f) {
-			int timer = m_startCountdown + 1;
+		if (currentTime < startTime) {
+			int timer = (startTime - currentTime) / 1000 + 1;
 			string startTiemr = "Game start in " + to_string(timer);
 			const char* c = startTiemr.data();
 			color = { 1, 1, 1 , 255 };
@@ -84,7 +91,7 @@ void HostingGame::draw(FontObserver* text, SDL_Renderer* t_renderer)
 		}
 		else {
 			if (m_gameScene == NULL) {
-				m_gameScene = new GameScene(t_renderer);
+				m_gameScene = new GameScene(t_renderer, 1);
 			}
 			else {
 				m_gameScene->render();
