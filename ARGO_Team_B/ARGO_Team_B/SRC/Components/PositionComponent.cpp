@@ -29,6 +29,9 @@ float PositionComponent::getPositionY()
 
 void PositionComponent::setPosition(float t_x, float t_y)
 {
+	m_lastX = m_currentX;
+	m_lastY = m_currentY;
+
 	m_currentX = t_x;
 	m_currentY = t_y;
 	//m_angle = m_lastAngle;

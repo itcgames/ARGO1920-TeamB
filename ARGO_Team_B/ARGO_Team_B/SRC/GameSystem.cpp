@@ -32,7 +32,7 @@ void GameSystem::update(float dt) {
 					info = new tempCheeseData(m_game->getRedTeamCheese(), playerPos->getPositionX(), playerPos->getPositionY(), playerComp->getId());
 				}
 				else if (playerComp->getId() == 2 || playerComp->getId() == 4) {
-					info = new tempCheeseData(m_game->getRedTeamCheese(), playerPos->getPositionX(), playerPos->getPositionY(), playerComp->getId());
+					info = new tempCheeseData(m_game->getGreenTeamCheese(), playerPos->getPositionX(), playerPos->getPositionY(), playerComp->getId());
 				}
 				
 				m_cheeseTextData.push_back(info);

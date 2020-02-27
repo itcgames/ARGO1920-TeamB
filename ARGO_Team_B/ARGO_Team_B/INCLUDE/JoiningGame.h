@@ -27,15 +27,26 @@ private:
 
 	not_digit notADigit;
 	vector<int> intConverter(string message);
-	string preStartCounter;
 	
 	Client* MyClient;
 
 	int m_startCountdown;
-	int m_playerId;
 	bool m_gameConnented;
 
 	GameScene* m_gameScene;
+
+	string preStartCounter;
+	/*string preStartGameTimer;
+	string preInGameTimer;*/
+	string prePlayerData;
+
+	string prePlayerId;
+	int m_playerId;
+
+	vector<int> temp;
+
+	Uint32 startTime;
+	Uint32 currentTime;
 };
 
 #endif // !JOININGGAEM

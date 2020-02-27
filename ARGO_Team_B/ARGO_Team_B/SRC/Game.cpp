@@ -16,11 +16,9 @@ Game::Game() :
 		std::cout << "Failed to initialise SDL" << std::endl;
 	}
 	
-
 	// Create a Window
-	//p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCR_W, SCR_H, SDL_WINDOW_SHOWN );
-	// Dion Debug window
-	p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_SHOWN);
+	p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCR_W, SCR_H, SDL_WINDOW_SHOWN );
+	// Debug window p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_SHOWN);
 
 	if (NULL == p_window)
 	{
@@ -47,8 +45,9 @@ Game::Game() :
 	m_joinGame = new JoiningGame();
 
 	// debug
-	m_currentState = GameStates::Game;
-	// release m_currentState = GameStates::MainMenu;
+	//m_currentState = GameStates::Game;
+	// release 
+	m_currentState = GameStates::MainMenu;
 
 	m_menuScene = new MenuScene(p_renderer, &m_currentState, controlComp);
 	m_creditsScene = new CreditsScene(p_renderer, &m_currentState, controlComp);
@@ -181,6 +180,7 @@ void Game::render()
 	case GameStates::Hosting:
 		if (m_hostGame == NULL) {
 			m_hostGame = new HostingGame();
+
 		}
 		else {
 			m_hostGame->draw(m_font,p_renderer);
