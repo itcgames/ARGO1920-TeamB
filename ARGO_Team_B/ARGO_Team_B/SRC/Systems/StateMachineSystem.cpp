@@ -86,7 +86,12 @@ void StateMachineSystem::checkStates(State* t_state, Entity* e)
 				animated->setCurrent(new WalkingState());
 			}
 			break;
-
+		case States::WalkingBomb:
+			if (animated->getPrevious()->m_type != States::WalkingBomb) {
+				animated->updateSpriteState(*m_spriteSheets[3]);
+				animated->getCurrent()->walkWithBomb(animated);
+				animated->setCurrent(new WalkWithBombState());
+			}
 		default:
 			break;
 		}
@@ -142,5 +147,19 @@ void StateMachineSystem::setupSprites()
 	m_spriteSheets.push_back(temp3);
 
 	temp3 = NULL;
+
+	SpriteSheet* temp4 = new SpriteSheet;
+	temp4->frameSize.x = 60;
+	temp4->frameSize.y = 30;
+	temp4->name = "RatWithBomb";
+	temp4->t_noOfFrames = 5;
+	temp4->frameRate = 2500;
+
+	m_surface = IMG_Load("./Assets/SpriteSheetWalkBombMouse.png");
+	temp4->m_texture = SDL_CreateTextureFromSurface(m_renderer, m_surface);
+	SDL_FreeSurface(m_surface);
+	m_spriteSheets.push_back(temp4);
+
+	temp4 = NULL;
 }
 

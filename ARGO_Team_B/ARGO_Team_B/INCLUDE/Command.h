@@ -6,6 +6,7 @@
 #include "CollisionComponent.h"
 #include "PlayerComponent.h"
 #include "RenderComponent.h"
+#include "BombComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include <vector>
 

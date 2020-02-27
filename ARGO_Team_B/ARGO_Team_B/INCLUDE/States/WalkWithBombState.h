@@ -3,16 +3,14 @@
 #include "State.h"
 
 
-class WalkingState : public State
+class WalkWithBombState : public State
 {
 public:
-	WalkingState();
-	~WalkingState();
+	WalkWithBombState();
+	~WalkWithBombState();
 
 	void idle(AnimatedSpriteComponent* t_a)override;
 	void stunned(AnimatedSpriteComponent* t_a)override;
 	void attack(AnimatedSpriteComponent* t_a)override;
-	void walkWithBomb(AnimatedSpriteComponent* t_a)override;
-	
-
+	void walking(AnimatedSpriteComponent* t_a)override;
 };

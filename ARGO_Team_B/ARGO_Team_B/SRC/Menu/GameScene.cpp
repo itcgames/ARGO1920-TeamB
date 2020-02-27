@@ -138,7 +138,7 @@ void GameScene::update(float dt)
 		m_healthSystem.update();
 		m_aiSystem.update();
 		m_buttonSystem.update();
-		m_controlSystem.handleInput(dt, m_stateMachine, m_renderer, m_particles,m_observer);
+		m_controlSystem.handleInput(dt, m_stateMachine, m_renderer, m_particles);
 		m_collisionSystem.updateComponent(*tiled_map_level, m_observer, m_particles, m_renderer, m_view);
 		//m_stateMachine->update();
 		m_bombSystem.updateComponent(dt, m_observer, m_view);

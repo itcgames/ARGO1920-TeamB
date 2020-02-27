@@ -3,6 +3,7 @@
 #include "StunnedState.h"
 #include "IdleState.h"
 #include "AttackState.h"
+#include "WalkWithBombState.h"
 
 WalkingState::WalkingState()
 {
@@ -31,5 +32,11 @@ void WalkingState::attack(AnimatedSpriteComponent* t_a)
 {
 	std::cout << "Walking -> attack" << std::endl;
 	t_a->setCurrent(new AttackState());
+	delete this;
+}
+void WalkingState::walkWithBomb(AnimatedSpriteComponent* t_a)
+{
+	std::cout << "Walking -> walkWithBomb" << std::endl;
+	t_a->setCurrent(new WalkWithBombState());
 	delete this;
 }

@@ -19,14 +19,14 @@ void ControlSystem::updateComponent(Component* c)
 	}
 }
 
-void ControlSystem::handleInput(float dt, StateMachineSystem* t_stateSystem,SDL_Renderer * t_renderer,std::vector<ParticleSystem*>&t_ps,AudioObserver * t_observer) {
+void ControlSystem::handleInput(float dt, StateMachineSystem* t_stateSystem,SDL_Renderer * t_renderer,std::vector<ParticleSystem*>&t_ps) {
 	for (Entity& e : entities)
 	{
 		ControlComponent* cont = dynamic_cast<ControlComponent*>(e.getComponent(Types::Control));
 
 		if (cont != NULL)
 		{
-			cont->handleInput(t_renderer,t_ps,dt,t_observer);
+			cont->handleInput(t_renderer,t_ps,dt);
 		}
 		PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(e.getComponent(Types::Player));
 		if (playerComp->getSwipeCooldown() > 0.0f) {

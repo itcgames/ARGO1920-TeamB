@@ -18,7 +18,7 @@ ControlComponent::~ControlComponent()
 {
 }
 
-void ControlComponent::handleInput(SDL_Renderer* t_renderer,std::vector<ParticleSystem*>&t_ps,float dt,AudioObserver*t_observer)
+void ControlComponent::handleInput(SDL_Renderer* t_renderer,std::vector<ParticleSystem*>&t_ps,float dt)
 {
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
 	PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
