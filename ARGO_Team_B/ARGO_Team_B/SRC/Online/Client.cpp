@@ -12,7 +12,7 @@ bool Client::ProcessPacketType(PacketType packetType)
 		std::string Message; //string to store our message we received
 		if (!GetString(Message)) //Get the chat message and store it in variable: Message
 			return false; //If we do not properly get the chat message, return false
-		std::cout << Message << std::endl; //Display the message to the user
+		//std::cout << Message << std::endl; //Display the message to the user
 
 		m_playerData = Message;
 
@@ -23,7 +23,7 @@ bool Client::ProcessPacketType(PacketType packetType)
 		std::string Message; //string to store our message we received
 		if (!GetString(Message)) //Get the chat message and store it in variable: Message
 			return false; //If we do not properly get the chat message, return false
-		std::cout << Message << std::endl; //Display the message to the user
+		//std::cout << Message << std::endl; //Display the message to the user
 
 		m_inGameTimer = Message;
 
@@ -34,7 +34,7 @@ bool Client::ProcessPacketType(PacketType packetType)
 		std::string Message; //string to store our message we received
 		if (!GetString(Message)) //Get the chat message and store it in variable: Message
 			return false; //If we do not properly get the chat message, return false
-		std::cout << Message << std::endl; //Display the message to the user
+		//std::cout << Message << std::endl; //Display the message to the user
 
 		m_startGameTimer = Message;
 
@@ -45,7 +45,7 @@ bool Client::ProcessPacketType(PacketType packetType)
 		std::string Message; //string to store our message we received
 		if (!GetString(Message)) //Get the chat message and store it in variable: Message
 			return false; //If we do not properly get the chat message, return false
-		std::cout << Message << std::endl; //Display the message to the user
+		//std::cout << Message << std::endl; //Display the message to the user
 
 		m_startCountdown = Message;
 
@@ -56,7 +56,7 @@ bool Client::ProcessPacketType(PacketType packetType)
 		std::string Message; //string to store our message we received
 		if (!GetString(Message)) //Get the chat message and store it in variable: Message
 			return false; //If we do not properly get the chat message, return false
-		std::cout << Message << std::endl; //Display the message to the user
+		//std::cout << Message << std::endl; //Display the message to the user
 
 		m_playerId = Message;
 
@@ -64,7 +64,7 @@ bool Client::ProcessPacketType(PacketType packetType)
 	}
 
 	default: //If PacketType type is not accounted for
-		std::cout << "Unrecognized PacketType: " << (std::int32_t)packetType << std::endl; //Display that PacketType was not found
+		//std::cout << "Unrecognized PacketType: " << (std::int32_t)packetType << std::endl; //Display that PacketType was not found
 		break;
 	}
 	return true;
@@ -82,15 +82,15 @@ void Client::ClientThread(Client & client)
 		if (!client.ProcessPacketType(PacketType)) //Process PacketType (PacketType type)
 			break; //If there is an issue processing the PacketType, exit this loop
 	}
-	std::cout << "Lost connection to the server.\n";
+	//std::cout << "Lost connection to the server.\n";
 	client.m_terminateThreads = true;
 	if (client.CloseConnection()) //Try to close socket connection..., If connection socket was closed properly
 	{
-		std::cout << "Socket to the server was closed successfully." << std::endl;
+		//std::cout << "Socket to the server was closed successfully." << std::endl;
 	}
 	else //If connection socket was not closed properly for some reason from our function
 	{
-		std::cout << "Socket was not able to be closed." << std::endl;
+		//std::cout << "Socket was not able to be closed." << std::endl;
 	}
 }
 

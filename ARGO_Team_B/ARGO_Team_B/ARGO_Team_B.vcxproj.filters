@@ -116,6 +116,9 @@
     <ClCompile Include="SRC\Systems\StateMachineSystem.cpp" />
     <ClCompile Include="SRC\Systems\System.cpp" />
     <ClCompile Include="SRC\Utils\Assets.cpp" />
+    <ClCompile Include="SRC\Utils\Command.cpp" />
+    <ClCompile Include="SRC\Utils\Xbox360Controller.cpp" />
+    <ClCompile Include="SRC\AITree\BehaviourTree.cpp" />
     <ClCompile Include="SRC\Utils\Xbox360Controller.cpp" />
     <ClCompile Include="SRC\Game.cpp" />
     <ClCompile Include="SRC\Level.cpp" />
@@ -193,6 +196,8 @@
     <ClInclude Include="INCLUDE\Utils\Globals.h" />
     <ClInclude Include="INCLUDE\Utils\Xbox360Controller.h" />
     <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
+    <ClInclude Include="INCLUDE\AITree\BehaviourTree.h" />
+    <ClInclude Include="INCLUDE\AITree\Shared.h" />
     <ClInclude Include="Include\EntityFactory.h" />
   </ItemGroup>
 </Project>

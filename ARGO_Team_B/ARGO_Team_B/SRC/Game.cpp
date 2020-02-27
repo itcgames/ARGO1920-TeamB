@@ -54,7 +54,6 @@ Game::Game() :
 	m_creditsScene = new CreditsScene(p_renderer, &m_currentState, controlComp);
 	m_font = new FontObserver(p_renderer);
 	m_font->loadFont();
-
 }
 
 /// <summary>

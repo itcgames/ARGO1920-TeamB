@@ -41,8 +41,11 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 		m_gameSystem.addEntity(*m_entities.at(i));
 		m_bombSystem.addEntity(*m_entities.at(i));
 		m_stateMachine->addEntity(*m_entities.at(i));
+		
 	}
+	
 	m_stateMachine->setupSprites();
+
 
 	/// Buttons
 	float a = 620.0f;
@@ -101,6 +104,9 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_observer->load();
 	//m_observer->StartBGM(1);
 
+	//Adding AI 
+	m_entities[3]->addComponent(new TestBotBehaviourComponent(m_entities, *m_entities[3], *tiled_map_level), Types::TestBot);
+	m_aiSystem.addEntity(*m_entities.at(3));
 
 	m_font = new FontObserver(t_renderer);
 	m_font->loadFont();
