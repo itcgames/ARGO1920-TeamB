@@ -24,11 +24,9 @@ TestBotBehaviourComponent::TestBotBehaviourComponent(std::vector<Entity*>& t_ent
 	m_destNode = objectToNode(*m_TargetCheese);
 	m_startNode = setStartNode();
 	
-	for (PathNode node : aStar(*m_startNode, *m_destNode))
-	{
-	}
+	m_pathWay = aStar(*m_startNode, *m_destNode);
 
-
+	std::cout << "made it past the Path" << std::endl;
 }
 
 TestBotBehaviourComponent::TestBotBehaviourComponent(Entity& t_gameObject, Level& t_level) :
@@ -45,8 +43,12 @@ TestBotBehaviourComponent::~TestBotBehaviourComponent()
 void TestBotBehaviourComponent::update()
 {
 	wander();
-
 	
+	 for (PathNode node : aStar(*m_startNode, *m_destNode))
+	 {
+		 moveToGoal(node.pos.x, node.pos.y);
+     }
+
 	//PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
 	//PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
 	//ControlComponent *control = dynamic_cast<ControlComponent*>(m_entity.getComponent(Types::Control));
@@ -141,6 +143,22 @@ void TestBotBehaviourComponent::moveToGoal(GoalStruct* t_goal)
 	posComp->setPosition(posComp->getPositionX() + directionVector.x, posComp->getPositionY() + directionVector.y);
 	posComp->setangle(directionAngle);
 
+}
+
+void TestBotBehaviourComponent::moveToGoal(int x, int y)
+{
+	PositionComponent* posComp =  dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
+
+
+	float directionAngle = atan2( posComp->getPositionY() - y, posComp->getPositionX()- x) * (180/3.14);
+
+	SDL_Point directionVector;
+	directionVector.x = (x * MAXSTEP + posComp->getPositionX()) / directionAngle;
+	directionVector.y = (y * MAXSTEP + posComp->getPositionY()) / directionAngle;
+
+
+	posComp->setPosition(x*MAXSTEP, y*MAXSTEP);
+	posComp->setangle(directionAngle);
 }
 
 GoalStruct* TestBotBehaviourComponent::FindClosest(std::vector<GoalStruct*> t_goals)
@@ -314,7 +332,7 @@ vector<PathNode> TestBotBehaviourComponent::makePath(array<array<PathNode, (SCR_
 		stack<PathNode> path;
 		vector<PathNode> usablePath;
 
-		while (!(t_map[x][y].ParentPos.x == x * MAXSTEP && t_map[x][y].ParentPos.y == y * MAXSTEP) && t_map[x][y].pos.x != -1 && t_map[x][y].pos.y != -1)
+		while (!(t_map[x][y].ParentPos.x == x && t_map[x][y].ParentPos.y == y) && t_map[x][y].pos.x != -1 && t_map[x][y].pos.y != -1)
 		{
 			path.push(t_map[x][y]);
 			int tempX = t_map[x][y].ParentPos.x;

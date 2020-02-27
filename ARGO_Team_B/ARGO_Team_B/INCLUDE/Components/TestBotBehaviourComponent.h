@@ -79,6 +79,8 @@ public:
 	PathNode* objectToNode(GoalStruct t_struct);
 	PathNode* setStartNode();
 
+	int step{ 0 };
+
 private:
 	int i = 0;
 	Entity& m_entity;
