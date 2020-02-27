@@ -207,14 +207,14 @@
   <object id="158" name="Teleport" x="1470" y="44.9091" width="30" height="15"/>
   <object id="160" name="Teleport" x="1680" y="1019.75" width="30" height="15"/>
  </objectgroup>
- <objectgroup id="11" name="Divider" visible="0">
-  <object id="207" name="OuterBorder" x="29.6364" y="1050" width="1862.26" height="30.1818"/>
+ <objectgroup id="11" name="Divider">
+  <object id="207" name="OuterBorder" x="30" y="1050" width="1862.26" height="30.1818"/>
   <object id="208" name="OuterBorder" x="30" y="0" width="1861.9" height="30.1818"/>
   <object id="209" name="OuterBorder" x="0" y="0" width="29.8091" height="1078.18"/>
   <object id="210" name="OuterBorder" x="1890" y="0" width="29.8091" height="1078.18"/>
-  <object id="224" name="OuterBorder" x="780.05" y="450.326" width="299.317" height="30.1818"/>
-  <object id="225" name="OuterBorder" x="780.16" y="629.818" width="299.317" height="30.1818"/>
-  <object id="226" name="OuterBorder" x="780.347" y="480.803" width="29.6806" height="148.284"/>
+  <object id="224" name="OuterBorder" x="780" y="450" width="299.317" height="30.1818"/>
+  <object id="225" name="OuterBorder" x="780" y="630" width="299.317" height="30.1818"/>
+  <object id="226" name="OuterBorder" x="780" y="480" width="29.6806" height="148.284"/>
   <object id="227" name="OuterBorder" x="1050.3" y="480.631" width="29.6806" height="149.375"/>
   <object id="228" name="OuterBorder" x="30" y="540" width="750" height="30"/>
   <object id="229" name="OuterBorder" x="1080" y="540" width="810" height="30"/>
@@ -571,7 +571,7 @@
   <object id="299" name="MazeWall" x="240" y="660" width="29.3977" height="29.8074"/>
   <object id="300" name="MazeWall" x="1170" y="690" width="29.3977" height="29.8074"/>
  </objectgroup>
- <objectgroup id="16" name="PathPoints" visible="0">
+ <objectgroup id="16" name="PathPoints">
   <object id="301" name="pathpoint" type="pathPoint" x="66.75" y="297.417">
    <point/>
   </object>

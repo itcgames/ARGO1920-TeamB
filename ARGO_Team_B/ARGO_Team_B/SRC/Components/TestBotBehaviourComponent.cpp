@@ -26,7 +26,6 @@ TestBotBehaviourComponent::TestBotBehaviourComponent(std::vector<Entity*>& t_ent
 	
 	m_pathWay = aStar(*m_startNode, *m_destNode);
 
-	std::cout << "made it past the Path" << std::endl;
 }
 
 TestBotBehaviourComponent::TestBotBehaviourComponent(Entity& t_gameObject, Level& t_level) :
@@ -52,18 +51,15 @@ void TestBotBehaviourComponent::update()
 		else
 		{
 			step = 0;
+			
 		}
-		m_TargetCheese =  FindClosest(m_cheeses);
-		m_destNode = objectToNode(*m_TargetCheese);
-		m_startNode = setStartNode();
-
-		m_pathWay = aStar(*m_startNode, *m_destNode);
+		stepTimer = 0;
 	}
 	else
 	{
 		stepTimer++;
 	}
-	
+
 
 	//PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
 	//PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
@@ -160,7 +156,6 @@ void TestBotBehaviourComponent::moveToGoal(GoalStruct* t_goal)
 {
 	PositionComponent* posComp =  dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
 
-
 	float directionAngle = atan2( posComp->getPositionY() - t_goal->position.y, posComp->getPositionX()- t_goal->position.x) * (180/3.14);
 
 	SDL_Point directionVector;
@@ -199,6 +194,7 @@ GoalStruct* TestBotBehaviourComponent::FindClosest(std::vector<GoalStruct*> t_go
 	
 		if (goal->distanceToPlayer < shortest && goal->isActive)
 		{
+			shortest = goal->distanceToPlayer;
 			m_closest = goal;
 		}
 	}
@@ -213,6 +209,14 @@ bool TestBotBehaviourComponent::IsNodeValid(int x, int y)
 	for (MazeWallObject& wall : m_level.m_mazeWalls)
 	{
 		if (x * MAXSTEP == wall.x && y * MAXSTEP == wall.y)
+		{
+			return false;
+		}
+	}
+	for (MazeWallObject& wall : m_level.m_outerBorders)
+	{
+		if (x * MAXSTEP >= wall.x && x * MAXSTEP <= wall.x + SCR_H &&
+			y * MAXSTEP >= wall.y && y * MAXSTEP >= wall.y + MAXSTEP);
 		{
 			return false;
 		}
@@ -240,7 +244,7 @@ vector<PathNode> TestBotBehaviourComponent::aStar(PathNode start, PathNode dest)
 	vector<PathNode> empty;
 	if (IsNodeValid(dest.pos.x, dest.pos.y) == false)
 	{
-		//std::cout << "Destination Not Valid" << std::endl;
+		std::cout << "Destination Not Valid" << std::endl;
 		return empty;
 	}
 
