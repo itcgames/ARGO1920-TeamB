@@ -47,8 +47,8 @@ Game::Game() :
 
 	// release 
 	m_currentState = GameStates::MainMenu;
-		// debug
-	//m_currentState = GameStates::Game;
+	// debug
+	m_currentState = GameStates::Game;
 
 	m_menuScene = new MenuScene(p_renderer, &m_currentState, controlComp);
 	m_creditsScene = new CreditsScene(p_renderer, &m_currentState, controlComp);

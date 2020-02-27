@@ -43,12 +43,11 @@ public:
 
 	int getGameCount() { return m_gameCount; }
 	GameComponent* getGameState() { return m_gameState; }
+
 private:
 	GameComponent* m_gameState; 
 	int m_gameCount;
-	bool m_isEndScreenDone;
 	std::vector<Entity*> m_entities;
-
 	// Systems
 	HealthSystem m_healthSystem;
 	ControlSystem m_controlSystem;

@@ -2,8 +2,7 @@
 
 GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_renderer(t_renderer),
-	m_restartTimer(8.0f),
-	m_isEndScreenDone{false},
+	m_restartTimer(6.0f),
 	m_gameCount(1)
 {
 	m_view.h = SCR_H;
@@ -129,8 +128,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 
 GameScene::GameScene(SDL_Renderer* t_renderer, int playerId) :
 	m_renderer(t_renderer),
-	m_restartTimer(8.0f),
-	m_isEndScreenDone{ false },
+	m_restartTimer(6.0f),
 	m_gameCount(1)
 {
 	m_view.h = SCR_H;
@@ -292,15 +290,7 @@ void GameScene::update(float dt)
 	else {
 		m_restartTimer -= dt;
 		if (m_restartTimer <= 0) {
-			// let end screen show
-			if (!m_isEndScreenDone)
-			{
-				m_restartTimer += 2.5f;
-				m_isEndScreenDone = true;
-			}
-			else {
-				resetGame();
-			}
+			resetGame();
 		}
 	}
 }
@@ -320,7 +310,6 @@ void GameScene::render()
 void GameScene::resetGame() {
 	string map;
 	m_gameCount++;
-	m_isEndScreenDone = false;
 	if (m_gameState->getGameCount() != -1) // game over early code
 	{
 		m_gameState->setGameCount(m_gameCount);
@@ -343,7 +332,9 @@ void GameScene::resetGame() {
 		break;
 	case 6:
 		m_gameState->resetGame();
-		delete tiled_map_level;
+		return; // exit function
+	case -1:
+		m_gameState->resetGame();
 		return; // exit function
 	default:
 		break;
@@ -361,6 +352,7 @@ void GameScene::resetGame() {
 		CollisionComponent* col = dynamic_cast<CollisionComponent*>(m_entities.at(i)->getComponent(Types::Collider));
 		col->reset();
 	}
+	m_restartTimer = 6.0f;
 }
 
 string GameScene::playerInfo(int id)

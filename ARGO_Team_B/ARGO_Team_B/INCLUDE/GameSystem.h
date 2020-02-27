@@ -49,7 +49,8 @@ public:
 	void update(float dt);
 	void setupComponent();
 
-	void draw(FontObserver* text, float restartTimer);
+	void draw(FontObserver* text, float& restartTimer);
+	void winCondition(SDL_Color& color, FontObserver* text, float& restartTimer);
 private:
 	void gameTimerString(float gameTimer);
 	vector<Entity> m_playerEntities;
