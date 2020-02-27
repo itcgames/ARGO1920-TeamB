@@ -64,7 +64,7 @@ public:
 	Level& m_level;
 
 	int stepTimer = 0;
-	int stepMax = 500;
+	int stepTimerMax = 150;
 
 	/// <summary>
 	/// A* Functions
@@ -85,6 +85,7 @@ public:
 	PathNode* setStartNode();
 
 	int step{ 0 };
+	bool NoCheese;
 
 private:
 	int i = 0;

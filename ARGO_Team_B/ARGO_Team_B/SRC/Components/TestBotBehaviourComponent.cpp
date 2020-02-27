@@ -4,6 +4,7 @@ TestBotBehaviourComponent::TestBotBehaviourComponent(std::vector<Entity*>& t_ent
 	m_entity(t_gameObject),
 	m_level(t_level)
 {
+	m_entity.isBot = true;
 	for (Entity* e : t_entities)
 	{
 		if (e->getType() == Types::Goal)
@@ -39,19 +40,33 @@ TestBotBehaviourComponent::~TestBotBehaviourComponent()
 {
 }
 
+/// <summary>
+/// ************************************* UPDATE FUNCTION **************************************************
+/// </summary>
 void TestBotBehaviourComponent::update()
 {
-	if (stepTimer >= stepMax)
+	if (stepTimer >= stepTimerMax)
 	{
 		if (step < m_pathWay.size())
 		{
-			moveToGoal(m_pathWay[step].pos.x, m_pathWay[step].pos.y);
+			moveToGoal(m_pathWay.at(step).pos.x, m_pathWay.at(step).pos.y);
 			step++;
 		}
 		else
 		{
 			step = 0;
-			
+			m_TargetCheese->isActive = false;
+			m_TargetCheese = FindClosest(m_cheeses);
+			if (!NoCheese)
+			{
+				m_destNode = objectToNode(*m_TargetCheese);
+				m_startNode = setStartNode();
+				m_pathWay = aStar(*m_startNode, *m_destNode);
+			}
+			else
+			{
+				wander();
+			}
 		}
 		stepTimer = 0;
 	}
@@ -90,6 +105,9 @@ void TestBotBehaviourComponent::update()
 	//}
 }
 
+/// <summary>
+/// ************************************** GET DISTANCE BETWENN 2 POINTS *************************************
+/// </summary>
 float TestBotBehaviourComponent::distanceFromPlayer(PositionComponent* pos, PositionComponent* pos2)
 {
 	if (pos != NULL && pos2 != NULL)
@@ -101,6 +119,7 @@ float TestBotBehaviourComponent::distanceFromPlayer(PositionComponent* pos, Posi
 		return INFINITY;
 	}
 }
+
 
 float TestBotBehaviourComponent::distanceFromPlayer(int targetx, int targety, PositionComponent* pos2)
 {
@@ -114,6 +133,9 @@ float TestBotBehaviourComponent::distanceFromPlayer(int targetx, int targety, Po
 	}
 }
 
+/// <summary>
+/// *************************************** WANDER FUNCTION *********************************************
+/// </summary>
 void TestBotBehaviourComponent::wander()
 {
 	PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
@@ -152,6 +174,10 @@ void TestBotBehaviourComponent::wander()
 	}
 }
 
+
+/// <summary>
+/// **************************************************** MOVE TO GOAL *********************************************
+/// </summary>
 void TestBotBehaviourComponent::moveToGoal(GoalStruct* t_goal)
 {
 	PositionComponent* posComp =  dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
@@ -164,6 +190,7 @@ void TestBotBehaviourComponent::moveToGoal(GoalStruct* t_goal)
 
 
 	posComp->setPosition(posComp->getPositionX() + directionVector.x, posComp->getPositionY() + directionVector.y);
+	posComp->setPreviouseAngle();
 	posComp->setangle(directionAngle);
 
 }
@@ -171,34 +198,62 @@ void TestBotBehaviourComponent::moveToGoal(GoalStruct* t_goal)
 void TestBotBehaviourComponent::moveToGoal(int x, int y)
 {
 	PositionComponent* posComp =  dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
+	AnimatedSpriteComponent* animComp = dynamic_cast<AnimatedSpriteComponent*>(m_entity.getComponent(Types::AnimatedSprite));
+	ControlComponent* control = dynamic_cast<ControlComponent*>(m_entity.getComponent(Types::Control));
+	wander();
 
-
-	float directionAngle = atan2( posComp->getPositionY() - y, posComp->getPositionX()- x) * (180/3.14);
+	//animComp->setCurrent(new WalkingState);
+	float directionAngle = atan2( posComp->getPositionY() - y , posComp->getPositionX()- x) * (180/3.14);
 
 	SDL_Point directionVector;
 	directionVector.x = (x * MAXSTEP + posComp->getPositionX()) / directionAngle;
 	directionVector.y = (y * MAXSTEP + posComp->getPositionY()) / directionAngle;
-
-
-	posComp->setPosition(x*MAXSTEP, y*MAXSTEP);
+	
+	posComp->setPosition(x * MAXSTEP, y * MAXSTEP);
 	posComp->setangle(directionAngle);
 }
-
+/// <summary>
+/// *********************************************** FIND CLOSEST *****************************************
+/// </summary>
+/// <returns></returns>
 GoalStruct* TestBotBehaviourComponent::FindClosest(std::vector<GoalStruct*> t_goals)
 {
+	PositionComponent* pos = static_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
 	GoalStruct* m_closest = nullptr;
-	float shortest = t_goals[0]->distanceToPlayer;
+	float shortest = FLT_MAX;
 	for (GoalStruct* goal : t_goals)
 	{
-		goal->distanceToPlayer = distanceFromPlayer(goal->position.x, goal->position.y, static_cast<PositionComponent*>(m_entity.getComponent(Types::Position)));
-	
-		if (goal->distanceToPlayer < shortest && goal->isActive)
+		if (goal->isActive)
 		{
-			shortest = goal->distanceToPlayer;
-			m_closest = goal;
+			if (pos->getPositionY() < (SCR_H * .5) && goal->position.y < (SCR_H * .5))
+			{
+				goal->distanceToPlayer = distanceFromPlayer(goal->position.x, goal->position.y, static_cast<PositionComponent*>(m_entity.getComponent(Types::Position)));
+				if (goal->distanceToPlayer < shortest && goal->isActive)
+				{
+					shortest = goal->distanceToPlayer;
+					m_closest = goal;
+				}
+			}
+			else if (pos->getPositionY() > (SCR_H * .5) && goal->position.y > (SCR_H * .5))
+			{
+				goal->distanceToPlayer = distanceFromPlayer(goal->position.x, goal->position.y, static_cast<PositionComponent*>(m_entity.getComponent(Types::Position)));
+				if (goal->distanceToPlayer < shortest && goal->isActive)
+				{
+					shortest = goal->distanceToPlayer;
+					m_closest = goal;
+				}
+			}
 		}
 	}
-	return m_closest;
+	if (m_closest == NULL)
+	{
+		NoCheese = true;
+	}
+	else
+	{
+		return m_closest;
+	}
+	
 }
 
 /// <summary>
@@ -215,8 +270,8 @@ bool TestBotBehaviourComponent::IsNodeValid(int x, int y)
 	}
 	for (MazeWallObject& wall : m_level.m_outerBorders)
 	{
-		if (x * MAXSTEP >= wall.x && x * MAXSTEP <= wall.x + SCR_H &&
-			y * MAXSTEP >= wall.y && y * MAXSTEP >= wall.y + MAXSTEP);
+		if (x * MAXSTEP >= wall.x && x * MAXSTEP <= wall.x + wall.width &&
+			y * MAXSTEP >= wall.y && y * MAXSTEP <= wall.y + wall.height)
 		{
 			return false;
 		}
@@ -224,6 +279,9 @@ bool TestBotBehaviourComponent::IsNodeValid(int x, int y)
 	return true;
 }
 
+/// <summary>
+/// ******************************************* CHECXK NODE FOR DESTINATION ***********************
+/// </summary>
 bool TestBotBehaviourComponent::isDestNode(int x, int y, PathNode t_DestNode)
 {
 	if (x == t_DestNode.pos.x && y == t_DestNode.pos.y )
@@ -233,11 +291,18 @@ bool TestBotBehaviourComponent::isDestNode(int x, int y, PathNode t_DestNode)
 	return false;
 }
 
+/// <summary>
+/// *************************************** CALCULATE HEURISTICS *********************************
+/// </summary>
 double TestBotBehaviourComponent::calculateH(int x, int y, PathNode(t_dest))
 {
 	double H = (sqrt(pow(x - t_dest.pos.x, 2) + pow(y - t_dest.pos.y, 2)));
 	return H;
 }
+
+/// <summary>
+/// ******************************* A Star Function Definition **********************************	
+/// </summary>
 
 vector<PathNode> TestBotBehaviourComponent::aStar(PathNode start, PathNode dest)
 {
@@ -289,7 +354,7 @@ vector<PathNode> TestBotBehaviourComponent::aStar(PathNode start, PathNode dest)
 
 	bool destFound = false;
 
-	while (!openList.empty()&&openList.size() < (SCR_W / MAXSTEP) * (SCR_H / MAXSTEP))
+	while (openList.size() > 0 && openList.size() < (SCR_W / MAXSTEP) * (SCR_H / MAXSTEP))
 	{
 		PathNode node;
 		do
@@ -356,6 +421,10 @@ vector<PathNode> TestBotBehaviourComponent::aStar(PathNode start, PathNode dest)
 	}
 }
 
+
+/// <summary>
+/// ****************************************** MAKE PATH FUNCTION ************************************************	
+/// </summary>
 vector<PathNode> TestBotBehaviourComponent::makePath(array<array<PathNode, (SCR_H / MAXSTEP)>, (SCR_W / MAXSTEP)> t_map, PathNode t_dest)
 {
 	try {
@@ -390,6 +459,11 @@ vector<PathNode> TestBotBehaviourComponent::makePath(array<array<PathNode, (SCR_
 	}
 }
 
+/// <summary>
+/// *********************************************** CREATE NODE FROM OBJECT *******************************************
+/// </summary>
+/// <param name="t_struct"></param>
+/// <returns></returns>
 PathNode* TestBotBehaviourComponent::objectToNode(GoalStruct t_struct)
 {
 	int objX = t_struct.position.x;
@@ -411,6 +485,10 @@ PathNode* TestBotBehaviourComponent::objectToNode(GoalStruct t_struct)
 	return dest;
 }
 
+/// <summary>
+/// ********************************************** SETUP STARTING NODE ****************************************************
+/// </summary>
+/// <returns></returns>
 PathNode* TestBotBehaviourComponent::setStartNode()
 {
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));

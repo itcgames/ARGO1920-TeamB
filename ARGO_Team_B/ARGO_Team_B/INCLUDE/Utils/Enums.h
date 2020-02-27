@@ -56,7 +56,7 @@ enum class EntityType
 	Default,
 	Rat,
 	Bomb,
-	Spike
+	Spike,
 };
 
 static const int SCR_W = 1920;

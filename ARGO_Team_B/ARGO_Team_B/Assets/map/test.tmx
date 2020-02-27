@@ -571,58 +571,15 @@
   <object id="299" name="MazeWall" x="240" y="660" width="29.3977" height="29.8074"/>
   <object id="300" name="MazeWall" x="1170" y="690" width="29.3977" height="29.8074"/>
  </objectgroup>
- <objectgroup id="16" name="PathPoints">
-  <object id="301" name="pathpoint" type="pathPoint" x="66.75" y="297.417">
-   <point/>
-  </object>
-  <object id="303" name="pathpoint" type="pathPoint" x="359.75" y="277">
-   <point/>
-  </object>
-  <object id="304" name="pathpoint" type="pathPoint" x="364.75" y="511">
-   <point/>
-  </object>
-  <object id="305" name="pathpoint" type="pathPoint" x="402.75" y="90.5">
-   <point/>
-  </object>
-  <object id="306" name="pathpoint" type="pathPoint" x="234.75" y="89.75">
-   <point/>
-  </object>
-  <object id="307" name="pathpoint" type="pathPoint" x="830.25" y="86">
-   <point/>
-  </object>
-  <object id="308" name="pathpoint" type="pathPoint" x="686" y="283">
-   <point/>
-  </object>
-  <object id="309" name="pathpoint" type="pathPoint" x="554.5" y="215.25">
-   <point/>
-  </object>
-  <object id="310" name="pathpoint" type="pathPoint" x="554.75" y="370.25">
-   <point/>
-  </object>
-  <object id="311" name="pathpoint" type="pathPoint" x="718.5" y="421.25">
-   <point/>
-  </object>
-  <object id="312" name="pathpoint" type="pathPoint" x="1011.5" y="411.25">
-   <point/>
-  </object>
-  <object id="313" name="pathpoint" type="pathPoint" x="1258" y="172.75">
-   <point/>
-  </object>
-  <object id="314" name="pathpoint" type="pathPoint" x="1259.25" y="63.75">
-   <point/>
-  </object>
-  <object id="315" name="pathpoint" type="pathPoint" x="1291.5" y="419.75">
-   <point/>
-  </object>
- </objectgroup>
+ <objectgroup id="16" name="PathPoints"/>
  <objectgroup id="15" name="spawningPoints">
-  <object id="178" name="cheesepoint" x="959.042" y="52.75">
+  <object id="178" name="cheesepoint" x="964.042" y="62.75">
    <point/>
   </object>
   <object id="179" name="cheesepoint" x="150" y="300">
    <point/>
   </object>
-  <object id="181" name="cheesepoint" x="180" y="210">
+  <object id="181" name="cheesepoint" x="189.5" y="183.5">
    <point/>
   </object>
   <object id="182" name="cheesepoint" x="300" y="210">
@@ -631,7 +588,7 @@
   <object id="184" name="cheesepoint" x="180" y="420">
    <point/>
   </object>
-  <object id="186" name="cheesepoint" x="1016.55" y="174.455">
+  <object id="186" name="cheesepoint" x="999.55" y="211.955">
    <point/>
   </object>
   <object id="187" name="cheesepoint" x="360" y="330">
@@ -640,7 +597,7 @@
   <object id="188" name="cheesepoint" x="630" y="330">
    <point/>
   </object>
-  <object id="189" name="cheesepoint" x="761.606" y="477.455">
+  <object id="189" name="cheesepoint" x="745.606" y="480.455">
    <point/>
   </object>
   <object id="190" name="cheesepoint" x="915" y="386.424">
@@ -679,16 +636,16 @@
   <object id="204" name="playerpoint" x="60" y="930">
    <point/>
   </object>
-  <object id="211" name="cheesepoint" x="180" y="720">
+  <object id="211" name="cheesepoint" x="191" y="709">
    <point/>
   </object>
   <object id="212" name="cheesepoint" x="270" y="1020">
    <point/>
   </object>
-  <object id="213" name="cheesepoint" x="493.667" y="896.333">
+  <object id="213" name="cheesepoint" x="492.167" y="912.333">
    <point/>
   </object>
-  <object id="214" name="bombpoint" x="941.25" y="898.5">
+  <object id="214" name="bombpoint" x="943.75" y="911.5">
    <point/>
   </object>
   <object id="215" name="cheesepoint" x="1484.33" y="504">
@@ -697,13 +654,7 @@
   <object id="216" name="bombpoint" x="1529.67" y="361.667">
    <point/>
   </object>
-  <object id="217" name="cheesepoint" x="1213.92" y="509.542">
-   <point/>
-  </object>
-  <object id="218" name="cheesepoint" x="1244.17" y="510.167">
-   <point/>
-  </object>
-  <object id="219" name="cheesepoint" x="1290" y="279">
+  <object id="219" name="cheesepoint" x="1290" y="289">
    <point/>
   </object>
   <object id="220" name="cheesepoint" x="1696.5" y="372.833">
@@ -712,7 +663,7 @@
   <object id="221" name="cheesepoint" x="1801.33" y="473.667">
    <point/>
   </object>
-  <object id="222" name="cheesepoint" x="1860" y="460.667">
+  <object id="222" name="cheesepoint" x="1851.5" y="353.667">
    <point/>
   </object>
   <object id="223" name="cheesepoint" x="1616" y="477.667">
@@ -733,28 +684,25 @@
   <object id="238" name="cheesepoint" x="823.333" y="987.333">
    <point/>
   </object>
-  <object id="239" name="cheesepoint" x="673.667" y="867.667">
+  <object id="239" name="cheesepoint" x="668.667" y="873.167">
    <point/>
   </object>
-  <object id="240" name="bombpoint" x="1867.75" y="973.5">
+  <object id="240" name="bombpoint" x="1869.25" y="992">
    <point/>
   </object>
-  <object id="241" name="bombpoint" x="1723.75" y="699">
+  <object id="241" name="bombpoint" x="1727.75" y="725.5">
    <point/>
   </object>
   <object id="242" name="cheesepoint" x="1856.5" y="708.25">
    <point/>
   </object>
-  <object id="243" name="cheesepoint" x="1693.75" y="572.5">
+  <object id="243" name="cheesepoint" x="1706.75" y="611">
    <point/>
   </object>
-  <object id="244" name="bombpoint" x="1484.32" y="727.523">
+  <object id="244" name="bombpoint" x="1501.32" y="754.523">
    <point/>
   </object>
-  <object id="245" name="cheesepoint" x="256" y="570.333">
-   <point/>
-  </object>
-  <object id="246" name="cheesepoint" x="491.667" y="570.333">
+  <object id="246" name="cheesepoint" x="475.167" y="611.833">
    <point/>
   </object>
   <object id="247" name="cheesepoint" x="626.333" y="732.667">
@@ -763,10 +711,7 @@
   <object id="248" name="cheesepoint" x="495.667" y="1018">
    <point/>
   </object>
-  <object id="249" name="bombpoint" x="524.833" y="696.75">
-   <point/>
-  </object>
-  <object id="250" name="cheesepoint" x="1092.67" y="570.667">
+  <object id="249" name="bombpoint" x="516.333" y="723.75">
    <point/>
   </object>
   <object id="251" name="cheesepoint" x="1123.33" y="627.333">
@@ -787,28 +732,28 @@
   <object id="256" name="cheesepoint" x="1304.67" y="838">
    <point/>
   </object>
-  <object id="257" name="cheesepoint" x="1545.33" y="898">
+  <object id="257" name="cheesepoint" x="1549.33" y="893">
    <point/>
   </object>
-  <object id="258" name="bombpoint" x="1307.33" y="960.667">
+  <object id="258" name="bombpoint" x="1310.33" y="981.667">
    <point/>
   </object>
   <object id="259" name="cheesepoint" x="1513.67" y="1018.33">
    <point/>
   </object>
-  <object id="260" name="cheesepoint" x="1842.33" y="810.333">
+  <object id="260" name="cheesepoint" x="1841.83" y="825.333">
    <point/>
   </object>
-  <object id="261" name="bombpoint" x="1726" y="807.333">
+  <object id="261" name="bombpoint" x="1740" y="825.333">
    <point/>
   </object>
   <object id="262" name="cheesepoint" x="1646.09" y="722.416">
    <point/>
   </object>
-  <object id="263" name="cheesepoint" x="1634" y="897.667">
+  <object id="263" name="cheesepoint" x="1652" y="942.167">
    <point/>
   </object>
-  <object id="264" name="cheesepoint" x="1829" y="596.75">
+  <object id="264" name="cheesepoint" x="1826.5" y="615.75">
    <point/>
   </object>
   <object id="265" name="cheesepoint" x="480" y="300">
@@ -820,82 +765,7 @@
   <object id="277" name="cheesepoint" x="360" y="450">
    <point/>
   </object>
-  <object id="316" name="pathpoint" type="pathPoint" x="1374.75" y="500.75">
-   <point/>
-  </object>
-  <object id="317" name="pathpoint" type="pathPoint" x="1453.25" y="389">
-   <point/>
-  </object>
-  <object id="318" name="pathpoint" type="pathPoint" x="1510.75" y="207.75">
-   <point/>
-  </object>
-  <object id="319" name="pathpoint" type="pathPoint" x="1406.25" y="274.25">
-   <point/>
-  </object>
-  <object id="320" name="pathpoint" type="pathPoint" x="1639.75" y="209">
-   <point/>
-  </object>
-  <object id="321" name="pathpoint" type="pathPoint" x="1639" y="102.5">
-   <point/>
-  </object>
-  <object id="323" name="pathpoint" type="pathPoint" x="1826" y="213.5">
-   <point/>
-  </object>
-  <object id="324" name="pathpoint" type="pathPoint" x="69" y="821.5">
-   <point/>
-  </object>
-  <object id="325" name="pathpoint" type="pathPoint" x="336" y="825.5">
-   <point/>
-  </object>
-  <object id="326" name="pathpoint" type="pathPoint" x="641.75" y="806.75">
-   <point/>
-  </object>
-  <object id="327" name="pathpoint" type="pathPoint" x="679.75" y="1006.75">
-   <point/>
-  </object>
-  <object id="328" name="pathpoint" type="pathPoint" x="963" y="1000">
-   <point/>
-  </object>
-  <object id="329" name="pathpoint" type="pathPoint" x="615" y="620.667">
-   <point/>
-  </object>
-  <object id="330" name="pathpoint" type="pathPoint" x="457.667" y="626.333">
-   <point/>
-  </object>
-  <object id="331" name="pathpoint" type="pathPoint" x="460.333" y="711">
-   <point/>
-  </object>
-  <object id="332" name="pathpoint" type="pathPoint" x="744.333" y="618">
-   <point/>
-  </object>
-  <object id="333" name="pathpoint" type="pathPoint" x="779.667" y="729.667">
-   <point/>
-  </object>
-  <object id="334" name="pathpoint" type="pathPoint" x="999" y="711">
-   <point/>
-  </object>
-  <object id="335" name="pathpoint" type="pathPoint" x="1199.67" y="791.667">
-   <point/>
-  </object>
-  <object id="336" name="pathpoint" type="pathPoint" x="1317" y="870">
-   <point/>
-  </object>
   <object id="337" name="pathpoint" type="pathPoint" x="1317" y="599.667">
-   <point/>
-  </object>
-  <object id="338" name="pathpoint" type="pathPoint" x="1597.33" y="879">
-   <point/>
-  </object>
-  <object id="339" name="pathpoint" type="pathPoint" x="1318.67" y="1021">
-   <point/>
-  </object>
-  <object id="340" name="pathpoint" type="pathPoint" x="1769.67" y="1016">
-   <point/>
-  </object>
-  <object id="341" name="pathpoint" type="pathPoint" x="1756" y="897.333">
-   <point/>
-  </object>
-  <object id="342" name="pathpoint" type="pathPoint" x="1664" y="614.667">
    <point/>
   </object>
  </objectgroup>

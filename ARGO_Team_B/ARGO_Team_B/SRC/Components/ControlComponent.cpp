@@ -23,6 +23,8 @@ void ControlComponent::handleInput(SDL_Renderer* t_renderer,std::vector<Particle
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
 	PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
 
+	
+
 	//reset interact 
 	playerComp->setInteract(false);
 	
@@ -61,7 +63,8 @@ void ControlComponent::handleInput(SDL_Renderer* t_renderer,std::vector<Particle
 		if (m_controller->m_currentState.LeftThumbStick.x < m_controller->dpadThreshold &&
 			m_controller->m_currentState.LeftThumbStick.x > -m_controller->dpadThreshold &&
 			m_controller->m_currentState.LeftThumbStick.y < m_controller->dpadThreshold  &&
-			m_controller->m_currentState.LeftThumbStick.y > -m_controller->dpadThreshold) {
+			m_controller->m_currentState.LeftThumbStick.y > -m_controller->dpadThreshold && 
+			!m_entity.isBot) {
 			posComp->setangle(0);
 		}
 
