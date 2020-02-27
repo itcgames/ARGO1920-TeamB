@@ -177,13 +177,10 @@ void GameScene::render()
 	m_renderSystem.draw();
 	m_gameSystem.draw(m_font, m_restartTimer);
 	m_stateMachine->update();
-
 	for (ParticleSystem* ps : m_particles) {
 		ps->draw(m_renderer); // Draw particle system
 	}
-
 	SDL_RenderSetViewport(m_renderer, &m_view);
-
 }
 
 void GameScene::resetGame() {
@@ -223,6 +220,9 @@ void GameScene::resetGame() {
 		player->reset();
 		PositionComponent* pos = dynamic_cast<PositionComponent*>(m_entities.at(i)->getComponent(Types::Position));
 		pos->reset(i + 1, tiled_map_level);
+		// Ensure Collision resets After Position
+		CollisionComponent* col = dynamic_cast<CollisionComponent*>(m_entities.at(i)->getComponent(Types::Collider));
+		col->reset();
 	}
 }
 

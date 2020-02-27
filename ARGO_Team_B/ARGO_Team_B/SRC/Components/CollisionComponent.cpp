@@ -4,7 +4,8 @@
 
 CollisionComponent::CollisionComponent(Entity& t_gameObject, float diameter, int width, int height) :
 	m_width(width),
-	m_height(height)
+	m_height(height),
+	m_entity(t_gameObject)
 {
 	PositionComponent* entityPos = static_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
 	m_circlecollider.p = { entityPos->getPositionX() - width / 2, entityPos->getPositionY() - height / 2};
@@ -14,7 +15,8 @@ CollisionComponent::CollisionComponent(Entity& t_gameObject, float diameter, int
 
 CollisionComponent::CollisionComponent(Entity& t_gameObject, int width, int height):
 	m_width(width),
-	m_height(height)
+	m_height(height),
+	m_entity(t_gameObject)
 {
 	PositionComponent* entityPos = static_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
 	m_recCollider.min = { entityPos->getPositionX(), entityPos->getPositionY()};
@@ -23,7 +25,8 @@ CollisionComponent::CollisionComponent(Entity& t_gameObject, int width, int heig
 
 CollisionComponent::CollisionComponent(Entity& t_gameObject, int width, int height, int count):
 	m_width(width),
-	m_height(height)
+	m_height(height),
+	m_entity(t_gameObject)
 {
 	PositionComponent* entityPos = static_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
 	m_polyCollider.count = count;
@@ -36,6 +39,12 @@ CollisionComponent::CollisionComponent(Entity& t_gameObject, int width, int heig
 
 CollisionComponent::~CollisionComponent()
 {
+}
+
+void CollisionComponent::reset()
+{
+	PositionComponent* entityPos = static_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
+	m_circlecollider.p = { entityPos->getPositionX() - m_width / 2, entityPos->getPositionY() - m_height / 2 };
 }
 
 void CollisionComponent::updateCollider(Entity& t_entity)
