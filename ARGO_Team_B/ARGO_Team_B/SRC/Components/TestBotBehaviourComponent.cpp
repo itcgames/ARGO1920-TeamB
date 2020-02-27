@@ -224,7 +224,6 @@ void TestBotBehaviourComponent::moveToGoal(GoalStruct* t_goal)
 	directionVector.x = (t_goal->position.x + posComp->getPositionX()) / directionAngle;
 	directionVector.y = (t_goal->position.y + posComp->getPositionY()) / directionAngle;
 
-
 	posComp->setPosition(posComp->getPositionX() + directionVector.x, posComp->getPositionY() + directionVector.y);
 	posComp->setPreviouseAngle();
 	posComp->setangle(directionAngle);
