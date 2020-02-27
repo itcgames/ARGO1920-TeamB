@@ -212,11 +212,7 @@ void GameSystem::draw(FontObserver* text, float& restartTimer) {
 
 			text->drawText(x, y, width, height, playerText, color, FontObserver::PLAYERTAG);
 		}
-
-
 	}
-	
-
 }
 
 void GameSystem::winCondition(SDL_Color& color, FontObserver* text, float& restartTimer)
