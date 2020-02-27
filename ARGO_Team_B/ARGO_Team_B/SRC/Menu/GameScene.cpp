@@ -340,7 +340,7 @@ void GameScene::resetGame() {
 		m_gameState->resetGame();
 		return; // exit function
 	case -1:
-		m_gameState->resetGame();
+		m_gameState->resetGame(); // may be redundant due to other checks but to be safe, TODO: check with controller after remove
 		return; // exit function
 	default:
 		break;
