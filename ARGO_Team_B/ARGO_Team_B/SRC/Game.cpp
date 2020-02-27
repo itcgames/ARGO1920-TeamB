@@ -41,24 +41,18 @@ Game::Game() :
 	}
 	SDL_SetRenderDrawColor(p_renderer, 150, 150, 150, 255); // Black Opaque Background
 
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, NULL, 2048) < 0)
-	{
-		printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
-	}
-	//Allocate 128 channels for a max for 128 audio chunks playing at one time
-	Mix_AllocateChannels(128);
-
+	
+	// Initialise Scenes
 	//m_hostGame = new HostingGame();
 	m_joinGame = new JoiningGame();
 
 	// debug
-	m_currentState = GameStates::Game;
+	m_currentState = GameStates::MainMenu;
 	
 	// release m_currentState = GameStates::MainMenu;
 
 	m_menuScene = new MenuScene(p_renderer, &m_currentState, controlComp);
-	//m_creditsScene = new CreditsScene(p_renderer, &m_currentState);
-
+	m_creditsScene = new CreditsScene(p_renderer, &m_currentState, controlComp);
 	m_font = new FontObserver(p_renderer);
 	m_font->loadFont();
 
@@ -137,6 +131,9 @@ void Game::update(float dt)
 		m_menuScene->update(dt);
 		break;
 	case GameStates::Game:
+		if (m_gameScene->getGameCount() > 5 || m_gameScene->getGameCount() == -1) {
+			m_currentState = GameStates::MainMenu;
+		}
 		m_gameScene->update(dt);
 		break;
 	case GameStates::Hosting:
@@ -146,7 +143,11 @@ void Game::update(float dt)
 		m_joinGame->update(dt);
 		break;
 	case GameStates::Credits:
-		//m_creditsScene->update(dt);
+		m_creditsScene->update(dt);
+		m_currentState = m_creditsScene->backToMenu();
+		break;
+	case GameStates::QuitGame:
+		m_quit = true;
 		break;
 	default:
 		break;
@@ -159,6 +160,9 @@ void Game::update(float dt)
 /// </summary>
 void Game::render()
 {
+
+	//SDL_SetRenderDrawColor(p_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+
 	SDL_RenderClear(p_renderer);
 
 	switch (m_currentState)
@@ -187,7 +191,9 @@ void Game::render()
 		m_joinGame->draw(m_font, p_renderer);
 		break;
 	case GameStates::Credits:
-		//m_creditsScene->render(p_renderer);
+		m_creditsScene->render(p_renderer);
+		break;
+	case GameStates::QuitGame:
 		break;
 	default:
 		break;

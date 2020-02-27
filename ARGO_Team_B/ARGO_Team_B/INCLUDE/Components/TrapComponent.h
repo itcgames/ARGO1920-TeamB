@@ -1,7 +1,6 @@
 #ifndef TRAPCOMPONENT
 #define TRAPCOMPONENT
 
-#pragma once
 #include "Component.h"
 
 class TrapComponent :public Component {

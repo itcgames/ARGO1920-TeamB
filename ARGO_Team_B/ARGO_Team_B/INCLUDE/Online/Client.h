@@ -13,6 +13,7 @@ public: //Public functions
 
 	std::string getProcessMessage() { return m_processMessage; }
 	std::string getStartCountdown() { return m_startCountdown; }
+	std::string getStartGameTimer() { return m_startGameTimer; }
 
 	~Client();
 private: //Private functions
@@ -39,4 +40,7 @@ private: //Private variables
 
 	std::string m_processMessage;
 	std::string m_startCountdown;
+	std::string m_startGameTimer;
+	std::string m_inGameTimer;
+	std::string m_playerData;
 };

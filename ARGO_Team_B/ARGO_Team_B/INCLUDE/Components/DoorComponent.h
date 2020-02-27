@@ -1,7 +1,5 @@
 #ifndef DOORCOMPONENT
 #define DOORCOMPONENT
-
-#pragma once
 #include "Component.h"
 
 class DoorComponent : public Component {

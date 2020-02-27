@@ -7,6 +7,7 @@
 #include <time.h>
 #include "Component.h"
 #include <math.h>
+#include "Level.h"
 
 class PositionComponent : public Component
 {
@@ -32,6 +33,7 @@ public:
 
 	void backToPreviousePos();
 	void setPreviousePos();
+	void setPreviouseAngle();
 
 	void setangle(double t_angle);
 
@@ -42,8 +44,10 @@ public:
 
 	void backToStart();
 
-
 	bool m_isMoving{ false };
+
+	void reset(int t_num, Level* t_level);
+
 private:
 	const int MAX_VELO = 8;
 	const float INC_VELO = 0.5f;
@@ -61,10 +65,10 @@ private:
 	float m_startX;
 	float m_startY;
 
-	float m_previousX;
-	float m_previousY;
-
 	float m_lastX;
 	float m_lastY;
+	double m_lastAngle;
+
+
 };
 #endif // !POS

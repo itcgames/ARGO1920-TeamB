@@ -56,8 +56,9 @@ void AnimatedSpriteComponent::render(int t_posX, int t_posY, float t_angle)
 		SDL_Rect rendFrame = getFrame(m_currentFrame);
 		rendFrame.y = m_frames[m_currentFrame].y;
 		rendFrame.x = m_frames[m_currentFrame].x;
-		SDL_Rect destRect = { t_posX, t_posY, m_imageWidth, m_imageHeight };
-		SDL_RenderCopyEx(m_renderer, m_texture, &rendFrame, &destRect, t_angle, NULL, SDL_FLIP_NONE);
+		SDL_Rect destRect = { t_posX , t_posY, m_imageWidth, m_imageHeight };
+		SDL_Point center = {m_imageWidth / 2, m_imageHeight / 2};
+		SDL_RenderCopyEx(m_renderer, m_texture, &rendFrame, &destRect, t_angle, &center, SDL_FLIP_NONE);
 	}
 }
 

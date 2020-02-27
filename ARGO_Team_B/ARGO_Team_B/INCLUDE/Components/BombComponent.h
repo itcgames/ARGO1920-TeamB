@@ -1,6 +1,5 @@
 #ifndef BOMBCOMPONENT
 #define BOMBCOMPONENT
-#pragma once
 #include "Component.h"
 
 enum class BombState {

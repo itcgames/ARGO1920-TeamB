@@ -1,5 +1,12 @@
 #include "MenuScene.h"
 
+/// <summary>
+/// overloaded constructor of the menu scene
+/// set up the background , menu buttons , selector, background,audio observer
+/// </summary>
+/// <param name="t_renderer"></param>
+/// <param name="t_gamestate"></param>
+/// <param name="t_control"></param>
 MenuScene::MenuScene(SDL_Renderer* t_renderer, GameStates* t_gamestate, ControlComponent* t_control) :
 	m_currentState(t_gamestate),
 	m_buttomTimer(0.0f),
@@ -70,12 +77,21 @@ MenuScene::MenuScene(SDL_Renderer* t_renderer, GameStates* t_gamestate, ControlC
 	m_selectorH = m_selector.getHeight();
 
 	m_controller = t_control->getController();
-}
 
+	m_observer = new AudioObserver();
+	m_observer->load();
+	m_observer->StartBGM(2);
+}
+/// <summary>
+/// menu scene destructor
+/// </summary>
 MenuScene::~MenuScene()
 {
 }
 
+/// <summary>
+/// navigate the selector throught the menu buttons
+/// </summary>
 void MenuScene::handleEvents()
 {
 	m_controller->checkButton();
@@ -86,17 +102,18 @@ void MenuScene::handleEvents()
 		{
 			m_selectorY = m_selectorY - m_movement;
 			m_buttomTimer = m_timerOffset;
+			m_observer->onNotify(AudioObserver::CLICK);
 		}
 		else if (m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold)
 		{
 			m_selectorY = m_selectorY + m_movement;
 			m_buttomTimer = m_timerOffset;
+			m_observer->onNotify(AudioObserver::CLICK);
 		}
 	}
 
 	if (m_selectorY > 550)
 	{
-
 		m_selectorY = 150;
 	}
 	if (m_selectorY < 150)
@@ -105,46 +122,20 @@ void MenuScene::handleEvents()
 	}
 
 }
-
+/// <summary>
+/// update the button timer, so it doesnt repeat itself when pressed
+/// </summary>
+/// <param name="dt"></param>
 void MenuScene::update(float dt)
 {
 	if (m_buttomTimer > 0.0f) {
 		m_buttomTimer -= dt;
 	}
-
-	//case SDL_JOYBUTTONDOWN:
-	//	//Play rumble at 75% strenght for 500 milliseconds
-	//	//SDL_HapticRumblePlay(gControllerHaptic, 0.75, 500);
-
-	//	switch (e.jbutton.button)
-	//	{
-	//	case 0:
-	//		for (auto& b : m_buttons)
-	//		{
-	//			if (b->m_visible) {
-	//				b->mousePress();
-
-	//				if (b->isClicked)
-	//				{
-	//					for (auto& c : m_buttons)
-	//					{
-	//						c->goToTransition();
-	//					}
-	//					for (auto& l : m_labels)
-	//					{
-	//						l->goToTransition();
-	//					}
-	//				}
-	//			}
-	//		}
-	//		break;
-	//	}
-	//}
-	//default:
-	//	break;
-	//}
 }
-
+/// <summary>
+/// render the  background , selector and menu buttons
+/// </summary>
+/// <param name="t_renderer"></param>
 void MenuScene::render(SDL_Renderer* t_renderer)
 {
 	m_bg.render(m_bgX, m_bgY, t_renderer, 1, 1);
@@ -155,25 +146,34 @@ void MenuScene::render(SDL_Renderer* t_renderer)
 	m_quitGame.render(m_quitX, m_quitY, t_renderer, 1, 1);
 	m_selector.render(m_selectorX, m_selectorY, t_renderer, 1, 1);
 }
-
+/// <summary>
+/// function that checks controller input and brings user back to the certain gamestate
+/// </summary>
+/// <returns></returns>
 GameStates MenuScene::setNewState()
 {
-	if (m_controller->m_currentState.A) {
+	if (m_controller->m_currentState.A) 
+	{
 		if (m_selectorY == 150) {
+			m_observer->onNotify(AudioObserver::CLICK);
 			return GameStates::Game;
 		}
 		else if (m_selectorY == 250) {
+			m_observer->onNotify(AudioObserver::CLICK);
 			return GameStates::Hosting;
 			
 		}
 		else if (m_selectorY == 350) {
+			m_observer->onNotify(AudioObserver::CLICK);
 			return GameStates::Joining;
 		}
 		else if (m_selectorY == 450) {
-			return GameStates::MainMenu;
+			m_observer->onNotify(AudioObserver::CLICK);
+			return GameStates::Credits;
 		}
 		else if (m_selectorY == 550) {
-			return GameStates::MainMenu;
+			m_observer->onNotify(AudioObserver::CLICK);
+			return GameStates::QuitGame;
 		}
 	}
 	return GameStates::MainMenu;

@@ -7,6 +7,39 @@ bool Client::ProcessPacketType(PacketType packetType)
 {
 	switch (packetType)
 	{
+	case PacketType::PlayerData: //Packet Type: Player Data
+	{
+		std::string Message; //string to store our message we received
+		if (!GetString(Message)) //Get the chat message and store it in variable: Message
+			return false; //If we do not properly get the chat message, return false
+		std::cout << Message << std::endl; //Display the message to the user
+
+		m_playerData = Message;
+
+		break;
+	}
+	case PacketType::InGameTimer: //Packet Type: In Game Timer
+	{
+		std::string Message; //string to store our message we received
+		if (!GetString(Message)) //Get the chat message and store it in variable: Message
+			return false; //If we do not properly get the chat message, return false
+		std::cout << Message << std::endl; //Display the message to the user
+
+		m_inGameTimer = Message;
+
+		break;
+	}
+	case PacketType::StartGameTimer: //Packet Type: Start Game Timer
+	{
+		std::string Message; //string to store our message we received
+		if (!GetString(Message)) //Get the chat message and store it in variable: Message
+			return false; //If we do not properly get the chat message, return false
+		std::cout << Message << std::endl; //Display the message to the user
+
+		m_startGameTimer = Message;
+
+		break;
+	}
 	case PacketType::StartCountdown: //Packet Type: start countdown
 	{
 		std::string Message; //string to store our message we received

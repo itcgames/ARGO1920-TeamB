@@ -1,7 +1,6 @@
 #ifndef BUTTONSYSTEM
 #define BUTTONSYSTEM
 
-#pragma once
 #include "System.h"
 #include "PositionComponent.h"
 #include "ButtonComponent.h"

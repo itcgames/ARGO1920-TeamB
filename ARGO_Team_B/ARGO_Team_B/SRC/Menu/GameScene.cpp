@@ -1,9 +1,10 @@
 #include "GameScene.h"
 
 GameScene::GameScene(SDL_Renderer* t_renderer):
-	m_renderer(t_renderer)
+	m_renderer(t_renderer),
+	m_isEndScreenDone{false},
+	m_gameCount(1)
 {
-
 	m_view.h = SCR_H;
 	m_view.w = SCR_W;
 	m_view.x = 0;
@@ -98,7 +99,9 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	// Creepy Vouyers
 	m_observer = new AudioObserver();
 	m_observer->load();
-	m_observer->StartBGM(0);
+	//m_observer->StartBGM(1);
+
+
 	m_font = new FontObserver(t_renderer);
 	m_font->loadFont();
 
@@ -120,6 +123,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 			}
 		}	
 	}
+	m_gameState = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
 }
 
 GameScene::~GameScene()
@@ -130,13 +134,12 @@ void GameScene::update(float dt)
 {
 	GameComponent* m_game = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
 	if (!m_game->getGameover()) {
-
 		m_healthSystem.update();
 		m_aiSystem.update();
 		m_buttonSystem.update();
 		m_controlSystem.handleInput(dt, m_stateMachine, m_renderer, m_particles);
 		m_collisionSystem.updateComponent(*tiled_map_level, m_observer, m_particles, m_renderer, m_view);
-		m_stateMachine->update();
+		//m_stateMachine->update();
 		m_bombSystem.updateComponent(dt, m_observer, m_view);
 		m_gameSystem.update(dt);
 
@@ -154,8 +157,16 @@ void GameScene::update(float dt)
 	else {
 		m_restartTimer -= dt;
 		if (m_restartTimer <= 0) {
+			// let end screen show
+			if (!m_isEndScreenDone)
+			{
+				m_restartTimer += 2.5f;
+				m_isEndScreenDone = true;
+			}
+			else {
+				resetGame();
+			}
 			// restart code here
-
 		}
 	}
 }
@@ -176,13 +187,48 @@ void GameScene::render()
 }
 
 void GameScene::resetGame() {
-
+	string map;
+	m_gameCount++;
+	m_isEndScreenDone = false;
+	if (m_gameState->getGameCount() != -1) // game over early code
+	{
+		m_gameState->setGameCount(m_gameCount);
+	}
+	else {
+		m_gameCount = -1;
+	}
+	switch (m_gameCount) {
+	case 2:
+		map = "Assets/map/test2.tmx";
+		break;
+	case 3:
+		map = "Assets/map/test3.tmx";
+		break;
+	case 4:
+		map = "Assets/map/test4.tmx";
+		break;
+	case 5:
+		map = "Assets/map/test5.tmx";
+		break;
+	case 6:
+		m_gameState->resetGame();
+		break;
+	default:
+		break;
+	}
+	m_gameState->resetRound();
+	tiled_map_level->load(map, m_renderer);
+	for (int i = 0; i < 4; i++) {
+		PlayerComponent* player = dynamic_cast<PlayerComponent*>(m_entities.at(i)->getComponent(Types::Player));
+		player->reset();
+		PositionComponent* pos = dynamic_cast<PositionComponent*>(m_entities.at(i)->getComponent(Types::Position));
+		pos->reset(i + 1, tiled_map_level);
+	}
 }
 
 SDL_Point GameScene::playerPosition(int id) {
 
 	PositionComponent* m_player = NULL;
-
 	switch (id)
 	{
 	case 1:
@@ -200,9 +246,7 @@ SDL_Point GameScene::playerPosition(int id) {
 	default:
 		break;
 	}
-
 	SDL_Point positionData = { m_player->getPositionX(), m_player->getPositionY() };
-
 	return positionData;
 }
 
@@ -231,6 +275,43 @@ bool GameScene::playerGetCheese(int id) {
 	bool playerGetCheese = m_player->getACheese();
 
 	return playerGetCheese;
+}
+
+string GameScene::playerInfo(int id)
+{
+	PlayerComponent* m_playerComp = NULL;
+	PositionComponent* m_playerPos = NULL;
+
+	switch (id)
+	{
+	case 1:
+		m_playerComp = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
+		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
+		break;
+	case 2:
+		m_playerComp = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
+		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
+		break;
+	case 3:
+		m_playerComp = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
+		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
+		break;
+	case 4:
+		m_playerComp = dynamic_cast<PlayerComponent*>(m_entities[0]->getComponent(Types::Player));
+		m_playerPos = dynamic_cast<PositionComponent*>(m_entities[0]->getComponent(Types::Player));
+		break;
+	default:
+		break;
+	}
+
+	bool playerGetCheese = m_playerComp->getACheese();
+	bool playerInteract = m_playerComp->getInteract();
+
+	string transferData = "positionX: " + to_string(m_playerPos->getPositionX()) + "positionY: " + to_string(m_playerPos->getPositionY());
+	transferData += " getCheese: " + to_string(playerGetCheese);
+	transferData += " interact: " + to_string(playerInteract);
+
+	return transferData;
 }
 
 float GameScene::gameStartCountdown() {

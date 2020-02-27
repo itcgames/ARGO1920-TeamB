@@ -1,8 +1,6 @@
 #ifndef PLAYERCOMPONENT
 #define PLAYERCOMPONENT
 
-
-#pragma once
 #include "Component.h"
 
 class PlayerComponent : public Component {
@@ -29,6 +27,11 @@ public:
 
 	void setGetCheeseOff();
 	bool getACheese();
+
+	void getABomb(bool state);
+	bool checkCarryBomb() { return m_carryABomb; }
+
+	void reset();
 private:
 	int m_id;
 	bool m_alive;
@@ -39,6 +42,7 @@ private:
 	float m_swipeCooldown;
 
 	bool m_getACheese;
+	bool m_carryABomb;
 	int m_cheese;
 };
 #endif
