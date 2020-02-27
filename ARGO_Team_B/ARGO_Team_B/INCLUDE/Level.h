@@ -18,18 +18,18 @@ typedef int gid;
 // Stores information about an individual tile to be
 // displayed.
 struct tile {
-    SDL_Texture* sheet;
-    // x coordinate in the world
-    int x;
-    // y coordinate in the world
-    int y;
-    // the x coordinate on the sprite sheet
-    int tx;
-    // the y coordinate on the sprite sheet
-    int ty;
-    int width;
-    int height;
-    bool m_alive;
+	SDL_Texture* sheet;
+	// x coordinate in the world
+	int x;
+	// y coordinate in the world
+	int y;
+	// the x coordinate on the sprite sheet
+	int tx;
+	// the y coordinate on the sprite sheet
+	int ty;
+	int width;
+	int height;
+	bool m_alive;
 
 	int id;
 
@@ -53,7 +53,7 @@ struct MazeWallObject : public tile
 	int width;
 	int height;
 	bool alive;
-	MazeWallObject(float x = 0, float y = 0, float width = 0, float height = 0,bool alive=true);
+	MazeWallObject(float x = 0, float y = 0, float width = 0, float height = 0, bool alive = true);
 };
 struct TeleportObject : public tile
 {
@@ -71,7 +71,6 @@ struct Breakable : public tile {
 	int height;
 	bool alive;
 	Breakable(float x = 0, float y = 0, float width = 0, float height = 0, bool alive = true);
-
 };
 
 struct Point {
@@ -79,14 +78,14 @@ struct Point {
 	int y;
 
 	Point(float x = 0, float y = 0);
-
 };
+
 class Level
 {
 public:
-    Level(const std::string& name);
-    void load(const std::string& path, SDL_Renderer* ren);
-    void draw(SDL_Renderer* ren);
+	Level(const std::string& name);
+	void load(const std::string& path, SDL_Renderer* ren);
+	void draw(SDL_Renderer* ren);
 	std::vector<tile> tiles;
 	std::vector<tile> wallRubbleTiles;
 	std::vector<MazeWallObject> m_mazeWalls;
@@ -95,8 +94,8 @@ public:
 	std::vector<Point> m_cheese;
 	std::vector<Point> m_bomb;
 	std::vector<Point> m_player;
-private:
 
+private:
 	void assignObstacles();
 	void flowFieldAlgorithm();
 
@@ -118,5 +117,5 @@ private:
     // All of the tilesets used by our Tiled map.
     std::map<gid, SDL_Texture*> tilesets;
 };
-#endif // !LEVEL_H
 
+#endif

@@ -7,6 +7,7 @@
 #include <time.h>
 #include "Component.h"
 #include <math.h>
+#include "Level.h"
 
 class PositionComponent : public Component
 {
@@ -44,6 +45,8 @@ public:
 	void backToStart();
 
 	bool m_isMoving{ false };
+
+	void reset(int t_num, Level* t_level);
 
 private:
 	const int MAX_VELO = 8;

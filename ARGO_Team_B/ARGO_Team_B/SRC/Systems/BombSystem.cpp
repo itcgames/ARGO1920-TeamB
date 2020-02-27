@@ -27,8 +27,7 @@ void BombSystem::updateComponent(float dt,AudioObserver * t_observer, SDL_Rect& 
 
 				PositionComponent* playerPos = static_cast<PositionComponent*>(m_playerEntitys[ownerId - 1].getComponent(Types::Position));
 
-				bombPos->setPosition(playerPos->getPositionX(), playerPos->getPositionY());
-				
+				bombPos->setPosition(playerPos->getPositionX() + (RAT_H / 2), playerPos->getPositionY() + (RAT_W / 2));
 				bombComp->playerPlaceBomb();
 				playerComp->getABomb(false);
 				t_observer->onNotify(AudioObserver::PLACEBOMB);

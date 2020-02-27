@@ -29,6 +29,9 @@ float PositionComponent::getPositionY()
 
 void PositionComponent::setPosition(float t_x, float t_y)
 {
+	m_lastX = m_currentX;
+	m_lastY = m_currentY;
+
 	m_currentX = t_x;
 	m_currentY = t_y;
 	//m_angle = m_lastAngle;
@@ -69,6 +72,20 @@ void PositionComponent::backToStart()
 	m_currentY = m_startY;
 }
 
+void PositionComponent::reset(int t_num, Level* t_level)
+{
+	m_currentX = t_level->m_player[t_num - 1].x;
+	m_currentY = t_level->m_player[t_num - 1].y;
+	m_velocityX = 0;
+	m_velocityY = 0;
+	m_lastX = m_currentX;
+	m_lastY = m_currentY;
+	m_startX = m_currentX;
+	m_startY = m_currentY;
+	m_acceleration = 120;
+	m_lastAngle = 0;
+}
+
 
 void PositionComponent::backToPreviousePos() {
 	m_currentX = m_lastX;
@@ -104,7 +121,6 @@ void PositionComponent::moveUp()
 	if (m_velocityY < -m_acceleration) {
 		m_velocityY = -m_acceleration;
 	}
-
 }
 
 void PositionComponent::moveDown()
@@ -152,4 +168,3 @@ void PositionComponent::slowDownY()
 {
 	m_velocityY = m_velocityY * 0.85;
 }
-

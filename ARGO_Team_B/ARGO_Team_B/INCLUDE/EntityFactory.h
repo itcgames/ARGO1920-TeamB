@@ -30,6 +30,29 @@ public:
 
 		return rat;
 	}
+	Entity* CreateOnlinePlayer(const int t_num, const Level* t_level) override {
+		Entity* rat = new Entity;
+		rat->init(EntityType::Rat);
+		rat->addComponent(new PlayerComponent(t_num), Types::Player); // This must always be first added
+		rat->addComponent(new HealthComponent(100), Types::Health);
+		rat->addComponent(new PositionComponent(t_level->m_player[t_num - 1].x, t_level->m_player[t_num - 1].y), Types::Position);
+		rat->addComponent(new CollisionComponent(*rat, RAT_W, RAT_H, 4), Types::Collider);
+		rat->addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 3, 500), Types::AnimatedSprite);
+
+		return rat;
+	}
+	Entity* CreateOnlineControlPlayer(const int t_num, const Level* t_level) override {
+		Entity* rat = new Entity;
+		rat->init(EntityType::Rat);
+		rat->addComponent(new PlayerComponent(t_num), Types::Player); // This must always be first added
+		rat->addComponent(new HealthComponent(100), Types::Health);
+		rat->addComponent(new PositionComponent(t_level->m_player[t_num - 1].x, t_level->m_player[t_num - 1].y), Types::Position);
+		rat->addComponent(new CollisionComponent(*rat, RAT_W, RAT_H, 4), Types::Collider);
+		rat->addComponent(new ControlComponent(*rat, 0), Types::Control);
+		rat->addComponent(new AnimatedSpriteComponent("./Assets/SpriteSheetIdleMouse.png", RAT_H, RAT_W, 3, 500), Types::AnimatedSprite);
+
+		return rat;
+	}
 	Entity* CreateDoor() {
 		Entity* e = new Entity;
 		e->init(EntityType::Default);

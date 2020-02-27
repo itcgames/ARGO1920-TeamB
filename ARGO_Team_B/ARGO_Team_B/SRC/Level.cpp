@@ -231,7 +231,6 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
         }
     }
 
-	flowFieldAlgorithm();
 }
 
 void Level::draw(SDL_Renderer* ren) 

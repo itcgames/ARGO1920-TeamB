@@ -7,7 +7,7 @@
 Game::Game() :
 	m_player1()
 {
-	ControlComponent* controlComp = new ControlComponent(m_player1, 0);
+	ControlComponent* controlComp = new ControlComponent(m_player1, 0); // for menu
 
 	srand(time(NULL));
 	// Initialise SDL
@@ -19,19 +19,18 @@ Game::Game() :
 
 	// Create a Window
 	p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCR_W, SCR_H, SDL_WINDOW_SHOWN );
-	// Dion Debug window
-	//p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_SHOWN);
+	// Debug window p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_SHOWN);
 
 	if (NULL == p_window)
 	{
 		std::cout << "Error: Could not create window" << std::endl;
 	}	
 
-	// Create a Renderer
+	// Create a Renderer 
 	p_renderer = SDL_CreateRenderer(p_window, -1, 0);
 	if (NULL == p_renderer)
 	{
-		std::cout << "Error: Could not create renderer" << std::endl;
+		std::cout << "Error: Could not create renderer" << std::endl; 
 	}
 
 	// Initialise SDL_IMG
@@ -45,6 +44,12 @@ Game::Game() :
 	// Initialise Scenes
 	//m_hostGame = new HostingGame();
 	m_joinGame = new JoiningGame();
+
+	//release 
+	m_currentState = GameStates::MainMenu;
+	// debug
+	//m_currentState = GameStates::Game;
+	
 
 	m_menuScene = new MenuScene(p_renderer, &m_currentState, controlComp);
 	m_creditsScene = new CreditsScene(p_renderer, &m_currentState, controlComp);
@@ -125,6 +130,9 @@ void Game::update(float dt)
 		m_menuScene->update(dt);
 		break;
 	case GameStates::Game:
+		if (m_gameScene->getGameCount() > 5 || m_gameScene->getGameCount() == -1) {
+			m_currentState = GameStates::MainMenu;
+		}
 		m_gameScene->update(dt);
 		break;
 	case GameStates::Hosting:
@@ -173,6 +181,7 @@ void Game::render()
 	case GameStates::Hosting:
 		if (m_hostGame == NULL) {
 			m_hostGame = new HostingGame();
+
 		}
 		else {
 			m_hostGame->draw(m_font,p_renderer);

@@ -24,6 +24,7 @@ class GameScene
 {
 public:
 	GameScene(SDL_Renderer* t_renderer);
+	GameScene(SDL_Renderer* t_renderer, int playerId);
 	~GameScene();
 	void update(float dt);
 	void render();
@@ -33,17 +34,19 @@ public:
 	/// </summary>
 	
 	//player transfer data
-	SDL_Point playerPosition(int id);
-	bool playerGetCheese(int id);
-	bool playerInteract(int id);
-
 	string playerInfo(int id);
 
 	//game transfer data
 	float gameStartCountdown();
 	float ingameTimer();
+	void setDataToPlayer(vector<int> player);
 
+	int getGameCount() { return m_gameCount; }
+	GameComponent* getGameState() { return m_gameState; }
 private:
+	GameComponent* m_gameState; 
+	int m_gameCount;
+	bool m_isEndScreenDone;
 	std::vector<Entity*> m_entities;
 
 	// Systems

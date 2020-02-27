@@ -42,6 +42,13 @@ private:
 	int m_idForPlayer;
 
 	GameScene* m_gameScene;
+	SDL_Renderer* m_renderer;
+
+	string prePlayerData;
+	vector<int> temp;
+
+	Uint32 startTime;
+	Uint32 currentTime;
 };
 
 #endif // !HOSTINGGAME 

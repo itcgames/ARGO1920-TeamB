@@ -29,13 +29,15 @@ public:
 	c2Circle getCircleCollider() { return m_circlecollider; }
 	c2AABB getAABBCollider() { return m_recCollider; }
 	c2Poly getPolyCollider() { return m_polyCollider; }
+
+	void reset();
 private:
+	Entity& m_entity;
 	c2Circle m_circlecollider;
 	c2AABB m_recCollider;
 	c2Poly m_polyCollider;
 
 
-	int m_width;
-	int m_height;
+	int m_width, m_height;
 };
 #endif // !COLLISION_COMPONENT
