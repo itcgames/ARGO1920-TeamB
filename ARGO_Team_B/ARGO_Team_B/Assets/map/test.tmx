@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="64" height="36" tilewidth="30" tileheight="30" infinite="0" nextlayerid="16" nextobjectid="301">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="64" height="36" tilewidth="30" tileheight="30" infinite="0" nextlayerid="17" nextobjectid="343">
  <tileset firstgid="1" source="../tileset/city.tsx"/>
  <layer id="1" name="BorderWalls" width="64" height="36">
   <data encoding="csv">
@@ -161,7 +161,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="9" name="Teleports" width="64" height="36">
+ <layer id="9" name="Teleports" width="64" height="36" visible="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -201,13 +201,13 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="10" name="Teleport">
+ <objectgroup id="10" name="Teleport" visible="0">
   <object id="147" name="Teleport" x="164.94" y="30.072" width="15" height="30"/>
   <object id="150" name="Teleport" x="1020.2" y="869.907" width="15" height="30"/>
   <object id="158" name="Teleport" x="1470" y="44.9091" width="30" height="15"/>
   <object id="160" name="Teleport" x="1680" y="1019.75" width="30" height="15"/>
  </objectgroup>
- <objectgroup id="11" name="Divider">
+ <objectgroup id="11" name="Divider" visible="0">
   <object id="207" name="OuterBorder" x="29.6364" y="1050" width="1862.26" height="30.1818"/>
   <object id="208" name="OuterBorder" x="30" y="0" width="1861.9" height="30.1818"/>
   <object id="209" name="OuterBorder" x="0" y="0" width="29.8091" height="1078.18"/>
@@ -219,7 +219,7 @@
   <object id="228" name="OuterBorder" x="30" y="540" width="750" height="30"/>
   <object id="229" name="OuterBorder" x="1080" y="540" width="810" height="30"/>
  </objectgroup>
- <objectgroup id="5" name="MazeWallsCollision">
+ <objectgroup id="5" name="MazeWallsCollision" visible="0">
   <object id="46" name="MazeWall" x="1680" y="30" width="29.8182" height="30.4432"/>
   <object id="142" name="MazeWall" x="1650.18" y="1020.19" width="29.7386" height="29.6084"/>
   <object id="143" name="MazeWall" x="1710.15" y="1019.9" width="29.9205" height="30.063"/>
@@ -571,6 +571,50 @@
   <object id="299" name="MazeWall" x="240" y="660" width="29.3977" height="29.8074"/>
   <object id="300" name="MazeWall" x="1170" y="690" width="29.3977" height="29.8074"/>
  </objectgroup>
+ <objectgroup id="16" name="PathPoints" visible="0">
+  <object id="301" name="pathpoint" type="pathPoint" x="66.75" y="297.417">
+   <point/>
+  </object>
+  <object id="303" name="pathpoint" type="pathPoint" x="359.75" y="277">
+   <point/>
+  </object>
+  <object id="304" name="pathpoint" type="pathPoint" x="364.75" y="511">
+   <point/>
+  </object>
+  <object id="305" name="pathpoint" type="pathPoint" x="402.75" y="90.5">
+   <point/>
+  </object>
+  <object id="306" name="pathpoint" type="pathPoint" x="234.75" y="89.75">
+   <point/>
+  </object>
+  <object id="307" name="pathpoint" type="pathPoint" x="830.25" y="86">
+   <point/>
+  </object>
+  <object id="308" name="pathpoint" type="pathPoint" x="686" y="283">
+   <point/>
+  </object>
+  <object id="309" name="pathpoint" type="pathPoint" x="554.5" y="215.25">
+   <point/>
+  </object>
+  <object id="310" name="pathpoint" type="pathPoint" x="554.75" y="370.25">
+   <point/>
+  </object>
+  <object id="311" name="pathpoint" type="pathPoint" x="718.5" y="421.25">
+   <point/>
+  </object>
+  <object id="312" name="pathpoint" type="pathPoint" x="1011.5" y="411.25">
+   <point/>
+  </object>
+  <object id="313" name="pathpoint" type="pathPoint" x="1258" y="172.75">
+   <point/>
+  </object>
+  <object id="314" name="pathpoint" type="pathPoint" x="1259.25" y="63.75">
+   <point/>
+  </object>
+  <object id="315" name="pathpoint" type="pathPoint" x="1291.5" y="419.75">
+   <point/>
+  </object>
+ </objectgroup>
  <objectgroup id="15" name="spawningPoints">
   <object id="178" name="cheesepoint" x="959.042" y="52.75">
    <point/>
@@ -602,7 +646,7 @@
   <object id="190" name="cheesepoint" x="915" y="386.424">
    <point/>
   </object>
-  <object id="191" name="cheesepoint" x="1063.08" y="417.261">
+  <object id="191" name="cheesepoint" x="1109.58" y="418.261">
    <point/>
   </object>
   <object id="192" name="cheesepoint" x="1177.82" y="330.909">
@@ -662,7 +706,7 @@
   <object id="219" name="cheesepoint" x="1290" y="279">
    <point/>
   </object>
-  <object id="220" name="cheesepoint" x="1675" y="375.333">
+  <object id="220" name="cheesepoint" x="1696.5" y="372.833">
    <point/>
   </object>
   <object id="221" name="cheesepoint" x="1801.33" y="473.667">
@@ -674,7 +718,7 @@
   <object id="223" name="cheesepoint" x="1616" y="477.667">
    <point/>
   </object>
-  <object id="230" name="cheesepoint" x="285.25" y="629.75">
+  <object id="230" name="cheesepoint" x="266.917" y="617.75">
    <point/>
   </object>
   <object id="231" name="cheesepoint" x="1241.67" y="688">
@@ -758,7 +802,7 @@
   <object id="261" name="bombpoint" x="1726" y="807.333">
    <point/>
   </object>
-  <object id="262" name="cheesepoint" x="1649.42" y="719.083">
+  <object id="262" name="cheesepoint" x="1646.09" y="722.416">
    <point/>
   </object>
   <object id="263" name="cheesepoint" x="1634" y="897.667">
@@ -774,6 +818,84 @@
    <point/>
   </object>
   <object id="277" name="cheesepoint" x="360" y="450">
+   <point/>
+  </object>
+  <object id="316" name="pathpoint" type="pathPoint" x="1374.75" y="500.75">
+   <point/>
+  </object>
+  <object id="317" name="pathpoint" type="pathPoint" x="1453.25" y="389">
+   <point/>
+  </object>
+  <object id="318" name="pathpoint" type="pathPoint" x="1510.75" y="207.75">
+   <point/>
+  </object>
+  <object id="319" name="pathpoint" type="pathPoint" x="1406.25" y="274.25">
+   <point/>
+  </object>
+  <object id="320" name="pathpoint" type="pathPoint" x="1639.75" y="209">
+   <point/>
+  </object>
+  <object id="321" name="pathpoint" type="pathPoint" x="1639" y="102.5">
+   <point/>
+  </object>
+  <object id="323" name="pathpoint" type="pathPoint" x="1826" y="213.5">
+   <point/>
+  </object>
+  <object id="324" name="pathpoint" type="pathPoint" x="69" y="821.5">
+   <point/>
+  </object>
+  <object id="325" name="pathpoint" type="pathPoint" x="336" y="825.5">
+   <point/>
+  </object>
+  <object id="326" name="pathpoint" type="pathPoint" x="641.75" y="806.75">
+   <point/>
+  </object>
+  <object id="327" name="pathpoint" type="pathPoint" x="679.75" y="1006.75">
+   <point/>
+  </object>
+  <object id="328" name="pathpoint" type="pathPoint" x="963" y="1000">
+   <point/>
+  </object>
+  <object id="329" name="pathpoint" type="pathPoint" x="615" y="620.667">
+   <point/>
+  </object>
+  <object id="330" name="pathpoint" type="pathPoint" x="457.667" y="626.333">
+   <point/>
+  </object>
+  <object id="331" name="pathpoint" type="pathPoint" x="460.333" y="711">
+   <point/>
+  </object>
+  <object id="332" name="pathpoint" type="pathPoint" x="744.333" y="618">
+   <point/>
+  </object>
+  <object id="333" name="pathpoint" type="pathPoint" x="779.667" y="729.667">
+   <point/>
+  </object>
+  <object id="334" name="pathpoint" type="pathPoint" x="999" y="711">
+   <point/>
+  </object>
+  <object id="335" name="pathpoint" type="pathPoint" x="1199.67" y="791.667">
+   <point/>
+  </object>
+  <object id="336" name="pathpoint" type="pathPoint" x="1317" y="870">
+   <point/>
+  </object>
+  <object id="337" name="pathpoint" type="pathPoint" x="1317" y="599.667">
+   <point/>
+  </object>
+  <object id="338" name="pathpoint" type="pathPoint" x="1597.33" y="879">
+   <point/>
+  </object>
+  <object id="339" name="pathpoint" type="pathPoint" x="1318.67" y="1021">
+   <point/>
+  </object>
+  <object id="340" name="pathpoint" type="pathPoint" x="1769.67" y="1016">
+   <point/>
+  </object>
+  <object id="341" name="pathpoint" type="pathPoint" x="1756" y="897.333">
+   <point/>
+  </object>
+  <object id="342" name="pathpoint" type="pathPoint" x="1664" y="614.667">
    <point/>
   </object>
  </objectgroup>

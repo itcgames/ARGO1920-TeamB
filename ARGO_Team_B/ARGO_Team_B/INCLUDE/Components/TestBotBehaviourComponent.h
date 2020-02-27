@@ -23,27 +23,18 @@ struct GoalStruct {
 	bool isActive = true;
 };
 
-struct CheeseStruct : public GoalStruct{
-	float distanceToPlayer;
-	SDL_Point position;
-	bool isCollected;
+struct PathNode {
+	SDL_Point pos;
+	SDL_Point ParentPos;
+	float gCost;
+	float hCost;
+	float fCost;
 };
 
-struct BombStruct :public GoalStruct
+inline bool operator < (const PathNode& t_lhs, const PathNode& t_rhs)
 {
-	float disToPlayer;
-	SDL_Point location;
-	bool isActive;
-};
-
-struct ButtonStruct : public GoalStruct
-{
-	float disToPlayer;
-	SDL_Point location;
-	bool isActive;
-};
-
-
+	return t_lhs.fCost < t_rhs.fCost;
+}
 class TestBotBehaviourComponent : public Component
 {
 public:
@@ -55,6 +46,7 @@ public:
 	float distanceFromPlayer(PositionComponent* pos, PositionComponent* pos2);
 	void wander();
 	void moveToGoal(GoalStruct* t_goal);
+	void moveToGoal(int x, int y);
 	GoalStruct* FindClosest(std::vector<GoalStruct*> m_goals);
 
 	std::vector<GoalStruct*> m_cheeses;
@@ -68,6 +60,24 @@ public:
 	GoalStruct* m_TargetBomb;
 
 	Level& m_level;
+
+	/// <summary>
+	/// A* Functions
+	/// </summary>
+	static const int MAXSTEP = 30;
+
+	bool IsNodeValid(int x, int y);
+	bool isDestNode(int x, int y, PathNode t_DestNode);
+	double calculateH(int x, int y, PathNode(t_dest));
+	vector<PathNode> aStar(PathNode start, PathNode dest);
+	vector<PathNode> makePath(array<array<PathNode, (SCR_H / MAXSTEP)>, (SCR_W / MAXSTEP) > t_map, PathNode t_dest);
+
+	PathNode* m_startNode;
+	PathNode* m_destNode;
+	std::vector<PathNode> m_pathWay;
+
+	PathNode* objectToNode(GoalStruct t_struct);
+	PathNode* setStartNode();
 
 private:
 	int i = 0;
