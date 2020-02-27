@@ -3,7 +3,7 @@
 HostingGame::HostingGame()
 {
 	MyServer = new Server(1111, "149.153.106.159");
-	m_startCountdown = 15.0f;
+	m_startCountdown = 5.0f;
 	m_playerRequire = 1;
 	
 	//std::thread th(&HostingGame::waitingConnection, this);
@@ -19,35 +19,45 @@ void HostingGame::waitingConnection() {
 	if (MyServer->getTotalConnections() < m_playerRequire) {
 		cout << "waiting for players" << endl;
 		MyServer->ListenForNewConnection();
-		m_startCountdown = 15.0f;
-		startTime = SDL_GetTicks() + m_startCountdown * 1000; // the tick time is meilsecond
+		m_startCountdown = 5.0f;
+		startTime = SDL_GetTicks() + (m_startCountdown * 1000); // the tick time is meilsecond
+		cout << "Start Time : " << startTime << endl;
+		currentTime = SDL_GetTicks();
+		cout << "Current Time : " << currentTime << endl;
 	}
 }
 
 void HostingGame::update(float dt) {
 	waitingConnection();
-	currentTime = SDL_GetTicks();
+
 
 	if (currentTime < startTime) {
+		currentTime = SDL_GetTicks();
+		cout << "Current Time : " << currentTime << endl;
+		cout << "Start Time : " << startTime << endl;
 		if (MyServer->getTotalConnections() >= m_playerRequire) {
 
-			string m_timerMessage = "timer: " + to_string(startTime);
+			string m_timerMessage = "Start Time: " + to_string(startTime) + " Current Time: " + to_string(currentTime);
 			//MyServer
 			MyServer->SendStringToAll(m_timerMessage, PacketType::StartCountdown);
-			cout << m_timerMessage << endl;
+			//cout << m_timerMessage << endl;
+			
 		}
 	}
 	else {
 		//get data from server
+		cout << MyServer->getPlayerData() << endl;
 		if (prePlayerData != MyServer->getPlayerData()) {
 			prePlayerData = MyServer->getPlayerData();
 			temp = intConverter(prePlayerData);
-			for (int i = 0; i < temp.size(); i++) {
-				cout << temp[i] << endl;
-			}
-			m_gameScene->setDataToPlayer(temp);
-		}
+			if (temp.size() == 5) {
+				/*for (int i = 0; i < temp.size(); i++) {
+					cout << temp[i] << endl;
+				}*/
+				m_gameScene->setDataToPlayer(temp);
 
+			}
+		}
 
 		// game loop 
 		m_gameScene->update(dt);
@@ -72,8 +82,8 @@ void HostingGame::draw(FontObserver* text, SDL_Renderer* t_renderer)
 
 	}
 	else {
-		if (m_startCountdown > 0.0f) {
-			int timer = m_startCountdown + 1;
+		if (currentTime < startTime) {
+			int timer = (startTime - currentTime) / 1000 + 1;
 			string startTiemr = "Game start in " + to_string(timer);
 			const char* c = startTiemr.data();
 			color = { 1, 1, 1 , 255 };
@@ -81,7 +91,7 @@ void HostingGame::draw(FontObserver* text, SDL_Renderer* t_renderer)
 		}
 		else {
 			if (m_gameScene == NULL) {
-				m_gameScene = new GameScene(t_renderer);
+				m_gameScene = new GameScene(t_renderer, 1);
 			}
 			else {
 				m_gameScene->render();

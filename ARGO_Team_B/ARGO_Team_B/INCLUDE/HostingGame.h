@@ -42,6 +42,7 @@ private:
 	int m_idForPlayer;
 
 	GameScene* m_gameScene;
+	SDL_Renderer* m_renderer;
 
 	string prePlayerData;
 	vector<int> temp;

@@ -31,7 +31,6 @@ private:
 	Client* MyClient;
 
 	int m_startCountdown;
-	int m_playerId;
 	bool m_gameConnented;
 
 	GameScene* m_gameScene;
@@ -40,6 +39,9 @@ private:
 	/*string preStartGameTimer;
 	string preInGameTimer;*/
 	string prePlayerData;
+
+	string prePlayerId;
+	int m_playerId;
 
 	vector<int> temp;
 

@@ -65,7 +65,7 @@ bool Server::ListenForNewConnection()
 		std::cout << "ID:" << newConnection->m_ID << std::endl;
 
 		std::string MOTD;
-		MOTD = "YOUR CONNECTION ID: " + std::to_string( newConnection->m_ID);
+		MOTD = "YOUR CONNECTION ID: " + std::to_string( newConnection->m_ID + 2);
 		SendString(newConnection, MOTD);
 
 		std::thread CHT(ClientHandlerThread, std::ref(*this), newConnection);

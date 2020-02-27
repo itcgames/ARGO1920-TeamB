@@ -24,6 +24,7 @@ class GameScene
 {
 public:
 	GameScene(SDL_Renderer* t_renderer);
+	GameScene(SDL_Renderer* t_renderer, int playerId);
 	~GameScene();
 	void update(float dt);
 	void render();
