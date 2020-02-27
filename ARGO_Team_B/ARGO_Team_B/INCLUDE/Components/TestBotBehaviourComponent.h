@@ -60,6 +60,7 @@ public:
 
 	GoalStruct* m_TargetCheese;
 	GoalStruct* m_TargetBomb;
+	GoalStruct* m_mainTarget;
 
 	Level& m_level;
 

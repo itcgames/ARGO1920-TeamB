@@ -20,11 +20,33 @@ TestBotBehaviourComponent::TestBotBehaviourComponent(std::vector<Entity*>& t_ent
 
 			m_cheeses.push_back(cheese);
 		}
+		if (e->getType() == Types::Bomb)
+		{
+			PositionComponent* posComp = dynamic_cast<PositionComponent*>(e->getComponent(Types::Position));
+			BombComponent* bombComp = dynamic_cast<BombComponent*>(e->getComponent(Types::Bomb));
+
+			GoalStruct* bomb = new GoalStruct;
+			bomb->isActive = !(bombComp->isPlayerOwnedBomb());
+			
+			bomb->position.x = posComp->getPositionX();
+			bomb->position.y = posComp->getPositionY();
+			bomb->distanceToPlayer = distanceFromPlayer(posComp, static_cast<PositionComponent*>(m_entity.getComponent(Types::Position)));
+
+			m_bombs.push_back(bomb);
+		}
 	}
 	m_TargetCheese = FindClosest(m_cheeses);
-	m_destNode = objectToNode(*m_TargetCheese);
+	m_TargetBomb = FindClosest(m_bombs);
+	if (m_TargetBomb->distanceToPlayer < m_TargetCheese->distanceToPlayer)
+	{
+		m_mainTarget = m_TargetBomb;
+	}
+	else
+	{
+		m_mainTarget = m_TargetCheese;
+	}
+	m_destNode = objectToNode(*m_mainTarget);
 	m_startNode = setStartNode();
-	
 	m_pathWay = aStar(*m_startNode, *m_destNode);
 
 }
@@ -45,6 +67,9 @@ TestBotBehaviourComponent::~TestBotBehaviourComponent()
 /// </summary>
 void TestBotBehaviourComponent::update()
 {
+	ControlComponent* cont = dynamic_cast<ControlComponent*>(m_entity.getComponent(Types::Control));
+	PlayerComponent* playercomp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
+
 	if (stepTimer >= stepTimerMax)
 	{
 		if (step < m_pathWay.size())
@@ -54,19 +79,30 @@ void TestBotBehaviourComponent::update()
 		}
 		else
 		{
-			step = 0;
-			m_TargetCheese->isActive = false;
-			m_TargetCheese = FindClosest(m_cheeses);
-			if (!NoCheese)
+			if (m_mainTarget == m_TargetBomb)
 			{
-				m_destNode = objectToNode(*m_TargetCheese);
-				m_startNode = setStartNode();
-				m_pathWay = aStar(*m_startNode, *m_destNode);
+				cont->controlInteract(playercomp);
+				m_TargetBomb->isActive = false;
+			}
+			else if( m_mainTarget == m_TargetCheese)
+			{
+				m_TargetCheese->isActive = false;
+			}
+			step = 0;
+			
+			m_TargetCheese = FindClosest(m_cheeses);
+			m_TargetBomb = FindClosest(m_bombs);
+			if (m_TargetBomb->distanceToPlayer < m_TargetCheese->distanceToPlayer)
+			{
+				m_mainTarget = m_TargetBomb;
 			}
 			else
 			{
-				wander();
+				m_mainTarget = m_TargetCheese;
 			}
+			m_destNode = objectToNode(*m_mainTarget);
+			m_startNode = setStartNode();
+			m_pathWay = aStar(*m_startNode, *m_destNode);
 		}
 		stepTimer = 0;
 	}
@@ -248,12 +284,12 @@ GoalStruct* TestBotBehaviourComponent::FindClosest(std::vector<GoalStruct*> t_go
 	if (m_closest == NULL)
 	{
 		NoCheese = true;
+		return nullptr;
 	}
 	else
 	{
 		return m_closest;
 	}
-	
 }
 
 /// <summary>
@@ -356,9 +392,14 @@ vector<PathNode> TestBotBehaviourComponent::aStar(PathNode start, PathNode dest)
 
 	while (openList.size() > 0 && openList.size() < (SCR_W / MAXSTEP) * (SCR_H / MAXSTEP))
 	{
+		
 		PathNode node;
 		do
 		{
+			if (openList.size() == 0)
+			{
+				break;
+			}
 			float temp = FLT_MAX;
 			vector<PathNode>::iterator itNode;
 			for (vector<PathNode>::iterator it = openList.begin(); it != openList.end(); it = next(it))
