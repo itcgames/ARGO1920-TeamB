@@ -44,6 +44,8 @@ public:
 	void update();
 
 	float distanceFromPlayer(PositionComponent* pos, PositionComponent* pos2);
+	float distanceFromPlayer(int targetx, int targety, PositionComponent* pos2);
+
 	void wander();
 	void moveToGoal(GoalStruct* t_goal);
 	void moveToGoal(int x, int y);
@@ -60,6 +62,9 @@ public:
 	GoalStruct* m_TargetBomb;
 
 	Level& m_level;
+
+	int stepTimer = 0;
+	int stepMax = 500;
 
 	/// <summary>
 	/// A* Functions

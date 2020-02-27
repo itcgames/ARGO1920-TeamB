@@ -42,12 +42,28 @@ TestBotBehaviourComponent::~TestBotBehaviourComponent()
 
 void TestBotBehaviourComponent::update()
 {
-	wander();
+	if (stepTimer >= stepMax)
+	{
+		if (step < m_pathWay.size())
+		{
+			moveToGoal(m_pathWay[step].pos.x, m_pathWay[step].pos.y);
+			step++;
+		}
+		else
+		{
+			step = 0;
+		}
+		m_TargetCheese =  FindClosest(m_cheeses);
+		m_destNode = objectToNode(*m_TargetCheese);
+		m_startNode = setStartNode();
+
+		m_pathWay = aStar(*m_startNode, *m_destNode);
+	}
+	else
+	{
+		stepTimer++;
+	}
 	
-	 for (PathNode node : aStar(*m_startNode, *m_destNode))
-	 {
-		 moveToGoal(node.pos.x, node.pos.y);
-     }
 
 	//PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
 	//PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
@@ -85,6 +101,18 @@ float TestBotBehaviourComponent::distanceFromPlayer(PositionComponent* pos, Posi
 		return sqrt((pow(pos->getPositionX() - pos2->getPositionX(), 2) + (pow(pos->getPositionY() - pos2->getPositionY(), 2))));
 	}
 	else 
+	{
+		return INFINITY;
+	}
+}
+
+float TestBotBehaviourComponent::distanceFromPlayer(int targetx, int targety, PositionComponent* pos2)
+{
+	if (pos2 != NULL)
+	{
+		return sqrt((pow(targetx - pos2->getPositionX(), 2) + (pow(targety- pos2->getPositionY(), 2))));
+	}
+	else
 	{
 		return INFINITY;
 	}
@@ -167,6 +195,8 @@ GoalStruct* TestBotBehaviourComponent::FindClosest(std::vector<GoalStruct*> t_go
 	float shortest = t_goals[0]->distanceToPlayer;
 	for (GoalStruct* goal : t_goals)
 	{
+		goal->distanceToPlayer = distanceFromPlayer(goal->position.x, goal->position.y, static_cast<PositionComponent*>(m_entity.getComponent(Types::Position)));
+	
 		if (goal->distanceToPlayer < shortest && goal->isActive)
 		{
 			m_closest = goal;
