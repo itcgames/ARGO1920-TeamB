@@ -20,8 +20,8 @@ public:
 	void updateComponent(float dt, AudioObserver* t_observer,SDL_Rect & t_view);
 
 	bool m_isScreenShaking{ false };
-	int screenShakeAmountX{ 1 };
-	int screenShakeAmountY{ 1 };
+	int screenShakeAmountX{ 5 };
+	int screenShakeAmountY{ 5 };
 
 	void ScreenShake(SDL_Rect & t_view);
 

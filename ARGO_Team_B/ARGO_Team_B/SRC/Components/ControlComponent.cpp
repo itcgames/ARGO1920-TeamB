@@ -23,6 +23,8 @@ void ControlComponent::handleInput(SDL_Renderer* t_renderer,std::vector<Particle
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
 	PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
 
+	
+
 	//reset interact 
 	playerComp->setInteract(false);
 	

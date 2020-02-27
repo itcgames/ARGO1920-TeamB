@@ -17,6 +17,22 @@ enum class Types {
 	TestBot
 };
 
+enum class NodeStatus
+{
+	BH_INVALID,
+	BH_SUCCESS,
+	BH_FAILURE,
+	BH_RUNNING
+};
+
+enum class TileType {
+	ObstacleTile,
+	NormalTile,
+	StartPathTile,
+	GoalPathTile,
+	PathTile
+};
+
 enum class States {
 	Attack,
 	Idle,
@@ -40,7 +56,7 @@ enum class EntityType
 	Default,
 	Rat,
 	Bomb,
-	Spike
+	Spike,
 };
 
 static const int SCR_W = 1920;

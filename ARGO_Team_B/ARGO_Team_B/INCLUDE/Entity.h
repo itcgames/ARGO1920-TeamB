@@ -58,6 +58,7 @@ public:
 	Types getType() { return m_components.second.at(0); } // all Player Types have to be first component passed 
 
 	EntityType getEntityType() { return m_entityType; }
+	bool isBot = false;
 private:
 	int m_id;
 	EntityType m_entityType;

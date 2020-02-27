@@ -64,7 +64,7 @@ void CollisionComponent::updateCollider(Entity& t_entity, double angle)
 	float originX = entityPos->getPositionX() + m_width / 2;
 	float originY = entityPos->getPositionY() + m_height / 2;
 
-	std::cout << "origin x: " << originX << "origin y: " << originY << std::endl;
+	//std::cout << "origin x: " << originX << "origin y: " << originY << std::endl;
 
 	float CosWithAngle = cos(angle / (180 / 3.14));
 	float SinWithAngle = sin(angle / (180 / 3.14));
