@@ -30,6 +30,8 @@ public:
 
 	void getABomb(bool state);
 	bool checkCarryBomb() { return m_carryABomb; }
+
+	void reset();
 private:
 	int m_id;
 	bool m_alive;

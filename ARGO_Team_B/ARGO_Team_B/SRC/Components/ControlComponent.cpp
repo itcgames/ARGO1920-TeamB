@@ -18,7 +18,7 @@ ControlComponent::~ControlComponent()
 {
 }
 
-void ControlComponent::handleInput(SDL_Renderer* t_renderer,std::vector<ParticleSystem*>&t_ps,float dt)
+void ControlComponent::handleInput(SDL_Renderer* t_renderer,std::vector<ParticleSystem*>&t_ps,float dt,AudioObserver*t_observer)
 {
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
 	PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
@@ -37,6 +37,7 @@ void ControlComponent::handleInput(SDL_Renderer* t_renderer,std::vector<Particle
 		if (m_controller->m_currentState.LeftThumbStick.y < -m_controller->dpadThreshold) {
 			controlUp(posComp);
 			//t_ps.push_back((new ParticleSystem(10, posComp->getPositionX()+3, posComp->getPositionY() + 30, t_renderer, ParticleType::Dust)));
+			
 		}
 		else if (m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold) {
 			controlDown(posComp);

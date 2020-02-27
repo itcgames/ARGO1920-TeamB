@@ -20,7 +20,7 @@ class AudioObserver : public Observer
 	public:
 		enum SFX
 		{
-			CLICK, PORTAL, PICKUPCHEESE, PICKUPBOMB,EXPLOSION,PLACEBOMB,OPENDOOR
+			CLICK, PORTAL, PICKUPCHEESE, PICKUPBOMB,EXPLOSION,PLACEBOMB,OPENDOOR,YOUWIN,DRAW,WALK
 		};
 		AudioObserver() {
 			if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, NULL, 2048) < 0)
@@ -39,6 +39,9 @@ class AudioObserver : public Observer
 			pickupBomb = Mix_LoadWAV("Assets/Sfx/pickupCheese.ogg");
 			placeBomb = Mix_LoadWAV("Assets/Sfx/pickupCheese.ogg");
 			explosion = Mix_LoadWAV("Assets/Sfx/explosion.wav"); 
+			youWin = Mix_LoadWAV("Assets/Sfx/youWin.wav");
+			draw = Mix_LoadWAV("Assets/Sfx/Draw.wav");
+			
 			//Mix_VolumeChunk(explosion, 15);
 			m_bgm1 = Mix_LoadMUS("Assets/Sfx/music.mp3");
 			m_bgm2 = Mix_LoadMUS("Assets/Sfx/musicMenu.mp3");
@@ -66,11 +69,16 @@ class AudioObserver : public Observer
 				Mix_PlayChannel(-1, pickupBomb, 0);
 				break;
 			case AudioObserver::EXPLOSION:
-
 				Mix_PlayChannel(-1, explosion, 0);
 				break;
 			case AudioObserver::PLACEBOMB:
 				Mix_PlayChannel(-1, placeBomb, 0);
+				break;
+			case AudioObserver::YOUWIN:
+				Mix_PlayChannel(-1, youWin, 0);
+				break;
+			case AudioObserver::DRAW:
+				Mix_PlayChannel(-1, draw, 0);
 				break;
 			default:
 				break;
@@ -101,6 +109,8 @@ private:
 	Mix_Chunk* pickupBomb = NULL;
 	Mix_Chunk* explosion = NULL;
 	Mix_Chunk* placeBomb = NULL;
+	Mix_Chunk* youWin = NULL;
+	Mix_Chunk* draw = NULL;
 	Mix_Music* m_bgm1 = NULL;
 	Mix_Music* m_bgm2 = NULL;
 	Mix_Music* m_bgm3 = NULL;

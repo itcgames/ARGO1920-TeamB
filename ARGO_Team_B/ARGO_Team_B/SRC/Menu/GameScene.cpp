@@ -1,9 +1,10 @@
 #include "GameScene.h"
 
 GameScene::GameScene(SDL_Renderer* t_renderer):
-	m_renderer(t_renderer)
+	m_renderer(t_renderer),
+	m_isEndScreenDone{false},
+	m_gameCount(1)
 {
-
 	m_view.h = SCR_H;
 	m_view.w = SCR_W;
 	m_view.x = 0;
@@ -12,7 +13,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	SDL_RenderSetViewport(m_renderer, &m_view);
 
 	// Extra info for systems
-	const auto MAP_PATH = "Assets/map/test5.tmx";
+	const auto MAP_PATH = "Assets/map/test.tmx";
 	tiled_map_level = new Level("Test");
 	tiled_map_level->load(MAP_PATH, t_renderer);
 
@@ -99,7 +100,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	// Creepy Vouyers
 	m_observer = new AudioObserver();
 	m_observer->load();
-	//m_observer->StartBGM(1);
+	m_observer->StartBGM(1);
 
 
 	m_font = new FontObserver(t_renderer);
@@ -123,6 +124,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 			}
 		}	
 	}
+	m_gameState = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
 }
 
 GameScene::~GameScene()
@@ -133,15 +135,14 @@ void GameScene::update(float dt)
 {
 	GameComponent* m_game = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
 	if (!m_game->getGameover()) {
-
 		m_healthSystem.update();
 		m_aiSystem.update();
 		m_buttonSystem.update();
-		m_controlSystem.handleInput(dt, m_stateMachine, m_renderer, m_particles);
+		m_controlSystem.handleInput(dt, m_stateMachine, m_renderer, m_particles,m_observer);
 		m_collisionSystem.updateComponent(*tiled_map_level, m_observer, m_particles, m_renderer, m_view);
 		//m_stateMachine->update();
 		m_bombSystem.updateComponent(dt, m_observer, m_view);
-		m_gameSystem.update(dt);
+		m_gameSystem.update(dt,m_observer);
 
 		for (int i = 0; i < m_particles.size(); i++) {
 			// Loops through particle systems
@@ -157,8 +158,16 @@ void GameScene::update(float dt)
 	else {
 		m_restartTimer -= dt;
 		if (m_restartTimer <= 0) {
+			// let end screen show
+			if (!m_isEndScreenDone)
+			{
+				m_restartTimer += 2.5f;
+				m_isEndScreenDone = true;
+			}
+			else {
+				resetGame(m_renderer);
+			}
 			// restart code here
-
 		}
 	}
 }
@@ -178,14 +187,50 @@ void GameScene::render()
 
 }
 
-void GameScene::resetGame() {
-
+void GameScene::resetGame(SDL_Renderer* t_renderer) {
+	string map;
+	m_gameCount++;
+	m_isEndScreenDone = false;
+	if (m_gameState->getGameCount() != -1) // game over early code
+	{
+		m_gameState->setGameCount(m_gameCount);
+	}
+	else {
+		m_gameCount = -1;
+	}
+	switch (m_gameCount) {
+	case 2:
+		map = "Assets/map/test2.tmx";
+		break;
+	case 3:
+		map = "Assets/map/test3.tmx";
+		break;
+	case 4:
+		map = "Assets/map/test4.tmx";
+		break;
+	case 5:
+		map = "Assets/map/test5.tmx";
+		break;
+	case 6:
+		m_gameState->resetGame();
+		break;
+	default:
+		map = "Assets/map/test.tmx";
+		break;
+	}
+	m_gameState->resetRound();
+	tiled_map_level->load(map, t_renderer);
+	for (int i = 0; i < 4; i++) {
+		PlayerComponent* player = dynamic_cast<PlayerComponent*>(m_entities.at(i)->getComponent(Types::Player));
+		player->reset();
+		PositionComponent* pos = dynamic_cast<PositionComponent*>(m_entities.at(i)->getComponent(Types::Position));
+		pos->reset(i+1, tiled_map_level->m_player[i].x, tiled_map_level->m_player[i].y);
+	}
 }
 
 SDL_Point GameScene::playerPosition(int id) {
 
 	PositionComponent* m_player = NULL;
-
 	switch (id)
 	{
 	case 1:
@@ -203,9 +248,7 @@ SDL_Point GameScene::playerPosition(int id) {
 	default:
 		break;
 	}
-
 	SDL_Point positionData = { m_player->getPositionX(), m_player->getPositionY() };
-
 	return positionData;
 }
 

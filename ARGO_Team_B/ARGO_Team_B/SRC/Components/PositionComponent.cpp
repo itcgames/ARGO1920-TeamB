@@ -69,6 +69,20 @@ void PositionComponent::backToStart()
 	m_currentY = m_startY;
 }
 
+void PositionComponent::reset(int t_num, float t_x,float t_y)
+{
+	m_currentX = t_x;
+	m_currentY = t_y;
+	m_velocityX = 0;
+	m_velocityY = 0;
+	m_lastX = m_currentX;
+	m_lastY = m_currentY;
+	m_startX = m_currentX;
+	m_startY = m_currentY;
+	m_acceleration = 120;
+	m_lastAngle = 0;
+}
+
 
 void PositionComponent::backToPreviousePos() {
 	m_currentX = m_lastX;
