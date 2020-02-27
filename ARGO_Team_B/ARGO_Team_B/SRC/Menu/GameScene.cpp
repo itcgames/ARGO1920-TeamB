@@ -343,7 +343,8 @@ void GameScene::resetGame() {
 		break;
 	case 6:
 		m_gameState->resetGame();
-		break;
+		delete tiled_map_level;
+		return; // exit function
 	default:
 		break;
 	}
