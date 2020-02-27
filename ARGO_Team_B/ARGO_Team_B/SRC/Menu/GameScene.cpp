@@ -301,7 +301,6 @@ void GameScene::update(float dt)
 			else {
 				resetGame();
 			}
-			// restart code here
 		}
 	}
 }
@@ -349,6 +348,8 @@ void GameScene::resetGame() {
 		break;
 	}
 	m_gameState->resetRound();
+	delete tiled_map_level;
+	tiled_map_level = new Level("Level " + m_gameCount);
 	tiled_map_level->load(map, m_renderer);
 	for (int i = 0; i < 4; i++) {
 		PlayerComponent* player = dynamic_cast<PlayerComponent*>(m_entities.at(i)->getComponent(Types::Player));

@@ -121,7 +121,6 @@ void PositionComponent::moveUp()
 	if (m_velocityY < -m_acceleration) {
 		m_velocityY = -m_acceleration;
 	}
-
 }
 
 void PositionComponent::moveDown()
@@ -169,4 +168,3 @@ void PositionComponent::slowDownY()
 {
 	m_velocityY = m_velocityY * 0.85;
 }
-

@@ -16,6 +16,7 @@ Game::Game() :
 		std::cout << "Failed to initialise SDL" << std::endl;
 	}
 	
+
 	// Create a Window
 	p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCR_W, SCR_H, SDL_WINDOW_SHOWN );
 	// Debug window p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_SHOWN);
@@ -44,10 +45,11 @@ Game::Game() :
 	//m_hostGame = new HostingGame();
 	m_joinGame = new JoiningGame();
 
+	//release 
+	m_currentState = GameStates::MainMenu;
 	// debug
 	//m_currentState = GameStates::Game;
-	// release 
-	m_currentState = GameStates::MainMenu;
+	
 
 	m_menuScene = new MenuScene(p_renderer, &m_currentState, controlComp);
 	m_creditsScene = new CreditsScene(p_renderer, &m_currentState, controlComp);

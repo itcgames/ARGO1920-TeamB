@@ -57,7 +57,7 @@ void GameComponent::resetRound()
 	m_startCountdown = 3.0f;
 
 	//Debug
-	// m_gameTimer = 3;
+	//m_gameTimer = 3;
 	// m_startCountdown = 0;
 
 }
