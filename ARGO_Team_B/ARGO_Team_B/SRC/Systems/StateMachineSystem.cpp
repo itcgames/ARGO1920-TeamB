@@ -92,6 +92,14 @@ void StateMachineSystem::checkStates(State* t_state, Entity* e)
 				animated->getCurrent()->walkWithBomb(animated);
 				animated->setCurrent(new WalkWithBombState());
 			}
+			break;
+		case States::EatCheese:
+			if (animated->getPrevious()->m_type != States::EatCheese) {
+				animated->updateSpriteState(*m_spriteSheets[4]);
+				animated->getCurrent()->eatCheese(animated);
+				animated->setCurrent(new EatCheeseState());
+			}
+			break;
 		default:
 			break;
 		}
@@ -161,5 +169,19 @@ void StateMachineSystem::setupSprites()
 	m_spriteSheets.push_back(temp4);
 
 	temp4 = NULL;
+
+	SpriteSheet* temp5 = new SpriteSheet;
+	temp5->frameSize.x = 60;
+	temp5->frameSize.y = 30;
+	temp5->name = "RatEatCheese";
+	temp5->t_noOfFrames = 3;
+	temp5->frameRate = 1500;
+
+	m_surface = IMG_Load("./Assets/SpriteSheetMouseCheese.png");
+	temp5->m_texture = SDL_CreateTextureFromSurface(m_renderer, m_surface);
+	SDL_FreeSurface(m_surface);
+	m_spriteSheets.push_back(temp5);
+
+	temp5 = NULL;
 }
 

@@ -34,6 +34,10 @@ public:
 	{
 		std::cout << "walkWithBomb State" << std::endl;
 	}
+	virtual void eatCheese(AnimatedSpriteComponent* t_a)
+	{
+		std::cout << "eatCheese State" << std::endl;
+	}
 	virtual States getType() { return m_type; };
 
 	States m_type = States::Idle;

@@ -4,6 +4,7 @@
 #include "IdleState.h"
 #include "AttackState.h"
 #include "WalkWithBombState.h"
+#include "EatCheeseState.h"
 
 WalkingState::WalkingState()
 {
@@ -38,5 +39,12 @@ void WalkingState::walkWithBomb(AnimatedSpriteComponent* t_a)
 {
 	std::cout << "Walking -> walkWithBomb" << std::endl;
 	t_a->setCurrent(new WalkWithBombState());
+	delete this;
+}
+
+void WalkingState::eatCheese(AnimatedSpriteComponent* t_a)
+{
+	std::cout << "Walking -> eatCheese" << std::endl;
+	t_a->setCurrent(new EatCheeseState());
 	delete this;
 }

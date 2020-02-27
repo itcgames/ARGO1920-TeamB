@@ -23,7 +23,8 @@ enum class States {
 	Interact,
 	Stunned,
 	Walking,
-	WalkingBomb
+	WalkingBomb,
+	EatCheese
 };
 
 enum class GameStates

@@ -13,4 +13,7 @@ public:
 	void stunned(AnimatedSpriteComponent* t_a)override;
 	void attack(AnimatedSpriteComponent* t_a)override;
 	void walking(AnimatedSpriteComponent* t_a)override;
+	void eatCheese(AnimatedSpriteComponent* t_a)override;
+
+
 };

@@ -3,7 +3,7 @@
 #include "StunnedState.h"
 #include "IdleState.h"
 #include "AttackState.h"
-
+#include "EatCheeseState.h"
 WalkWithBombState::WalkWithBombState()
 {
 	m_type = States::WalkingBomb;
@@ -37,5 +37,11 @@ void WalkWithBombState::walking(AnimatedSpriteComponent* t_a)
 {
 	std::cout << "WalkingWithBomb -> walking" << std::endl;
 	t_a->setCurrent(new AttackState());
+	delete this;
+}
+void WalkWithBombState::eatCheese(AnimatedSpriteComponent* t_a)
+{
+	std::cout << "Walking -> eatCheese" << std::endl;
+	t_a->setCurrent(new EatCheeseState());
 	delete this;
 }

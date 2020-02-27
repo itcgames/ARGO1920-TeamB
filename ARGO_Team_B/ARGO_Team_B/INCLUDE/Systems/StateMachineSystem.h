@@ -10,6 +10,7 @@
 #include "StunnedState.h"
 #include "WalkingState.h"
 #include "WalkWithBombState.h"
+#include "EatCheeseState.h"
 #include <vector>
 
 

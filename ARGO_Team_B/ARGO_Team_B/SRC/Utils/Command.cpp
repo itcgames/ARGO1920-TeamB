@@ -4,6 +4,7 @@
 #include "InteractState.h"
 #include "StunnedState.h"
 #include "WalkWithBombState.h"
+#include "EatCheeseState.h"
 /// <summary>
 /// -------------------------------- Macro Commands ---------------------------------------------
 /// </summary>
@@ -63,9 +64,13 @@ void WalkUpCommand::execute(Entity &t_gameObject)
 	{
 		anim->setCurrent(new WalkingState);
 	}
-	if (player->checkCarryBomb())
+	if (player->checkCarryBomb() && anim->getPrevious()->m_type != States::Walking)
 	{
 		anim->setCurrent(new WalkWithBombState);
+	}
+	if (player->getACheese()&& anim->getPrevious()->m_type != States::Walking)
+	{
+		anim->setCurrent(new EatCheeseState);
 	}
 }
 
@@ -87,9 +92,13 @@ void WalkDownCommand::execute(Entity& t_gameObject)
 	{
 		anim->setCurrent(new WalkingState);
 	}
-	if (player->checkCarryBomb())
+	if (player->checkCarryBomb() && anim->getPrevious()->m_type != States::Walking)
 	{
 		anim->setCurrent(new WalkWithBombState);
+	}
+	if (player->getACheese() && anim->getPrevious()->m_type != States::Walking)
+	{
+		anim->setCurrent(new EatCheeseState);
 	}
 }
 
@@ -113,9 +122,13 @@ void WalkLeftCommand::execute(Entity &t_gameObject)
 		{
 			anim->setCurrent(new WalkingState);
 		}
-		if (player->checkCarryBomb())
+		if (player->checkCarryBomb() && anim->getPrevious()->m_type != States::Walking)
 		{
 			anim->setCurrent(new WalkWithBombState);
+		}
+		if (player->getACheese() /*&& anim->getPrevious()->m_type != States::Walking*/)
+		{
+			anim->setCurrent(new EatCheeseState);
 		}
 	}
 }
@@ -141,9 +154,13 @@ void WalkRightCommand::execute(Entity &t_gameObject)
 		{
 			anim->setCurrent(new WalkingState);
 		}
-		if (player->checkCarryBomb())
+		if (player->checkCarryBomb() && anim->getPrevious()->m_type != States::Walking)
 		{
 			anim->setCurrent(new WalkWithBombState);
+		}
+		if (player->getACheese() && anim->getPrevious()->m_type != States::Walking)
+		{
+			anim->setCurrent(new EatCheeseState);
 		}
 	}
 }

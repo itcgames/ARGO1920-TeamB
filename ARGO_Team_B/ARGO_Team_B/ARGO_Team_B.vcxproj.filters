@@ -86,6 +86,7 @@
     <ClInclude Include="Include\FactoryInterface.h" />
     <ClInclude Include="Include\ComponentFactory.h" />
     <ClCompile Include="SRC\States\WalkWithBombState.cpp" />
+    <ClCompile Include="INCLUDE\STATES\EATCHEESESTATE.CPP" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SRC\Components\AnimatedSpriteComponent.cpp" />
@@ -195,5 +196,6 @@
     <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
     <ClInclude Include="Include\EntityFactory.h" />
     <ClInclude Include="INCLUDE\States\WalkWithBombState.h" />
+    <ClInclude Include="INCLUDE\States\EatCheeseState.h" />
   </ItemGroup>
 </Project>
