@@ -31,9 +31,6 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	for (int i = 0; i < 4; i++) {
 		m_entities.push_back(factory->CreatePlayer(i + 1, tiled_map_level));
 				
-		// TODO: if controller not connect:
-		//m_entities.at(i).addComponent(new TestBotBehaviourComponent(m_entities.at(i)), Types::TestBot);
-	
 		// Systems
 		m_healthSystem.addEntity(*m_entities.at(i));
 		
