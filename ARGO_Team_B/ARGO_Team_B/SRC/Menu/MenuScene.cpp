@@ -13,7 +13,7 @@ MenuScene::MenuScene(SDL_Renderer* t_renderer, GameStates* t_gamestate, ControlC
 	m_timerOffset(0.2f)
 
 {
-	if (!m_bg.loadFromFile("./Assets/menu/backgroundImage.png", t_renderer, 1))
+	if (!m_bg.loadFromFile("./Assets/menu/background_final.png", t_renderer, 1))
 	{
 		printf("Failed to load BG texture!\n");
 	}
@@ -26,7 +26,7 @@ MenuScene::MenuScene(SDL_Renderer* t_renderer, GameStates* t_gamestate, ControlC
 	{
 		printf("Failed to load play texture!\n");
 	}
-	m_playX = 50;
+	m_playX = 200;
 	m_playY = 150;
 	m_playW = m_botPlay.getWidth();
 	m_playH = m_botPlay.getHeight();
@@ -35,7 +35,7 @@ MenuScene::MenuScene(SDL_Renderer* t_renderer, GameStates* t_gamestate, ControlC
 	{
 		printf("Failed to load play texture!\n");
 	}
-	m_localPlayX = 50;
+	m_localPlayX = 200;
 	m_localPlayY = 250;
 	m_localPlayW = m_localPlay.getWidth();
 	m_localPlayH = m_localPlay.getHeight();
@@ -44,7 +44,7 @@ MenuScene::MenuScene(SDL_Renderer* t_renderer, GameStates* t_gamestate, ControlC
 	{
 		printf("Failed to load play texture!\n");
 	}
-	m_onlinePlayX = 50;
+	m_onlinePlayX = 200;
 	m_onlinePlayY = 350;
 	m_onlinePlayW = m_onlinePlay.getWidth();
 	m_onlinePlayH = m_onlinePlay.getHeight();
@@ -53,7 +53,7 @@ MenuScene::MenuScene(SDL_Renderer* t_renderer, GameStates* t_gamestate, ControlC
 	{
 		printf("Failed to load play texture!\n");
 	}
-	m_CreditsX = 50;
+	m_CreditsX = 200;
 	m_CreditsY = 450;
 	m_CreditsW = m_Credits.getWidth();
 	m_CreditsH = m_Credits.getHeight();
@@ -62,7 +62,7 @@ MenuScene::MenuScene(SDL_Renderer* t_renderer, GameStates* t_gamestate, ControlC
 	{
 		printf("Failed to load play texture!\n");
 	}
-	m_quitX = 50;
+	m_quitX = 200;
 	m_quitY = 550;
 	m_quitW = m_quitGame.getWidth();
 	m_quitH = m_quitGame.getHeight();
@@ -95,18 +95,18 @@ MenuScene::~MenuScene()
 void MenuScene::handleEvents()
 {
 	m_controller->checkButton();
-	int m_movement = 100;
+	int m_movementY = 100;
 	if (m_buttomTimer <= 0.0f) {
 
 		if (m_controller->m_currentState.LeftThumbStick.y < -m_controller->dpadThreshold)
 		{
-			m_selectorY = m_selectorY - m_movement;
+			m_selectorY = m_selectorY - m_movementY;
 			m_buttomTimer = m_timerOffset;
 			m_observer->onNotify(AudioObserver::CLICK);
 		}
 		else if (m_controller->m_currentState.LeftThumbStick.y > m_controller->dpadThreshold)
 		{
-			m_selectorY = m_selectorY + m_movement;
+			m_selectorY = m_selectorY + m_movementY;
 			m_buttomTimer = m_timerOffset;
 			m_observer->onNotify(AudioObserver::CLICK);
 		}
@@ -114,7 +114,7 @@ void MenuScene::handleEvents()
 
 	if (m_selectorY > 550)
 	{
-		m_selectorY = 150;
+		m_selectorY = 100;
 	}
 	if (m_selectorY < 150)
 	{

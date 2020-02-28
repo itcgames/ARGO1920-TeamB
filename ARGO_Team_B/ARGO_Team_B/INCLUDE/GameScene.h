@@ -69,7 +69,7 @@ private:
 	SDL_Renderer* m_renderer;
 
 	float m_restartTimer;
-	void resetGame();
+	void resetGame(SDL_Renderer*t_renderer);
 };
 
 #endif // !MENU_SCENE_H

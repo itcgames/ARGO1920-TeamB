@@ -46,7 +46,7 @@ public:
 	GameSystem();
 	~GameSystem();
 
-	void update(float dt);
+	void update(float dt, AudioObserver* t_observer);
 	void setupComponent();
 
 	void draw(FontObserver* text, float& restartTimer);

@@ -94,7 +94,7 @@ public:
 	std::vector<Point> m_cheese;
 	std::vector<Point> m_bomb;
 	std::vector<Point> m_player;
-
+	std::vector<Point>m_spike;
 private:
 	void assignObstacles();
 	void flowFieldAlgorithm();

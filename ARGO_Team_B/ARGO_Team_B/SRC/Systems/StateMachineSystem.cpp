@@ -86,7 +86,20 @@ void StateMachineSystem::checkStates(State* t_state, Entity* e)
 				animated->setCurrent(new WalkingState());
 			}
 			break;
-
+		case States::WalkingBomb:
+			if (animated->getPrevious()->m_type != States::WalkingBomb) {
+				animated->updateSpriteState(*m_spriteSheets[3]);
+				animated->getCurrent()->walkWithBomb(animated);
+				animated->setCurrent(new WalkWithBombState());
+			}
+			break;
+		case States::EatCheese:
+			if (animated->getPrevious()->m_type != States::EatCheese) {
+				animated->updateSpriteState(*m_spriteSheets[4]);
+				animated->getCurrent()->eatCheese(animated);
+				animated->setCurrent(new EatCheeseState());
+			}
+			break;
 		default:
 			break;
 		}
@@ -142,5 +155,33 @@ void StateMachineSystem::setupSprites()
 	m_spriteSheets.push_back(temp3);
 
 	temp3 = NULL;
+
+	SpriteSheet* temp4 = new SpriteSheet;
+	temp4->frameSize.x = 60;
+	temp4->frameSize.y = 30;
+	temp4->name = "RatWithBomb";
+	temp4->t_noOfFrames = 5;
+	temp4->frameRate = 2500;
+
+	m_surface = IMG_Load("./Assets/SpriteSheetWalkBombMouse.png");
+	temp4->m_texture = SDL_CreateTextureFromSurface(m_renderer, m_surface);
+	SDL_FreeSurface(m_surface);
+	m_spriteSheets.push_back(temp4);
+
+	temp4 = NULL;
+
+	SpriteSheet* temp5 = new SpriteSheet;
+	temp5->frameSize.x = 60;
+	temp5->frameSize.y = 30;
+	temp5->name = "RatEatCheese";
+	temp5->t_noOfFrames = 3;
+	temp5->frameRate = 1500;
+
+	m_surface = IMG_Load("./Assets/SpriteSheetMouseCheese.png");
+	temp5->m_texture = SDL_CreateTextureFromSurface(m_renderer, m_surface);
+	SDL_FreeSurface(m_surface);
+	m_spriteSheets.push_back(temp5);
+
+	temp5 = NULL;
 }
 

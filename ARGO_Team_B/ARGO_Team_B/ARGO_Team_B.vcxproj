@@ -33,6 +33,8 @@
     <ClInclude Include="INCLUDE\Online\PacketManager.h" />
     <ClInclude Include="INCLUDE\Online\PacketStructs.h" />
     <ClInclude Include="INCLUDE\Online\PacketType.h" />
+    <ClInclude Include="INCLUDE\States\EatCheeseState.h" />
+    <ClInclude Include="INCLUDE\States\WalkWithBombState.h" />
     <ClInclude Include="INCLUDE\Utils\LTexture.h" />
     <ClInclude Include="INCLUDE\MenuScene.h" />
     <ClInclude Include="INCLUDE\Utils\Observer.h" />
@@ -84,8 +86,10 @@
     <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="INCLUDE\STATES\EATCHEESESTATE.CPP" />
     <ClCompile Include="SRC\AITree\BehaviourTree.cpp" />
     <ClCompile Include="SRC\Particle.cpp" />
+    <ClCompile Include="SRC\States\WalkWithBombState.cpp" />
     <ClCompile Include="SRC\Systems\ParticleSystem.cpp" />
     <ClCompile Include="Src\Components\TestBotBehaviourComponent.cpp" />
     <ClCompile Include="SRC\Components\GameComponent.cpp" />

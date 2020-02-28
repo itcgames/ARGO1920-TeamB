@@ -9,9 +9,11 @@ GameSystem::~GameSystem() {
 
 }
 
-void GameSystem::update(float dt) {
-
+void GameSystem::update(float dt,AudioObserver*t_observer) {
+	// Release timer
 	float startCountdown = m_game->getstartCountdown();
+
+	//float startCountdown = m_game->getstartCountdown();
 
 	if (startCountdown <= 0) {
 
@@ -64,17 +66,20 @@ void GameSystem::update(float dt) {
 				redWinCounter++;
 				winTextColor = { 255,0,0,255 };
 				winInfo = "RED TEAM WIN!";
+				t_observer->onNotify(AudioObserver::YOUWIN);
 			}
 			else if (m_game->getRedTeamCheese() < m_game->getGreenTeamCheese()) {
 				greenWinCounter++;
 				winTextColor = { 0,255,0,255 };
 				winInfo = "GREEN TEAM WIN!";
+				t_observer->onNotify(AudioObserver::YOUWIN);
 			}
 			else {
 				winTextColor = { 255,255,0,255 };
 				winInfo = "DRAW!";
 				redWinCounter++;
 				greenWinCounter++;
+				t_observer->onNotify(AudioObserver::DRAW);
 			}
 
 			// if the game draw at 2:2, get a extra game
@@ -99,6 +104,7 @@ void GameSystem::update(float dt) {
 				// draw game..
 				winTextColor = { 0,0,255,255 };
 				winInfo = "THE GAME WAS A DRAW..";
+				t_observer->onNotify(AudioObserver::DRAW);
 			}
 			else {
 				m_game->setRedWinCounter(redWinCounter);
