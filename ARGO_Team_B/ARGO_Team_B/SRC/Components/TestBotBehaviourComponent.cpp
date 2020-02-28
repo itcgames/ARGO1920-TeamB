@@ -35,8 +35,19 @@ TestBotBehaviourComponent::TestBotBehaviourComponent(std::vector<Entity*>& t_ent
 			m_bombs.push_back(bomb);
 		}
 	}
-	setLevel(t_level, t_entities);
-
+	m_TargetCheese = FindClosest(m_cheeses);
+	m_TargetBomb = FindClosest(m_bombs);
+	if (m_TargetBomb->distanceToPlayer < m_TargetCheese->distanceToPlayer)
+	{
+		m_mainTarget = m_TargetBomb;
+	}
+	else
+	{
+		m_mainTarget = m_TargetCheese;
+	}
+	m_destNode = objectToNode(*m_mainTarget);
+	m_startNode = setStartNode();
+	m_pathWay = aStar(*m_startNode, *m_destNode);
 }
 
 TestBotBehaviourComponent::TestBotBehaviourComponent(Entity& t_gameObject, Level& t_level) :

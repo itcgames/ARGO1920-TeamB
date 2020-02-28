@@ -36,7 +36,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	
 		// Systems
 		m_healthSystem.addEntity(*m_entities.at(i));
-		m_controlSystem.addEntity(*m_entities.at(i));
+		
 		m_collisionSystem.addEntity(*m_entities.at(i));
 		m_gameSystem.addEntity(*m_entities.at(i));
 		m_bombSystem.addEntity(*m_entities.at(i));
@@ -134,8 +134,19 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 
 	for (int i = 0; i < 4; i++)
 	{
-		m_entities[i]->addComponent(new TestBotBehaviourComponent(m_entities, *m_entities[i], *tiled_map_level), Types::TestBot);
-		m_aiSystem.addEntity(*m_entities[i]);
+	int num = SDL_NumJoysticks() - 1;
+		if(i <= num)
+		{
+			m_entities.at(i)->addComponent(new ControlComponent(*m_entities.at(i)), Types::Control);
+			m_controlSystem.addEntity(*m_entities.at(i));
+		}
+		else
+		{
+			m_entities.at(i)->addComponent(new ControlComponent(*m_entities.at(i)), Types::Control);
+			m_controlSystem.addEntity(*m_entities.at(i));
+			m_entities.at(i)->addComponent(new TestBotBehaviourComponent(m_entities, *m_entities[i], *tiled_map_level), Types::TestBot);
+			m_aiSystem.addEntity(*m_entities.at(i));
+		}
 	}
 	m_gameState = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
 }
@@ -368,10 +379,15 @@ void GameScene::resetGame(SDL_Renderer* t_renderer) {
 		col->reset();
 	}
 	
+	int num = SDL_NumJoysticks() - 1;
+	
 	for (int i = 0; i < 4; i++)
 	{
-		TestBotBehaviourComponent* aicomp = dynamic_cast<TestBotBehaviourComponent*>(m_entities[i]->getComponent(Types::TestBot));
-		aicomp->setLevel(*tiled_map_level, m_entities);
+		if (i > num)
+		{
+			TestBotBehaviourComponent* aicomp = dynamic_cast<TestBotBehaviourComponent*>(m_entities[i]->getComponent(Types::TestBot));
+			aicomp->setLevel(*tiled_map_level, m_entities);
+		}
 	}
 	m_restartTimer = 6.0f;
 }

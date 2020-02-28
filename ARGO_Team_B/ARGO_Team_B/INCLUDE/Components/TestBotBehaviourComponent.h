@@ -67,7 +67,7 @@ public:
 	Level& m_level;
 
 	int stepTimer = 0;
-	int stepTimerMax = 150;
+	int stepTimerMax = 200;
 
 	/// <summary>
 	/// A* Functions
