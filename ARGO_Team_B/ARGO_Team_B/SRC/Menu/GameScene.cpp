@@ -13,7 +13,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	SDL_RenderSetViewport(m_renderer, &m_view);
 
 	// Extra info for systems
-	const auto MAP_PATH = "Assets/map/test.tmx";
+	const auto MAP_PATH = "Assets/map/test2.tmx";
 	tiled_map_level = new Level("Test");
 	tiled_map_level->load(MAP_PATH, t_renderer);
 
@@ -357,7 +357,7 @@ void GameScene::resetGame(SDL_Renderer* t_renderer) {
 		m_gameState->resetGame();
 		return; // exit function
 	default:
-		map = "Assets/map/test.tmx";
+		/*map = "Assets/map/test.tmx";*/
 		break;
 	}
 	m_gameState->resetRound();

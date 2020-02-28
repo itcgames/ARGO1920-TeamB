@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="64" height="36" tilewidth="30" tileheight="30" infinite="0" nextlayerid="16" nextobjectid="672">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="64" height="36" tilewidth="30" tileheight="30" infinite="0" nextlayerid="16" nextobjectid="685">
  <tileset firstgid="1" source="../tileset/city.tsx"/>
  <layer id="2" name="Background" width="64" height="36">
   <data encoding="csv">
@@ -730,6 +730,42 @@
    <point/>
   </object>
   <object id="671" name="bombpoint" x="1080" y="210">
+   <point/>
+  </object>
+  <object id="672" name="bombpoint" x="360" y="630">
+   <point/>
+  </object>
+  <object id="674" name="cheesepoint" x="240" y="780">
+   <point/>
+  </object>
+  <object id="675" name="cheesepoint" x="240" y="990">
+   <point/>
+  </object>
+  <object id="676" name="cheesepoint" x="540" y="870">
+   <point/>
+  </object>
+  <object id="677" name="cheesepoint" x="690" y="900">
+   <point/>
+  </object>
+  <object id="678" name="cheesepoint" x="840" y="1020">
+   <point/>
+  </object>
+  <object id="679" name="cheesepoint" x="1320" y="1020">
+   <point/>
+  </object>
+  <object id="680" name="spikepoint" x="1140" y="690">
+   <point/>
+  </object>
+  <object id="681" name="spikepoint" x="810" y="720">
+   <point/>
+  </object>
+  <object id="682" name="spikepoint" x="60" y="270">
+   <point/>
+  </object>
+  <object id="683" name="spikepoint" x="450" y="300">
+   <point/>
+  </object>
+  <object id="684" name="spikepoint" x="450" y="300">
    <point/>
   </object>
  </objectgroup>
