@@ -11,6 +11,7 @@
 #include "WalkingState.h"
 #include "WalkWithBombState.h"
 #include "EatCheeseState.h"
+#include "BombComponent.h"
 #include <vector>
 
 
@@ -19,6 +20,7 @@ class StateMachineSystem : public System
 {
 private:
 	State* m_current;
+
 
 public:
 	StateMachineSystem();
@@ -35,6 +37,5 @@ public:
 	SDL_Renderer* m_renderer;
 	SDL_Surface* m_surface;
 	std::vector<SpriteSheet*> m_spriteSheets;
-
 
 };

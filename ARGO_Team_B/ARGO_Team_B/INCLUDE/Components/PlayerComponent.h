@@ -31,12 +31,16 @@ public:
 	void getABomb(bool state);
 	bool checkCarryBomb() { return m_carryABomb; }
 
+	void setDizzyTime(float time);
+	float getDizzyTime() { return m_dizzyTime; }
+
 	void reset();
 private:
 	int m_id;
 	bool m_alive;
 	bool m_moveable;
 	bool m_dizzy;
+	float m_dizzyTime;
 
 	bool m_interact;
 	float m_swipeCooldown;

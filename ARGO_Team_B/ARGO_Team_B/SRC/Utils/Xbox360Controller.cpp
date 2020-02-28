@@ -39,7 +39,7 @@ bool Xbox360Controller::connect() {
 }
 
 bool Xbox360Controller::isConnected() {
-	std::cout << SDL_IsGameController(m_joystick_index) << " controller: " << m_joystick_index << std::endl;
+	//std::cout << SDL_IsGameController(m_joystick_index) << " controller: " << m_joystick_index << std::endl;
 	if (SDL_IsGameController(m_joystick_index)) {		
 		return true;
 	}

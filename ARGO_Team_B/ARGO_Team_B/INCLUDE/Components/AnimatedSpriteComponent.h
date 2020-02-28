@@ -67,6 +67,6 @@ public:
 	State* getCurrent();
 	State* getPrevious();
 
-	
+
 
 };

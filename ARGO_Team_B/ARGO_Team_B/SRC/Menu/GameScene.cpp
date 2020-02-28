@@ -43,9 +43,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 		m_stateMachine->addEntity(*m_entities.at(i));
 		
 	}
-	
 	m_stateMachine->setupSprites();
-
 
 	/// Buttons
 	float a = 620.0f;
@@ -62,13 +60,19 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	}
 
 	/// Spikes
+	
+	for (int i = 0; i <= tiled_map_level->m_spike.size(); i++) {
+		float spawnPointX = tiled_map_level->m_spike[i].x;
+		float spawnPointY = tiled_map_level->m_spike[i].y;
+		m_entities.push_back(factory->CreateTrap(0, true, spawnPointX, spawnPointY));
+	}
 	m_entities.push_back(factory->CreateTrap(0, true, 700, 100));
 	m_entities.push_back(factory->CreateTrap(1, false, 600, 600));
 	m_entities.push_back(factory->CreateTrap(2, false, 800, 100));
-	m_entities.push_back(factory->CreateTrap(3, true, 1440, 870));
-	m_entities.push_back(factory->CreateTrap(4, true, 1440, 810));
+	m_entities.push_back(factory->CreateTrap(1, false, 1440, 870));
+	m_entities.push_back(factory->CreateTrap(2, false, 1440, 810));
 		/// Spike Systems
-	for (int i = 1; i <= 5; i++) {
+	for (int i = 1; i <= 5 + tiled_map_level->m_spike.size(); i++) {
 		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - i));
 		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - i));
 		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - i));
@@ -93,6 +97,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
 		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
 		m_bombSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_stateMachine->addEntity(*m_entities.at(m_entities.size() - 1));
 	}
 
 	// Game Manager && UI Detail

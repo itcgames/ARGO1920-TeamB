@@ -1,13 +1,8 @@
 #ifndef BOMBCOMPONENT
 #define BOMBCOMPONENT
 #include "Component.h"
+#include "Enums.h"
 
-enum class BombState {
-	Idle,
-	Activate,
-	Explode,
-	Removed
-};
 
 class BombComponent : public Component {
 public :
