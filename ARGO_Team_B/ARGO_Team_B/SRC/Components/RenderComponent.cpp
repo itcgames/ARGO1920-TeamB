@@ -67,12 +67,13 @@ void RenderComponent::setImage(const char* name)
 	}
 }
 
-void RenderComponent::setImage(const char* name, int width, int height)
+void RenderComponent::setImage(const char* name,int srcWidth, int srcHeight, int width, int height, int count)
 {
-	if (currentImage != name) {
+	if (currentImage != name || m_preCount != count) {
 		this->width = width;
 		this->height = height;
-		srcrect = { 0, 0, width , height };
+		m_preCount = count;
+		srcrect = { 100 * count, 0, srcWidth , srcHeight };
 
 		currentImage = name;
 		m_image = IMG_Load(name);

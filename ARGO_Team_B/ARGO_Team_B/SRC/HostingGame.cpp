@@ -4,7 +4,7 @@ HostingGame::HostingGame()
 {
 	MyServer = new Server(1111, "149.153.106.159");
 	m_startCountdown = 5.0f;
-	m_playerRequire = 1;
+	m_playerRequire = 3;
 	
 	//std::thread th(&HostingGame::waitingConnection, this);
 	//th.join();
@@ -64,7 +64,10 @@ void HostingGame::update(float dt) {
 
 		//transfer current player data
 		string m_playerState = m_gameScene->playerInfo(1);
-		MyServer->SendStringToAll(m_playerState, PacketType::PlayerData);
+		if (preSendData != m_playerState) { // reduce the packet sending
+			preSendData = m_playerState;
+			MyServer->SendStringToAll(m_playerState, PacketType::PlayerData);
+		}
 
 	}
 

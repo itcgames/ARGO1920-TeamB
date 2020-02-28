@@ -92,6 +92,7 @@ public:
 		bomb->addComponent(new PositionComponent(t_x, t_y), Types::Position);
 		bomb->addComponent(new CollisionComponent(*bomb, 30.0f, 30, 30), Types::Collider);
 		bomb->addComponent(new RenderComponent("./Assets/bomb.png", 30, 30, 300, 300), Types::Render);
+
 		return bomb;
 	}
 	Entity* CreateGame() {
@@ -99,7 +100,8 @@ public:
 		game->init(EntityType::Default);
 		game->addComponent(new GameComponent(), Types::Game);
 		game->addComponent(new PositionComponent((float)SCR_W / 2, (float)SCR_H / 2), Types::Position);
-		game->addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, 30, 30), Types::Render);
+		game->addComponent(new RenderComponent("Assets\\cheese4.png", 30, 30, 30, 30), Types::Render);
+		
 		return game;
 	}
 };

@@ -91,6 +91,8 @@ public:
 	bool NoCheese;
 	bool isWandering;
 
+	void reset(Level& t_level, std::vector<Entity*>& t_entities);
+
 private:
 	int i = 0;
 	Entity& m_entity;

@@ -72,10 +72,10 @@ void PositionComponent::backToStart()
 	m_currentY = m_startY;
 }
 
-void PositionComponent::reset(int t_num, Level* t_level)
+void PositionComponent::reset(int t_x, int t_y)
 {
-	m_currentX = t_level->m_player[t_num - 1].x;
-	m_currentY = t_level->m_player[t_num - 1].y;
+	m_currentX = t_x;
+	m_currentY = t_y;
 	m_velocityX = 0;
 	m_velocityY = 0;
 	m_lastX = m_currentX;

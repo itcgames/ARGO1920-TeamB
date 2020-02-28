@@ -13,7 +13,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	SDL_RenderSetViewport(m_renderer, &m_view);
 
 	// Extra info for systems
-	const auto MAP_PATH = "Assets/map/test.tmx";
+	const auto MAP_PATH = "Assets/map/test2.tmx";
 	tiled_map_level = new Level("Test");
 	tiled_map_level->load(MAP_PATH, t_renderer);
 
@@ -43,9 +43,35 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 		m_stateMachine->addEntity(*m_entities.at(i));
 		
 	}
-	
 	m_stateMachine->setupSprites();
 
+	/// *** Ensure CHEESE are NEXT entities AFTER PLAYERS at all times ***
+	// --Cheese Please
+	// We have different cheese sizes on each level, for now let's keep it the same
+	// TODO: Instead of capping this consider refactor which adds new cheeses to the factory, having cheese near the end instead so
+	// you can easily add the desired ammount of cheese for new levels
+	m_cheese_size = tiled_map_level->m_cheese.size();
+	for (int i = 0; i < m_cheese_size; ++i)
+	{
+		float spawnPointX = tiled_map_level->m_cheese[i].x;
+		float spawnPointY = tiled_map_level->m_cheese[i].y;
+		m_entities.emplace_back(factory->CreateCheese(spawnPointX, spawnPointY));
+		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+	}
+
+	/// *** Ensure BOMBS are NEXT entities AFTER BOMBS at all times ***
+	// Ba-Bomb!
+	for (int i = 0; i < tiled_map_level->m_bomb.size(); ++i)
+	{
+		float spawnPointX = tiled_map_level->m_bomb[i].x;
+		float spawnPointY = tiled_map_level->m_bomb[i].y;
+		m_entities.emplace_back(factory->CreateBomb(spawnPointX, spawnPointY));
+		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_bombSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+	}
 
 	/// Buttons
 	float a = 620.0f;
@@ -62,37 +88,22 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	}
 
 	/// Spikes
+	
+	for (int i = 0; i <= tiled_map_level->m_spike.size(); i++) {
+		float spawnPointX = tiled_map_level->m_spike[i].x;
+		float spawnPointY = tiled_map_level->m_spike[i].y;
+		m_entities.push_back(factory->CreateTrap(0, true, spawnPointX, spawnPointY));
+	}
 	m_entities.push_back(factory->CreateTrap(0, true, 700, 100));
 	m_entities.push_back(factory->CreateTrap(1, false, 600, 600));
 	m_entities.push_back(factory->CreateTrap(2, false, 800, 100));
-	m_entities.push_back(factory->CreateTrap(3, true, 1440, 870));
-	m_entities.push_back(factory->CreateTrap(4, true, 1440, 810));
+	m_entities.push_back(factory->CreateTrap(1, false, 1440, 870));
+	m_entities.push_back(factory->CreateTrap(2, false, 1440, 810));
 		/// Spike Systems
-	for (int i = 1; i <= 5; i++) {
+	for (int i = 1; i <= 5 + tiled_map_level->m_spike.size(); i++) {
 		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - i));
 		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - i));
 		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - i));
-	}
-	// Cheese Please
-	for (int i = 0; i < tiled_map_level->m_cheese.size(); ++i)
-	{
-		float spawnPointX = tiled_map_level->m_cheese[i].x;
-		float spawnPointY = tiled_map_level->m_cheese[i].y;
-		m_entities.emplace_back(factory->CreateCheese(spawnPointX, spawnPointY));
-		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
-		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
-		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - 1));
-	}
-
-	// Ba-Bomb!
-	for (int i = 0; i < tiled_map_level->m_bomb.size(); ++i)
-	{
-		float spawnPointX = tiled_map_level->m_bomb[i].x;
-		float spawnPointY = tiled_map_level->m_bomb[i].y;
-		m_entities.emplace_back(factory->CreateBomb(spawnPointX, spawnPointY));
-		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
-		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
-		m_bombSystem.addEntity(*m_entities.at(m_entities.size() - 1));
 	}
 
 	// Game Manager && UI Detail
@@ -201,6 +212,28 @@ GameScene::GameScene(SDL_Renderer* t_renderer, int playerId) :
 	}
 	m_stateMachine->setupSprites();
 
+	// Cheese Please
+	for (int i = 0; i < tiled_map_level->m_cheese.size(); ++i)
+	{
+		float spawnPointX = tiled_map_level->m_cheese[i].x;
+		float spawnPointY = tiled_map_level->m_cheese[i].y;
+		m_entities.emplace_back(factory->CreateCheese(spawnPointX, spawnPointY));
+		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+	}
+
+	// Ba-Bomb!
+	for (int i = 0; i < tiled_map_level->m_bomb.size(); ++i)
+	{
+		float spawnPointX = tiled_map_level->m_bomb[i].x;
+		float spawnPointY = tiled_map_level->m_bomb[i].y;
+		m_entities.emplace_back(factory->CreateBomb(spawnPointX, spawnPointY));
+		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+		m_bombSystem.addEntity(*m_entities.at(m_entities.size() - 1));
+	}
+
 	/// Buttons
 	float a = 620.0f;
 	float b = 175;
@@ -224,28 +257,6 @@ GameScene::GameScene(SDL_Renderer* t_renderer, int playerId) :
 		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - i));
 		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - i));
 		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - i));
-	}
-
-	// Cheese Please
-	for (int i = 0; i < tiled_map_level->m_cheese.size(); ++i)
-	{
-		float spawnPointX = tiled_map_level->m_cheese[i].x;
-		float spawnPointY = tiled_map_level->m_cheese[i].y;
-		m_entities.emplace_back(factory->CreateCheese(spawnPointX, spawnPointY));
-		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
-		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
-		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - 1));
-	}
-
-	// Ba-Bomb!
-	for (int i = 0; i < tiled_map_level->m_bomb.size(); ++i)
-	{
-		float spawnPointX = tiled_map_level->m_bomb[i].x;
-		float spawnPointY = tiled_map_level->m_bomb[i].y;
-		m_entities.emplace_back(factory->CreateBomb(spawnPointX, spawnPointY));
-		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - 1));
-		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - 1));
-		m_bombSystem.addEntity(*m_entities.at(m_entities.size() - 1));
 	}
 
 	// Game Manager && UI Detail
@@ -358,11 +369,12 @@ void GameScene::resetGame(SDL_Renderer* t_renderer) {
 	case 6:
 		m_gameState->resetGame();
 		return; // exit function
-	case -1:
-		m_gameState->resetGame(); // may be redundant due to other checks but to be safe, TODO: check with controller after remove
+	case -1:  
+		// may be redundant case due to other checks but to be safe, TODO: check with controller after remove
+		m_gameState->resetGame();
 		return; // exit function
 	default:
-		map = "Assets/map/test.tmx";
+		/*map = "Assets/map/test.tmx";*/
 		break;
 	}
 	m_gameState->resetRound();
@@ -373,7 +385,7 @@ void GameScene::resetGame(SDL_Renderer* t_renderer) {
 		PlayerComponent* player = dynamic_cast<PlayerComponent*>(m_entities.at(i)->getComponent(Types::Player));
 		player->reset();
 		PositionComponent* pos = dynamic_cast<PositionComponent*>(m_entities.at(i)->getComponent(Types::Position));
-		pos->reset(i + 1, tiled_map_level);
+		pos->reset(tiled_map_level->m_player[i].x, tiled_map_level->m_player[i].y);
 		// Ensure Collision resets After Position
 		CollisionComponent* col = dynamic_cast<CollisionComponent*>(m_entities.at(i)->getComponent(Types::Collider));
 		col->reset();
@@ -389,6 +401,41 @@ void GameScene::resetGame(SDL_Renderer* t_renderer) {
 			aicomp->setLevel(*tiled_map_level, m_entities);
 		}
 	}
+
+	// Cheese Please, 
+	for (int i = 0; i < m_cheese_size; ++i) // pre increment 
+	{
+		int index = i + 4; // Start at 4 ( 1 after last player, end at size + 4)
+		float spawnPointX = tiled_map_level->m_cheese[i].x;
+		float spawnPointY = tiled_map_level->m_cheese[i].y;
+		PositionComponent* pos = dynamic_cast<PositionComponent*>(m_entities.at(index)->getComponent(Types::Position));
+		pos->reset(spawnPointX, spawnPointY);
+		CollisionComponent* col = dynamic_cast<CollisionComponent*>(m_entities.at(index)->getComponent(Types::Collider));
+		col->reset();
+		GoalComponent* goal = dynamic_cast<GoalComponent*>(m_entities.at(index)->getComponent(Types::Goal));
+		goal->reset();
+
+	}
+
+	// Ba-Bomb!
+	// TODO: if this breaks make bomb ammount same for all levels like in cheese above
+	for (int i = 0; i < tiled_map_level->m_bomb.size(); ++i) // pre increment 
+	{
+		int index = tiled_map_level->m_cheese.size() + 4; // Start at cheese end plus four, (cheese and bomb have been ordered in factory!)
+		float spawnPointX = tiled_map_level->m_bomb[i].x;
+		float spawnPointY = tiled_map_level->m_bomb[i].y;
+		PositionComponent* pos = dynamic_cast<PositionComponent*>(m_entities.at(index)->getComponent(Types::Position));
+		pos->reset(spawnPointX, spawnPointY);
+		CollisionComponent* col = dynamic_cast<CollisionComponent*>(m_entities.at(index)->getComponent(Types::Collider));
+		col->reset();
+		BombComponent* bomb = dynamic_cast<BombComponent*>(m_entities.at(index)->getComponent(Types::Bomb));
+		bomb->reset();
+	}
+
+	//***  TODO: When changing the AI for non controllers instea of for index 3 do for those out of the first 4 indexes instead!! ***
+	//TestBotBehaviourComponent* bot = dynamic_cast<TestBotBehaviourComponent*>(m_entities.at(3)->getComponent(Types::TestBot));
+	//bot->reset(*tiled_map_level, m_entities);
+
 	m_restartTimer = 6.0f;
 }
 

@@ -10,6 +10,7 @@
 #include "RenderComponent.h"
 #include "Observer.h"
 #include "ControlComponent.h"
+#include "AnimatedSpriteComponent.h"
 	
 class BombSystem : public System {
 public:
@@ -20,6 +21,7 @@ public:
 	void updateComponent(float dt, AudioObserver* t_observer,SDL_Rect & t_view);
 
 	bool m_isScreenShaking{ false };
+
 	int screenShakeAmountX{ 3 };
 	int screenShakeAmountY{ 3 };
 
@@ -30,6 +32,12 @@ private:
 	vector<Entity> m_bombEntitys;
 
 	void searchEntities();
+
+	float explodeTimer;
+	int explodeAnimation;
+
+	float activeTimer;
+	int activeAnimation;
 };
 
 #endif

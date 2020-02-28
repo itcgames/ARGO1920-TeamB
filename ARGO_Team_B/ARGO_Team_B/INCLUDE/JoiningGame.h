@@ -42,6 +42,7 @@ private:
 
 	string prePlayerId;
 	int m_playerId;
+	string preSendData;
 
 	vector<int> temp;
 

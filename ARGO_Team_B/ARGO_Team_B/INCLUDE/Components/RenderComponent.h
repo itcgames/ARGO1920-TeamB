@@ -13,7 +13,7 @@ public:
 	void draw(int x, int y, double angle, Uint8 alpha);
 	void draw(int x, int y, double angle, int width, int height);
 	void setImage(const char* name);
-	void setImage(const char* name, int width, int height);
+	void setImage(const char* name, int srcWidth, int srcHeight, int width, int height,int count);
 	void setAngle(double t_angle) { m_angle = t_angle; }
 private:
 	double m_angle;
@@ -28,6 +28,7 @@ private:
 	int height;
 	SDL_Point center;
 	const char* currentImage;
+	int m_preCount;
 };
 
 #endif // !RENDERCOMPONENT_H

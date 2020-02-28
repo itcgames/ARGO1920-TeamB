@@ -16,6 +16,8 @@ public:
 
 	int getId();
 	void setId(bool t_id);
+	void reset();
+
 private:
 
 	bool m_alive;

@@ -1,7 +1,10 @@
 #include "BombSystem.h"
 
 BombSystem::BombSystem() {
-
+	explodeAnimation = 0;
+	explodeTimer = 0.2f;
+	activeTimer = 0.6f;
+	activeAnimation = 0;
 }
 
 BombSystem::~BombSystem() {
@@ -32,6 +35,7 @@ void BombSystem::updateComponent(float dt,AudioObserver * t_observer, SDL_Rect& 
 				playerComp->getABomb(false);
 				t_observer->onNotify(AudioObserver::PLACEBOMB);
 
+				AnimatedSpriteComponent* animation = static_cast<AnimatedSpriteComponent*>(bombEntity.getComponent(Types::AnimatedSprite));
 			}
 		}
 
@@ -61,12 +65,30 @@ void BombSystem::updateComponent(float dt,AudioObserver * t_observer, SDL_Rect& 
 				bombCollider->setCircleRadius(bombComp->getBlastRadius());
 
 				RenderComponent* bombRender = static_cast<RenderComponent*>(bombEntity.getComponent(Types::Render));
-				bombRender->setImage("./Assets/explode.png", bombComp->getBlastRadius() * 2, bombComp->getBlastRadius() * 2);
+				bombRender->setImage("./Assets/explode.png", 100.0f, 100.0f, bombComp->getBlastRadius() * 2, bombComp->getBlastRadius() * 2, 0);
+			
+				AnimatedSpriteComponent* animation = static_cast<AnimatedSpriteComponent*>(bombEntity.getComponent(Types::AnimatedSprite));
+
 			}
 			else {
 
 				timer -= dt;
 
+				RenderComponent* bombRender = static_cast<RenderComponent*>(bombEntity.getComponent(Types::Render));
+
+				activeTimer -= dt;
+				if (activeTimer <= 0.0f) {
+					activeTimer = timer / 5;
+					if (activeAnimation == 0) {
+						activeAnimation = 1;
+					}
+					else if (activeAnimation == 1) {
+						activeAnimation = 0;
+					}
+					cout << activeAnimation << endl;
+				}
+
+				bombRender->setImage("./Assets/BombActivating.png", 100.0f, 100.0f, 30, 30, activeAnimation);
 
 
 				bombComp->setBombTimer(timer);
@@ -83,6 +105,21 @@ void BombSystem::updateComponent(float dt,AudioObserver * t_observer, SDL_Rect& 
 			else {
 				m_isScreenShaking = true;
 				timer -= dt;
+
+				RenderComponent* bombRender = static_cast<RenderComponent*>(bombEntity.getComponent(Types::Render));
+
+				explodeTimer -= dt;
+				if (explodeTimer <= 0.0f) {
+					explodeTimer = 0.2f;
+					explodeAnimation++;
+					cout << explodeAnimation << endl;
+					if (explodeAnimation >= 5) {
+						explodeAnimation = 0;
+					}
+				}
+				
+				bombRender->setImage("./Assets/ExplosionSpriteSheet.png", 100.0f, 100.0f, bombComp->getBlastRadius() * 2, bombComp->getBlastRadius() * 2, explodeAnimation);
+
 				bombComp->setExplosionTimer(timer);
 			}
 		}

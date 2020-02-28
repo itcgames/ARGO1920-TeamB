@@ -28,3 +28,8 @@ void GoalComponent::setId(bool t_id)
 {
 	m_id = t_id;
 }
+
+void GoalComponent::reset()
+{
+	m_alive = true;
+}

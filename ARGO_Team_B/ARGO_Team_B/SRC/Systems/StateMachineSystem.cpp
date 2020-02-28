@@ -29,6 +29,7 @@ void StateMachineSystem::updateComponent(Component* c)
 				animated->render(pos->getPositionX(), pos->getPositionY(), pos->getangle());
 			}
 		}
+
 	}
 }
 
@@ -105,7 +106,6 @@ void StateMachineSystem::checkStates(State* t_state, Entity* e)
 		}
 	}
 }
-
 
 void StateMachineSystem::setRenderer(SDL_Renderer* t_rend)
 {

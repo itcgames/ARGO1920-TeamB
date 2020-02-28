@@ -37,6 +37,19 @@ void GameSystem::update(float dt,AudioObserver*t_observer) {
 				m_cheeseTextData.push_back(info);
 				playerComp->setGetCheeseOff();
 			}
+
+			if (playerComp->getDizzy()) {
+				float tempTimer = playerComp->getDizzyTime();
+				tempTimer -= dt;
+				if (tempTimer <= 0.0f) {
+					playerComp->setDizzyState(false);
+					playerComp->setDizzyTime(3.0f);
+					playerPos->backToStart();
+				}
+				else {
+					playerComp->setDizzyTime(tempTimer);
+				}
+			}
 		}
 
 		for (int i = 0; i < m_cheeseTextData.size(); i++) {
@@ -45,6 +58,7 @@ void GameSystem::update(float dt,AudioObserver*t_observer) {
 			m_cheeseTextData[i]->setTime(textTimer);	
 			if (textTimer <= 0.0f) {
 				//m_cheeseTextData.erase(m_cheeseTextData.begin());
+				delete(m_cheeseTextData[i]);
 				m_cheeseTextData.erase(m_cheeseTextData.begin() + i);
 			}
 		}

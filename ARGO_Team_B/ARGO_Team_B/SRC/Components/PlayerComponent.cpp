@@ -10,6 +10,7 @@ PlayerComponent::PlayerComponent(int id) {
 	m_cheese = 0;
 	m_alive = false;
 	m_carryABomb = false;
+	m_dizzyTime = 3.0f;
 }
 
 PlayerComponent::~PlayerComponent() {
@@ -53,6 +54,11 @@ bool PlayerComponent::getACheese()
 void PlayerComponent::getABomb(bool state)
 {
 	m_carryABomb = state;
+}
+
+void PlayerComponent::setDizzyTime(float time)
+{
+	m_dizzyTime = time;
 }
 
 void PlayerComponent::reset()

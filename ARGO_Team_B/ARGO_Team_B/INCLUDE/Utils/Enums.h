@@ -61,6 +61,13 @@ enum class EntityType
 	Spike,
 };
 
+enum class BombState {
+	Idle,
+	Activate,
+	Explode,
+	Removed
+};
+
 static const int SCR_W = 1920;
 static const int SCR_H = 1080;
 

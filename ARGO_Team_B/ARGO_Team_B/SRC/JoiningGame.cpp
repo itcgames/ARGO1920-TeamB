@@ -78,7 +78,10 @@ void JoiningGame::update(float dt) {
 
 			//transfer current player data
 			string m_playerState = m_gameScene->playerInfo(m_playerId);
-			MyClient->SendString(m_playerState, PacketType::PlayerData);
+			if (preSendData != m_playerState) { // reduce the packet sending
+				preSendData = m_playerState;
+				MyClient->SendString(m_playerState, PacketType::PlayerData);
+			}
 
 		}
 	}

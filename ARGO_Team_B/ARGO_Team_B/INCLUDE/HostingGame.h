@@ -35,6 +35,7 @@ private:
 	vector<int> intConverter(string message);
 	string preMessage;
 
+
 	Server* MyServer; //Create server on port 1000
 
 	float m_startCountdown;
@@ -46,6 +47,8 @@ private:
 
 	string prePlayerData;
 	vector<int> temp;
+
+	string preSendData;
 
 	Uint32 startTime;
 	Uint32 currentTime;
