@@ -2,8 +2,7 @@
 
 GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_renderer(t_renderer),
-	m_restartTimer(8.0f),
-	m_isEndScreenDone{false},
+	m_restartTimer(6.0f),
 	m_gameCount(1)
 {
 	m_view.h = SCR_H;
@@ -23,7 +22,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_stateMachine->setRenderer(t_renderer);
 
 	/// Abstract Factory Pattern:
-	const int toReserve = 9 + tiled_map_level->m_cheese.size() + tiled_map_level->m_bomb.size(); // 4 Players + 2 Buttons + 3 Spikes + All cheese and bombs
+	const int toReserve = 11 + tiled_map_level->m_cheese.size() + tiled_map_level->m_bomb.size()/*+ tiled_map_level->m_spike.size()*/; // 4 Players + 2 Buttons + 3 Spikes + All cheese and bombs
 	m_entities.reserve(toReserve); // increase with each addition to Factory (see above)
 	Factory* factory = new EntityFactory;
 
@@ -66,13 +65,14 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_entities.push_back(factory->CreateTrap(0, true, 700, 100));
 	m_entities.push_back(factory->CreateTrap(1, false, 600, 600));
 	m_entities.push_back(factory->CreateTrap(2, false, 800, 100));
+	m_entities.push_back(factory->CreateTrap(3, true, 1440, 870));
+	m_entities.push_back(factory->CreateTrap(4, true, 1440, 810));
 		/// Spike Systems
-	for (int i = 1; i <= 3; i++) {
+	for (int i = 1; i <= 5; i++) {
 		m_collisionSystem.addEntity(*m_entities.at(m_entities.size() - i));
 		m_renderSystem.addEntity(*m_entities.at(m_entities.size() - i));
 		m_buttonSystem.addEntity(*m_entities.at(m_entities.size() - i));
 	}
-
 	// Cheese Please
 	for (int i = 0; i < tiled_map_level->m_cheese.size(); ++i)
 	{
@@ -103,7 +103,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	// Creepy Vouyers
 	m_observer = new AudioObserver();
 	m_observer->load();
-	//m_observer->StartBGM(1);
+	m_observer->StartBGM(1);
 
 	//Adding AI 
 	m_entities[3]->addComponent(new TestBotBehaviourComponent(m_entities, *m_entities[3], *tiled_map_level), Types::TestBot);
@@ -135,8 +135,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 
 GameScene::GameScene(SDL_Renderer* t_renderer, int playerId) :
 	m_renderer(t_renderer),
-	m_restartTimer(8.0f),
-	m_isEndScreenDone{ false },
+	m_restartTimer(6.0f),
 	m_gameCount(1)
 {
 	m_view.h = SCR_H;
@@ -282,7 +281,7 @@ void GameScene::update(float dt)
 		m_collisionSystem.updateComponent(*tiled_map_level, m_observer, m_particles, m_renderer, m_view);
 		//m_stateMachine->update();
 		m_bombSystem.updateComponent(dt, m_observer, m_view);
-		m_gameSystem.update(dt);
+		m_gameSystem.update(dt,m_observer);
 
 		for (int i = 0; i < m_particles.size(); i++) {
 			// Loops through particle systems
@@ -298,15 +297,7 @@ void GameScene::update(float dt)
 	else {
 		m_restartTimer -= dt;
 		if (m_restartTimer <= 0) {
-			// let end screen show
-			if (!m_isEndScreenDone)
-			{
-				m_restartTimer += 2.5f;
-				m_isEndScreenDone = true;
-			}
-			else {
-				resetGame();
-			}
+			resetGame(m_renderer);
 		}
 	}
 }
@@ -323,10 +314,9 @@ void GameScene::render()
 	SDL_RenderSetViewport(m_renderer, &m_view);
 }
 
-void GameScene::resetGame() {
+void GameScene::resetGame(SDL_Renderer* t_renderer) {
 	string map;
 	m_gameCount++;
-	m_isEndScreenDone = false;
 	if (m_gameState->getGameCount() != -1) // game over early code
 	{
 		m_gameState->setGameCount(m_gameCount);
@@ -349,9 +339,12 @@ void GameScene::resetGame() {
 		break;
 	case 6:
 		m_gameState->resetGame();
-		delete tiled_map_level;
+		return; // exit function
+	case -1:
+		m_gameState->resetGame(); // may be redundant due to other checks but to be safe, TODO: check with controller after remove
 		return; // exit function
 	default:
+		map = "Assets/map/test.tmx";
 		break;
 	}
 	m_gameState->resetRound();
@@ -367,6 +360,7 @@ void GameScene::resetGame() {
 		CollisionComponent* col = dynamic_cast<CollisionComponent*>(m_entities.at(i)->getComponent(Types::Collider));
 		col->reset();
 	}
+	m_restartTimer = 6.0f;
 }
 
 string GameScene::playerInfo(int id)

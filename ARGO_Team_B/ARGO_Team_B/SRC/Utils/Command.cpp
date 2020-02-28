@@ -3,7 +3,8 @@
 #include "WalkingState.h"
 #include "InteractState.h"
 #include "StunnedState.h"
-
+#include "WalkWithBombState.h"
+#include "EatCheeseState.h"
 /// <summary>
 /// -------------------------------- Macro Commands ---------------------------------------------
 /// </summary>
@@ -50,7 +51,8 @@ void WalkUpCommand::execute(Entity &t_gameObject)
 
 	PositionComponent *posComp = dynamic_cast<PositionComponent *>(t_gameObject.getComponent(Types::Position));
 	AnimatedSpriteComponent *anim = dynamic_cast<AnimatedSpriteComponent *>(t_gameObject.getComponent(Types::AnimatedSprite));
-
+	BombComponent * bomb = dynamic_cast<BombComponent*>(t_gameObject.getComponent(Types::Bomb));
+	PlayerComponent* player = dynamic_cast<PlayerComponent*>(t_gameObject.getComponent(Types::Player));
 	//if (posComp->getPositionY() > 30) {
 	posComp->moveUp();
 
@@ -62,6 +64,14 @@ void WalkUpCommand::execute(Entity &t_gameObject)
 	{
 		anim->setCurrent(new WalkingState);
 	}
+	if (player->checkCarryBomb() && anim->getPrevious()->m_type != States::Walking)
+	{
+		anim->setCurrent(new WalkWithBombState);
+	}
+	if (player->getACheese()&& anim->getPrevious()->m_type != States::Walking)
+	{
+		anim->setCurrent(new EatCheeseState);
+	}
 }
 
 /// <summary>
@@ -71,7 +81,8 @@ void WalkDownCommand::execute(Entity& t_gameObject)
 {
 	PositionComponent* posComp = dynamic_cast<PositionComponent*>(t_gameObject.getComponent(Types::Position));
 	AnimatedSpriteComponent* anim = dynamic_cast<AnimatedSpriteComponent*>(t_gameObject.getComponent(Types::AnimatedSprite));
-
+	BombComponent* bomb = dynamic_cast<BombComponent*>(t_gameObject.getComponent(Types::Bomb));
+	PlayerComponent* player = dynamic_cast<PlayerComponent*>(t_gameObject.getComponent(Types::Player));
 
 	posComp->moveDown();
 	CollisionComponent* playerComp = dynamic_cast<CollisionComponent*>(t_gameObject.getComponent(Types::Collider));
@@ -81,7 +92,14 @@ void WalkDownCommand::execute(Entity& t_gameObject)
 	{
 		anim->setCurrent(new WalkingState);
 	}
-
+	if (player->checkCarryBomb() && anim->getPrevious()->m_type != States::Walking)
+	{
+		anim->setCurrent(new WalkWithBombState);
+	}
+	if (player->getACheese() && anim->getPrevious()->m_type != States::Walking)
+	{
+		anim->setCurrent(new EatCheeseState);
+	}
 }
 
 /// <summary>
@@ -91,7 +109,8 @@ void WalkLeftCommand::execute(Entity &t_gameObject)
 {
 	PositionComponent *posComp = dynamic_cast<PositionComponent *>(t_gameObject.getComponent(Types::Position));
 	AnimatedSpriteComponent *anim = dynamic_cast<AnimatedSpriteComponent *>(t_gameObject.getComponent(Types::AnimatedSprite));
-
+	BombComponent* bomb = dynamic_cast<BombComponent*>(t_gameObject.getComponent(Types::Bomb));
+	PlayerComponent* player = dynamic_cast<PlayerComponent*>(t_gameObject.getComponent(Types::Player));
 	if (posComp->getPositionX() > 30)
 	{
 		//anim->setPrevious(anim->getCurrent());
@@ -103,6 +122,14 @@ void WalkLeftCommand::execute(Entity &t_gameObject)
 		{
 			anim->setCurrent(new WalkingState);
 		}
+		if (player->checkCarryBomb() && anim->getPrevious()->m_type != States::Walking)
+		{
+			anim->setCurrent(new WalkWithBombState);
+		}
+		if (player->getACheese() /*&& anim->getPrevious()->m_type != States::Walking*/)
+		{
+			anim->setCurrent(new EatCheeseState);
+		}
 	}
 }
 
@@ -113,7 +140,8 @@ void WalkRightCommand::execute(Entity &t_gameObject)
 {
 	PositionComponent *posComp = dynamic_cast<PositionComponent *>(t_gameObject.getComponent(Types::Position));
 	AnimatedSpriteComponent *anim = dynamic_cast<AnimatedSpriteComponent *>(t_gameObject.getComponent(Types::AnimatedSprite));
-
+	BombComponent* bomb = dynamic_cast<BombComponent*>(t_gameObject.getComponent(Types::Bomb));
+	PlayerComponent* player = dynamic_cast<PlayerComponent*>(t_gameObject.getComponent(Types::Player));
 	if (posComp->getPositionX() < SCR_W - 90)
 	{
 		//anim->setPrevious(anim->getCurrent());
@@ -125,6 +153,14 @@ void WalkRightCommand::execute(Entity &t_gameObject)
 		if (anim->getPrevious()->m_type != States::Walking)
 		{
 			anim->setCurrent(new WalkingState);
+		}
+		if (player->checkCarryBomb() && anim->getPrevious()->m_type != States::Walking)
+		{
+			anim->setCurrent(new WalkWithBombState);
+		}
+		if (player->getACheese() && anim->getPrevious()->m_type != States::Walking)
+		{
+			anim->setCurrent(new EatCheeseState);
 		}
 	}
 }
