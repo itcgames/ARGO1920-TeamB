@@ -45,7 +45,8 @@ public:
 	GameComponent* getGameState() { return m_gameState; }
 
 private:
-	GameComponent* m_gameState; 
+	int m_cheese_size;
+	GameComponent* m_gameState;
 	int m_gameCount;
 	std::vector<Entity*> m_entities;
 	// Systems

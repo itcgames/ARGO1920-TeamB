@@ -30,6 +30,8 @@ public :
 	int bombOwner() { return m_ownerId; }
 	float getBlastRadius() { return blastRadius; }
 
+	void reset();
+
 private:
 	BombState m_currentState;
 

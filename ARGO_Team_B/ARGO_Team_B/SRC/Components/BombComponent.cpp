@@ -28,3 +28,13 @@ void BombComponent::playerPlaceBomb() {
 	m_ownerId = 0;
 	setState(BombState::Activate);
 }
+
+void BombComponent::reset()
+{
+	setState(BombState::Idle);
+	m_timer = 3.0f;
+	m_owned = false;
+	m_ownerId = 0;
+	blastRadius = 75.0f;
+	m_explosionTimer = 1.0f;
+}

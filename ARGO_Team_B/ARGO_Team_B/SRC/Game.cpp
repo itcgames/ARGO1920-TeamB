@@ -19,7 +19,8 @@ Game::Game() :
 
 	// Create a Window
 	p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCR_W, SCR_H, SDL_WINDOW_SHOWN );
-	// Debug  p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_SHOWN);
+	// Debug  
+	//p_window = SDL_CreateWindow("ARGO_TEAMB", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_SHOWN);
 
 	if (NULL == p_window)
 	{
@@ -46,7 +47,7 @@ Game::Game() :
 	m_joinGame = new JoiningGame();
 
 	// release 
-	m_currentState = GameStates::Game;
+	m_currentState = GameStates::MainMenu;
 	// debug
 	//m_currentState = GameStates::Game;
 
