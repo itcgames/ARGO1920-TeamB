@@ -101,7 +101,7 @@ public:
 		game->init(EntityType::Default);
 		game->addComponent(new GameComponent(), Types::Game);
 		game->addComponent(new PositionComponent((float)SCR_W / 2, (float)SCR_H / 2), Types::Position);
-		game->addComponent(new RenderComponent("Assets\\cheese.png", 30, 30, 30, 30), Types::Render);
+		game->addComponent(new RenderComponent("Assets\\cheese4.png", 30, 30, 30, 30), Types::Render);
 		
 		return game;
 	}

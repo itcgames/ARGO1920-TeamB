@@ -144,11 +144,14 @@ void BombSystem::ScreenShake(SDL_Rect& t_view)
 				break;
 			}
 
-			t_view.x += screenShakeAmountX;
-			t_view.y += screenShakeAmountY;
-
-			t_view.w = SCR_W;
-			t_view.h = SCR_H;
+			if (t_view.x + screenShakeAmountX >= 0)
+			{
+				t_view.x += screenShakeAmountX;
+			}
+			if (t_view.y + screenShakeAmountY >= 0)
+			{
+				t_view.y += screenShakeAmountY;
+			}
 
 		}
 		else
