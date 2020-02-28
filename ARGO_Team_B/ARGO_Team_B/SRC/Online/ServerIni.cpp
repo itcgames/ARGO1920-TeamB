@@ -57,7 +57,7 @@ bool Server::ListenForNewConnection()
 	else //If client connection properly accepted
 	{
 		std::cout << "Client Connected with IP : " << inet_ntop(AF_INET, &ipAddr, str, INET_ADDRSTRLEN) << std::endl; // show the ip
-		std::lock_guard<std::shared_mutex> lock(m_mutex_connectionMgr); //Lock connection manager mutex since we are adding an element to connection vector
+		//std::lock_guard<std::shared_mutex> lock(m_mutex_connectionMgr); //Lock connection manager mutex since we are adding an element to connection vector
 		std::shared_ptr<Connection> newConnection(std::make_shared<Connection>(newConnectionSocket));
 		m_connections.push_back(newConnection); //push new connection into vector of connections
 		newConnection->m_ID = m_IDCounter; //Set ID for this connection
