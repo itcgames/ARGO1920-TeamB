@@ -84,15 +84,26 @@ void TestBotBehaviourComponent::update()
 				cont->controlInteract(playercomp);
 				m_TargetBomb->isActive = false;
 			}
-			else if( m_mainTarget == m_TargetCheese)
+			else if (m_mainTarget == m_TargetCheese)
 			{
 				m_TargetCheese->isActive = false;
 			}
 			step = 0;
-			
+
 			m_TargetCheese = FindClosest(m_cheeses);
 			m_TargetBomb = FindClosest(m_bombs);
-			if (m_TargetBomb->distanceToPlayer < m_TargetCheese->distanceToPlayer)
+			if (m_TargetCheese == nullptr || m_TargetBomb == nullptr)
+			{
+				if (m_TargetBomb != nullptr)
+				{
+					m_mainTarget = m_TargetBomb;
+				}
+				else if (m_TargetCheese != nullptr)
+				{
+					m_mainTarget = m_TargetCheese;
+				}
+			}
+			else if (m_TargetBomb->distanceToPlayer < m_TargetCheese->distanceToPlayer)
 			{
 				m_mainTarget = m_TargetBomb;
 			}
