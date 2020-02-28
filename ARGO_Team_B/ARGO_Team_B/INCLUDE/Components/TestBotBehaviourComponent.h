@@ -89,6 +89,7 @@ public:
 
 	int step{ 0 };
 	bool NoCheese;
+	bool isWandering;
 
 private:
 	int i = 0;

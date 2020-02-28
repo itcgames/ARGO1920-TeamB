@@ -106,8 +106,8 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_observer->StartBGM(1);
 
 	//Adding AI 
-	m_entities[3]->addComponent(new TestBotBehaviourComponent(m_entities, *m_entities[3], *tiled_map_level), Types::TestBot);
-	m_aiSystem.addEntity(*m_entities.at(3));
+
+	
 
 	m_font = new FontObserver(t_renderer);
 	m_font->loadFont();
@@ -129,6 +129,13 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 				a->init(m_renderer);
 			}
 		}	
+		
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		m_entities[i]->addComponent(new TestBotBehaviourComponent(m_entities, *m_entities[i], *tiled_map_level), Types::TestBot);
+		m_aiSystem.addEntity(*m_entities[i]);
 	}
 	m_gameState = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
 }
@@ -360,10 +367,12 @@ void GameScene::resetGame(SDL_Renderer* t_renderer) {
 		CollisionComponent* col = dynamic_cast<CollisionComponent*>(m_entities.at(i)->getComponent(Types::Collider));
 		col->reset();
 	}
-
-	TestBotBehaviourComponent* aicomp = dynamic_cast<TestBotBehaviourComponent*>(m_entities[3]->getComponent(Types::TestBot));
-	aicomp->setLevel(*tiled_map_level, m_entities);
-
+	
+	for (int i = 0; i < 4; i++)
+	{
+		TestBotBehaviourComponent* aicomp = dynamic_cast<TestBotBehaviourComponent*>(m_entities[i]->getComponent(Types::TestBot));
+		aicomp->setLevel(*tiled_map_level, m_entities);
+	}
 	m_restartTimer = 6.0f;
 }
 

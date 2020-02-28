@@ -35,19 +35,7 @@ TestBotBehaviourComponent::TestBotBehaviourComponent(std::vector<Entity*>& t_ent
 			m_bombs.push_back(bomb);
 		}
 	}
-	m_TargetCheese = FindClosest(m_cheeses);
-	m_TargetBomb = FindClosest(m_bombs);
-	if (m_TargetBomb->distanceToPlayer < m_TargetCheese->distanceToPlayer)
-	{
-		m_mainTarget = m_TargetBomb;
-	}
-	else
-	{
-		m_mainTarget = m_TargetCheese;
-	}
-	m_destNode = objectToNode(*m_mainTarget);
-	m_startNode = setStartNode();
-	m_pathWay = aStar(*m_startNode, *m_destNode);
+	setLevel(t_level, t_entities);
 
 }
 
@@ -69,8 +57,13 @@ void TestBotBehaviourComponent::update()
 {
 	ControlComponent* cont = dynamic_cast<ControlComponent*>(m_entity.getComponent(Types::Control));
 	PlayerComponent* playercomp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
-
-	if (stepTimer >= stepTimerMax)
+	BombComponent* bombComp = dynamic_cast<BombComponent*>(m_entity.getComponent(Types::Bomb));
+	
+	if (isWandering)
+	{
+		wander();
+	}
+	else if (stepTimer >= stepTimerMax)
 	{
 		if (step < m_pathWay.size())
 		{
@@ -82,6 +75,8 @@ void TestBotBehaviourComponent::update()
 			if (m_mainTarget == m_TargetBomb)
 			{
 				cont->controlInteract(playercomp);
+				//cont->controlInteract(playercomp);
+				playercomp->getABomb(true);
 				m_TargetBomb->isActive = false;
 			}
 			else if (m_mainTarget == m_TargetCheese)
@@ -115,13 +110,19 @@ void TestBotBehaviourComponent::update()
 			m_startNode = setStartNode();
 			m_pathWay = aStar(*m_startNode, *m_destNode);
 		}
+		if (playercomp->checkCarryBomb())
+		{
+			if (bombComp != NULL)
+			{
+				bombComp->playerPlaceBomb();
+			}
+		}
 		stepTimer = 0;
 	}
 	else
 	{
 		stepTimer++;
 	}
-
 
 	//PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
 	//PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
@@ -297,9 +298,21 @@ void TestBotBehaviourComponent::setLevel(Level& t_level, std::vector<Entity*>& t
 		}
 	}
 
+
 	m_TargetCheese = FindClosest(m_cheeses);
 	m_TargetBomb = FindClosest(m_bombs);
-	if (m_TargetBomb->distanceToPlayer < m_TargetCheese->distanceToPlayer)
+	if (m_TargetCheese == nullptr || m_TargetBomb == nullptr)
+	{
+		if (m_TargetBomb != nullptr)
+		{
+			m_mainTarget = m_TargetBomb;
+		}
+		else if (m_TargetCheese != nullptr)
+		{
+			m_mainTarget = m_TargetCheese;
+		}
+	}
+	else if (m_TargetBomb->distanceToPlayer < m_TargetCheese->distanceToPlayer)
 	{
 		m_mainTarget = m_TargetBomb;
 	}
@@ -307,9 +320,17 @@ void TestBotBehaviourComponent::setLevel(Level& t_level, std::vector<Entity*>& t
 	{
 		m_mainTarget = m_TargetCheese;
 	}
-	m_destNode = objectToNode(*m_mainTarget);
-	m_startNode = setStartNode();
-	m_pathWay = aStar(*m_startNode, *m_destNode);
+	if (m_destNode != NULL)
+	{
+		m_destNode = objectToNode(*m_mainTarget);
+		m_startNode = setStartNode();
+		m_pathWay = aStar(*m_startNode, *m_destNode);
+	}
+	else
+	{
+		bool isWandering = true;
+	}
+	
 }
 
 /// /// <summary>
