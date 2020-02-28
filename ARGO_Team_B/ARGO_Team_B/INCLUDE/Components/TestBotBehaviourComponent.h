@@ -49,6 +49,8 @@ public:
 	void wander();
 	void moveToGoal(GoalStruct* t_goal);
 	void moveToGoal(int x, int y);
+	void setLevel(Level& t_level, std::vector<Entity* >&t_entities);
+
 	GoalStruct* FindClosest(std::vector<GoalStruct*> m_goals);
 
 	std::vector<GoalStruct*> m_cheeses;

@@ -348,7 +348,7 @@ void GameScene::resetGame(SDL_Renderer* t_renderer) {
 		break;
 	}
 	m_gameState->resetRound();
-	delete tiled_map_level;
+	//delete tiled_map_level;
 	tiled_map_level = new Level("Level " + m_gameCount);
 	tiled_map_level->load(map, m_renderer);
 	for (int i = 0; i < 4; i++) {
@@ -360,6 +360,10 @@ void GameScene::resetGame(SDL_Renderer* t_renderer) {
 		CollisionComponent* col = dynamic_cast<CollisionComponent*>(m_entities.at(i)->getComponent(Types::Collider));
 		col->reset();
 	}
+
+	TestBotBehaviourComponent* aicomp = dynamic_cast<TestBotBehaviourComponent*>(m_entities[3]->getComponent(Types::TestBot));
+	aicomp->setLevel(*tiled_map_level, m_entities);
+
 	m_restartTimer = 6.0f;
 }
 

@@ -258,7 +258,61 @@ void TestBotBehaviourComponent::moveToGoal(int x, int y)
 	posComp->setPosition(x * MAXSTEP, y * MAXSTEP);
 	posComp->setangle(directionAngle);
 }
+
 /// <summary>
+/// **************************************** UPDATE LEVEL **************************************
+/// </summary>
+void TestBotBehaviourComponent::setLevel(Level& t_level, std::vector<Entity*>& t_entities)
+{
+	m_level = t_level;
+
+	for (Entity* e : t_entities)
+	{
+		if (e->getType() == Types::Goal)
+		{
+			PositionComponent* posComp = dynamic_cast<PositionComponent*>(e->getComponent(Types::Position));
+			GoalComponent* goalComp = dynamic_cast<GoalComponent*>(e->getComponent(Types::Goal));
+
+			GoalStruct* cheese = new GoalStruct;
+			cheese->isActive = goalComp->getAlive();
+			cheese->position.x = posComp->getPositionX();
+			cheese->position.y = posComp->getPositionY();
+			cheese->distanceToPlayer = distanceFromPlayer(posComp, static_cast<PositionComponent*>(m_entity.getComponent(Types::Position)));
+
+			m_cheeses.push_back(cheese);
+		}
+		if (e->getType() == Types::Bomb)
+		{
+			PositionComponent* posComp = dynamic_cast<PositionComponent*>(e->getComponent(Types::Position));
+			BombComponent* bombComp = dynamic_cast<BombComponent*>(e->getComponent(Types::Bomb));
+
+			GoalStruct* bomb = new GoalStruct;
+			bomb->isActive = !(bombComp->isPlayerOwnedBomb());
+
+			bomb->position.x = posComp->getPositionX();
+			bomb->position.y = posComp->getPositionY();
+			bomb->distanceToPlayer = distanceFromPlayer(posComp, static_cast<PositionComponent*>(m_entity.getComponent(Types::Position)));
+
+			m_bombs.push_back(bomb);
+		}
+	}
+
+	m_TargetCheese = FindClosest(m_cheeses);
+	m_TargetBomb = FindClosest(m_bombs);
+	if (m_TargetBomb->distanceToPlayer < m_TargetCheese->distanceToPlayer)
+	{
+		m_mainTarget = m_TargetBomb;
+	}
+	else
+	{
+		m_mainTarget = m_TargetCheese;
+	}
+	m_destNode = objectToNode(*m_mainTarget);
+	m_startNode = setStartNode();
+	m_pathWay = aStar(*m_startNode, *m_destNode);
+}
+
+/// /// <summary>
 /// *********************************************** FIND CLOSEST *****************************************
 /// </summary>
 /// <returns></returns>
