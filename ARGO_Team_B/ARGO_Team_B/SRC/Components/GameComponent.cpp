@@ -53,7 +53,7 @@ void GameComponent::resetRound()
 	m_gameover = false;
 
 	// Release
-	m_gameTimer = 20.0f;
+	m_gameTimer = 60.0f;
 	m_startCountdown = 3.0f;
 
 	//Debug
