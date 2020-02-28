@@ -50,7 +50,7 @@ void tile::draw(SDL_Renderer* ren) {
 
 Level::Level(const std::string& name)
     : name(name), rows(0), cols(0) {
-
+	
 }
 
 void Level::load(const std::string& path, SDL_Renderer* ren) {
@@ -238,6 +238,7 @@ void Level::load(const std::string& path, SDL_Renderer* ren) {
             }
         }
     }
+
 }
 
 void Level::draw(SDL_Renderer* ren) 
@@ -251,5 +252,46 @@ void Level::draw(SDL_Renderer* ren)
         }
     
     }
+}
+
+void Level::assignObstacles()
+{
+	for (int i = 0; i < m_mazeWalls.size(); i++)
+	{
+			for (int t = 0; t < tiles.size(); t++)
+			{
+				if (tiles[t].x == m_mazeWalls[i].x && tiles[t].y == m_mazeWalls[i].y)
+				{
+					tiles[t].m_tileType = TileType::ObstacleTile;
+				}
+			}
+	}
+
+	int distanceToCheese;
+	
+	for (int i = 0; i < m_cheese.size(); i++)
+	{
+		for (int t = 0; t < tiles.size(); t++)
+		{
+			if (tiles[t].x == m_mazeWalls[i].x && tiles[t].y == m_mazeWalls[i].y)
+			{
+				tiles[t].m_tileType = TileType::ObstacleTile;
+			}
+		}
+	}
+
+}
+
+void Level::flowFieldAlgorithm()
+{
+	
+	assignObstacles();
+
+
+}
+
+int Level::DistanceToGoal(tile* t_goal, tile* t_currentTile)
+{
+	return 0;
 }
 

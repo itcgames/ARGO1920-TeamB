@@ -118,6 +118,9 @@
     <ClCompile Include="SRC\Systems\StateMachineSystem.cpp" />
     <ClCompile Include="SRC\Systems\System.cpp" />
     <ClCompile Include="SRC\Utils\Assets.cpp" />
+    <ClCompile Include="SRC\Utils\Command.cpp" />
+    <ClCompile Include="SRC\Utils\Xbox360Controller.cpp" />
+    <ClCompile Include="SRC\AITree\BehaviourTree.cpp" />
     <ClCompile Include="SRC\Utils\Xbox360Controller.cpp" />
     <ClCompile Include="SRC\Game.cpp" />
     <ClCompile Include="SRC\Level.cpp" />
@@ -194,6 +197,8 @@
     <ClInclude Include="INCLUDE\Utils\cute_c2.h" />
     <ClInclude Include="INCLUDE\Utils\Xbox360Controller.h" />
     <ClInclude Include="INCLUDE\Components\PositionComponent.h" />
+    <ClInclude Include="INCLUDE\AITree\BehaviourTree.h" />
+    <ClInclude Include="INCLUDE\AITree\Shared.h" />
     <ClInclude Include="Include\EntityFactory.h" />
     <ClInclude Include="INCLUDE\States\WalkWithBombState.h" />
     <ClInclude Include="INCLUDE\States\EatCheeseState.h" />

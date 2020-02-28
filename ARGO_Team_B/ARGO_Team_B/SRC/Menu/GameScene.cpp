@@ -2,8 +2,7 @@
 
 GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_renderer(t_renderer),
-	m_restartTimer(8.0f),
-	m_isEndScreenDone{false},
+	m_restartTimer(6.0f),
 	m_gameCount(1)
 {
 	m_view.h = SCR_H;
@@ -42,8 +41,11 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 		m_gameSystem.addEntity(*m_entities.at(i));
 		m_bombSystem.addEntity(*m_entities.at(i));
 		m_stateMachine->addEntity(*m_entities.at(i));
+		
 	}
+	
 	m_stateMachine->setupSprites();
+
 
 	/// Buttons
 	float a = 620.0f;
@@ -103,6 +105,9 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_observer->load();
 	m_observer->StartBGM(1);
 
+	//Adding AI 
+	m_entities[3]->addComponent(new TestBotBehaviourComponent(m_entities, *m_entities[3], *tiled_map_level), Types::TestBot);
+	m_aiSystem.addEntity(*m_entities.at(3));
 
 	m_font = new FontObserver(t_renderer);
 	m_font->loadFont();
@@ -130,8 +135,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 
 GameScene::GameScene(SDL_Renderer* t_renderer, int playerId) :
 	m_renderer(t_renderer),
-	m_restartTimer(8.0f),
-	m_isEndScreenDone{ false },
+	m_restartTimer(6.0f),
 	m_gameCount(1)
 {
 	m_view.h = SCR_H;
@@ -293,16 +297,7 @@ void GameScene::update(float dt)
 	else {
 		m_restartTimer -= dt;
 		if (m_restartTimer <= 0) {
-			// let end screen show
-			if (!m_isEndScreenDone)
-			{
-				m_restartTimer += 2.5f;
-				m_isEndScreenDone = true;
-			}
-			else {
-				resetGame(m_renderer);
-			}
-			// restart code here
+			resetGame(m_renderer);
 		}
 	}
 }
@@ -322,7 +317,6 @@ void GameScene::render()
 void GameScene::resetGame(SDL_Renderer* t_renderer) {
 	string map;
 	m_gameCount++;
-	m_isEndScreenDone = false;
 	if (m_gameState->getGameCount() != -1) // game over early code
 	{
 		m_gameState->setGameCount(m_gameCount);
@@ -345,13 +339,18 @@ void GameScene::resetGame(SDL_Renderer* t_renderer) {
 		break;
 	case 6:
 		m_gameState->resetGame();
-		break;
+		return; // exit function
+	case -1:
+		m_gameState->resetGame(); // may be redundant due to other checks but to be safe, TODO: check with controller after remove
+		return; // exit function
 	default:
 		map = "Assets/map/test.tmx";
 		break;
 	}
 	m_gameState->resetRound();
-	tiled_map_level->load(map, t_renderer);
+	delete tiled_map_level;
+	tiled_map_level = new Level("Level " + m_gameCount);
+	tiled_map_level->load(map, m_renderer);
 	for (int i = 0; i < 4; i++) {
 		PlayerComponent* player = dynamic_cast<PlayerComponent*>(m_entities.at(i)->getComponent(Types::Player));
 		player->reset();
@@ -361,6 +360,7 @@ void GameScene::resetGame(SDL_Renderer* t_renderer) {
 		CollisionComponent* col = dynamic_cast<CollisionComponent*>(m_entities.at(i)->getComponent(Types::Collider));
 		col->reset();
 	}
+	m_restartTimer = 6.0f;
 }
 
 string GameScene::playerInfo(int id)

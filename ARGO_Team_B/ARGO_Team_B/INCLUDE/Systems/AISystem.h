@@ -13,6 +13,7 @@ public:
 	~AISystem();
 	void updateComponent(Component* component) override;
 private:
+
 };
 
 #endif // !AI_SYSTEM
