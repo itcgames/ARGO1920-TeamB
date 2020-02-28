@@ -36,7 +36,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	
 		// Systems
 		m_healthSystem.addEntity(*m_entities.at(i));
-		m_controlSystem.addEntity(*m_entities.at(i));
+		
 		m_collisionSystem.addEntity(*m_entities.at(i));
 		m_gameSystem.addEntity(*m_entities.at(i));
 		m_bombSystem.addEntity(*m_entities.at(i));
@@ -116,10 +116,9 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_observer->load();
 	m_observer->StartBGM(1);
 
-	// **See TODO in player entity loop
-	// Adding AI
-	m_entities[3]->addComponent(new TestBotBehaviourComponent(m_entities, *m_entities[3], *tiled_map_level), Types::TestBot);
-	m_aiSystem.addEntity(*m_entities.at(3));
+	//Adding AI 
+
+	
 
 	m_font = new FontObserver(t_renderer);
 	m_font->loadFont();
@@ -141,6 +140,24 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 				a->init(m_renderer);
 			}
 		}	
+		
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+	int num = SDL_NumJoysticks() - 1;
+		if(i <= num)
+		{
+			m_entities.at(i)->addComponent(new ControlComponent(*m_entities.at(i)), Types::Control);
+			m_controlSystem.addEntity(*m_entities.at(i));
+		}
+		else
+		{
+			m_entities.at(i)->addComponent(new ControlComponent(*m_entities.at(i)), Types::Control);
+			m_controlSystem.addEntity(*m_entities.at(i));
+			m_entities.at(i)->addComponent(new TestBotBehaviourComponent(m_entities, *m_entities[i], *tiled_map_level), Types::TestBot);
+			m_aiSystem.addEntity(*m_entities.at(i));
+		}
 	}
 	m_gameState = dynamic_cast<GameComponent*>(m_entities.at(m_entities.size() - 1)->getComponent(Types::Game));
 }
@@ -361,7 +378,7 @@ void GameScene::resetGame(SDL_Renderer* t_renderer) {
 		break;
 	}
 	m_gameState->resetRound();
-	delete tiled_map_level;
+	//delete tiled_map_level;
 	tiled_map_level = new Level("Level " + m_gameCount);
 	tiled_map_level->load(map, m_renderer);
 	for (int i = 0; i < 4; i++) {
@@ -372,6 +389,17 @@ void GameScene::resetGame(SDL_Renderer* t_renderer) {
 		// Ensure Collision resets After Position
 		CollisionComponent* col = dynamic_cast<CollisionComponent*>(m_entities.at(i)->getComponent(Types::Collider));
 		col->reset();
+	}
+	
+	int num = SDL_NumJoysticks() - 1;
+	
+	for (int i = 0; i < 4; i++)
+	{
+		if (i > num)
+		{
+			TestBotBehaviourComponent* aicomp = dynamic_cast<TestBotBehaviourComponent*>(m_entities[i]->getComponent(Types::TestBot));
+			aicomp->setLevel(*tiled_map_level, m_entities);
+		}
 	}
 
 	// Cheese Please, 

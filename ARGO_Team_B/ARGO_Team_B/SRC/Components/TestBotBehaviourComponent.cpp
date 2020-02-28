@@ -5,7 +5,49 @@ TestBotBehaviourComponent::TestBotBehaviourComponent(std::vector<Entity*>& t_ent
 	m_level(t_level)
 {
 	m_entity.isBot = true;
-	reset(m_level, t_entities);
+	for (Entity* e : t_entities)
+	{
+		if (e->getType() == Types::Goal)
+		{
+			PositionComponent* posComp = dynamic_cast<PositionComponent*>(e->getComponent(Types::Position));
+			GoalComponent* goalComp = dynamic_cast<GoalComponent*>(e->getComponent(Types::Goal));
+
+			GoalStruct* cheese = new GoalStruct;
+			cheese->isActive = goalComp->getAlive();
+			cheese->position.x = posComp->getPositionX();
+			cheese->position.y = posComp->getPositionY();
+			cheese->distanceToPlayer = distanceFromPlayer(posComp, static_cast<PositionComponent*>(m_entity.getComponent(Types::Position)));
+
+			m_cheeses.push_back(cheese);
+		}
+		if (e->getType() == Types::Bomb)
+		{
+			PositionComponent* posComp = dynamic_cast<PositionComponent*>(e->getComponent(Types::Position));
+			BombComponent* bombComp = dynamic_cast<BombComponent*>(e->getComponent(Types::Bomb));
+
+			GoalStruct* bomb = new GoalStruct;
+			bomb->isActive = !(bombComp->isPlayerOwnedBomb());
+			
+			bomb->position.x = posComp->getPositionX();
+			bomb->position.y = posComp->getPositionY();
+			bomb->distanceToPlayer = distanceFromPlayer(posComp, static_cast<PositionComponent*>(m_entity.getComponent(Types::Position)));
+
+			m_bombs.push_back(bomb);
+		}
+	}
+	m_TargetCheese = FindClosest(m_cheeses);
+	m_TargetBomb = FindClosest(m_bombs);
+	if (m_TargetBomb->distanceToPlayer < m_TargetCheese->distanceToPlayer)
+	{
+		m_mainTarget = m_TargetBomb;
+	}
+	else
+	{
+		m_mainTarget = m_TargetCheese;
+	}
+	m_destNode = objectToNode(*m_mainTarget);
+	m_startNode = setStartNode();
+	m_pathWay = aStar(*m_startNode, *m_destNode);
 }
 
 TestBotBehaviourComponent::TestBotBehaviourComponent(Entity& t_gameObject, Level& t_level) :
@@ -26,8 +68,13 @@ void TestBotBehaviourComponent::update()
 {
 	ControlComponent* cont = dynamic_cast<ControlComponent*>(m_entity.getComponent(Types::Control));
 	PlayerComponent* playercomp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
-
-	if (stepTimer >= stepTimerMax)
+	BombComponent* bombComp = dynamic_cast<BombComponent*>(m_entity.getComponent(Types::Bomb));
+	
+	if (isWandering)
+	{
+		wander();
+	}
+	else if (stepTimer >= stepTimerMax)
 	{
 		if (step < m_pathWay.size())
 		{
@@ -39,6 +86,8 @@ void TestBotBehaviourComponent::update()
 			if (m_mainTarget == m_TargetBomb)
 			{
 				cont->controlInteract(playercomp);
+				//cont->controlInteract(playercomp);
+				playercomp->getABomb(true);
 				m_TargetBomb->isActive = false;
 			}
 			else if (m_mainTarget == m_TargetCheese)
@@ -72,13 +121,19 @@ void TestBotBehaviourComponent::update()
 			m_startNode = setStartNode();
 			m_pathWay = aStar(*m_startNode, *m_destNode);
 		}
+		if (playercomp->checkCarryBomb())
+		{
+			if (bombComp != NULL)
+			{
+				bombComp->playerPlaceBomb();
+			}
+		}
 		stepTimer = 0;
 	}
 	else
 	{
 		stepTimer++;
 	}
-
 
 	//PlayerComponent* playerComp = dynamic_cast<PlayerComponent*>(m_entity.getComponent(Types::Player));
 	//PositionComponent* posComp = dynamic_cast<PositionComponent*>(m_entity.getComponent(Types::Position));
@@ -215,7 +270,81 @@ void TestBotBehaviourComponent::moveToGoal(int x, int y)
 	posComp->setPosition(x * MAXSTEP, y * MAXSTEP);
 	posComp->setangle(directionAngle);
 }
+
 /// <summary>
+/// **************************************** UPDATE LEVEL **************************************
+/// </summary>
+void TestBotBehaviourComponent::setLevel(Level& t_level, std::vector<Entity*>& t_entities)
+{
+	m_level = t_level;
+
+	for (Entity* e : t_entities)
+	{
+		if (e->getType() == Types::Goal)
+		{
+			PositionComponent* posComp = dynamic_cast<PositionComponent*>(e->getComponent(Types::Position));
+			GoalComponent* goalComp = dynamic_cast<GoalComponent*>(e->getComponent(Types::Goal));
+
+			GoalStruct* cheese = new GoalStruct;
+			cheese->isActive = goalComp->getAlive();
+			cheese->position.x = posComp->getPositionX();
+			cheese->position.y = posComp->getPositionY();
+			cheese->distanceToPlayer = distanceFromPlayer(posComp, static_cast<PositionComponent*>(m_entity.getComponent(Types::Position)));
+
+			m_cheeses.push_back(cheese);
+		}
+		if (e->getType() == Types::Bomb)
+		{
+			PositionComponent* posComp = dynamic_cast<PositionComponent*>(e->getComponent(Types::Position));
+			BombComponent* bombComp = dynamic_cast<BombComponent*>(e->getComponent(Types::Bomb));
+
+			GoalStruct* bomb = new GoalStruct;
+			bomb->isActive = !(bombComp->isPlayerOwnedBomb());
+
+			bomb->position.x = posComp->getPositionX();
+			bomb->position.y = posComp->getPositionY();
+			bomb->distanceToPlayer = distanceFromPlayer(posComp, static_cast<PositionComponent*>(m_entity.getComponent(Types::Position)));
+
+			m_bombs.push_back(bomb);
+		}
+	}
+
+
+	m_TargetCheese = FindClosest(m_cheeses);
+	m_TargetBomb = FindClosest(m_bombs);
+	if (m_TargetCheese == nullptr || m_TargetBomb == nullptr)
+	{
+		if (m_TargetBomb != nullptr)
+		{
+			m_mainTarget = m_TargetBomb;
+		}
+		else if (m_TargetCheese != nullptr)
+		{
+			m_mainTarget = m_TargetCheese;
+		}
+	}
+	else if (m_TargetBomb->distanceToPlayer < m_TargetCheese->distanceToPlayer)
+	{
+		m_mainTarget = m_TargetBomb;
+	}
+	else
+	{
+		m_mainTarget = m_TargetCheese;
+	}
+	if (m_destNode != NULL)
+	{
+		m_destNode = objectToNode(*m_mainTarget);
+		m_startNode = setStartNode();
+		m_pathWay = aStar(*m_startNode, *m_destNode);
+	}
+	else
+	{
+		bool isWandering = true;
+	}
+	
+}
+
+/// /// <summary>
 /// *********************************************** FIND CLOSEST *****************************************
 /// </summary>
 /// <returns></returns>

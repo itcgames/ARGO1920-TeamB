@@ -49,6 +49,8 @@ public:
 	void wander();
 	void moveToGoal(GoalStruct* t_goal);
 	void moveToGoal(int x, int y);
+	void setLevel(Level& t_level, std::vector<Entity* >&t_entities);
+
 	GoalStruct* FindClosest(std::vector<GoalStruct*> m_goals);
 
 	std::vector<GoalStruct*> m_cheeses;
@@ -65,7 +67,7 @@ public:
 	Level& m_level;
 
 	int stepTimer = 0;
-	int stepTimerMax = 150;
+	int stepTimerMax = 200;
 
 	/// <summary>
 	/// A* Functions
@@ -87,6 +89,7 @@ public:
 
 	int step{ 0 };
 	bool NoCheese;
+	bool isWandering;
 
 	void reset(Level& t_level, std::vector<Entity*>& t_entities);
 
