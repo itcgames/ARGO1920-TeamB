@@ -405,8 +405,8 @@ void GameScene::resetGame(SDL_Renderer* t_renderer) {
 	}
 
 	//***  TODO: When changing the AI for non controllers instea of for index 3 do for those out of the first 4 indexes instead!! ***
-	TestBotBehaviourComponent* bot = dynamic_cast<TestBotBehaviourComponent*>(m_entities.at(3)->getComponent(Types::TestBot));
-	bot->reset(*tiled_map_level, m_entities);
+	//TestBotBehaviourComponent* bot = dynamic_cast<TestBotBehaviourComponent*>(m_entities.at(3)->getComponent(Types::TestBot));
+	//bot->reset(*tiled_map_level, m_entities);
 
 	m_restartTimer = 6.0f;
 }

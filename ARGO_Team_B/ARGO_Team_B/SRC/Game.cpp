@@ -47,7 +47,7 @@ Game::Game() :
 	m_joinGame = new JoiningGame();
 
 	// release 
-	m_currentState = GameStates::MainMenu;
+	m_currentState = GameStates::Game;
 	// debug
 	//m_currentState = GameStates::Game;
 

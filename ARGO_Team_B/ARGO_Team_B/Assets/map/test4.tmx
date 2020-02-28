@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="64" height="36" tilewidth="30" tileheight="30" infinite="0" nextlayerid="16" nextobjectid="1123">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="64" height="36" tilewidth="30" tileheight="30" infinite="0" nextlayerid="16" nextobjectid="1146">
  <tileset firstgid="1" source="../tileset/city.tsx"/>
  <layer id="2" name="Background" width="64" height="36">
   <data encoding="csv">
@@ -562,21 +562,6 @@
   <object id="1032" name="bombpoint" x="60" y="210">
    <point/>
   </object>
-  <object id="1033" name="cheesepoint" x="360" y="90">
-   <point/>
-  </object>
-  <object id="1034" name="cheesepoint" x="360" y="210">
-   <point/>
-  </object>
-  <object id="1035" name="cheesepoint" x="390" y="360">
-   <point/>
-  </object>
-  <object id="1036" name="cheesepoint" x="240" y="330">
-   <point/>
-  </object>
-  <object id="1037" name="cheesepoint" x="90" y="330">
-   <point/>
-  </object>
   <object id="1038" name="bombpoint" x="60" y="480">
    <point/>
   </object>
@@ -586,55 +571,10 @@
   <object id="1040" name="bombpoint" x="240" y="720">
    <point/>
   </object>
-  <object id="1041" name="cheesepoint" x="90" y="750">
-   <point/>
-  </object>
-  <object id="1042" name="cheesepoint" x="180" y="840">
-   <point/>
-  </object>
-  <object id="1043" name="cheesepoint" x="90" y="990">
-   <point/>
-  </object>
-  <object id="1044" name="cheesepoint" x="300" y="930">
-   <point/>
-  </object>
-  <object id="1045" name="cheesepoint" x="450" y="840">
-   <point/>
-  </object>
   <object id="1047" name="bombpoint" x="930" y="270">
    <point/>
   </object>
   <object id="1048" name="bombpoint" x="720" y="510">
-   <point/>
-  </object>
-  <object id="1049" name="cheesepoint" x="210" y="480">
-   <point/>
-  </object>
-  <object id="1050" name="cheesepoint" x="420" y="480">
-   <point/>
-  </object>
-  <object id="1051" name="cheesepoint" x="600" y="360">
-   <point/>
-  </object>
-  <object id="1052" name="cheesepoint" x="600" y="210">
-   <point/>
-  </object>
-  <object id="1053" name="cheesepoint" x="840" y="60">
-   <point/>
-  </object>
-  <object id="1054" name="cheesepoint" x="900" y="180">
-   <point/>
-  </object>
-  <object id="1055" name="cheesepoint" x="780" y="300">
-   <point/>
-  </object>
-  <object id="1056" name="cheesepoint" x="930" y="420">
-   <point/>
-  </object>
-  <object id="1061" name="cheesepoint" x="510" y="960">
-   <point/>
-  </object>
-  <object id="1062" name="cheesepoint" x="480" y="690">
    <point/>
   </object>
   <object id="1063" name="bombpoint" x="720" y="600">
@@ -664,9 +604,6 @@
   <object id="1071" name="cheesepoint" x="630" y="930">
    <point/>
   </object>
-  <object id="1072" name="cheesepoint" x="1020" y="1020">
-   <point/>
-  </object>
   <object id="1073" name="cheesepoint" x="1140" y="1020">
    <point/>
   </object>
@@ -685,43 +622,7 @@
   <object id="1078" name="cheesepoint" x="1380" y="960">
    <point/>
   </object>
-  <object id="1079" name="cheesepoint" x="1500" y="900">
-   <point/>
-  </object>
-  <object id="1080" name="cheesepoint" x="1620" y="900">
-   <point/>
-  </object>
-  <object id="1081" name="cheesepoint" x="1560" y="900">
-   <point/>
-  </object>
   <object id="1082" name="bombpoint" x="1320" y="720">
-   <point/>
-  </object>
-  <object id="1083" name="cheesepoint" x="1200" y="810">
-   <point/>
-  </object>
-  <object id="1084" name="cheesepoint" x="1230" y="660">
-   <point/>
-  </object>
-  <object id="1085" name="cheesepoint" x="1380" y="630">
-   <point/>
-  </object>
-  <object id="1086" name="cheesepoint" x="1530" y="600">
-   <point/>
-  </object>
-  <object id="1087" name="cheesepoint" x="1680" y="600">
-   <point/>
-  </object>
-  <object id="1088" name="cheesepoint" x="1620" y="690">
-   <point/>
-  </object>
-  <object id="1089" name="cheesepoint" x="1860" y="960">
-   <point/>
-  </object>
-  <object id="1090" name="cheesepoint" x="1767.33" y="838.333">
-   <point/>
-  </object>
-  <object id="1091" name="cheesepoint" x="1560" y="810">
    <point/>
   </object>
   <object id="1092" name="bombpoint" x="1004.36" y="59.8182">
@@ -740,30 +641,6 @@
    <point/>
   </object>
   <object id="1097" name="cheesepoint" x="1170" y="420">
-   <point/>
-  </object>
-  <object id="1098" name="cheesepoint" x="1350.33" y="448">
-   <point/>
-  </object>
-  <object id="1099" name="cheesepoint" x="1260" y="510">
-   <point/>
-  </object>
-  <object id="1100" name="cheesepoint" x="1320" y="300">
-   <point/>
-  </object>
-  <object id="1102" name="bombpoint" x="1410" y="210">
-   <point/>
-  </object>
-  <object id="1103" name="cheesepoint" x="1200" y="180">
-   <point/>
-  </object>
-  <object id="1104" name="cheesepoint" x="1110" y="60">
-   <point/>
-  </object>
-  <object id="1105" name="cheesepoint" x="1290" y="60">
-   <point/>
-  </object>
-  <object id="1106" name="cheesepoint" x="1440" y="90">
    <point/>
   </object>
   <object id="1107" name="cheesepoint" x="1530" y="240">
@@ -787,19 +664,79 @@
   <object id="1113" name="cheesepoint" x="1710" y="300">
    <point/>
   </object>
-  <object id="1114" name="cheesepoint" x="1680" y="90">
-   <point/>
-  </object>
   <object id="1115" name="cheesepoint" x="720" y="1020">
    <point/>
   </object>
   <object id="1116" name="cheesepoint" x="330" y="1020">
    <point/>
   </object>
-  <object id="1119" name="cheesepoint" x="900" y="60">
+  <object id="1120" name="cheesepoint" x="450" y="60">
    <point/>
   </object>
-  <object id="1120" name="cheesepoint" x="450" y="60">
+  <object id="1123" name="bombpoint" x="240" y="330">
+   <point/>
+  </object>
+  <object id="1124" name="bombpoint" x="420" y="480">
+   <point/>
+  </object>
+  <object id="1125" name="bombpoint" x="1020" y="1020">
+   <point/>
+  </object>
+  <object id="1126" name="bombpoint" x="1170" y="180">
+   <point/>
+  </object>
+  <object id="1127" name="bombpoint" x="1830" y="150">
+   <point/>
+  </object>
+  <object id="1128" name="bombpoint" x="1590" y="690">
+   <point/>
+  </object>
+  <object id="1129" name="bombpoint" x="1500" y="900">
+   <point/>
+  </object>
+  <object id="1130" name="bombpoint" x="1560" y="900">
+   <point/>
+  </object>
+  <object id="1131" name="bombpoint" x="1620" y="900">
+   <point/>
+  </object>
+  <object id="1132" name="bombpoint" x="1560" y="1020">
+   <point/>
+  </object>
+  <object id="1133" name="bombpoint" x="1110" y="870">
+   <point/>
+  </object>
+  <object id="1134" name="bombpoint" x="900" y="60">
+   <point/>
+  </object>
+  <object id="1135" name="bombpoint" x="660" y="60">
+   <point/>
+  </object>
+  <object id="1136" name="cheesepoint" x="60" y="990">
+   <point/>
+  </object>
+  <object id="1138" name="cheesepoint" x="600" y="270">
+   <point/>
+  </object>
+  <object id="1139" name="cheesepoint" x="450" y="870">
+   <point/>
+  </object>
+  <object id="1140" name="bombpoint" x="1410" y="600">
+   <point/>
+  </object>
+  <object id="1141" name="cheesepoint" x="1200" y="720">
+   <point/>
+  </object>
+  <object id="1142" name="cheesepoint" x="1800" y="840">
+   <point/>
+  </object>
+  <object id="1143" name="cheesepoint" x="1710" y="600">
+   <point/>
+  </object>
+  <object id="1144" name="bombpoint" x="1500" y="810">
+   <point/>
+  </object>
+  <object id="1145" name="bombpoint" x="1350" y="330">
    <point/>
   </object>
  </objectgroup>
