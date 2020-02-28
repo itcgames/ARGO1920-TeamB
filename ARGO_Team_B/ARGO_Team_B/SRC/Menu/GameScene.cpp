@@ -45,6 +45,7 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	}
 	m_stateMachine->setupSprites();
 
+
 	/// *** Ensure CHEESE are NEXT entities AFTER PLAYERS at all times ***
 	// --Cheese Please
 	// We have different cheese sizes on each level, for now let's keep it the same
@@ -111,7 +112,8 @@ GameScene::GameScene(SDL_Renderer* t_renderer):
 	m_observer->load();
 	m_observer->StartBGM(1);
 
-	//Adding AI 
+	// **See TODO in player entity loop
+	// Adding AI
 	m_entities[3]->addComponent(new TestBotBehaviourComponent(m_entities, *m_entities[3], *tiled_map_level), Types::TestBot);
 	m_aiSystem.addEntity(*m_entities.at(3));
 
@@ -397,6 +399,10 @@ void GameScene::resetGame(SDL_Renderer* t_renderer) {
 		BombComponent* bomb = dynamic_cast<BombComponent*>(m_entities.at(index)->getComponent(Types::Bomb));
 		bomb->reset();
 	}
+
+	//***  TODO: When changing the AI for non controllers instea of for index 3 do for those out of the first 4 indexes instead!! ***
+	TestBotBehaviourComponent* bot = dynamic_cast<TestBotBehaviourComponent*>(m_entities.at(3)->getComponent(Types::TestBot));
+	bot->reset(*tiled_map_level, m_entities);
 
 	m_restartTimer = 6.0f;
 }
